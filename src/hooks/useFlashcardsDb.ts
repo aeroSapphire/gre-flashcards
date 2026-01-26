@@ -143,6 +143,11 @@ export function useFlashcardsDb() {
   // Initial load
   useEffect(() => {
     if (user) {
+      // Safety timeout to ensure we don't get stuck in loading state
+      const timeoutId = setTimeout(() => {
+        setIsLoaded(true);
+      }, 5000);
+
       Promise.all([
         fetchCards(),
         fetchLists(),
@@ -152,11 +157,15 @@ export function useFlashcardsDb() {
       ])
         .then(() => {
           setIsLoaded(true);
+          clearTimeout(timeoutId);
         })
         .catch((error) => {
           console.error('Error loading data:', error);
           setIsLoaded(true); // Still set loaded to show UI even if there's an error
+          clearTimeout(timeoutId);
         });
+
+      return () => clearTimeout(timeoutId);
     }
   }, [user, fetchCards, fetchLists, fetchMyProgress, fetchAllProgress, fetchAllProfiles]);
 

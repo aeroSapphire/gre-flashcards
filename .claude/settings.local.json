@@ -3,7 +3,16 @@
     "allow": [
       "Bash(npm run build:*)",
       "Bash(npm run lint)",
-      "Bash(npm run test:*)"
+      "Bash(npm run test:*)",
+      "Bash(dir:*)",
+      "Bash(findstr:*)",
+      "Bash(python:*)",
+      "Bash(pip install:*)",
+      "Bash(py -m pip install:*)",
+      "Bash(npx xlsx-cli:*)",
+      "Bash(del \"\\\\?\\\\D:\\\\GRE\\\\Flashcards\\\\nul\")",
+      "Bash(cmd /c \"del \\\\?\\\\D:\\\\GRE\\\\Flashcards\\\\nul\")",
+      "Bash(powershell -Command \"Remove-Item -LiteralPath ''\\\\?\\\\D:\\\\GRE\\\\Flashcards\\\\nul'' -Force\")"
     ]
   }
 }
