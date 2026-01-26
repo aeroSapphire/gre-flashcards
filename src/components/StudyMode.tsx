@@ -1,12 +1,12 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, ArrowLeft, ArrowRight, RotateCcw, Sparkles } from 'lucide-react';
-import { Flashcard } from '@/hooks/useFlashcardsDb';
+import { FlashcardWithProgress } from '@/hooks/useFlashcardsDb';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 
 interface StudyModeProps {
-  cards: Flashcard[];
+  cards: FlashcardWithProgress[];
   onMarkLearned: (id: string) => void;
   onMarkLearning: (id: string) => void;
   onExit: () => void;

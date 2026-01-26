@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Flashcard } from '@/hooks/useFlashcardsDb';
+import { Flashcard, FlashcardWithProgress } from '@/hooks/useFlashcardsDb';
 import {
   Dialog,
   DialogContent,
@@ -16,7 +16,7 @@ interface AddCardDialogProps {
   onOpenChange: (open: boolean) => void;
   onAdd: (word: string, definition: string, example?: string, tags?: string[]) => void;
   onUpdate?: (id: string, updates: Partial<Omit<Flashcard, 'id' | 'created_at' | 'created_by'>>) => void;
-  editingCard?: Flashcard | null;
+  editingCard?: FlashcardWithProgress | null;
 }
 
 export function AddCardDialog({

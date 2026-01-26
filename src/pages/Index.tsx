@@ -1,7 +1,8 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, BookOpen, GraduationCap, Filter, ArrowLeft, LogOut } from 'lucide-react';
-import { useFlashcardsDb, Flashcard, FlashcardList } from '@/hooks/useFlashcardsDb';
+import { Plus, BookOpen, GraduationCap, Filter, ArrowLeft, LogOut, Settings, Trophy } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { useFlashcardsDb, FlashcardWithProgress, FlashcardList } from '@/hooks/useFlashcardsDb';
 import { useAuth } from '@/contexts/AuthContext';
 import { FlashcardItem } from '@/components/FlashcardItem';
 import { StudyMode } from '@/components/StudyMode';
@@ -35,22 +36,24 @@ const Index = () => {
     getCardsForList,
     getListStats,
     stats,
+    allUserStats,
   } = useFlashcardsDb();
 
-  const { signOut, user } = useAuth();
+  const { signOut, user, profile } = useAuth();
+  const navigate = useNavigate();
 
   const [viewMode, setViewMode] = useState<ViewMode>('lists');
   const [selectedList, setSelectedList] = useState<FlashcardList | null>(null);
-  const [studyCards, setStudyCards] = useState<Flashcard[]>([]);
+  const [studyCards, setStudyCards] = useState<FlashcardWithProgress[]>([]);
   const [studyListName, setStudyListName] = useState<string | undefined>();
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
-  const [editingCard, setEditingCard] = useState<Flashcard | null>(null);
+  const [editingCard, setEditingCard] = useState<FlashcardWithProgress | null>(null);
   const [filter, setFilter] = useState<FilterType>('all');
 
   const selectedListCards = useMemo(() => {
     if (!selectedList) return [];
     return getCardsForList(selectedList.id);
-  }, [selectedList, getCardsForList, cards]);
+  }, [selectedList, getCardsForList]);
 
   const filteredCards = selectedListCards.filter((card) => {
     if (filter === 'all') return true;
@@ -64,7 +67,7 @@ const Index = () => {
   };
 
   const handleStartStudy = (selection: string[] | 'all') => {
-    let cardsToStudy: Flashcard[];
+    let cardsToStudy: FlashcardWithProgress[];
     let listName: string | undefined;
 
     if (selection === 'all') {
@@ -295,6 +298,9 @@ const Index = () => {
                 <BookOpen className="h-4 w-4 mr-1" />
                 Study
               </Button>
+              <Button variant="ghost" size="icon" onClick={() => navigate('/settings')} title="Settings">
+                <Settings className="h-4 w-4" />
+              </Button>
               <Button variant="ghost" size="icon" onClick={signOut} title="Sign out">
                 <LogOut className="h-4 w-4" />
               </Button>
@@ -306,13 +312,58 @@ const Index = () => {
       <main className="container max-w-4xl mx-auto px-4 py-8">
         {/* User info */}
         <div className="mb-4 text-sm text-muted-foreground">
-          Signed in as {user?.email}
+          Signed in as <span className="font-medium text-foreground">{profile?.display_name || user?.email}</span>
         </div>
 
         {/* Overall Stats */}
         <div className="mb-8">
           <StatsCard stats={stats} />
         </div>
+
+        {/* Leaderboard */}
+        {allUserStats.length > 0 && (
+          <div className="mb-8">
+            <div className="flex items-center gap-2 mb-4">
+              <Trophy className="h-5 w-5 text-primary" />
+              <h2 className="font-display text-xl font-semibold text-foreground">
+                Leaderboard
+              </h2>
+            </div>
+            <div className="bg-card rounded-xl border border-border p-4">
+              <div className="space-y-3">
+                {allUserStats.map((userStat, index) => (
+                  <div
+                    key={userStat.profile.id}
+                    className={`flex items-center justify-between p-3 rounded-lg ${
+                      userStat.profile.id === user?.id ? 'bg-primary/10 border border-primary/20' : 'bg-muted/50'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
+                        index === 0 ? 'bg-yellow-500 text-yellow-950' :
+                        index === 1 ? 'bg-gray-400 text-gray-950' :
+                        index === 2 ? 'bg-amber-600 text-amber-950' :
+                        'bg-muted text-muted-foreground'
+                      }`}>
+                        {index + 1}
+                      </span>
+                      <span className="font-medium">
+                        {userStat.profile.display_name}
+                        {userStat.profile.id === user?.id && (
+                          <span className="text-xs text-muted-foreground ml-1">(you)</span>
+                        )}
+                      </span>
+                    </div>
+                    <div className="text-sm">
+                      <span className="font-semibold text-success">{userStat.learned}</span>
+                      <span className="text-muted-foreground"> / {userStat.total} words</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Lists Section */}
         <div className="mb-6">

@@ -74,6 +74,54 @@ export type Database = {
         }
         Relationships: []
       }
+      profiles: {
+        Row: {
+          id: string
+          display_name: string
+          created_at: string
+        }
+        Insert: {
+          id: string
+          display_name: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          display_name?: string
+          created_at?: string
+        }
+        Relationships: []
+      }
+      user_word_progress: {
+        Row: {
+          id: string
+          user_id: string
+          flashcard_id: string
+          status: string
+          last_reviewed_at: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          flashcard_id: string
+          status?: string
+          last_reviewed_at?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          flashcard_id?: string
+          status?: string
+          last_reviewed_at?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

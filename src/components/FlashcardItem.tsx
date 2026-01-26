@@ -1,17 +1,18 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Check, RotateCcw, Trash2, Edit2 } from 'lucide-react';
-import { Flashcard } from '@/hooks/useFlashcardsDb';
+import { Check, RotateCcw, Trash2, Edit2, Users } from 'lucide-react';
+import { FlashcardWithProgress } from '@/hooks/useFlashcardsDb';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface FlashcardItemProps {
-  card: Flashcard;
+  card: FlashcardWithProgress;
   onMarkLearned: (id: string) => void;
   onMarkLearning: (id: string) => void;
   onReset: (id: string) => void;
   onDelete: (id: string) => void;
-  onEdit: (card: Flashcard) => void;
+  onEdit: (card: FlashcardWithProgress) => void;
 }
 
 export function FlashcardItem({
@@ -23,6 +24,23 @@ export function FlashcardItem({
   onEdit,
 }: FlashcardItemProps) {
   const [isFlipped, setIsFlipped] = useState(false);
+  const { user } = useAuth();
+
+  // Filter out current user from learnedBy list
+  const othersWhoLearned = card.learnedBy?.filter((p) => p.id !== user?.id) || [];
+
+  const formatLearnedBy = () => {
+    if (othersWhoLearned.length === 0) return null;
+    if (othersWhoLearned.length === 1) {
+      return `${othersWhoLearned[0].display_name} knows this`;
+    }
+    if (othersWhoLearned.length === 2) {
+      return `${othersWhoLearned[0].display_name} & ${othersWhoLearned[1].display_name} know this`;
+    }
+    return `${othersWhoLearned[0].display_name} & ${othersWhoLearned.length - 1} others know this`;
+  };
+
+  const learnedByText = formatLearnedBy();
 
   return (
     <div className="perspective-1000 w-full">
@@ -84,6 +102,12 @@ export function FlashcardItem({
               </span>
             ))}
           </div>
+          {learnedByText && (
+            <div className="flex items-center justify-center gap-1 mb-2 text-xs text-muted-foreground">
+              <Users className="h-3 w-3" />
+              <span>{learnedByText}</span>
+            </div>
+          )}
           <p className="text-sm text-muted-foreground text-center">Tap to reveal definition</p>
         </div>
 
