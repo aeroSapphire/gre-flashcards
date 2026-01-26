@@ -155,7 +155,7 @@ export function useFlashcardsDb() {
     }
   }, [user, fetchCards, fetchLists, fetchMyProgress, fetchAllProgress, fetchAllProfiles]);
 
-  // Set up realtime subscription
+  // Set up realtime subscription - only for external changes (other users)
   useEffect(() => {
     if (!user) return;
 
@@ -174,14 +174,16 @@ export function useFlashcardsDb() {
       .on(
         'postgres_changes',
         { event: '*', schema: 'public', table: 'user_word_progress' },
-        () => {
-          fetchMyProgress();
-          fetchAllProgress();
+        (payload) => {
+          // Only refetch if it's another user's change
+          if (payload.new && (payload.new as any).user_id !== user.id) {
+            fetchAllProgress();
+          }
         }
       )
       .on(
         'postgres_changes',
-        { event: '*', schema: 'public', table: 'profiles' },
+        { event: 'INSERT', schema: 'public', table: 'profiles' },
         () => fetchAllProfiles()
       )
       .subscribe();
@@ -189,7 +191,7 @@ export function useFlashcardsDb() {
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [user, fetchCards, fetchLists, fetchMyProgress, fetchAllProgress, fetchAllProfiles]);
+  }, [user, fetchCards, fetchLists, fetchAllProgress, fetchAllProfiles]);
 
   // Cards with user's progress and who learned them
   const cardsWithProgress = useMemo((): FlashcardWithProgress[] => {
@@ -287,7 +289,38 @@ export function useFlashcardsDb() {
   const updateProgress = async (flashcardId: string, status: 'new' | 'learning' | 'learned') => {
     if (!user) return;
 
-    // Upsert progress
+    // Optimistic update - update local state immediately
+    setMyProgress((prev) => {
+      const next = new Map(prev);
+      next.set(flashcardId, status);
+      return next;
+    });
+
+    // Also update allProgress for immediate leaderboard update
+    if (status === 'learned') {
+      setAllProgress((prev) => {
+        const existing = prev.find((p) => p.user_id === user.id && p.flashcard_id === flashcardId);
+        if (existing) {
+          return prev.map((p) =>
+            p.user_id === user.id && p.flashcard_id === flashcardId ? { ...p, status } : p
+          );
+        }
+        return [...prev, { user_id: user.id, flashcard_id: flashcardId, status }];
+      });
+    } else {
+      // Remove from allProgress if not learned
+      setAllProgress((prev) =>
+        prev.filter((p) => !(p.user_id === user.id && p.flashcard_id === flashcardId))
+      );
+    }
+
+    // Show feedback
+    toast({
+      title: status === 'learned' ? 'Marked as learned!' : status === 'learning' ? 'Keep practicing!' : 'Reset to new',
+      description: status === 'learned' ? 'Great job!' : undefined,
+    });
+
+    // Upsert progress to database
     const { error } = await supabase.from('user_word_progress').upsert(
       {
         user_id: user.id,
@@ -300,6 +333,9 @@ export function useFlashcardsDb() {
     );
 
     if (error) {
+      // Revert optimistic update on error
+      fetchMyProgress();
+      fetchAllProgress();
       toast({
         title: 'Error updating progress',
         description: error.message,
