@@ -121,7 +121,7 @@ export function StudyMode({ cards, onMarkLearned, onMarkLearning, onExit, listNa
           >
             <div className="perspective-1000">
               <motion.div
-                className="relative w-full h-80 cursor-pointer preserve-3d"
+                className="relative w-full min-h-80 cursor-pointer preserve-3d"
                 onClick={() => setIsFlipped(!isFlipped)}
                 animate={{ rotateY: isFlipped ? 180 : 0 }}
                 transition={{ duration: 0.6, type: 'spring', stiffness: 100 }}
@@ -129,7 +129,7 @@ export function StudyMode({ cards, onMarkLearned, onMarkLearning, onExit, listNa
               >
                 {/* Front */}
                 <div
-                  className="absolute inset-0 backface-hidden rounded-2xl bg-card border border-border shadow-xl p-8 flex flex-col items-center justify-center"
+                  className="absolute inset-0 backface-hidden rounded-2xl bg-card border border-border shadow-xl p-8 flex flex-col items-center justify-center min-h-80"
                   style={{ backfaceVisibility: 'hidden' }}
                 >
                   <h2 className="font-display text-4xl font-semibold text-foreground text-center">
@@ -149,17 +149,19 @@ export function StudyMode({ cards, onMarkLearned, onMarkLearning, onExit, listNa
 
                 {/* Back */}
                 <div
-                  className="absolute inset-0 backface-hidden rounded-2xl bg-card border border-border shadow-xl p-8 flex flex-col items-center justify-center"
+                  className="absolute inset-0 backface-hidden rounded-2xl bg-card border border-border shadow-xl p-8 flex flex-col min-h-80"
                   style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
                 >
-                  <p className="text-xl text-foreground text-center leading-relaxed">
-                    {currentCard.definition}
-                  </p>
-                  {currentCard.example && (
-                    <p className="text-sm text-muted-foreground text-center italic mt-4">
-                      "{currentCard.example}"
+                  <div className="flex-1 overflow-y-auto flex flex-col items-center justify-center">
+                    <p className="text-xl text-foreground text-center leading-relaxed">
+                      {currentCard.definition}
                     </p>
-                  )}
+                    {currentCard.example && (
+                      <p className="text-sm text-muted-foreground text-center italic mt-4">
+                        "{currentCard.example}"
+                      </p>
+                    )}
+                  </div>
                 </div>
               </motion.div>
             </div>

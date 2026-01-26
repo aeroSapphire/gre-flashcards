@@ -375,13 +375,25 @@ export function useFlashcardsDb() {
     id: string,
     updates: Partial<Omit<Flashcard, 'id' | 'created_at' | 'created_by'>>
   ) => {
+    // Optimistic update
+    setCards((prev) =>
+      prev.map((card) => (card.id === id ? { ...card, ...updates } : card))
+    );
+
     const { error } = await supabase.from('flashcards').update(updates).eq('id', id);
 
     if (error) {
+      // Revert on error
+      fetchCards();
       toast({
         title: 'Error updating card',
         description: error.message,
         variant: 'destructive',
+      });
+    } else {
+      toast({
+        title: 'Card updated',
+        description: 'Your changes have been saved.',
       });
     }
   };

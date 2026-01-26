@@ -45,7 +45,7 @@ export function FlashcardItem({
   return (
     <div className="perspective-1000 w-full">
       <motion.div
-        className="relative w-full h-64 cursor-pointer preserve-3d"
+        className="relative w-full min-h-64 cursor-pointer preserve-3d"
         onClick={() => setIsFlipped(!isFlipped)}
         animate={{ rotateY: isFlipped ? 180 : 0 }}
         transition={{ duration: 0.6, type: 'spring', stiffness: 100 }}
@@ -54,7 +54,7 @@ export function FlashcardItem({
         {/* Front of card */}
         <div
           className={cn(
-            'absolute inset-0 backface-hidden rounded-2xl bg-card border border-border shadow-lg p-6 flex flex-col',
+            'absolute inset-0 backface-hidden rounded-2xl bg-card border border-border shadow-lg p-6 flex flex-col min-h-64',
             card.status === 'learned' && 'border-success/40 bg-success/5',
             card.status === 'learning' && 'border-accent/40 bg-accent/5'
           )}
@@ -113,20 +113,20 @@ export function FlashcardItem({
 
         {/* Back of card */}
         <div
-          className="absolute inset-0 backface-hidden rounded-2xl bg-card border border-border shadow-lg p-6 flex flex-col"
+          className="absolute inset-0 backface-hidden rounded-2xl bg-card border border-border shadow-lg p-6 flex flex-col min-h-64"
           style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
         >
-          <div className="flex-1 flex flex-col justify-center">
-            <p className="text-lg text-foreground text-center leading-relaxed mb-4">
+          <div className="flex-1 overflow-y-auto max-h-48 mb-4">
+            <p className="text-lg text-foreground text-center leading-relaxed">
               {card.definition}
             </p>
             {card.example && (
-              <p className="text-sm text-muted-foreground text-center italic">
+              <p className="text-sm text-muted-foreground text-center italic mt-3">
                 "{card.example}"
               </p>
             )}
           </div>
-          <div className="flex gap-2 justify-center pt-4" onClick={(e) => e.stopPropagation()}>
+          <div className="flex gap-2 justify-center pt-4 border-t border-border/50 flex-shrink-0" onClick={(e) => e.stopPropagation()}>
             {card.status !== 'learned' && (
               <Button
                 size="sm"
