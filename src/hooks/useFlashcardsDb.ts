@@ -149,9 +149,14 @@ export function useFlashcardsDb() {
         fetchMyProgress(),
         fetchAllProgress(),
         fetchAllProfiles(),
-      ]).then(() => {
-        setIsLoaded(true);
-      });
+      ])
+        .then(() => {
+          setIsLoaded(true);
+        })
+        .catch((error) => {
+          console.error('Error loading data:', error);
+          setIsLoaded(true); // Still set loaded to show UI even if there's an error
+        });
     }
   }, [user, fetchCards, fetchLists, fetchMyProgress, fetchAllProgress, fetchAllProfiles]);
 
@@ -193,14 +198,41 @@ export function useFlashcardsDb() {
     };
   }, [user, fetchCards, fetchLists, fetchAllProgress, fetchAllProfiles]);
 
-  // Cards with user's progress and who learned them
+  // Pre-compute lookup maps for O(1) access
+  const progressByCardId = useMemo(() => {
+    const map = new Map<string, Set<string>>();
+    allProgress.forEach((p) => {
+      if (p.status === 'learned') {
+        if (!map.has(p.flashcard_id)) {
+          map.set(p.flashcard_id, new Set());
+        }
+        map.get(p.flashcard_id)!.add(p.user_id);
+      }
+    });
+    return map;
+  }, [allProgress]);
+
+  const profilesById = useMemo(() => {
+    const map = new Map<string, UserProfile>();
+    allProfiles.forEach((p) => map.set(p.id, p));
+    return map;
+  }, [allProfiles]);
+
+  // Cards with user's progress and who learned them - optimized with O(1) lookups
   const cardsWithProgress = useMemo((): FlashcardWithProgress[] => {
     return cards.map((card) => {
       const status = myProgress.get(card.id) || 'new';
-      const learnedByUserIds = allProgress
-        .filter((p) => p.flashcard_id === card.id && p.status === 'learned')
-        .map((p) => p.user_id);
-      const learnedBy = allProfiles.filter((p) => learnedByUserIds.includes(p.id));
+      const learnedByUserIds = progressByCardId.get(card.id);
+      const learnedBy: UserProfile[] = [];
+
+      if (learnedByUserIds) {
+        learnedByUserIds.forEach((userId) => {
+          const profile = profilesById.get(userId);
+          if (profile) {
+            learnedBy.push(profile);
+          }
+        });
+      }
 
       return {
         ...card,
@@ -208,7 +240,7 @@ export function useFlashcardsDb() {
         learnedBy,
       };
     });
-  }, [cards, myProgress, allProgress, allProfiles]);
+  }, [cards, myProgress, progressByCardId, profilesById]);
 
   // Auto-generate lists based on card count
   const autoLists = useMemo(() => {
@@ -271,19 +303,22 @@ export function useFlashcardsDb() {
     [getCardsForList]
   );
 
-  // Get all users' stats
+  // Get all users' stats - optimized with pre-computed counts
   const allUserStats = useMemo((): UserStats[] => {
-    return allProfiles.map((profile) => {
-      const userProgress = allProgress.filter((p) => p.user_id === profile.id);
-      const learned = userProgress.filter((p) => p.status === 'learned').length;
+    // Pre-compute learned counts per user
+    const learnedCountByUser = new Map<string, number>();
+    allProgress.forEach((p) => {
+      if (p.status === 'learned') {
+        learnedCountByUser.set(p.user_id, (learnedCountByUser.get(p.user_id) || 0) + 1);
+      }
+    });
 
-      return {
-        profile,
-        learned,
-        learning: 0, // We only fetch 'learned' status for social features
-        total: cards.length,
-      };
-    }).sort((a, b) => b.learned - a.learned); // Sort by learned count descending
+    return allProfiles.map((profile) => ({
+      profile,
+      learned: learnedCountByUser.get(profile.id) || 0,
+      learning: 0,
+      total: cards.length,
+    })).sort((a, b) => b.learned - a.learned);
   }, [allProfiles, allProgress, cards.length]);
 
   const updateProgress = async (flashcardId: string, status: 'new' | 'learning' | 'learned') => {
