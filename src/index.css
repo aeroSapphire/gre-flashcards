@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 33% 98%;
+    --foreground: 200 25% 15%;
+
+    --card: 40 40% 99%;
+    --card-foreground: 200 25% 15%;
+
+    --popover: 40 40% 99%;
+    --popover-foreground: 200 25% 15%;
+
+    --primary: 172 50% 30%;
+    --primary-foreground: 40 33% 98%;
+
+    --secondary: 40 30% 94%;
+    --secondary-foreground: 200 25% 20%;
+
+    --muted: 40 20% 92%;
+    --muted-foreground: 200 10% 45%;
+
+    --accent: 16 80% 60%;
+    --accent-foreground: 40 33% 98%;
+
+    --success: 152 55% 45%;
+    --success-foreground: 40 33% 98%;
+
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 40 33% 98%;
+
+    --border: 40 20% 88%;
+    --input: 40 20% 88%;
+    --ring: 172 50% 30%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 40 33% 96%;
+    --sidebar-foreground: 200 25% 20%;
+    --sidebar-primary: 172 50% 30%;
+    --sidebar-primary-foreground: 40 33% 98%;
+    --sidebar-accent: 40 30% 92%;
+    --sidebar-accent-foreground: 200 25% 20%;
+    --sidebar-border: 40 20% 88%;
+    --sidebar-ring: 172 50% 30%;
+  }
+
+  .dark {
+    --background: 200 25% 10%;
+    --foreground: 40 33% 95%;
+
+    --card: 200 25% 12%;
+    --card-foreground: 40 33% 95%;
+
+    --popover: 200 25% 12%;
+    --popover-foreground: 40 33% 95%;
+
+    --primary: 172 45% 45%;
+    --primary-foreground: 200 25% 10%;
+
+    --secondary: 200 20% 18%;
+    --secondary-foreground: 40 33% 90%;
+
+    --muted: 200 20% 20%;
+    --muted-foreground: 40 15% 60%;
+
+    --accent: 16 75% 55%;
+    --accent-foreground: 200 25% 10%;
+
+    --success: 152 50% 40%;
+    --success-foreground: 200 25% 10%;
+
+    --destructive: 0 65% 45%;
+    --destructive-foreground: 40 33% 95%;
+
+    --border: 200 20% 22%;
+    --input: 200 20% 22%;
+    --ring: 172 45% 45%;
+
+    --sidebar-background: 200 25% 8%;
+    --sidebar-foreground: 40 33% 90%;
+    --sidebar-primary: 172 45% 45%;
+    --sidebar-primary-foreground: 200 25% 10%;
+    --sidebar-accent: 200 20% 15%;
+    --sidebar-accent-foreground: 40 33% 90%;
+    --sidebar-border: 200 20% 18%;
+    --sidebar-ring: 172 45% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: 'Crimson Pro', serif;
+  }
+}
