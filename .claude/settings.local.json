@@ -24,7 +24,9 @@
       "WebFetch(domain:gre.magoosh.com)",
       "WebFetch(domain:greinsider.com)",
       "Bash(npx tsc:*)",
-      "Bash(npx tsx:*)"
+      "Bash(npx tsx:*)",
+      "Bash(npm install:*)",
+      "Bash(node scripts/generate-icons.js:*)"
     ]
   }
 }
