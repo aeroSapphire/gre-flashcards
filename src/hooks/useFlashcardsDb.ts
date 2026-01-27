@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth, UserProfile } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
+import { calculateNextReview, SRSRating } from '@/utils/srs';
 
 export interface Flashcard {
   id: string;
@@ -17,6 +18,10 @@ export interface Flashcard {
 export interface FlashcardWithProgress extends Flashcard {
   status: 'new' | 'learning' | 'learned';
   learnedBy: UserProfile[];
+  next_review_at?: string;
+  interval?: number;
+  repetition?: number;
+  ease_factor?: number;
 }
 
 export interface FlashcardList {
@@ -31,6 +36,10 @@ interface UserProgress {
   user_id: string;
   flashcard_id: string;
   status: 'new' | 'learning' | 'learned';
+  next_review_at?: string | null;
+  interval?: number;
+  ease_factor?: number;
+  repetitions?: number;
 }
 
 interface UserStats {
@@ -47,7 +56,7 @@ const WORDS_PER_LIST = 30;
 export function useFlashcardsDb() {
   const [cards, setCards] = useState<Flashcard[]>([]);
   const [lists, setLists] = useState<FlashcardList[]>([]);
-  const [myProgress, setMyProgress] = useState<Map<string, 'new' | 'learning' | 'learned'>>(new Map());
+  const [myProgress, setMyProgress] = useState<Map<string, UserProgress>>(new Map());
   const [allProgress, setAllProgress] = useState<UserProgress[]>([]);
   const [allTestAttempts, setAllTestAttempts] = useState<any[]>([]);
   const [allProfiles, setAllProfiles] = useState<UserProfile[]>([]);
@@ -99,7 +108,7 @@ export function useFlashcardsDb() {
 
     const { data, error } = await supabase
       .from('user_word_progress')
-      .select('flashcard_id, status')
+      .select('*')
       .eq('user_id', user.id);
 
     if (error) {
@@ -107,9 +116,9 @@ export function useFlashcardsDb() {
       return;
     }
 
-    const progressMap = new Map<string, 'new' | 'learning' | 'learned'>();
+    const progressMap = new Map<string, UserProgress>();
     data?.forEach((p) => {
-      progressMap.set(p.flashcard_id, p.status as 'new' | 'learning' | 'learned');
+      progressMap.set(p.flashcard_id, p as UserProgress);
     });
     setMyProgress(progressMap);
   }, [user]);
@@ -248,7 +257,8 @@ export function useFlashcardsDb() {
   // Cards with user's progress and who learned them - optimized with O(1) lookups
   const cardsWithProgress = useMemo((): FlashcardWithProgress[] => {
     return cards.map((card) => {
-      const status = myProgress.get(card.id) || 'new';
+      const userProgress = myProgress.get(card.id);
+      const status = userProgress?.status || 'new';
       const learnedByUserIds = progressByCardId.get(card.id);
       const learnedBy: UserProfile[] = [];
 
@@ -265,6 +275,10 @@ export function useFlashcardsDb() {
         ...card,
         status,
         learnedBy,
+        next_review_at: userProgress?.next_review_at || undefined,
+        interval: userProgress?.interval,
+        repetition: userProgress?.repetitions,
+        ease_factor: userProgress?.ease_factor,
       };
     });
   }, [cards, myProgress, progressByCardId, profilesById]);
@@ -340,21 +354,41 @@ export function useFlashcardsDb() {
       }
     });
 
-    return allProfiles.map((profile) => ({
-      profile,
-      learned: learnedCountByUser.get(profile.id) || 0,
-      learning: 0,
-      total: cards.length,
-    })).sort((a, b) => b.learned - a.learned);
-  }, [allProfiles, allProgress, cards.length]);
+    // Pre-compute test stats per user
+    const testStatsByUser = new Map<string, { totalTaken: number; totalScore: number; totalQuestions: number }>();
+    allTestAttempts.forEach((attempt: any) => {
+      const stats = testStatsByUser.get(attempt.user_id) || { totalTaken: 0, totalScore: 0, totalQuestions: 0 };
+      stats.totalTaken += 1;
+      stats.totalScore += attempt.score || 0;
+      stats.totalQuestions += attempt.total_questions || 0;
+      testStatsByUser.set(attempt.user_id, stats);
+    });
 
-  const updateProgress = async (flashcardId: string, status: 'new' | 'learning' | 'learned') => {
+    return allProfiles.map((profile) => {
+      const testStats = testStatsByUser.get(profile.id);
+      const avgScore = testStats && testStats.totalQuestions > 0
+        ? Math.round((testStats.totalScore / testStats.totalQuestions) * 100)
+        : 0;
+
+      return {
+        profile,
+        learned: learnedCountByUser.get(profile.id) || 0,
+        learning: 0,
+        total: cards.length,
+        testsTaken: testStats?.totalTaken || 0,
+        avgScore,
+      };
+    }).sort((a, b) => b.learned - a.learned);
+  }, [allProfiles, allProgress, cards.length, allTestAttempts]);
+
+  const updateProgress = async (flashcardId: string, status: 'new' | 'learning' | 'learned', srsUpdates?: Partial<UserProgress>) => {
     if (!user) return;
 
     // Optimistic update - update local state immediately
     setMyProgress((prev) => {
       const next = new Map(prev);
-      next.set(flashcardId, status);
+      const existing = next.get(flashcardId) || { user_id: user.id, flashcard_id: flashcardId, status: 'new' };
+      next.set(flashcardId, { ...existing, status, ...srsUpdates });
       return next;
     });
 
@@ -388,6 +422,7 @@ export function useFlashcardsDb() {
         user_id: user.id,
         flashcard_id: flashcardId,
         status,
+        ...srsUpdates,
         last_reviewed_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       },
@@ -481,8 +516,50 @@ export function useFlashcardsDb() {
   };
 
   const resetCard = (id: string) => {
-    updateProgress(id, 'new');
+    updateProgress(id, 'new', {
+      interval: 0,
+      ease_factor: 2.5,
+      repetitions: 0,
+      next_review_at: null
+    });
   };
+
+  const reviewCard = async (cardId: string, rating: SRSRating) => {
+    const currentProgress = myProgress.get(cardId);
+
+    // Calculate new SRS state
+    const { state, nextReviewDate } = calculateNextReview(rating, currentProgress ? {
+      interval: currentProgress.interval || 0,
+      ease_factor: currentProgress.ease_factor || 2.5,
+      repetitions: currentProgress.repetitions || 0
+    } : undefined);
+
+    // Determine basic status based on repetitions/interval
+    // If it's 'again', it's definitely 'learning'.
+    // If it's 'easy' or high interval, we can consider it 'learned' for the counters.
+    // Logic: If repetitions >= 3, consider it "learned" for stats purposes, but keep reviewing.
+    let newStatus: 'learning' | 'learned' = 'learning';
+    if (state.repetitions >= 3) {
+      newStatus = 'learned';
+    }
+
+    await updateProgress(cardId, newStatus, {
+      ...state,
+      next_review_at: nextReviewDate.toISOString()
+    });
+  };
+
+  const dueCards = useMemo(() => {
+    const now = new Date();
+    return cardsWithProgress.filter(card => {
+      // If it's new, it's not "due" in the strict sense, but available for study.
+      // But usually "due" means previously studied and now expired.
+      // We'll separate "New Cards" from "Reviews".
+      if (card.status === 'new') return false;
+      if (!card.next_review_at) return true; // Safety fallback
+      return new Date(card.next_review_at) <= now;
+    });
+  }, [cardsWithProgress]);
 
   const renameList = async (listId: string, newName: string) => {
     const existingList = lists.find((l) => l.id === listId);
@@ -543,5 +620,7 @@ export function useFlashcardsDb() {
     getListStats,
     stats,
     allUserStats,
+    reviewCard,
+    dueCards,
   };
 }

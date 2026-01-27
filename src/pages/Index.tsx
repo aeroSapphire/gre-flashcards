@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, BookOpen, GraduationCap, Filter, ArrowLeft, LogOut, Settings, Trophy } from 'lucide-react';
+import { Plus, BookOpen, GraduationCap, Filter, ArrowLeft, LogOut, Settings, Trophy, Clock } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useFlashcardsDb, FlashcardWithProgress, FlashcardList } from '@/hooks/useFlashcardsDb';
 import { useAuth } from '@/contexts/AuthContext';
@@ -37,6 +37,7 @@ const Index = () => {
     getListStats,
     stats,
     allUserStats,
+    dueCards,
   } = useFlashcardsDb();
 
   const { signOut, user, profile } = useAuth();
@@ -323,6 +324,38 @@ const Index = () => {
         <div className="mb-8">
           <StatsCard stats={stats} />
         </div>
+
+        {/* Spaced Repetition Review */}
+        {(dueCards.length > 0 || stats.learning > 0) && (
+          <div className="mb-8">
+            <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl border border-primary/20 p-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
+                    <Clock className="h-6 w-6 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-display text-lg font-semibold text-foreground">
+                      Spaced Repetition Review
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      {dueCards.length > 0
+                        ? `${dueCards.length} card${dueCards.length === 1 ? '' : 's'} due for review`
+                        : 'No cards due right now. Great job!'}
+                    </p>
+                  </div>
+                </div>
+                <Button
+                  onClick={() => navigate('/study')}
+                  disabled={dueCards.length === 0}
+                >
+                  <Clock className="h-4 w-4 mr-2" />
+                  {dueCards.length > 0 ? 'Start Review' : 'All Caught Up'}
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Leaderboard */}
         {allUserStats.length > 0 && (
