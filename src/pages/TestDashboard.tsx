@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { ArrowLeft, Clock, Play, Trophy, CheckCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
+import { useOfflineStorage } from '@/hooks/useOfflineStorage';
 
 interface Test {
     id: string;
@@ -39,6 +40,7 @@ const TestDashboard = () => {
     const [tests, setTests] = useState<Test[]>([]);
     const [userScores, setUserScores] = useState<Map<string, UserScore>>(new Map());
     const [loading, setLoading] = useState(true);
+    const { isOnline, cacheTests, getCachedTests, getCachedQuestions } = useOfflineStorage();
 
     useEffect(() => {
         fetchTests();
@@ -52,6 +54,20 @@ const TestDashboard = () => {
 
     const fetchTests = async () => {
         try {
+            if (!isOnline) {
+                // Load from cache when offline
+                const cachedTests = await getCachedTests();
+                if (cachedTests.length > 0) {
+                    setTests(cachedTests as Test[]);
+                    toast({
+                        title: 'Offline mode',
+                        description: `Loaded ${cachedTests.length} tests from cache`,
+                    });
+                }
+                setLoading(false);
+                return;
+            }
+
             const { data, error } = await supabase
                 .from('tests')
                 .select('*')
@@ -59,12 +75,32 @@ const TestDashboard = () => {
 
             if (error) throw error;
             setTests(data || []);
+
+            // Also fetch all questions for offline caching
+            const { data: questionsData } = await supabase
+                .from('questions')
+                .select('*');
+
+            // Cache tests and questions for offline use
+            if (data && questionsData) {
+                cacheTests(data, questionsData);
+            }
         } catch (error: any) {
-            toast({
-                title: 'Error loading tests',
-                description: error.message,
-                variant: 'destructive',
-            });
+            // Try cache on error
+            const cachedTests = await getCachedTests();
+            if (cachedTests.length > 0) {
+                setTests(cachedTests as Test[]);
+                toast({
+                    title: 'Using cached data',
+                    description: 'Could not connect to server',
+                });
+            } else {
+                toast({
+                    title: 'Error loading tests',
+                    description: error.message,
+                    variant: 'destructive',
+                });
+            }
         } finally {
             setLoading(false);
         }

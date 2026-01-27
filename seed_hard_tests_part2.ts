@@ -10,9 +10,10 @@ envContent.split('\n').forEach(line => {
     if (k && v) env[k.trim()] = v.trim().replace(/"/g, '');
 });
 
+// Use service role key for seeding (bypasses RLS)
 const supabase = createClient(
     env.VITE_SUPABASE_URL || '',
-    env.VITE_SUPABASE_PUBLISHABLE_KEY || ''
+    env.SUPABASE_SERVICE_ROLE_KEY || env.VITE_SUPABASE_PUBLISHABLE_KEY || ''
 );
 
 // ============================================================================

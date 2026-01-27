@@ -3,6 +3,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth, UserProfile } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { calculateNextReview, SRSRating } from '@/utils/srs';
+import { useOfflineStorage } from '@/hooks/useOfflineStorage';
 
 export interface Flashcard {
   id: string;
@@ -63,15 +64,39 @@ export function useFlashcardsDb() {
   const [isLoaded, setIsLoaded] = useState(false);
   const { user } = useAuth();
   const { toast } = useToast();
+  const { isOnline, cacheFlashcards, getCachedFlashcards } = useOfflineStorage();
 
-  // Fetch cards from database
+  // Fetch cards from database (with offline fallback)
   const fetchCards = useCallback(async () => {
+    if (!isOnline) {
+      // Try to load from cache when offline
+      const cachedCards = await getCachedFlashcards();
+      if (cachedCards.length > 0) {
+        setCards(cachedCards as Flashcard[]);
+        toast({
+          title: 'Offline mode',
+          description: `Loaded ${cachedCards.length} cards from cache`,
+        });
+      }
+      return;
+    }
+
     const { data, error } = await supabase
       .from('flashcards')
       .select('*')
       .order('created_at', { ascending: false });
 
     if (error) {
+      // Try cache on error
+      const cachedCards = await getCachedFlashcards();
+      if (cachedCards.length > 0) {
+        setCards(cachedCards as Flashcard[]);
+        toast({
+          title: 'Using cached data',
+          description: 'Could not connect to server',
+        });
+        return;
+      }
       toast({
         title: 'Error loading cards',
         description: error.message,
@@ -81,7 +106,9 @@ export function useFlashcardsDb() {
     }
 
     setCards(data as Flashcard[]);
-  }, [toast]);
+    // Cache for offline use
+    cacheFlashcards(data);
+  }, [toast, isOnline, getCachedFlashcards, cacheFlashcards]);
 
   // Fetch lists from database
   const fetchLists = useCallback(async () => {
