@@ -38,6 +38,9 @@ const App = () => (
               }
             />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="/tests" element={<TestDashboard />} />
+            <Route path="/test/:testId" element={<TestRunner />} />
+            <Route path="/test/:testId/results" element={<TestResults />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>

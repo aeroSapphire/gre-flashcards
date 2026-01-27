@@ -160,13 +160,13 @@ const Index = () => {
                   <Plus className="h-4 w-4 mr-1" />
                   Add Word
                 </Button>
-                <Button 
-                  size="sm" 
+                <Button
+                  size="sm"
                   onClick={() => {
                     setStudyCards(selectedListCards);
                     setStudyListName(selectedList.name);
                     setViewMode('study');
-                  }} 
+                  }}
                   disabled={selectedListCards.length === 0}
                 >
                   <BookOpen className="h-4 w-4 mr-1" />
@@ -298,6 +298,10 @@ const Index = () => {
                 <BookOpen className="h-4 w-4 mr-1" />
                 Study
               </Button>
+              <Button variant="outline" size="sm" onClick={() => navigate('/tests')}>
+                <Trophy className="h-4 w-4 mr-1" />
+                Tests
+              </Button>
               <Button variant="ghost" size="icon" onClick={() => navigate('/settings')} title="Settings">
                 <Settings className="h-4 w-4" />
               </Button>
@@ -334,17 +338,15 @@ const Index = () => {
                 {allUserStats.map((userStat, index) => (
                   <div
                     key={userStat.profile.id}
-                    className={`flex items-center justify-between p-3 rounded-lg ${
-                      userStat.profile.id === user?.id ? 'bg-primary/10 border border-primary/20' : 'bg-muted/50'
-                    }`}
+                    className={`flex items-center justify-between p-3 rounded-lg ${userStat.profile.id === user?.id ? 'bg-primary/10 border border-primary/20' : 'bg-muted/50'
+                      }`}
                   >
                     <div className="flex items-center gap-3">
-                      <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
-                        index === 0 ? 'bg-yellow-500 text-yellow-950' :
-                        index === 1 ? 'bg-gray-400 text-gray-950' :
-                        index === 2 ? 'bg-amber-600 text-amber-950' :
-                        'bg-muted text-muted-foreground'
-                      }`}>
+                      <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${index === 0 ? 'bg-yellow-500 text-yellow-950' :
+                          index === 1 ? 'bg-gray-400 text-gray-950' :
+                            index === 2 ? 'bg-amber-600 text-amber-950' :
+                              'bg-muted text-muted-foreground'
+                        }`}>
                         {index + 1}
                       </span>
                       <span className="font-medium">
