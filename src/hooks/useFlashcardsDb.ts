@@ -68,47 +68,66 @@ export function useFlashcardsDb() {
 
   // Fetch cards from database (with offline fallback)
   const fetchCards = useCallback(async () => {
-    if (!isOnline) {
+    // Check online status directly for real-time accuracy
+    const currentlyOnline = navigator.onLine;
+
+    if (!currentlyOnline) {
       // Try to load from cache when offline
-      const cachedCards = await getCachedFlashcards();
-      if (cachedCards.length > 0) {
-        setCards(cachedCards as Flashcard[]);
-        toast({
-          title: 'Offline mode',
-          description: `Loaded ${cachedCards.length} cards from cache`,
-        });
-      }
-      return;
-    }
-
-    const { data, error } = await supabase
-      .from('flashcards')
-      .select('*')
-      .order('created_at', { ascending: false });
-
-    if (error) {
-      // Try cache on error
-      const cachedCards = await getCachedFlashcards();
-      if (cachedCards.length > 0) {
-        setCards(cachedCards as Flashcard[]);
-        toast({
-          title: 'Using cached data',
-          description: 'Could not connect to server',
-        });
-        return;
+      try {
+        const cachedCards = await getCachedFlashcards();
+        if (cachedCards.length > 0) {
+          setCards(cachedCards as Flashcard[]);
+          toast({
+            title: 'Offline mode',
+            description: `Loaded ${cachedCards.length} cards from cache`,
+          });
+          return;
+        }
+      } catch (e) {
+        console.error('Cache read error:', e);
       }
       toast({
-        title: 'Error loading cards',
-        description: error.message,
+        title: 'You are offline',
+        description: 'No cached data available. Connect to internet to load cards.',
         variant: 'destructive',
       });
       return;
     }
 
-    setCards(data as Flashcard[]);
-    // Cache for offline use
-    cacheFlashcards(data);
-  }, [toast, isOnline, getCachedFlashcards, cacheFlashcards]);
+    try {
+      const { data, error } = await supabase
+        .from('flashcards')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
+      setCards(data as Flashcard[]);
+      // Cache for offline use
+      cacheFlashcards(data);
+    } catch (error: any) {
+      console.error('Fetch error, trying cache:', error);
+      // Try cache on any error (network issues, etc.)
+      try {
+        const cachedCards = await getCachedFlashcards();
+        if (cachedCards.length > 0) {
+          setCards(cachedCards as Flashcard[]);
+          toast({
+            title: 'Using cached data',
+            description: 'Could not connect to server',
+          });
+          return;
+        }
+      } catch (e) {
+        console.error('Cache fallback error:', e);
+      }
+      toast({
+        title: 'Error loading cards',
+        description: error.message || 'Network error',
+        variant: 'destructive',
+      });
+    }
+  }, [toast, getCachedFlashcards, cacheFlashcards]);
 
   // Fetch lists from database
   const fetchLists = useCallback(async () => {

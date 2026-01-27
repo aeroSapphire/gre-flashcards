@@ -40,7 +40,7 @@ const TestDashboard = () => {
     const [tests, setTests] = useState<Test[]>([]);
     const [userScores, setUserScores] = useState<Map<string, UserScore>>(new Map());
     const [loading, setLoading] = useState(true);
-    const { isOnline, cacheTests, getCachedTests, getCachedQuestions } = useOfflineStorage();
+    const { cacheTests, getCachedTests } = useOfflineStorage();
 
     useEffect(() => {
         fetchTests();
@@ -53,9 +53,12 @@ const TestDashboard = () => {
     }, [user]);
 
     const fetchTests = async () => {
-        try {
-            if (!isOnline) {
-                // Load from cache when offline
+        // Check online status directly for real-time accuracy
+        const currentlyOnline = navigator.onLine;
+
+        if (!currentlyOnline) {
+            // Load from cache when offline
+            try {
                 const cachedTests = await getCachedTests();
                 if (cachedTests.length > 0) {
                     setTests(cachedTests as Test[]);
@@ -63,11 +66,21 @@ const TestDashboard = () => {
                         title: 'Offline mode',
                         description: `Loaded ${cachedTests.length} tests from cache`,
                     });
+                } else {
+                    toast({
+                        title: 'You are offline',
+                        description: 'No cached tests available.',
+                        variant: 'destructive',
+                    });
                 }
-                setLoading(false);
-                return;
+            } catch (e) {
+                console.error('Cache read error:', e);
             }
+            setLoading(false);
+            return;
+        }
 
+        try {
             const { data, error } = await supabase
                 .from('tests')
                 .select('*')
@@ -86,18 +99,28 @@ const TestDashboard = () => {
                 cacheTests(data, questionsData);
             }
         } catch (error: any) {
+            console.error('Fetch error, trying cache:', error);
             // Try cache on error
-            const cachedTests = await getCachedTests();
-            if (cachedTests.length > 0) {
-                setTests(cachedTests as Test[]);
-                toast({
-                    title: 'Using cached data',
-                    description: 'Could not connect to server',
-                });
-            } else {
+            try {
+                const cachedTests = await getCachedTests();
+                if (cachedTests.length > 0) {
+                    setTests(cachedTests as Test[]);
+                    toast({
+                        title: 'Using cached data',
+                        description: 'Could not connect to server',
+                    });
+                } else {
+                    toast({
+                        title: 'Error loading tests',
+                        description: error.message || 'Network error',
+                        variant: 'destructive',
+                    });
+                }
+            } catch (e) {
+                console.error('Cache fallback error:', e);
                 toast({
                     title: 'Error loading tests',
-                    description: error.message,
+                    description: error.message || 'Network error',
                     variant: 'destructive',
                 });
             }
