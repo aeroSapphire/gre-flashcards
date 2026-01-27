@@ -213,31 +213,81 @@ const TestRunner = () => {
             <main className="flex-1 container max-w-3xl mx-auto p-4 flex flex-col justify-center">
                 <Card className="mb-6">
                     <CardContent className="pt-6">
-                        <p className="text-lg leading-relaxed mb-8 font-medium">
+                        <p className="text-lg leading-relaxed mb-8 font-medium whitespace-pre-line">
                             {currentQ.content}
                         </p>
 
-                        <div className="space-y-3">
-                            {currentQ.options.map((option, idx) => {
-                                const isSelected = (answers[currentQ.id] || []).includes(idx);
-                                return (
-                                    <div
-                                        key={idx}
-                                        className={`flex items-center p-4 rounded-lg border cursor-pointer transition-all ${isSelected
-                                                ? 'border-primary bg-primary/5'
-                                                : 'border-border hover:bg-muted'
-                                            }`}
-                                        onClick={() => handleAnswer(currentQ.id, idx, isMultiSelect)}
-                                    >
-                                        <div className={`w-5 h-5 rounded-full border mr-3 flex items-center justify-center ${isSelected ? 'border-primary bg-primary text-primary-foreground' : 'border-muted-foreground'
-                                            }`}>
-                                            {isSelected && <div className="w-2 h-2 rounded-full bg-current" />}
+                        {/* Multi-select hint for sentence equivalence */}
+                        {currentQ.type === 'sentence_equivalence' && (
+                            <p className="text-sm text-muted-foreground mb-4 italic">
+                                Select exactly two answers that produce sentences with equivalent meanings.
+                            </p>
+                        )}
+
+                        {/* Grouped options for double/triple blank */}
+                        {(currentQ.type === 'double_blank' || currentQ.type === 'triple_blank') ? (
+                            <div className="space-y-6">
+                                {(() => {
+                                    const blanksCount = currentQ.type === 'double_blank' ? 2 : 3;
+                                    const optionsPerBlank = currentQ.options.length / blanksCount;
+                                    const groups = [];
+                                    for (let i = 0; i < blanksCount; i++) {
+                                        groups.push(currentQ.options.slice(i * optionsPerBlank, (i + 1) * optionsPerBlank));
+                                    }
+                                    return groups.map((groupOptions, groupIdx) => (
+                                        <div key={groupIdx} className="border rounded-lg p-4 bg-muted/30">
+                                            <h4 className="text-sm font-semibold text-muted-foreground mb-3">
+                                                Blank ({['i', 'ii', 'iii'][groupIdx]})
+                                            </h4>
+                                            <div className="space-y-2">
+                                                {groupOptions.map((option, optIdx) => {
+                                                    const actualIdx = groupIdx * optionsPerBlank + optIdx;
+                                                    const isSelected = (answers[currentQ.id] || []).includes(actualIdx);
+                                                    return (
+                                                        <div
+                                                            key={actualIdx}
+                                                            className={`flex items-center p-3 rounded-lg border cursor-pointer transition-all ${isSelected
+                                                                    ? 'border-primary bg-primary/10'
+                                                                    : 'border-border bg-background hover:bg-muted'
+                                                                }`}
+                                                            onClick={() => handleAnswer(currentQ.id, actualIdx, true)}
+                                                        >
+                                                            <div className={`w-4 h-4 rounded-full border mr-3 flex items-center justify-center ${isSelected ? 'border-primary bg-primary text-primary-foreground' : 'border-muted-foreground'
+                                                                }`}>
+                                                                {isSelected && <div className="w-2 h-2 rounded-full bg-current" />}
+                                                            </div>
+                                                            <span className="flex-1 text-sm">{option}</span>
+                                                        </div>
+                                                    );
+                                                })}
+                                            </div>
                                         </div>
-                                        <span className="flex-1">{option}</span>
-                                    </div>
-                                );
-                            })}
-                        </div>
+                                    ));
+                                })()}
+                            </div>
+                        ) : (
+                            <div className="space-y-3">
+                                {currentQ.options.map((option, idx) => {
+                                    const isSelected = (answers[currentQ.id] || []).includes(idx);
+                                    return (
+                                        <div
+                                            key={idx}
+                                            className={`flex items-center p-4 rounded-lg border cursor-pointer transition-all ${isSelected
+                                                    ? 'border-primary bg-primary/5'
+                                                    : 'border-border hover:bg-muted'
+                                                }`}
+                                            onClick={() => handleAnswer(currentQ.id, idx, isMultiSelect)}
+                                        >
+                                            <div className={`w-5 h-5 rounded-full border mr-3 flex items-center justify-center ${isSelected ? 'border-primary bg-primary text-primary-foreground' : 'border-muted-foreground'
+                                                }`}>
+                                                {isSelected && <div className="w-2 h-2 rounded-full bg-current" />}
+                                            </div>
+                                            <span className="flex-1">{option}</span>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        )}
                     </CardContent>
                 </Card>
             </main>

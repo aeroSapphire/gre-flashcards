@@ -13,7 +13,18 @@
       "Bash(del \"\\\\?\\\\D:\\\\GRE\\\\Flashcards\\\\nul\")",
       "Bash(cmd /c \"del \\\\?\\\\D:\\\\GRE\\\\Flashcards\\\\nul\")",
       "Bash(powershell -Command \"Remove-Item -LiteralPath ''\\\\?\\\\D:\\\\GRE\\\\Flashcards\\\\nul'' -Force\")",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "WebSearch",
+      "WebFetch(domain:www.kaptest.com)",
+      "WebFetch(domain:gre.blog.targettestprep.com)",
+      "WebFetch(domain:www.ets.org)",
+      "WebFetch(domain:www.kanan.co)",
+      "WebFetch(domain:menlocoaching.com)",
+      "WebFetch(domain:magoosh.com)",
+      "WebFetch(domain:gre.magoosh.com)",
+      "WebFetch(domain:greinsider.com)",
+      "Bash(npx tsc:*)",
+      "Bash(npx tsx:*)"
     ]
   }
 }

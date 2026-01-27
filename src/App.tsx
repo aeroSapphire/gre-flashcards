@@ -12,6 +12,7 @@ import NotFound from "./pages/NotFound";
 import TestDashboard from "./pages/TestDashboard";
 import TestRunner from "./pages/TestRunner";
 import TestResults from "./pages/TestResults";
+import Leaderboard from "./pages/Leaderboard";
 
 const queryClient = new QueryClient();
 
@@ -44,6 +45,7 @@ const App = () => (
             <Route path="/tests" element={<TestDashboard />} />
             <Route path="/test/:testId" element={<TestRunner />} />
             <Route path="/test/:testId/results" element={<TestResults />} />
+            <Route path="/leaderboard" element={<Leaderboard />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>

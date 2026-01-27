@@ -126,7 +126,7 @@ const TestResults = () => {
                                         );
                                     })}
                                 </div>
-                                {q.explanation && !isCorrect && (
+                                {q.explanation && (
                                     <div className="mt-4 bg-muted p-3 rounded text-sm">
                                         <strong>Explanation:</strong> {q.explanation}
                                     </div>

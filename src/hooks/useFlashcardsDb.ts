@@ -38,6 +38,8 @@ interface UserStats {
   learned: number;
   learning: number;
   total: number;
+  testsTaken: number;
+  avgScore: number;
 }
 
 const WORDS_PER_LIST = 30;
@@ -47,6 +49,7 @@ export function useFlashcardsDb() {
   const [lists, setLists] = useState<FlashcardList[]>([]);
   const [myProgress, setMyProgress] = useState<Map<string, 'new' | 'learning' | 'learned'>>(new Map());
   const [allProgress, setAllProgress] = useState<UserProgress[]>([]);
+  const [allTestAttempts, setAllTestAttempts] = useState<any[]>([]);
   const [allProfiles, setAllProfiles] = useState<UserProfile[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const { user } = useAuth();
@@ -140,6 +143,20 @@ export function useFlashcardsDb() {
     setAllProfiles(data as UserProfile[]);
   }, []);
 
+  // Fetch all test attempts
+  const fetchAllTestAttempts = useCallback(async () => {
+    const { data, error } = await supabase
+      .from('user_test_attempts')
+      .select('user_id, score, total_questions');
+
+    if (error) {
+      console.error('Error loading test attempts:', error);
+      return;
+    }
+
+    setAllTestAttempts(data || []);
+  }, []);
+
   // Initial load
   useEffect(() => {
     if (user) {
@@ -154,6 +171,7 @@ export function useFlashcardsDb() {
         fetchMyProgress(),
         fetchAllProgress(),
         fetchAllProfiles(),
+        fetchAllTestAttempts(),
       ])
         .then(() => {
           setIsLoaded(true);
@@ -167,7 +185,7 @@ export function useFlashcardsDb() {
 
       return () => clearTimeout(timeoutId);
     }
-  }, [user, fetchCards, fetchLists, fetchMyProgress, fetchAllProgress, fetchAllProfiles]);
+  }, [user, fetchCards, fetchLists, fetchMyProgress, fetchAllProgress, fetchAllProfiles, fetchAllTestAttempts]);
 
   // Set up realtime subscription - only for external changes (other users)
   useEffect(() => {
