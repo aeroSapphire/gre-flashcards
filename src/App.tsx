@@ -9,6 +9,9 @@ import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
+import TestDashboard from "./pages/TestDashboard";
+import TestRunner from "./pages/TestRunner";
+import TestResults from "./pages/TestResults";
 
 const queryClient = new QueryClient();
 

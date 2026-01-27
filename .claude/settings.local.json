@@ -12,7 +12,8 @@
       "Bash(npx xlsx-cli:*)",
       "Bash(del \"\\\\?\\\\D:\\\\GRE\\\\Flashcards\\\\nul\")",
       "Bash(cmd /c \"del \\\\?\\\\D:\\\\GRE\\\\Flashcards\\\\nul\")",
-      "Bash(powershell -Command \"Remove-Item -LiteralPath ''\\\\?\\\\D:\\\\GRE\\\\Flashcards\\\\nul'' -Force\")"
+      "Bash(powershell -Command \"Remove-Item -LiteralPath ''\\\\?\\\\D:\\\\GRE\\\\Flashcards\\\\nul'' -Force\")",
+      "Bash(ls:*)"
     ]
   }
 }
