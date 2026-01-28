@@ -2,11 +2,17 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFlashcardsDb, FlashcardWithProgress } from '@/hooks/useFlashcardsDb';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { ArrowLeft, CheckCircle2, RefreshCcw, Clock, Trophy } from 'lucide-react';
-import { SRSRating, getIntervalPreviews, INITIAL_SRS_STATE } from '@/utils/srs';
+import { Textarea } from '@/components/ui/textarea';
+import { ArrowLeft, CheckCircle2, Trophy, PenLine, Send, Loader2, X, CheckCircle, XCircle } from 'lucide-react';
+import { SRSRating, getIntervalPreviews } from '@/utils/srs';
+import {
+    isSentencePracticeEnabled,
+    evaluateSentence,
+    EvaluationResult,
+} from '@/services/sentenceEvaluator';
 
 export default function StudySession() {
     const navigate = useNavigate();
@@ -17,12 +23,19 @@ export default function StudySession() {
         reviewed: 0,
         correct: 0,
     });
-    // Capture the study queue once when the session starts
-    // This prevents re-shuffling during the session
     const [studyQueue, setStudyQueue] = useState<FlashcardWithProgress[]>([]);
     const [sessionInitialized, setSessionInitialized] = useState(false);
 
-    // Initialize the study queue once when cards are loaded
+    // Sentence practice state
+    const [showSentencePractice, setShowSentencePractice] = useState(false);
+    const [userSentence, setUserSentence] = useState('');
+    const [isEvaluating, setIsEvaluating] = useState(false);
+    const [evaluationResult, setEvaluationResult] = useState<EvaluationResult | null>(null);
+    const [evaluationError, setEvaluationError] = useState<string | null>(null);
+
+    // Check if sentence practice is enabled
+    const practiceEnabled = isSentencePracticeEnabled();
+
     useEffect(() => {
         if (isLoaded && !sessionInitialized && dueCards.length > 0) {
             setStudyQueue(dueCards);
@@ -37,6 +50,13 @@ export default function StudySession() {
         setIsFlipped(true);
     };
 
+    const resetSentencePractice = () => {
+        setShowSentencePractice(false);
+        setUserSentence('');
+        setEvaluationResult(null);
+        setEvaluationError(null);
+    };
+
     const handleRate = async (rating: SRSRating) => {
         if (!currentCard) return;
 
@@ -48,13 +68,33 @@ export default function StudySession() {
         }));
 
         setIsFlipped(false);
+        resetSentencePractice();
 
-        // Move to next card
         if (currentCardIndex < studyQueue.length - 1) {
             setCurrentCardIndex(prev => prev + 1);
         } else {
-            // Session complete
-            setCurrentCardIndex(prev => prev + 1); // trigger completion view
+            setCurrentCardIndex(prev => prev + 1);
+        }
+    };
+
+    const handleEvaluateSentence = async () => {
+        if (!userSentence.trim() || !currentCard) return;
+
+        setIsEvaluating(true);
+        setEvaluationError(null);
+        setEvaluationResult(null);
+
+        try {
+            const result = await evaluateSentence(
+                currentCard.word,
+                currentCard.definition,
+                userSentence.trim()
+            );
+            setEvaluationResult(result);
+        } catch (error: any) {
+            setEvaluationError(error.message);
+        } finally {
+            setIsEvaluating(false);
         }
     };
 
@@ -66,7 +106,6 @@ export default function StudySession() {
         );
     }
 
-    // Show "all caught up" only if there are no learning cards at all
     if (studyQueue.length === 0 && dueCards.length === 0) {
         return (
             <div className="container max-w-md mx-auto py-12 px-4 text-center">
@@ -116,6 +155,13 @@ export default function StudySession() {
         );
     }
 
+    const cardState = {
+        interval: currentCard.interval || 0,
+        ease_factor: currentCard.ease_factor || 2.5,
+        repetitions: currentCard.repetition || 0,
+    };
+    const previews = getIntervalPreviews(cardState);
+
     return (
         <div className="min-h-screen bg-background flex flex-col">
             {/* Header */}
@@ -137,7 +183,6 @@ export default function StudySession() {
                 <div className="w-full relative perspective-1000">
                     <Card className="w-full min-h-[400px] flex flex-col shadow-lg border-2">
                         <CardHeader className="text-center pt-8 pb-4">
-                            {/* Tags & Metadata could go here */}
                             <div className="flex justify-center gap-2 mb-4">
                                 {currentCard.tags?.map(tag => (
                                     <Badge key={tag} variant="secondary" className="text-xs px-2 py-0.5">{tag}</Badge>
@@ -167,6 +212,112 @@ export default function StudySession() {
                                             </p>
                                         </div>
                                     )}
+
+                                    {/* Sentence Practice Section */}
+                                    {practiceEnabled && isFlipped && !showSentencePractice && (
+                                        <div className="pt-4 border-t w-full">
+                                            <Button
+                                                variant="outline"
+                                                onClick={() => setShowSentencePractice(true)}
+                                                className="gap-2"
+                                            >
+                                                <PenLine className="h-4 w-4" />
+                                                Practice with a Sentence
+                                            </Button>
+                                        </div>
+                                    )}
+
+                                    {showSentencePractice && (
+                                        <div className="pt-4 border-t w-full space-y-4 animate-in fade-in slide-in-from-bottom-2">
+                                            <div className="flex items-center justify-between">
+                                                <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+                                                    Use "{currentCard.word}" in a sentence
+                                                </p>
+                                                <Button
+                                                    variant="ghost"
+                                                    size="sm"
+                                                    onClick={resetSentencePractice}
+                                                >
+                                                    <X className="h-4 w-4" />
+                                                </Button>
+                                            </div>
+
+                                            <Textarea
+                                                placeholder={`Write a sentence using "${currentCard.word}"...`}
+                                                value={userSentence}
+                                                onChange={(e) => setUserSentence(e.target.value)}
+                                                className="min-h-[80px] text-base"
+                                                disabled={isEvaluating || !!evaluationResult}
+                                            />
+
+                                            {!evaluationResult && !evaluationError && (
+                                                <Button
+                                                    onClick={handleEvaluateSentence}
+                                                    disabled={!userSentence.trim() || isEvaluating}
+                                                    className="w-full gap-2"
+                                                >
+                                                    {isEvaluating ? (
+                                                        <>
+                                                            <Loader2 className="h-4 w-4 animate-spin" />
+                                                            Evaluating...
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <Send className="h-4 w-4" />
+                                                            Check My Sentence
+                                                        </>
+                                                    )}
+                                                </Button>
+                                            )}
+
+                                            {evaluationError && (
+                                                <div className="p-4 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800">
+                                                    <p className="text-sm text-red-700 dark:text-red-300">{evaluationError}</p>
+                                                    <Button
+                                                        variant="outline"
+                                                        size="sm"
+                                                        onClick={() => setEvaluationError(null)}
+                                                        className="mt-2"
+                                                    >
+                                                        Try Again
+                                                    </Button>
+                                                </div>
+                                            )}
+
+                                            {evaluationResult && (
+                                                <div className={`p-4 rounded-lg border ${
+                                                    evaluationResult.isCorrect
+                                                        ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800'
+                                                        : 'bg-amber-50 dark:bg-amber-900/20 border-amber-200 dark:border-amber-800'
+                                                }`}>
+                                                    <div className="flex items-start gap-3">
+                                                        {evaluationResult.isCorrect ? (
+                                                            <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400 mt-0.5 flex-shrink-0" />
+                                                        ) : (
+                                                            <XCircle className="h-5 w-5 text-amber-600 dark:text-amber-400 mt-0.5 flex-shrink-0" />
+                                                        )}
+                                                        <div className="space-y-2 text-left">
+                                                            <p className={`font-medium ${
+                                                                evaluationResult.isCorrect
+                                                                    ? 'text-green-700 dark:text-green-300'
+                                                                    : 'text-amber-700 dark:text-amber-300'
+                                                            }`}>
+                                                                {evaluationResult.isCorrect ? 'Great job!' : 'Almost there!'}
+                                                            </p>
+                                                            <p className="text-sm text-muted-foreground">
+                                                                {evaluationResult.feedback}
+                                                            </p>
+                                                            {evaluationResult.suggestion && (
+                                                                <p className="text-sm text-muted-foreground italic">
+                                                                    Suggestion: {evaluationResult.suggestion}
+                                                                </p>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
                                 </div>
                             ) : (
                                 <div className="text-muted-foreground text-sm animate-pulse">
@@ -187,64 +338,53 @@ export default function StudySession() {
                             </CardFooter>
                         )}
 
-                        {/* Height spacer for fixed layout when flipped */}
                         {isFlipped && <div className="h-4" />}
                     </Card>
                 </div>
             </main>
 
             {/* Controls */}
-            {isFlipped && currentCard && (() => {
-                // Get interval previews based on current card's SRS state
-                const cardState = {
-                    interval: currentCard.interval || 0,
-                    ease_factor: currentCard.ease_factor || 2.5,
-                    repetitions: currentCard.repetition || 0,
-                };
-                const previews = getIntervalPreviews(cardState);
+            {isFlipped && currentCard && (
+                <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/80 backdrop-blur-md border-t animate-in slide-in-from-bottom duration-300">
+                    <div className="container max-w-2xl mx-auto grid grid-cols-4 gap-2 md:gap-4">
+                        <Button
+                            variant="outline"
+                            className="flex flex-col h-auto py-3 gap-1 hover:bg-red-100 hover:text-red-700 hover:border-red-200 dark:hover:bg-red-900/30"
+                            onClick={() => handleRate('again')}
+                        >
+                            <span className="font-bold text-base">Again</span>
+                            <span className="text-[10px] text-muted-foreground font-normal">{previews.again}</span>
+                        </Button>
 
-                return (
-                    <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/80 backdrop-blur-md border-t animate-in slide-in-from-bottom duration-300">
-                        <div className="container max-w-2xl mx-auto grid grid-cols-4 gap-2 md:gap-4">
-                            <Button
-                                variant="outline"
-                                className="flex flex-col h-auto py-3 gap-1 hover:bg-red-100 hover:text-red-700 hover:border-red-200 dark:hover:bg-red-900/30"
-                                onClick={() => handleRate('again')}
-                            >
-                                <span className="font-bold text-base">Again</span>
-                                <span className="text-[10px] text-muted-foreground font-normal">{previews.again}</span>
-                            </Button>
+                        <Button
+                            variant="outline"
+                            className="flex flex-col h-auto py-3 gap-1 hover:bg-orange-100 hover:text-orange-700 hover:border-orange-200 dark:hover:bg-orange-900/30"
+                            onClick={() => handleRate('hard')}
+                        >
+                            <span className="font-bold text-base">Hard</span>
+                            <span className="text-[10px] text-muted-foreground font-normal">{previews.hard}</span>
+                        </Button>
 
-                            <Button
-                                variant="outline"
-                                className="flex flex-col h-auto py-3 gap-1 hover:bg-orange-100 hover:text-orange-700 hover:border-orange-200 dark:hover:bg-orange-900/30"
-                                onClick={() => handleRate('hard')}
-                            >
-                                <span className="font-bold text-base">Hard</span>
-                                <span className="text-[10px] text-muted-foreground font-normal">{previews.hard}</span>
-                            </Button>
+                        <Button
+                            variant="outline"
+                            className="flex flex-col h-auto py-3 gap-1 hover:bg-blue-100 hover:text-blue-700 hover:border-blue-200 dark:hover:bg-blue-900/30"
+                            onClick={() => handleRate('good')}
+                        >
+                            <span className="font-bold text-base">Good</span>
+                            <span className="text-[10px] text-muted-foreground font-normal">{previews.good}</span>
+                        </Button>
 
-                            <Button
-                                variant="outline"
-                                className="flex flex-col h-auto py-3 gap-1 hover:bg-blue-100 hover:text-blue-700 hover:border-blue-200 dark:hover:bg-blue-900/30"
-                                onClick={() => handleRate('good')}
-                            >
-                                <span className="font-bold text-base">Good</span>
-                                <span className="text-[10px] text-muted-foreground font-normal">{previews.good}</span>
-                            </Button>
-
-                            <Button
-                                variant="outline"
-                                className="flex flex-col h-auto py-3 gap-1 hover:bg-green-100 hover:text-green-700 hover:border-green-200 dark:hover:bg-green-900/30"
-                                onClick={() => handleRate('easy')}
-                            >
-                                <span className="font-bold text-base">Easy</span>
-                                <span className="text-[10px] text-muted-foreground font-normal">{previews.easy}</span>
-                            </Button>
-                        </div>
+                        <Button
+                            variant="outline"
+                            className="flex flex-col h-auto py-3 gap-1 hover:bg-green-100 hover:text-green-700 hover:border-green-200 dark:hover:bg-green-900/30"
+                            onClick={() => handleRate('easy')}
+                        >
+                            <span className="font-bold text-base">Easy</span>
+                            <span className="text-[10px] text-muted-foreground font-normal">{previews.easy}</span>
+                        </Button>
                     </div>
-                );
-            })()}
+                </div>
+            )}
         </div>
     );
 }
