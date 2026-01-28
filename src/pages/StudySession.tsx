@@ -345,6 +345,21 @@ export default function StudySession() {
                                                     )}
                                                 </div>
                                             </div>
+                                            {/* Example sentences from AI */}
+                                            {evaluationResult.examples && evaluationResult.examples.length > 0 && (
+                                                <div className="p-4 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800">
+                                                    <p className="text-sm font-medium text-blue-700 dark:text-blue-300 uppercase tracking-wider mb-3">
+                                                        Example Sentences
+                                                    </p>
+                                                    <ul className="space-y-2 text-left">
+                                                        {evaluationResult.examples.map((example, idx) => (
+                                                            <li key={idx} className="text-sm text-muted-foreground italic">
+                                                                "{example}"
+                                                            </li>
+                                                        ))}
+                                                    </ul>
+                                                </div>
+                                            )}
                                         </div>
                                     )}
                                 </div>

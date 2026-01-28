@@ -9,6 +9,7 @@ export interface EvaluationResult {
   rating: SRSRating;
   feedback: string;
   suggestion?: string;
+  examples?: string[];
 }
 
 export function isSentencePracticeEnabled(): boolean {
@@ -68,6 +69,7 @@ export async function evaluateSentence(
       rating,
       feedback: finalData.feedback || 'No feedback provided',
       suggestion: finalData.suggestion,
+      examples: finalData.examples || [],
     };
   } catch (error: any) {
     console.error('Evaluation error:', error);

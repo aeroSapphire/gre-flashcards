@@ -41,8 +41,10 @@ Rate the student's understanding and assign an SRS rating:
 - "good": Sentence correctly demonstrates understanding of the word
 - "easy": Sentence shows excellent, nuanced understanding with sophisticated usage
 
+Also provide 2-3 example sentences showing correct usage of the word in different contexts.
+
 Respond ONLY with valid JSON:
-{"rating": "again"|"hard"|"good"|"easy", "feedback": "brief encouraging feedback", "suggestion": "example sentence if rating is again or hard, otherwise null"}`;
+{"rating": "again"|"hard"|"good"|"easy", "feedback": "brief encouraging feedback", "suggestion": "corrective suggestion if rating is again or hard, otherwise null", "examples": ["example sentence 1", "example sentence 2", "example sentence 3"]}`;
 
     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${geminiApiKey}`;
 
