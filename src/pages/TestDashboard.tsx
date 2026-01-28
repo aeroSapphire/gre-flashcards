@@ -156,7 +156,8 @@ const TestDashboard = () => {
 
             // Cache tests and questions for offline use
             if (data && questionsData) {
-                cacheTests(data, questionsData);
+                console.log(`Caching ${data.length} tests and ${questionsData.length} questions for offline use`);
+                await cacheTests(data, questionsData);
             }
         } catch (error: any) {
             console.error('Fetch error, trying cache:', error);

@@ -72,6 +72,8 @@ const TestRunner = () => {
                 const cachedTests = await getCachedTests();
                 const cachedQuestions = await getCachedQuestions(testId);
 
+                console.log('Offline mode - cached tests:', cachedTests.length, 'cached questions for test:', cachedQuestions.length);
+
                 const testData = cachedTests.find((t: any) => t.id === testId);
                 if (testData && cachedQuestions.length > 0) {
                     setTest(testData as Test);
@@ -93,18 +95,26 @@ const TestRunner = () => {
                         description: 'Test loaded from cache. Results will sync when online.',
                     });
                     return;
+                } else {
+                    console.log('Cache miss - testData:', !!testData, 'questions:', cachedQuestions.length);
+                    toast({
+                        title: 'Test not cached',
+                        description: `Found ${cachedTests.length} tests, ${cachedQuestions.length} questions. Visit tests page online first.`,
+                        variant: 'destructive',
+                    });
+                    navigate('/tests');
+                    return;
                 }
             } catch (e) {
                 console.error('Cache read error:', e);
+                toast({
+                    title: 'Cache error',
+                    description: String(e),
+                    variant: 'destructive',
+                });
+                navigate('/tests');
+                return;
             }
-
-            toast({
-                title: 'You are offline',
-                description: 'Cannot load test. Please connect to internet.',
-                variant: 'destructive',
-            });
-            navigate('/tests');
-            return;
         }
 
         try {
