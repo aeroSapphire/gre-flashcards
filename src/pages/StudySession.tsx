@@ -15,12 +15,13 @@ import {
     getEvaluationsForCard,
     EvaluationResult,
     SavedEvaluation,
+    generateExamples,
 } from '@/services/sentenceEvaluator';
 import { useAuth } from '@/contexts/AuthContext';
 
 export default function StudySession() {
     const navigate = useNavigate();
-    const { dueCards, reviewCard, isLoaded } = useFlashcardsDb();
+    const { dueCards, reviewCard, updateCard, isLoaded } = useFlashcardsDb();
     const { user } = useAuth();
     const [currentCardIndex, setCurrentCardIndex] = useState(0);
     const [isFlipped, setIsFlipped] = useState(false);
@@ -36,6 +37,8 @@ export default function StudySession() {
     const [isEvaluating, setIsEvaluating] = useState(false);
     const [evaluationResult, setEvaluationResult] = useState<EvaluationResult | null>(null);
     const [evaluationError, setEvaluationError] = useState<string | null>(null);
+    const [communitySentences, setCommunitySentences] = useState<SavedEvaluation[]>([]);
+    const [isLoadingCommunity, setIsLoadingCommunity] = useState(false);
 
     // Check if sentence practice is enabled
     const practiceEnabled = isSentencePracticeEnabled();
@@ -52,6 +55,20 @@ export default function StudySession() {
             setSessionInitialized(true);
         }
     }, [isLoaded, dueCards, sessionInitialized]);
+
+    useEffect(() => {
+        if (currentCard) {
+            loadCommunitySentences();
+        }
+    }, [currentCardIndex, studyQueue]);
+
+    const loadCommunitySentences = async () => {
+        if (!currentCard) return;
+        setIsLoadingCommunity(true);
+        const data = await getEvaluationsForCard(currentCard.id);
+        setCommunitySentences(data);
+        setIsLoadingCommunity(false);
+    };
 
     const currentCard = studyQueue[currentCardIndex];
     const progress = studyQueue.length > 0 ? ((currentCardIndex) / studyQueue.length) * 100 : 100;
@@ -72,8 +89,17 @@ export default function StudySession() {
         }
     }, [currentCard?.id, user?.id]);
 
-    const handleFlip = () => {
+    const handleFlip = async () => {
         setIsFlipped(true);
+
+        // Auto-generate example if missing
+        if (!currentCard.example) {
+            console.log("Generating missing example for:", currentCard.word);
+            const examples = await generateExamples(currentCard.word, currentCard.definition);
+            if (examples.length > 0) {
+                await updateCard(currentCard.id, { example: examples[0] });
+            }
+        }
     };
 
     const resetSentencePractice = () => {
@@ -127,6 +153,11 @@ export default function StudySession() {
                 result.rating,
                 result.feedback
             );
+
+            // If card is missing an example, use one from the AI result
+            if (!currentCard.example && result.examples && result.examples.length > 0) {
+                await updateCard(currentCard.id, { example: result.examples[0] });
+            }
         } catch (error: any) {
             setEvaluationError(error.message);
         } finally {
@@ -306,32 +337,29 @@ export default function StudySession() {
                                                 <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-2">Your sentence</p>
                                                 <p className="text-base italic">"{userSentence}"</p>
                                             </div>
-                                            <div className={`p-4 rounded-lg border ${
-                                                evaluationResult.rating === 'easy' || evaluationResult.rating === 'good'
-                                                    ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800'
-                                                    : evaluationResult.rating === 'hard'
+                                            <div className={`p-4 rounded-lg border ${evaluationResult.rating === 'easy' || evaluationResult.rating === 'good'
+                                                ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800'
+                                                : evaluationResult.rating === 'hard'
                                                     ? 'bg-amber-50 dark:bg-amber-900/20 border-amber-200 dark:border-amber-800'
                                                     : 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800'
-                                            }`}>
+                                                }`}>
                                                 <div className="space-y-2 text-left">
                                                     <div className="flex items-center justify-between">
-                                                        <p className={`font-medium ${
-                                                            evaluationResult.rating === 'easy' || evaluationResult.rating === 'good'
-                                                                ? 'text-green-700 dark:text-green-300'
-                                                                : evaluationResult.rating === 'hard'
+                                                        <p className={`font-medium ${evaluationResult.rating === 'easy' || evaluationResult.rating === 'good'
+                                                            ? 'text-green-700 dark:text-green-300'
+                                                            : evaluationResult.rating === 'hard'
                                                                 ? 'text-amber-700 dark:text-amber-300'
                                                                 : 'text-red-700 dark:text-red-300'
-                                                        }`}>
+                                                            }`}>
                                                             {evaluationResult.rating === 'easy' ? 'Excellent!' :
-                                                             evaluationResult.rating === 'good' ? 'Good job!' :
-                                                             evaluationResult.rating === 'hard' ? 'Almost there!' : 'Try again next time!'}
+                                                                evaluationResult.rating === 'good' ? 'Good job!' :
+                                                                    evaluationResult.rating === 'hard' ? 'Almost there!' : 'Try again next time!'}
                                                         </p>
-                                                        <Badge variant="outline" className={`uppercase ${
-                                                            evaluationResult.rating === 'easy' ? 'border-green-500 text-green-600' :
+                                                        <Badge variant="outline" className={`uppercase ${evaluationResult.rating === 'easy' ? 'border-green-500 text-green-600' :
                                                             evaluationResult.rating === 'good' ? 'border-blue-500 text-blue-600' :
-                                                            evaluationResult.rating === 'hard' ? 'border-amber-500 text-amber-600' :
-                                                            'border-red-500 text-red-600'
-                                                        }`}>
+                                                                evaluationResult.rating === 'hard' ? 'border-amber-500 text-amber-600' :
+                                                                    'border-red-500 text-red-600'
+                                                            }`}>
                                                             {evaluationResult.rating}
                                                         </Badge>
                                                     </div>
@@ -454,12 +482,11 @@ export default function StudySession() {
                             // AI-rated mode: show continue button
                             <Button
                                 onClick={handleContinueAfterEvaluation}
-                                className={`w-full h-14 text-lg font-semibold shadow-md ${
-                                    evaluationResult.rating === 'easy' ? 'bg-green-600 hover:bg-green-700' :
+                                className={`w-full h-14 text-lg font-semibold shadow-md ${evaluationResult.rating === 'easy' ? 'bg-green-600 hover:bg-green-700' :
                                     evaluationResult.rating === 'good' ? 'bg-blue-600 hover:bg-blue-700' :
-                                    evaluationResult.rating === 'hard' ? 'bg-amber-600 hover:bg-amber-700' :
-                                    'bg-red-600 hover:bg-red-700'
-                                }`}
+                                        evaluationResult.rating === 'hard' ? 'bg-amber-600 hover:bg-amber-700' :
+                                            'bg-red-600 hover:bg-red-700'
+                                    }`}
                             >
                                 Continue ({evaluationResult.rating.charAt(0).toUpperCase() + evaluationResult.rating.slice(1)} - {previews[evaluationResult.rating]})
                             </Button>

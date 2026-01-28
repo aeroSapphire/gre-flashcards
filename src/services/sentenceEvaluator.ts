@@ -77,6 +77,33 @@ export async function evaluateSentence(
   }
 }
 
+export async function generateExamples(
+  word: string,
+  definition: string
+): Promise<string[]> {
+  try {
+    const { data, error } = await supabase.functions.invoke('evaluate-sentence', {
+      body: {
+        word,
+        definition,
+        mode: 'generate'
+      },
+    });
+
+    if (error) throw error;
+
+    let finalData = data;
+    if (typeof data === 'string') {
+      finalData = JSON.parse(data);
+    }
+
+    return finalData.examples || [];
+  } catch (error) {
+    console.error('Failed to generate examples:', error);
+    return [];
+  }
+}
+
 export interface SavedEvaluation {
   id: string;
   user_id: string;
@@ -99,8 +126,7 @@ export async function saveEvaluation(
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return;
 
-  const { error } = await supabase
-    .from('sentence_evaluations')
+  const { error } = await (supabase.from('sentence_evaluations') as any)
     .insert({
       user_id: user.id,
       flashcard_id: flashcardId,
@@ -117,8 +143,8 @@ export async function saveEvaluation(
 export async function getEvaluationsForCard(flashcardId: string): Promise<SavedEvaluation[]> {
   try {
     // First fetch evaluations
-    const { data: evaluations, error } = await supabase
-      .from('sentence_evaluations')
+    const { data: evaluations, error } = await (supabase
+      .from('sentence_evaluations') as any)
       .select('*')
       .eq('flashcard_id', flashcardId)
       .order('created_at', { ascending: false })
@@ -130,7 +156,7 @@ export async function getEvaluationsForCard(flashcardId: string): Promise<SavedE
     }
 
     // Get unique user IDs
-    const userIds = [...new Set(evaluations.map(e => e.user_id))];
+    const userIds = [...new Set((evaluations as any[]).map(e => e.user_id))];
 
     // Fetch profiles for these users
     const { data: profiles } = await supabase
@@ -141,7 +167,7 @@ export async function getEvaluationsForCard(flashcardId: string): Promise<SavedE
     // Map profiles to evaluations
     const profileMap = new Map(profiles?.map(p => [p.id, p]) || []);
 
-    return evaluations.map(e => ({
+    return (evaluations as any[]).map(e => ({
       ...e,
       profile: profileMap.get(e.user_id) || null
     }));
