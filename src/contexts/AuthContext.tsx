@@ -21,6 +21,30 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// Local storage keys for offline profile caching
+const PROFILE_CACHE_KEY = 'gre-vocab-profile-cache';
+
+function getCachedProfile(): UserProfile | null {
+  try {
+    const cached = localStorage.getItem(PROFILE_CACHE_KEY);
+    return cached ? JSON.parse(cached) : null;
+  } catch {
+    return null;
+  }
+}
+
+function setCachedProfile(profile: UserProfile | null) {
+  try {
+    if (profile) {
+      localStorage.setItem(PROFILE_CACHE_KEY, JSON.stringify(profile));
+    } else {
+      localStorage.removeItem(PROFILE_CACHE_KEY);
+    }
+  } catch {
+    // Ignore storage errors
+  }
+}
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
@@ -28,28 +52,64 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   const fetchOrCreateProfile = async (userId: string, email: string) => {
-    // Try to fetch existing profile
-    const { data: existingProfile } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', userId)
-      .single();
-
-    if (existingProfile) {
-      setProfile(existingProfile as UserProfile);
+    // If offline, use cached profile
+    if (!navigator.onLine) {
+      const cached = getCachedProfile();
+      if (cached && cached.id === userId) {
+        setProfile(cached);
+        return;
+      }
+      // Create a minimal offline profile from email
+      const offlineProfile: UserProfile = {
+        id: userId,
+        display_name: email.split('@')[0],
+        created_at: new Date().toISOString(),
+      };
+      setProfile(offlineProfile);
       return;
     }
 
-    // Create new profile with email prefix as default display name
-    const displayName = email.split('@')[0];
-    const { data: newProfile, error } = await supabase
-      .from('profiles')
-      .insert({ id: userId, display_name: displayName })
-      .select()
-      .single();
+    try {
+      // Try to fetch existing profile
+      const { data: existingProfile } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', userId)
+        .single();
 
-    if (!error && newProfile) {
-      setProfile(newProfile as UserProfile);
+      if (existingProfile) {
+        setProfile(existingProfile as UserProfile);
+        setCachedProfile(existingProfile as UserProfile);
+        return;
+      }
+
+      // Create new profile with email prefix as default display name
+      const displayName = email.split('@')[0];
+      const { data: newProfile, error } = await supabase
+        .from('profiles')
+        .insert({ id: userId, display_name: displayName })
+        .select()
+        .single();
+
+      if (!error && newProfile) {
+        setProfile(newProfile as UserProfile);
+        setCachedProfile(newProfile as UserProfile);
+      }
+    } catch (error) {
+      console.error('Error fetching profile, using cache:', error);
+      // On error, try cached profile
+      const cached = getCachedProfile();
+      if (cached && cached.id === userId) {
+        setProfile(cached);
+      } else {
+        // Fallback to email-based profile
+        const fallbackProfile: UserProfile = {
+          id: userId,
+          display_name: email.split('@')[0],
+          created_at: new Date().toISOString(),
+        };
+        setProfile(fallbackProfile);
+      }
     }
   };
 
@@ -59,7 +119,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Initialize auth state
     const initializeAuth = async () => {
       try {
-        const { data: { session } } = await supabase.auth.getSession();
+        // Supabase stores session in localStorage, so this should work offline
+        const { data: { session }, error } = await supabase.auth.getSession();
+
+        if (error) {
+          console.error('Error getting session:', error);
+        }
 
         if (mounted) {
           setSession(session);
@@ -71,6 +136,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
       } catch (error) {
         console.error('Error checking session:', error);
+        // Even on error, we should finish loading
+        // The user can still use cached data if they were logged in before
       } finally {
         if (mounted) {
           setLoading(false);
@@ -78,7 +145,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
     };
 
+    // Set a timeout to ensure we don't get stuck in loading state
+    const timeoutId = setTimeout(() => {
+      if (mounted && loading) {
+        console.warn('Auth initialization timed out, proceeding...');
+        setLoading(false);
+      }
+    }, 5000);
+
     initializeAuth();
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
 
     // Listen for changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
@@ -128,6 +207,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const signOut = async () => {
     await supabase.auth.signOut();
     setProfile(null);
+    setCachedProfile(null);
   };
 
   const updateDisplayName = async (name: string) => {

@@ -138,7 +138,12 @@ export function useOfflineStorage() {
   // Cache flashcards
   const cacheFlashcards = useCallback(async (flashcards: any[]) => {
     try {
-      await putAllToStore('flashcards', flashcards);
+      // Store with explicit order index to preserve exact server order
+      const flashcardsWithOrder = flashcards.map((card, index) => ({
+        ...card,
+        _cacheOrder: index,
+      }));
+      await putAllToStore('flashcards', flashcardsWithOrder);
       const now = new Date().toISOString();
       await setMetadata('lastSynced', now);
       setLastSynced(new Date(now));
@@ -148,17 +153,13 @@ export function useOfflineStorage() {
     }
   }, []);
 
-  // Get cached flashcards (sorted by created_at DESC to match server order)
+  // Get cached flashcards (sorted by cache order to match server order)
   const getCachedFlashcards = useCallback(async () => {
     try {
       const flashcards = await getAllFromStore<any>('flashcards');
-      // Sort by created_at descending to match server query order
+      // Sort by _cacheOrder to restore exact server order
       // This ensures cards stay in the same lists when offline
-      return flashcards.sort((a, b) => {
-        const dateA = new Date(a.created_at).getTime();
-        const dateB = new Date(b.created_at).getTime();
-        return dateB - dateA; // Descending order
-      });
+      return flashcards.sort((a, b) => (a._cacheOrder ?? 0) - (b._cacheOrder ?? 0));
     } catch (error) {
       console.error('Failed to get cached flashcards:', error);
       return [];
