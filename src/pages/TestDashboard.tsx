@@ -6,7 +6,6 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { ArrowLeft, Clock, Play, Trophy, CheckCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
-import { useOfflineStorage } from '@/hooks/useOfflineStorage';
 
 interface Test {
     id: string;
@@ -40,7 +39,6 @@ const TestDashboard = () => {
     const [tests, setTests] = useState<Test[]>([]);
     const [userScores, setUserScores] = useState<Map<string, UserScore>>(new Map());
     const [loading, setLoading] = useState(true);
-    const { cacheTests, getCachedTests } = useOfflineStorage();
 
     useEffect(() => {
         fetchTests();
@@ -49,97 +47,10 @@ const TestDashboard = () => {
     useEffect(() => {
         if (user) {
             fetchUserScores();
-            // Sync any pending test attempts
-            syncPendingTestAttempts();
         }
     }, [user]);
-
-    // Listen for online status to sync pending attempts
-    useEffect(() => {
-        const handleOnline = () => {
-            if (user) {
-                syncPendingTestAttempts();
-            }
-        };
-
-        window.addEventListener('online', handleOnline);
-        return () => window.removeEventListener('online', handleOnline);
-    }, [user]);
-
-    const syncPendingTestAttempts = async () => {
-        if (!navigator.onLine || !user) return;
-
-        try {
-            const pendingTests = JSON.parse(localStorage.getItem('pending-test-attempts') || '[]');
-            if (pendingTests.length === 0) return;
-
-            console.log(`Syncing ${pendingTests.length} pending test attempts...`);
-            let syncedCount = 0;
-
-            for (const attempt of pendingTests) {
-                try {
-                    const { error } = await supabase
-                        .from('user_test_attempts')
-                        .insert({
-                            user_id: attempt.user_id,
-                            test_id: attempt.test_id,
-                            score: attempt.score,
-                            total_questions: attempt.total_questions,
-                            time_taken_seconds: attempt.time_taken_seconds,
-                            answers: attempt.answers
-                        });
-
-                    if (!error) {
-                        syncedCount++;
-                    }
-                } catch (e) {
-                    console.error('Failed to sync attempt:', e);
-                }
-            }
-
-            if (syncedCount > 0) {
-                // Clear synced attempts
-                localStorage.removeItem('pending-test-attempts');
-                toast({
-                    title: 'Tests synced!',
-                    description: `${syncedCount} test result${syncedCount > 1 ? 's' : ''} synced to server.`,
-                });
-                // Refresh scores
-                fetchUserScores();
-            }
-        } catch (e) {
-            console.error('Error syncing pending tests:', e);
-        }
-    };
 
     const fetchTests = async () => {
-        // Check online status directly for real-time accuracy
-        const currentlyOnline = navigator.onLine;
-
-        if (!currentlyOnline) {
-            // Load from cache when offline
-            try {
-                const cachedTests = await getCachedTests();
-                if (cachedTests.length > 0) {
-                    setTests(cachedTests as Test[]);
-                    toast({
-                        title: 'Offline mode',
-                        description: `Loaded ${cachedTests.length} tests from cache`,
-                    });
-                } else {
-                    toast({
-                        title: 'You are offline',
-                        description: 'No cached tests available.',
-                        variant: 'destructive',
-                    });
-                }
-            } catch (e) {
-                console.error('Cache read error:', e);
-            }
-            setLoading(false);
-            return;
-        }
-
         try {
             const { data, error } = await supabase
                 .from('tests')
@@ -148,43 +59,12 @@ const TestDashboard = () => {
 
             if (error) throw error;
             setTests(data || []);
-
-            // Also fetch all questions for offline caching
-            const { data: questionsData } = await supabase
-                .from('questions')
-                .select('*');
-
-            // Cache tests and questions for offline use
-            if (data && questionsData) {
-                console.log(`Caching ${data.length} tests and ${questionsData.length} questions for offline use`);
-                await cacheTests(data, questionsData);
-            }
         } catch (error: any) {
-            console.error('Fetch error, trying cache:', error);
-            // Try cache on error
-            try {
-                const cachedTests = await getCachedTests();
-                if (cachedTests.length > 0) {
-                    setTests(cachedTests as Test[]);
-                    toast({
-                        title: 'Using cached data',
-                        description: 'Could not connect to server',
-                    });
-                } else {
-                    toast({
-                        title: 'Error loading tests',
-                        description: error.message || 'Network error',
-                        variant: 'destructive',
-                    });
-                }
-            } catch (e) {
-                console.error('Cache fallback error:', e);
-                toast({
-                    title: 'Error loading tests',
-                    description: error.message || 'Network error',
-                    variant: 'destructive',
-                });
-            }
+            toast({
+                title: 'Error loading tests',
+                description: error.message || 'Network error',
+                variant: 'destructive',
+            });
         } finally {
             setLoading(false);
         }

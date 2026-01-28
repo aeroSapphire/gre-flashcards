@@ -10,7 +10,6 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { ArrowLeft, Clock, ChevronRight, CheckCircle2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
-import { useOfflineStorage } from '@/hooks/useOfflineStorage';
 
 interface Question {
     id: string;
@@ -31,7 +30,6 @@ const TestRunner = () => {
     const navigate = useNavigate();
     const { user } = useAuth();
     const { toast } = useToast();
-    const { getCachedTests, getCachedQuestions } = useOfflineStorage();
 
     const [test, setTest] = useState<Test | null>(null);
     const [questions, setQuestions] = useState<Question[]>([]);
@@ -40,7 +38,6 @@ const TestRunner = () => {
     const [timeLeft, setTimeLeft] = useState(0);
     const [loading, setLoading] = useState(true);
     const [submitting, setSubmitting] = useState(false);
-    const [isOfflineMode, setIsOfflineMode] = useState(false);
 
     useEffect(() => {
         if (!testId) return;
@@ -64,59 +61,6 @@ const TestRunner = () => {
     }, [timeLeft, submitting]);
 
     const fetchTestDetails = async () => {
-        const currentlyOnline = navigator.onLine;
-
-        // Try offline cache first if not online
-        if (!currentlyOnline) {
-            try {
-                const cachedTests = await getCachedTests();
-                const cachedQuestions = await getCachedQuestions(testId);
-
-                console.log('Offline mode - cached tests:', cachedTests.length, 'cached questions for test:', cachedQuestions.length);
-
-                const testData = cachedTests.find((t: any) => t.id === testId);
-                if (testData && cachedQuestions.length > 0) {
-                    setTest(testData as Test);
-                    setTimeLeft(testData.time_limit_minutes * 60);
-                    setIsOfflineMode(true);
-
-                    // Parse options
-                    const parsedQuestions = cachedQuestions.map((q: any) => ({
-                        ...q,
-                        options: typeof q.options === 'string' ? JSON.parse(q.options) : q.options,
-                        correct_answer: typeof q.correct_answer === 'string' ? JSON.parse(q.correct_answer) : q.correct_answer
-                    })).sort((a: any, b: any) => (a.order_index || 0) - (b.order_index || 0));
-
-                    setQuestions(parsedQuestions);
-                    setLoading(false);
-
-                    toast({
-                        title: 'Offline Mode',
-                        description: 'Test loaded from cache. Results will sync when online.',
-                    });
-                    return;
-                } else {
-                    console.log('Cache miss - testData:', !!testData, 'questions:', cachedQuestions.length);
-                    toast({
-                        title: 'Test not cached',
-                        description: `Found ${cachedTests.length} tests, ${cachedQuestions.length} questions. Visit tests page online first.`,
-                        variant: 'destructive',
-                    });
-                    navigate('/tests');
-                    return;
-                }
-            } catch (e) {
-                console.error('Cache read error:', e);
-                toast({
-                    title: 'Cache error',
-                    description: String(e),
-                    variant: 'destructive',
-                });
-                navigate('/tests');
-                return;
-            }
-        }
-
         try {
             // Fetch test info
             const { data: testData, error: testError } = await supabase
@@ -147,36 +91,6 @@ const TestRunner = () => {
 
             setQuestions(parsedQuestions);
         } catch (error: any) {
-            // Try cache on error
-            try {
-                const cachedTests = await getCachedTests();
-                const cachedQuestions = await getCachedQuestions(testId);
-
-                const testData = cachedTests.find((t: any) => t.id === testId);
-                if (testData && cachedQuestions.length > 0) {
-                    setTest(testData as Test);
-                    setTimeLeft(testData.time_limit_minutes * 60);
-                    setIsOfflineMode(true);
-
-                    const parsedQuestions = cachedQuestions.map((q: any) => ({
-                        ...q,
-                        options: typeof q.options === 'string' ? JSON.parse(q.options) : q.options,
-                        correct_answer: typeof q.correct_answer === 'string' ? JSON.parse(q.correct_answer) : q.correct_answer
-                    })).sort((a: any, b: any) => (a.order_index || 0) - (b.order_index || 0));
-
-                    setQuestions(parsedQuestions);
-
-                    toast({
-                        title: 'Using cached data',
-                        description: 'Could not connect to server.',
-                    });
-                    setLoading(false);
-                    return;
-                }
-            } catch (e) {
-                console.error('Cache fallback error:', e);
-            }
-
             toast({
                 title: 'Error loading test',
                 description: error.message,
@@ -234,86 +148,34 @@ const TestRunner = () => {
             const score = calculateScore();
             const timeTaken = (test.time_limit_minutes * 60) - timeLeft;
 
-            const attemptData = {
-                user_id: user.id,
-                test_id: test.id,
-                score: score,
-                total_questions: questions.length,
-                time_taken_seconds: timeTaken,
-                answers: answers
-            };
+            const { error } = await supabase
+                .from('user_test_attempts')
+                .insert({
+                    user_id: user.id,
+                    test_id: test.id,
+                    score: score,
+                    total_questions: questions.length,
+                    time_taken_seconds: timeTaken,
+                    answers: answers
+                });
 
-            // Store result in sessionStorage for results page
-            sessionStorage.setItem(`test-result-${test.id}`, JSON.stringify({
-                ...attemptData,
-                questions: questions,
-                isOffline: !navigator.onLine
-            }));
-
-            if (navigator.onLine) {
-                const { error } = await supabase
-                    .from('user_test_attempts')
-                    .insert(attemptData);
-
-                if (error) throw error;
-            } else {
-                // Queue for later sync
-                const pendingTests = JSON.parse(localStorage.getItem('pending-test-attempts') || '[]');
-                pendingTests.push({ ...attemptData, timestamp: Date.now() });
-                localStorage.setItem('pending-test-attempts', JSON.stringify(pendingTests));
-            }
+            if (error) throw error;
 
             toast({
                 title: autoSubmit ? "Time's up!" : "Test Completed",
-                description: navigator.onLine
-                    ? `You scored ${score} / ${questions.length}`
-                    : `You scored ${score} / ${questions.length}. Will sync when online.`,
+                description: `You scored ${score} / ${questions.length}`,
             });
 
             navigate(`/test/${test.id}/results`);
 
         } catch (error: any) {
             console.error('Submit error:', error);
-            // Still allow viewing results even on error
-            if (test) {
-                const score = calculateScore();
-                sessionStorage.setItem(`test-result-${test.id}`, JSON.stringify({
-                    user_id: user?.id,
-                    test_id: test.id,
-                    score: score,
-                    total_questions: questions.length,
-                    time_taken_seconds: (test.time_limit_minutes * 60) - timeLeft,
-                    answers: answers,
-                    questions: questions,
-                    isOffline: true
-                }));
-
-                // Queue for later sync
-                const pendingTests = JSON.parse(localStorage.getItem('pending-test-attempts') || '[]');
-                pendingTests.push({
-                    user_id: user?.id,
-                    test_id: test.id,
-                    score: score,
-                    total_questions: questions.length,
-                    time_taken_seconds: (test.time_limit_minutes * 60) - timeLeft,
-                    answers: answers,
-                    timestamp: Date.now()
-                });
-                localStorage.setItem('pending-test-attempts', JSON.stringify(pendingTests));
-
-                toast({
-                    title: 'Test saved locally',
-                    description: 'Results will sync when back online.',
-                });
-                navigate(`/test/${test.id}/results`);
-            } else {
-                toast({
-                    title: 'Error submitting test',
-                    description: 'Please try again.',
-                    variant: 'destructive'
-                });
-                setSubmitting(false);
-            }
+            toast({
+                title: 'Error submitting test',
+                description: 'Your progress has been saved locally. Please try again.',
+                variant: 'destructive'
+            });
+            setSubmitting(false);
         }
     };
 

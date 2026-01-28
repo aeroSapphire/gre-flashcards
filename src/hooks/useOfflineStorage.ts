@@ -314,9 +314,6 @@ export function useOfflineStorage() {
     lastSynced,
     cacheFlashcards,
     getCachedFlashcards,
-    cacheTests,
-    getCachedTests,
-    getCachedQuestions,
     // Offline progress
     queueProgressUpdate,
     getPendingUpdates,
