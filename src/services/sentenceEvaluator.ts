@@ -34,31 +34,34 @@ export async function evaluateSentence(
     console.log('Edge function response:', { data, error });
 
     if (error) {
-      console.error('Invoke Error Details:', {
-        name: error.name,
-        message: error.message,
-        status: (error as any).status,
-        context: (error as any).context,
-        cause: (error as any).cause
-      });
-      // Try to get more details from the error
-      const statusText = (error as any).status ? ` (Status: ${(error as any).status})` : '';
-      const errorMessage = error.message || 'Failed to evaluate sentence';
-      throw new Error(`${errorMessage}${statusText}`);
+      console.error('Invoke Error Details:', error);
+      throw new Error(error.message || 'Failed to evaluate sentence');
     }
 
     if (!data) {
-      throw new Error('No response from server');
+      throw new Error('No evaluation data received');
     }
 
-    if (data.error) {
-      throw new Error(data.error);
+    // Handle cases where data might be returned as a string rather than an object
+    let finalData = data;
+    if (typeof data === 'string') {
+      try {
+        finalData = JSON.parse(data);
+      } catch (e) {
+        console.error('Failed to parse data string:', data);
+        throw new Error('Invalid data format received from evaluation service');
+      }
+    }
+
+    // Check if the AI or function returned an inner error
+    if (finalData.error) {
+      throw new Error(finalData.error);
     }
 
     return {
-      isCorrect: data.isCorrect,
-      feedback: data.feedback,
-      suggestion: data.suggestion,
+      isCorrect: !!finalData.isCorrect,
+      feedback: finalData.feedback || 'No feedback provided',
+      suggestion: finalData.suggestion,
     };
   } catch (error: any) {
     console.error('Evaluation error:', error);
