@@ -109,7 +109,7 @@ const Index = () => {
         <div className="container max-w-2xl mx-auto px-4 py-8">
           <StudyMode
             cards={studyCards}
-            onMarkLearned={markAsLearned}
+            onMarkLearned={markAsLearning}
             onMarkLearning={markAsLearning}
             onExit={handleExitStudy}
             listName={studyListName}
@@ -242,7 +242,7 @@ const Index = () => {
                   >
                     <FlashcardItem
                       card={card}
-                      onMarkLearned={markAsLearned}
+                      onMarkLearned={markAsLearning}
                       onMarkLearning={markAsLearning}
                       onReset={resetCard}
                       onDelete={deleteCard}
