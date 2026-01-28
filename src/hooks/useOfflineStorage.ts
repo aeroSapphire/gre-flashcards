@@ -1,7 +1,20 @@
 import { useState, useEffect, useCallback } from 'react';
 
 const DB_NAME = 'gre-vocab-offline';
-const DB_VERSION = 1;
+const DB_VERSION = 2; // Bumped for new store
+
+export interface PendingProgressUpdate {
+  id: string;
+  flashcard_id: string;
+  status: 'new' | 'learning' | 'learned';
+  srsData?: {
+    next_review_at?: string | null;
+    interval?: number;
+    ease_factor?: number;
+    repetitions?: number;
+  };
+  timestamp: number;
+}
 
 interface OfflineDB {
   flashcards: any[];
@@ -33,6 +46,14 @@ function openDB(): Promise<IDBDatabase> {
       }
       if (!db.objectStoreNames.contains('metadata')) {
         db.createObjectStore('metadata', { keyPath: 'key' });
+      }
+      // Store for pending progress updates (offline queue)
+      if (!db.objectStoreNames.contains('pendingUpdates')) {
+        db.createObjectStore('pendingUpdates', { keyPath: 'id' });
+      }
+      // Store for local user progress (works offline)
+      if (!db.objectStoreNames.contains('userProgress')) {
+        db.createObjectStore('userProgress', { keyPath: 'flashcard_id' });
       }
     };
   });
@@ -172,6 +193,114 @@ export function useOfflineStorage() {
     }
   }, []);
 
+  // ========== OFFLINE PROGRESS MANAGEMENT ==========
+
+  // Add a pending progress update to the queue
+  const queueProgressUpdate = useCallback(async (update: Omit<PendingProgressUpdate, 'id' | 'timestamp'>) => {
+    try {
+      const db = await openDB();
+      const pendingUpdate: PendingProgressUpdate = {
+        ...update,
+        id: `${update.flashcard_id}-${Date.now()}`,
+        timestamp: Date.now(),
+      };
+
+      return new Promise<void>((resolve, reject) => {
+        const transaction = db.transaction('pendingUpdates', 'readwrite');
+        const store = transaction.objectStore('pendingUpdates');
+        const request = store.put(pendingUpdate);
+        request.onerror = () => reject(request.error);
+        request.onsuccess = () => {
+          console.log('Queued progress update for sync:', update.flashcard_id);
+          resolve();
+        };
+      });
+    } catch (error) {
+      console.error('Failed to queue progress update:', error);
+    }
+  }, []);
+
+  // Get all pending updates
+  const getPendingUpdates = useCallback(async (): Promise<PendingProgressUpdate[]> => {
+    try {
+      return await getAllFromStore<PendingProgressUpdate>('pendingUpdates');
+    } catch (error) {
+      console.error('Failed to get pending updates:', error);
+      return [];
+    }
+  }, []);
+
+  // Clear a pending update after successful sync
+  const clearPendingUpdate = useCallback(async (id: string) => {
+    try {
+      const db = await openDB();
+      return new Promise<void>((resolve, reject) => {
+        const transaction = db.transaction('pendingUpdates', 'readwrite');
+        const store = transaction.objectStore('pendingUpdates');
+        const request = store.delete(id);
+        request.onerror = () => reject(request.error);
+        request.onsuccess = () => resolve();
+      });
+    } catch (error) {
+      console.error('Failed to clear pending update:', error);
+    }
+  }, []);
+
+  // Clear all pending updates
+  const clearAllPendingUpdates = useCallback(async () => {
+    try {
+      const db = await openDB();
+      return new Promise<void>((resolve, reject) => {
+        const transaction = db.transaction('pendingUpdates', 'readwrite');
+        const store = transaction.objectStore('pendingUpdates');
+        const request = store.clear();
+        request.onerror = () => reject(request.error);
+        request.onsuccess = () => resolve();
+      });
+    } catch (error) {
+      console.error('Failed to clear all pending updates:', error);
+    }
+  }, []);
+
+  // Save user progress locally (for offline display)
+  const saveLocalProgress = useCallback(async (flashcardId: string, progress: any) => {
+    try {
+      const db = await openDB();
+      return new Promise<void>((resolve, reject) => {
+        const transaction = db.transaction('userProgress', 'readwrite');
+        const store = transaction.objectStore('userProgress');
+        const request = store.put({ flashcard_id: flashcardId, ...progress });
+        request.onerror = () => reject(request.error);
+        request.onsuccess = () => resolve();
+      });
+    } catch (error) {
+      console.error('Failed to save local progress:', error);
+    }
+  }, []);
+
+  // Get all local progress
+  const getLocalProgress = useCallback(async () => {
+    try {
+      return await getAllFromStore('userProgress');
+    } catch (error) {
+      console.error('Failed to get local progress:', error);
+      return [];
+    }
+  }, []);
+
+  // Cache user progress from server
+  const cacheUserProgress = useCallback(async (progressArray: any[]) => {
+    try {
+      await putAllToStore('userProgress', progressArray.map(p => ({
+        ...p,
+        flashcard_id: p.flashcard_id
+      })));
+      console.log(`Cached ${progressArray.length} progress records`);
+    } catch (error) {
+      console.error('Failed to cache user progress:', error);
+    }
+  }, []);
+
   return {
     isOnline,
     lastSynced,
@@ -180,6 +309,14 @@ export function useOfflineStorage() {
     cacheTests,
     getCachedTests,
     getCachedQuestions,
+    // Offline progress
+    queueProgressUpdate,
+    getPendingUpdates,
+    clearPendingUpdate,
+    clearAllPendingUpdates,
+    saveLocalProgress,
+    getLocalProgress,
+    cacheUserProgress,
   };
 }
 

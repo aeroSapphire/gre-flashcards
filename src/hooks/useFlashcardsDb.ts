@@ -64,7 +64,17 @@ export function useFlashcardsDb() {
   const [isLoaded, setIsLoaded] = useState(false);
   const { user } = useAuth();
   const { toast } = useToast();
-  const { isOnline, cacheFlashcards, getCachedFlashcards } = useOfflineStorage();
+  const {
+    isOnline,
+    cacheFlashcards,
+    getCachedFlashcards,
+    queueProgressUpdate,
+    getPendingUpdates,
+    clearPendingUpdate,
+    saveLocalProgress,
+    getLocalProgress,
+    cacheUserProgress,
+  } = useOfflineStorage();
 
   // Fetch cards from database (with offline fallback)
   const fetchCards = useCallback(async () => {
@@ -148,26 +158,82 @@ export function useFlashcardsDb() {
     setLists(data as FlashcardList[]);
   }, [toast]);
 
-  // Fetch current user's progress
+  // Fetch current user's progress (with offline fallback)
   const fetchMyProgress = useCallback(async () => {
     if (!user) return;
 
-    const { data, error } = await supabase
-      .from('user_word_progress')
-      .select('*')
-      .eq('user_id', user.id);
+    const currentlyOnline = navigator.onLine;
 
-    if (error) {
-      console.error('Error loading progress:', error);
+    if (!currentlyOnline) {
+      // Load from local IndexedDB when offline
+      try {
+        const localProgress = await getLocalProgress();
+        if (localProgress.length > 0) {
+          const progressMap = new Map<string, UserProgress>();
+          localProgress.forEach((p: any) => {
+            progressMap.set(p.flashcard_id, {
+              user_id: user.id,
+              flashcard_id: p.flashcard_id,
+              status: p.status,
+              next_review_at: p.next_review_at,
+              interval: p.interval,
+              ease_factor: p.ease_factor,
+              repetitions: p.repetitions,
+            } as UserProgress);
+          });
+          setMyProgress(progressMap);
+          console.log(`Loaded ${localProgress.length} progress records from local storage`);
+        }
+      } catch (e) {
+        console.error('Error loading local progress:', e);
+      }
       return;
     }
 
-    const progressMap = new Map<string, UserProgress>();
-    data?.forEach((p) => {
-      progressMap.set(p.flashcard_id, p as UserProgress);
-    });
-    setMyProgress(progressMap);
-  }, [user]);
+    try {
+      const { data, error } = await supabase
+        .from('user_word_progress')
+        .select('*')
+        .eq('user_id', user.id);
+
+      if (error) throw error;
+
+      const progressMap = new Map<string, UserProgress>();
+      data?.forEach((p) => {
+        progressMap.set(p.flashcard_id, p as UserProgress);
+      });
+      setMyProgress(progressMap);
+
+      // Cache progress to IndexedDB for offline use
+      if (data && data.length > 0) {
+        await cacheUserProgress(data);
+        console.log(`Cached ${data.length} progress records for offline use`);
+      }
+    } catch (error: any) {
+      console.error('Error loading progress, trying local storage:', error);
+      // Try local storage on error
+      try {
+        const localProgress = await getLocalProgress();
+        if (localProgress.length > 0) {
+          const progressMap = new Map<string, UserProgress>();
+          localProgress.forEach((p: any) => {
+            progressMap.set(p.flashcard_id, {
+              user_id: user.id,
+              flashcard_id: p.flashcard_id,
+              status: p.status,
+              next_review_at: p.next_review_at,
+              interval: p.interval,
+              ease_factor: p.ease_factor,
+              repetitions: p.repetitions,
+            } as UserProgress);
+          });
+          setMyProgress(progressMap);
+        }
+      } catch (e) {
+        console.error('Local storage fallback error:', e);
+      }
+    }
+  }, [user, getLocalProgress, cacheUserProgress]);
 
   // Fetch all users' progress (for social features)
   const fetchAllProgress = useCallback(async () => {
@@ -277,6 +343,69 @@ export function useFlashcardsDb() {
 
     return () => {
       supabase.removeChannel(channel);
+    };
+  }, [user, fetchCards, fetchLists, fetchAllProgress, fetchAllProfiles]);
+
+  // Sync pending updates when coming back online
+  const syncPendingUpdates = useCallback(async () => {
+    if (!user) return;
+
+    const pendingUpdates = await getPendingUpdates();
+    if (pendingUpdates.length === 0) return;
+
+    console.log(`Syncing ${pendingUpdates.length} pending updates...`);
+
+    let syncedCount = 0;
+    for (const update of pendingUpdates) {
+      try {
+        const { error } = await supabase.from('user_word_progress').upsert(
+          {
+            user_id: user.id,
+            flashcard_id: update.flashcard_id,
+            status: update.status,
+            ...update.srsData,
+            last_reviewed_at: new Date(update.timestamp).toISOString(),
+            updated_at: new Date().toISOString(),
+          },
+          { onConflict: 'user_id,flashcard_id' }
+        );
+
+        if (!error) {
+          await clearPendingUpdate(update.id);
+          syncedCount++;
+        }
+      } catch (e) {
+        console.error('Failed to sync update:', e);
+      }
+    }
+
+    if (syncedCount > 0) {
+      toast({
+        title: 'Progress synced!',
+        description: `${syncedCount} update${syncedCount > 1 ? 's' : ''} synced to server.`,
+      });
+      // Refresh data from server
+      fetchMyProgress();
+      fetchAllProgress();
+    }
+  }, [user, getPendingUpdates, clearPendingUpdate, toast, fetchMyProgress, fetchAllProgress]);
+
+  // Listen for online status changes and sync when back online
+  useEffect(() => {
+    const handleOnline = () => {
+      console.log('Back online, syncing pending updates...');
+      syncPendingUpdates();
+    };
+
+    window.addEventListener('online', handleOnline);
+
+    // Also sync on initial load if online
+    if (navigator.onLine) {
+      syncPendingUpdates();
+    }
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
     };
   }, [user, fetchCards, fetchLists, fetchAllProgress, fetchAllProfiles]);
 
@@ -430,6 +559,15 @@ export function useFlashcardsDb() {
   const updateProgress = async (flashcardId: string, status: 'new' | 'learning' | 'learned', srsUpdates?: Partial<UserProgress>) => {
     if (!user) return;
 
+    const progressData = {
+      user_id: user.id,
+      flashcard_id: flashcardId,
+      status,
+      ...srsUpdates,
+      last_reviewed_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    };
+
     // Optimistic update - update local state immediately
     setMyProgress((prev) => {
       const next = new Map(prev);
@@ -456,6 +594,32 @@ export function useFlashcardsDb() {
       );
     }
 
+    // Save to local IndexedDB for offline persistence
+    await saveLocalProgress(flashcardId, progressData);
+
+    // Check if we're online
+    const currentlyOnline = navigator.onLine;
+
+    if (!currentlyOnline) {
+      // Queue update for later sync
+      await queueProgressUpdate({
+        flashcard_id: flashcardId,
+        status,
+        srsData: srsUpdates ? {
+          next_review_at: srsUpdates.next_review_at,
+          interval: srsUpdates.interval,
+          ease_factor: srsUpdates.ease_factor,
+          repetitions: srsUpdates.repetitions,
+        } : undefined,
+      });
+
+      toast({
+        title: status === 'learned' ? 'Marked as learned!' : status === 'learning' ? 'Keep practicing!' : 'Reset to new',
+        description: 'Saved offline. Will sync when back online.',
+      });
+      return;
+    }
+
     // Show feedback
     toast({
       title: status === 'learned' ? 'Marked as learned!' : status === 'learning' ? 'Keep practicing!' : 'Reset to new',
@@ -464,25 +628,26 @@ export function useFlashcardsDb() {
 
     // Upsert progress to database
     const { error } = await supabase.from('user_word_progress').upsert(
-      {
-        user_id: user.id,
-        flashcard_id: flashcardId,
-        status,
-        ...srsUpdates,
-        last_reviewed_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      },
+      progressData,
       { onConflict: 'user_id,flashcard_id' }
     );
 
     if (error) {
-      // Revert optimistic update on error
-      fetchMyProgress();
-      fetchAllProgress();
+      // Queue for later sync instead of reverting
+      await queueProgressUpdate({
+        flashcard_id: flashcardId,
+        status,
+        srsData: srsUpdates ? {
+          next_review_at: srsUpdates.next_review_at,
+          interval: srsUpdates.interval,
+          ease_factor: srsUpdates.ease_factor,
+          repetitions: srsUpdates.repetitions,
+        } : undefined,
+      });
+
       toast({
-        title: 'Error updating progress',
-        description: error.message,
-        variant: 'destructive',
+        title: 'Saved locally',
+        description: 'Will sync when connection is restored.',
       });
     }
   };
