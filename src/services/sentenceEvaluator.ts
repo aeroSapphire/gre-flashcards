@@ -3,8 +3,10 @@ import { supabase } from '@/integrations/supabase/client';
 
 const PRACTICE_ENABLED_KEY = 'gre-vocab-sentence-practice-enabled';
 
+import { SRSRating } from '@/utils/srs';
+
 export interface EvaluationResult {
-  isCorrect: boolean;
+  rating: SRSRating;
   feedback: string;
   suggestion?: string;
 }
@@ -58,8 +60,12 @@ export async function evaluateSentence(
       throw new Error(finalData.error);
     }
 
+    // Validate rating is one of the expected values
+    const validRatings: SRSRating[] = ['again', 'hard', 'good', 'easy'];
+    const rating = validRatings.includes(finalData.rating) ? finalData.rating : 'hard';
+
     return {
-      isCorrect: !!finalData.isCorrect,
+      rating,
       feedback: finalData.feedback || 'No feedback provided',
       suggestion: finalData.suggestion,
     };

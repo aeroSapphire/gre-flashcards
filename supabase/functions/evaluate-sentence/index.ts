@@ -5,122 +5,93 @@ const corsHeaders = {
 };
 
 Deno.serve(async (req: Request) => {
-  // Always log invocation
-  console.log(`Function called with method: ${req.method}`);
-
-  // Handle CORS preflight
   if (req.method === "OPTIONS") {
-    return new Response(null, {
-      status: 204,
-      headers: corsHeaders
-    });
+    return new Response(null, { status: 204, headers: corsHeaders });
   }
 
   try {
-    const geminiApiKey = Deno.env.get("GEMINI_API_KEY");
+    let geminiApiKey = Deno.env.get("GEMINI_API_KEY");
     if (!geminiApiKey) {
-      console.error("CRITICAL: GEMINI_API_KEY is missing from environment variables.");
       return new Response(
-        JSON.stringify({ error: "API Key missing. Please add GEMINI_API_KEY to Supabase Project Secrets." }),
+        JSON.stringify({ error: "Missing API Key" }),
+        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+    geminiApiKey = geminiApiKey.trim();
+
+    const body = await req.json().catch(() => null);
+    if (!body) {
+      return new Response(
+        JSON.stringify({ error: "No body" }),
         { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
-    const body = await req.json().catch(e => {
-      console.error("JSON Parse Error:", e);
-      return null;
-    });
-
-    if (!body) {
-      return new Response(JSON.stringify({ error: "Invalid JSON body" }), {
-        status: 200,
-        headers: { ...corsHeaders, "Content-Type": "application/json" }
-      });
-    }
-
     const { word, definition, sentence } = body;
-    console.log(`Evaluating word: ${word}`);
 
-    const prompt = `You are evaluating whether a GRE student correctly understands and uses a vocabulary word.
+    const prompt = `You are evaluating a GRE student's understanding of a vocabulary word based on the sentence they wrote.
 
 Word: "${word}"
 Definition: "${definition}"
 Student's sentence: "${sentence}"
 
-Evaluate if the student's sentence demonstrates correct understanding and usage of the word "${word}".
+Rate the student's understanding and assign an SRS rating:
+- "again": Sentence is wrong, doesn't use the word, or shows misunderstanding
+- "hard": Sentence is technically correct but awkward, vague, or shows weak understanding
+- "good": Sentence correctly demonstrates understanding of the word
+- "easy": Sentence shows excellent, nuanced understanding with sophisticated usage
 
-Respond ONLY with valid JSON (no markdown, no code blocks):
-{"isCorrect": true, "feedback": "Your explanation", "suggestion": null}
-or
-{"isCorrect": false, "feedback": "Your explanation", "suggestion": "Correct usage example"}`;
+Respond ONLY with valid JSON:
+{"rating": "again"|"hard"|"good"|"easy", "feedback": "brief encouraging feedback", "suggestion": "example sentence if rating is again or hard, otherwise null"}`;
 
-    const geminiResponse = await fetch(
-      `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash-latest:generateContent?key=${geminiApiKey}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
-          generationConfig: { temperature: 0.3, maxOutputTokens: 300 },
-          safetySettings: [
-            { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" },
-            { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_NONE" },
-            { category: "HARM_CATEGORY_SEXUALLY_EXPLICIT", threshold: "BLOCK_NONE" },
-            { category: "HARM_CATEGORY_DANGEROUS_CONTENT", threshold: "BLOCK_NONE" },
-          ]
-        }),
-      }
-    );
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${geminiApiKey}`;
 
-    if (!geminiResponse.ok) {
-      const errorData = await geminiResponse.text();
-      console.error(`Gemini Error (${geminiResponse.status}):`, errorData);
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: {
+          temperature: 0.2,
+          response_mime_type: "application/json"
+        }
+      })
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
       return new Response(
-        JSON.stringify({
-          error: `Gemini API Error: ${geminiResponse.status}`,
-          details: errorData.substring(0, 100)
-        }),
+        JSON.stringify({ error: `Gemini Error ${response.status}`, details: errorText }),
         { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
-    const data = await geminiResponse.json();
-    const content = data.candidates?.[0]?.content?.parts?.[0]?.text;
+    const data = await response.json();
+    const content = data.candidates?.[0]?.content?.parts?.[0]?.text || "{}";
 
-    if (!content) {
-      return new Response(JSON.stringify({ error: "AI returned empty response" }), {
-        status: 200,
-        headers: { ...corsHeaders, "Content-Type": "application/json" }
-      });
-    }
-
-    // Try to extract JSON
+    // Clean and Parse AI response
     let result;
     try {
+      // Find the JSON object in case AI wrapped it in markdown
       const jsonMatch = content.match(/\{[\s\S]*\}/);
       result = JSON.parse(jsonMatch ? jsonMatch[0] : content);
     } catch (e) {
-      console.error("Result Parse Error:", content);
-      return new Response(JSON.stringify({ error: "Failed to parse AI response", raw: content.substring(0, 100) }), {
-        status: 200,
-        headers: { ...corsHeaders, "Content-Type": "application/json" }
-      });
+      result = { error: "Parse error", raw: content };
     }
 
+    // CRITICAL: Ensure we return an object, not a string
     return new Response(
-      JSON.stringify({
-        isCorrect: !!result.isCorrect,
-        feedback: result.feedback || "Checked!",
-        suggestion: result.suggestion || null
-      }),
-      { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      JSON.stringify(result),
+      {
+        status: 200,
+        headers: { ...corsHeaders, "Content-Type": "application/json" }
+      }
     );
 
   } catch (err: any) {
-    console.error("Global Catch Error:", err);
-    return new Response(JSON.stringify({ error: err.message || "Internal server error" }), {
-      status: 200,
-      headers: { ...corsHeaders, "Content-Type": "application/json" }
-    });
+    return new Response(
+      JSON.stringify({ error: err.message }),
+      { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+    );
   }
 });
