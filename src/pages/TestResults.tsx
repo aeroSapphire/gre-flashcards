@@ -30,7 +30,36 @@ const TestResults = () => {
 
     useEffect(() => {
         const fetchResults = async () => {
-            // Get latest attempt
+            // First check for sessionStorage result (from just-completed test or offline)
+            const sessionResult = sessionStorage.getItem(`test-result-${testId}`);
+            if (sessionResult) {
+                try {
+                    const parsed = JSON.parse(sessionResult);
+                    setAttempt({
+                        score: parsed.score,
+                        total_questions: parsed.total_questions,
+                        time_taken_seconds: parsed.time_taken_seconds,
+                        answers: parsed.answers,
+                    });
+                    if (parsed.questions) {
+                        setQuestions(parsed.questions);
+                    }
+                    setLoading(false);
+                    // Clear sessionStorage after reading
+                    sessionStorage.removeItem(`test-result-${testId}`);
+                    return;
+                } catch (e) {
+                    console.error('Error parsing session result:', e);
+                }
+            }
+
+            // If offline and no session data, show error
+            if (!navigator.onLine) {
+                setLoading(false);
+                return;
+            }
+
+            // Get latest attempt from server
             const { data: attemptData } = await supabase
                 .from('user_test_attempts')
                 .select('*')
