@@ -554,17 +554,18 @@ export function useFlashcardsDb() {
   };
 
   const markAsLearned = (id: string) => {
-    updateProgress(id, 'learned');
-  };
-
-  const markAsLearning = (id: string) => {
-    // Set next_review_at to NOW so the card appears immediately in SRS queue
-    updateProgress(id, 'learning', {
+    // Mark as learned AND set next_review_at to NOW so it appears in SRS queue
+    updateProgress(id, 'learned', {
       next_review_at: new Date().toISOString(),
       interval: 0,
       ease_factor: 2.5,
       repetitions: 0
     });
+  };
+
+  const markAsLearning = (id: string) => {
+    // Mark as still learning (not mastered yet)
+    updateProgress(id, 'learning');
   };
 
   const resetCard = (id: string) => {
@@ -586,30 +587,25 @@ export function useFlashcardsDb() {
       repetitions: currentProgress.repetitions || 0
     } : undefined);
 
-    // Determine basic status based on repetitions/interval
-    // If it's 'again', it's definitely 'learning'.
-    // If it's 'easy' or high interval, we can consider it 'learned' for the counters.
-    // Logic: If repetitions >= 3, consider it "learned" for stats purposes, but keep reviewing.
-    let newStatus: 'learning' | 'learned' = 'learning';
-    if (state.repetitions >= 3) {
-      newStatus = 'learned';
-    }
+    // SRS ratings only affect WHEN the card appears next, NOT the learned status
+    // Keep the current status (should be 'learned') - don't change it based on rating
+    const currentStatus = currentProgress?.status || 'learned';
 
-    await updateProgress(cardId, newStatus, {
+    await updateProgress(cardId, currentStatus, {
       ...state,
       next_review_at: nextReviewDate.toISOString()
     });
   };
 
   // True Spaced Repetition: Get cards that are DUE for review
-  // A card is due if: status is 'learning' AND next_review_at <= now
+  // A card is due if: status is 'learned' AND next_review_at <= now
   const dueCards = useMemo(() => {
     const now = new Date();
 
-    // Filter to only cards that are due for review
+    // Filter to only LEARNED cards that are due for review
     const dueForReview = cardsWithProgress.filter(card => {
-      // Must be in learning status (user marked as "Got it")
-      if (card.status !== 'learning') return false;
+      // Must be marked as "learned" (user clicked "Got it")
+      if (card.status !== 'learned') return false;
 
       // If no review date set, it's due immediately
       if (!card.next_review_at) return true;

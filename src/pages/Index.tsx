@@ -109,7 +109,7 @@ const Index = () => {
         <div className="container max-w-2xl mx-auto px-4 py-8">
           <StudyMode
             cards={studyCards}
-            onMarkLearned={markAsLearning}
+            onMarkLearned={markAsLearned}
             onMarkLearning={markAsLearning}
             onExit={handleExitStudy}
             listName={studyListName}
@@ -242,7 +242,7 @@ const Index = () => {
                   >
                     <FlashcardItem
                       card={card}
-                      onMarkLearned={markAsLearning}
+                      onMarkLearned={markAsLearned}
                       onMarkLearning={markAsLearning}
                       onReset={resetCard}
                       onDelete={deleteCard}
@@ -326,7 +326,7 @@ const Index = () => {
         </div>
 
         {/* Spaced Repetition Review */}
-        {(dueCards.length > 0 || stats.learning > 0) && (
+        {(dueCards.length > 0 || stats.learned > 0) && (
           <div className="mb-8">
             <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl border border-primary/20 p-6">
               <div className="flex items-center justify-between">
