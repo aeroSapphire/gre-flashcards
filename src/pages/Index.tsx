@@ -111,6 +111,7 @@ const Index = () => {
             cards={studyCards}
             onMarkLearned={markAsLearned}
             onMarkLearning={markAsLearning}
+            onUpdateCard={updateCard}
             onExit={handleExitStudy}
             listName={studyListName}
           />
@@ -376,9 +377,9 @@ const Index = () => {
                   >
                     <div className="flex items-center gap-3">
                       <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${index === 0 ? 'bg-yellow-500 text-yellow-950' :
-                          index === 1 ? 'bg-gray-400 text-gray-950' :
-                            index === 2 ? 'bg-amber-600 text-amber-950' :
-                              'bg-muted text-muted-foreground'
+                        index === 1 ? 'bg-gray-400 text-gray-950' :
+                          index === 2 ? 'bg-amber-600 text-amber-950' :
+                            'bg-muted text-muted-foreground'
                         }`}>
                         {index + 1}
                       </span>

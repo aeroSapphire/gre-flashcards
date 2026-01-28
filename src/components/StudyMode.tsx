@@ -4,16 +4,18 @@ import { Check, ArrowLeft, ArrowRight, RotateCcw, Sparkles } from 'lucide-react'
 import { FlashcardWithProgress } from '@/hooks/useFlashcardsDb';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
+import { generateExamples } from '@/services/sentenceEvaluator';
 
 interface StudyModeProps {
   cards: FlashcardWithProgress[];
   onMarkLearned: (id: string) => void;
   onMarkLearning: (id: string) => void;
+  onUpdateCard?: (id: string, updates: any) => void;
   onExit: () => void;
   listName?: string;
 }
 
-export function StudyMode({ cards, onMarkLearned, onMarkLearning, onExit, listName }: StudyModeProps) {
+export function StudyMode({ cards, onMarkLearned, onMarkLearning, onUpdateCard, onExit, listName }: StudyModeProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   const [completed, setCompleted] = useState<Set<string>>(new Set());
@@ -25,6 +27,24 @@ export function StudyMode({ cards, onMarkLearned, onMarkLearning, onExit, listNa
 
   const currentCard = studyCards[currentIndex];
   const progress = studyCards.length > 0 ? (completed.size / studyCards.length) * 100 : 0;
+
+  const handleFlip = async () => {
+    const newFlipped = !isFlipped;
+    setIsFlipped(newFlipped);
+
+    // Auto-generate example if missing when flipping to back
+    if (newFlipped && currentCard && !currentCard.example && onUpdateCard) {
+      console.log("Generating missing example for:", currentCard.word);
+      try {
+        const examples = await generateExamples(currentCard.word, currentCard.definition);
+        if (examples.length > 0) {
+          onUpdateCard(currentCard.id, { example: examples[0] });
+        }
+      } catch (error) {
+        console.error("Failed to auto-generate example:", error);
+      }
+    }
+  };
 
   const handleNext = () => {
     setIsFlipped(false);
@@ -73,7 +93,7 @@ export function StudyMode({ cards, onMarkLearned, onMarkLearning, onExit, listNa
           All cards mastered!
         </h2>
         <p className="text-muted-foreground mb-6 max-w-md">
-          {listName 
+          {listName
             ? `You've learned all vocabulary cards in "${listName}". Great work!`
             : "You've learned all your vocabulary cards. Add more words to continue your GRE prep journey."}
         </p>
@@ -122,7 +142,7 @@ export function StudyMode({ cards, onMarkLearned, onMarkLearning, onExit, listNa
             <div className="perspective-1000">
               <motion.div
                 className="relative w-full min-h-80 cursor-pointer preserve-3d"
-                onClick={() => setIsFlipped(!isFlipped)}
+                onClick={handleFlip}
                 animate={{ rotateY: isFlipped ? 180 : 0 }}
                 transition={{ duration: 0.6, type: 'spring', stiffness: 100 }}
                 style={{ transformStyle: 'preserve-3d' }}
