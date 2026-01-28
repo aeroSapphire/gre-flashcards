@@ -34,11 +34,17 @@ export async function evaluateSentence(
     console.log('Edge function response:', { data, error });
 
     if (error) {
-      console.error('Edge function error:', error);
+      console.error('Invoke Error Details:', {
+        name: error.name,
+        message: error.message,
+        status: (error as any).status,
+        context: (error as any).context,
+        cause: (error as any).cause
+      });
       // Try to get more details from the error
+      const statusText = (error as any).status ? ` (Status: ${(error as any).status})` : '';
       const errorMessage = error.message || 'Failed to evaluate sentence';
-      const errorContext = error.context ? JSON.stringify(error.context) : '';
-      throw new Error(`${errorMessage}${errorContext ? ` - ${errorContext}` : ''}`);
+      throw new Error(`${errorMessage}${statusText}`);
     }
 
     if (!data) {
