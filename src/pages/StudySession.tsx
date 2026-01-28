@@ -56,11 +56,16 @@ export default function StudySession() {
     // Fetch past evaluations when card changes
     useEffect(() => {
         if (currentCard) {
-            getEvaluationsForCard(currentCard.id).then(evals => {
-                // Filter out current user's evaluations
-                const othersEvals = evals.filter(e => e.user_id !== user?.id);
-                setPastEvaluations(othersEvals);
-            });
+            getEvaluationsForCard(currentCard.id)
+                .then(evals => {
+                    // Filter out current user's evaluations
+                    const othersEvals = evals.filter(e => e.user_id !== user?.id);
+                    setPastEvaluations(othersEvals);
+                })
+                .catch(() => {
+                    // Table might not exist yet, ignore error
+                    setPastEvaluations([]);
+                });
         }
     }, [currentCard?.id, user?.id]);
 

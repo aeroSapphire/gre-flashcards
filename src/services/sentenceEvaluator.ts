@@ -113,20 +113,25 @@ export async function saveEvaluation(
 }
 
 export async function getEvaluationsForCard(flashcardId: string): Promise<SavedEvaluation[]> {
-  const { data, error } = await supabase
-    .from('sentence_evaluations')
-    .select(`
-      *,
-      profile:profiles!user_id(display_name)
-    `)
-    .eq('flashcard_id', flashcardId)
-    .order('created_at', { ascending: false })
-    .limit(10);
+  try {
+    const { data, error } = await supabase
+      .from('sentence_evaluations')
+      .select(`
+        *,
+        profile:profiles(display_name)
+      `)
+      .eq('flashcard_id', flashcardId)
+      .order('created_at', { ascending: false })
+      .limit(10);
 
-  if (error) {
-    console.error('Failed to fetch evaluations:', error);
+    if (error) {
+      console.error('Failed to fetch evaluations:', error);
+      return [];
+    }
+
+    return data || [];
+  } catch (e) {
+    console.error('Error fetching evaluations:', e);
     return [];
   }
-
-  return data || [];
 }
