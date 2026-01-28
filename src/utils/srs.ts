@@ -1,5 +1,5 @@
 export interface SRSState {
-    interval: number; // in days
+    interval: number; // in minutes for short intervals, converted to days for longer ones
     ease_factor: number;
     repetitions: number;
 }
@@ -12,46 +12,60 @@ export const INITIAL_SRS_STATE: SRSState = {
     repetitions: 0,
 };
 
+// Interval thresholds in minutes
+const MINUTE = 1;
+const HOUR = 60;
+const DAY = 24 * 60; // 1440 minutes
+
 export function calculateNextReview(
     rating: SRSRating,
     currentState: SRSState = INITIAL_SRS_STATE
-): { state: SRSState; nextReviewDate: Date } {
+): { state: SRSState; nextReviewDate: Date; intervalDisplay: string } {
     let { interval, ease_factor, repetitions } = currentState;
 
+    // Calculate new interval based on rating
     if (rating === 'again') {
+        // Reset - show again in 1 minute (for learning), or 10 minutes if was longer
         repetitions = 0;
-        interval = 1; // Reset to 1 day
+        interval = interval > 10 ? 10 : 1; // 1-10 minutes
         ease_factor = Math.max(1.3, ease_factor - 0.2);
     } else if (rating === 'hard') {
         repetitions += 1;
-        interval = interval === 0 ? 1 : interval * 1.2;
+        if (interval === 0) {
+            interval = 10; // 10 minutes
+        } else if (interval < DAY) {
+            interval = Math.max(interval * 1.2, interval + 10); // At least 10 min more
+        } else {
+            interval = Math.round(interval * 1.2);
+        }
         ease_factor = Math.max(1.3, ease_factor - 0.15);
     } else if (rating === 'good') {
         repetitions += 1;
         if (interval === 0) {
-            interval = 1;
-        } else if (repetitions === 1) {
-            interval = 6;
+            interval = DAY; // 1 day
+        } else if (interval < DAY) {
+            interval = DAY * 3; // Jump to 3 days
         } else {
             interval = Math.round(interval * ease_factor);
         }
-        // Ease factor stays the same for 'good'
     } else if (rating === 'easy') {
         repetitions += 1;
         if (interval === 0) {
-            interval = 4;
-        } else if (repetitions === 1) {
-            interval = 10; // Jumpstart
+            interval = DAY * 4; // 4 days
+        } else if (interval < DAY) {
+            interval = DAY * 7; // Jump to 7 days
         } else {
             interval = Math.round(interval * ease_factor * 1.3);
         }
-        ease_factor += 0.15;
+        ease_factor = Math.min(3.0, ease_factor + 0.15);
     }
 
-    // Calculate specific date
+    // Calculate next review date
     const nextReviewDate = new Date();
-    nextReviewDate.setDate(nextReviewDate.getDate() + interval);
-    // Normalize to start of day potentially, but exact time is fine for now
+    nextReviewDate.setMinutes(nextReviewDate.getMinutes() + interval);
+
+    // Generate human-readable interval display
+    const intervalDisplay = formatInterval(interval);
 
     return {
         state: {
@@ -60,5 +74,34 @@ export function calculateNextReview(
             repetitions,
         },
         nextReviewDate,
+        intervalDisplay,
+    };
+}
+
+// Format interval for display
+export function formatInterval(minutes: number): string {
+    if (minutes < 60) {
+        return `${minutes}m`;
+    } else if (minutes < DAY) {
+        const hours = Math.round(minutes / 60);
+        return `${hours}h`;
+    } else {
+        const days = Math.round(minutes / DAY);
+        return `${days}d`;
+    }
+}
+
+// Get preview of what intervals each rating would give
+export function getIntervalPreviews(currentState: SRSState = INITIAL_SRS_STATE): {
+    again: string;
+    hard: string;
+    good: string;
+    easy: string;
+} {
+    return {
+        again: calculateNextReview('again', currentState).intervalDisplay,
+        hard: calculateNextReview('hard', currentState).intervalDisplay,
+        good: calculateNextReview('good', currentState).intervalDisplay,
+        easy: calculateNextReview('easy', currentState).intervalDisplay,
     };
 }

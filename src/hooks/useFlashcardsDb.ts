@@ -558,7 +558,13 @@ export function useFlashcardsDb() {
   };
 
   const markAsLearning = (id: string) => {
-    updateProgress(id, 'learning');
+    // Set next_review_at to NOW so the card appears immediately in SRS queue
+    updateProgress(id, 'learning', {
+      next_review_at: new Date().toISOString(),
+      interval: 0,
+      ease_factor: 2.5,
+      repetitions: 0
+    });
   };
 
   const resetCard = (id: string) => {
@@ -595,16 +601,31 @@ export function useFlashcardsDb() {
     });
   };
 
+  // True Spaced Repetition: Get cards that are DUE for review
+  // A card is due if: status is 'learning' AND next_review_at <= now
   const dueCards = useMemo(() => {
     const now = new Date();
-    return cardsWithProgress.filter(card => {
-      // If it's new, it's not "due" in the strict sense, but available for study.
-      // But usually "due" means previously studied and now expired.
-      // We'll separate "New Cards" from "Reviews".
-      if (card.status === 'new') return false;
-      if (!card.next_review_at) return true; // Safety fallback
+
+    // Filter to only cards that are due for review
+    const dueForReview = cardsWithProgress.filter(card => {
+      // Must be in learning status (user marked as "Got it")
+      if (card.status !== 'learning') return false;
+
+      // If no review date set, it's due immediately
+      if (!card.next_review_at) return true;
+
+      // Check if the review date has passed
       return new Date(card.next_review_at) <= now;
     });
+
+    // Shuffle the due cards for randomized review using Fisher-Yates algorithm
+    const shuffled = [...dueForReview];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+
+    return shuffled;
   }, [cardsWithProgress]);
 
   const renameList = async (listId: string, newName: string) => {

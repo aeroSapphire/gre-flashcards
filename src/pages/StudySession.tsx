@@ -6,7 +6,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { ArrowLeft, CheckCircle2, RefreshCcw, Clock, Trophy } from 'lucide-react';
-import { SRSRating } from '@/utils/srs';
+import { SRSRating, getIntervalPreviews, INITIAL_SRS_STATE } from '@/utils/srs';
 
 export default function StudySession() {
     const navigate = useNavigate();
@@ -17,11 +17,19 @@ export default function StudySession() {
         reviewed: 0,
         correct: 0,
     });
+    // Capture the study queue once when the session starts
+    // This prevents re-shuffling during the session
+    const [studyQueue, setStudyQueue] = useState<FlashcardWithProgress[]>([]);
+    const [sessionInitialized, setSessionInitialized] = useState(false);
 
-    // Filter due cards to ensure we only study what's needed
-    // We might want to shuffle them or prioritize "Again" cards?
-    // For now, simple list.
-    const studyQueue = dueCards;
+    // Initialize the study queue once when cards are loaded
+    useEffect(() => {
+        if (isLoaded && !sessionInitialized && dueCards.length > 0) {
+            setStudyQueue(dueCards);
+            setSessionInitialized(true);
+        }
+    }, [isLoaded, dueCards, sessionInitialized]);
+
     const currentCard = studyQueue[currentCardIndex];
     const progress = studyQueue.length > 0 ? ((currentCardIndex) / studyQueue.length) * 100 : 100;
 
@@ -50,7 +58,7 @@ export default function StudySession() {
         }
     };
 
-    if (!isLoaded) {
+    if (!isLoaded || (!sessionInitialized && dueCards.length > 0)) {
         return (
             <div className="flex items-center justify-center min-h-screen bg-background">
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
@@ -58,7 +66,8 @@ export default function StudySession() {
         );
     }
 
-    if (studyQueue.length === 0) {
+    // Show "all caught up" only if there are no learning cards at all
+    if (studyQueue.length === 0 && dueCards.length === 0) {
         return (
             <div className="container max-w-md mx-auto py-12 px-4 text-center">
                 <div className="mb-8 flex justify-center">
@@ -185,47 +194,57 @@ export default function StudySession() {
             </main>
 
             {/* Controls */}
-            {isFlipped && (
-                <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/80 backdrop-blur-md border-t animate-in slide-in-from-bottom duration-300">
-                    <div className="container max-w-2xl mx-auto grid grid-cols-4 gap-2 md:gap-4">
-                        <Button
-                            variant="outline"
-                            className="flex flex-col h-auto py-3 gap-1 hover:bg-red-100 hover:text-red-700 hover:border-red-200 dark:hover:bg-red-900/30"
-                            onClick={() => handleRate('again')}
-                        >
-                            <span className="font-bold text-base">Again</span>
-                            <span className="text-[10px] text-muted-foreground font-normal">1m, &lt;1d</span>
-                        </Button>
+            {isFlipped && currentCard && (() => {
+                // Get interval previews based on current card's SRS state
+                const cardState = {
+                    interval: currentCard.interval || 0,
+                    ease_factor: currentCard.ease_factor || 2.5,
+                    repetitions: currentCard.repetition || 0,
+                };
+                const previews = getIntervalPreviews(cardState);
 
-                        <Button
-                            variant="outline"
-                            className="flex flex-col h-auto py-3 gap-1 hover:bg-orange-100 hover:text-orange-700 hover:border-orange-200 dark:hover:bg-orange-900/30"
-                            onClick={() => handleRate('hard')}
-                        >
-                            <span className="font-bold text-base">Hard</span>
-                            <span className="text-[10px] text-muted-foreground font-normal">2d</span>
-                        </Button>
+                return (
+                    <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/80 backdrop-blur-md border-t animate-in slide-in-from-bottom duration-300">
+                        <div className="container max-w-2xl mx-auto grid grid-cols-4 gap-2 md:gap-4">
+                            <Button
+                                variant="outline"
+                                className="flex flex-col h-auto py-3 gap-1 hover:bg-red-100 hover:text-red-700 hover:border-red-200 dark:hover:bg-red-900/30"
+                                onClick={() => handleRate('again')}
+                            >
+                                <span className="font-bold text-base">Again</span>
+                                <span className="text-[10px] text-muted-foreground font-normal">{previews.again}</span>
+                            </Button>
 
-                        <Button
-                            variant="outline"
-                            className="flex flex-col h-auto py-3 gap-1 hover:bg-blue-100 hover:text-blue-700 hover:border-blue-200 dark:hover:bg-blue-900/30"
-                            onClick={() => handleRate('good')}
-                        >
-                            <span className="font-bold text-base">Good</span>
-                            <span className="text-[10px] text-muted-foreground font-normal">4d</span>
-                        </Button>
+                            <Button
+                                variant="outline"
+                                className="flex flex-col h-auto py-3 gap-1 hover:bg-orange-100 hover:text-orange-700 hover:border-orange-200 dark:hover:bg-orange-900/30"
+                                onClick={() => handleRate('hard')}
+                            >
+                                <span className="font-bold text-base">Hard</span>
+                                <span className="text-[10px] text-muted-foreground font-normal">{previews.hard}</span>
+                            </Button>
 
-                        <Button
-                            variant="outline"
-                            className="flex flex-col h-auto py-3 gap-1 hover:bg-green-100 hover:text-green-700 hover:border-green-200 dark:hover:bg-green-900/30"
-                            onClick={() => handleRate('easy')}
-                        >
-                            <span className="font-bold text-base">Easy</span>
-                            <span className="text-[10px] text-muted-foreground font-normal">7d</span>
-                        </Button>
+                            <Button
+                                variant="outline"
+                                className="flex flex-col h-auto py-3 gap-1 hover:bg-blue-100 hover:text-blue-700 hover:border-blue-200 dark:hover:bg-blue-900/30"
+                                onClick={() => handleRate('good')}
+                            >
+                                <span className="font-bold text-base">Good</span>
+                                <span className="text-[10px] text-muted-foreground font-normal">{previews.good}</span>
+                            </Button>
+
+                            <Button
+                                variant="outline"
+                                className="flex flex-col h-auto py-3 gap-1 hover:bg-green-100 hover:text-green-700 hover:border-green-200 dark:hover:bg-green-900/30"
+                                onClick={() => handleRate('easy')}
+                            >
+                                <span className="font-bold text-base">Easy</span>
+                                <span className="text-[10px] text-muted-foreground font-normal">{previews.easy}</span>
+                            </Button>
+                        </div>
                     </div>
-                </div>
-            )}
+                );
+            })()}
         </div>
     );
 }
