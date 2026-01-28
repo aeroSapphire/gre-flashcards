@@ -31,9 +31,18 @@ export async function evaluateSentence(
       },
     });
 
+    console.log('Edge function response:', { data, error });
+
     if (error) {
       console.error('Edge function error:', error);
-      throw new Error(error.message || 'Failed to evaluate sentence');
+      // Try to get more details from the error
+      const errorMessage = error.message || 'Failed to evaluate sentence';
+      const errorContext = error.context ? JSON.stringify(error.context) : '';
+      throw new Error(`${errorMessage}${errorContext ? ` - ${errorContext}` : ''}`);
+    }
+
+    if (!data) {
+      throw new Error('No response from server');
     }
 
     if (data.error) {
@@ -47,6 +56,6 @@ export async function evaluateSentence(
     };
   } catch (error: any) {
     console.error('Evaluation error:', error);
-    throw new Error(`Evaluation failed: ${error.message}`);
+    throw new Error(error.message || 'Evaluation failed');
   }
 }
