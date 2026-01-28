@@ -148,10 +148,17 @@ export function useOfflineStorage() {
     }
   }, []);
 
-  // Get cached flashcards
+  // Get cached flashcards (sorted by created_at DESC to match server order)
   const getCachedFlashcards = useCallback(async () => {
     try {
-      return await getAllFromStore('flashcards');
+      const flashcards = await getAllFromStore<any>('flashcards');
+      // Sort by created_at descending to match server query order
+      // This ensures cards stay in the same lists when offline
+      return flashcards.sort((a, b) => {
+        const dateA = new Date(a.created_at).getTime();
+        const dateB = new Date(b.created_at).getTime();
+        return dateB - dateA; // Descending order
+      });
     } catch (error) {
       console.error('Failed to get cached flashcards:', error);
       return [];
