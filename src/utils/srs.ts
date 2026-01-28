@@ -32,9 +32,9 @@ export function calculateNextReview(
     } else if (rating === 'hard') {
         repetitions += 1;
         if (interval === 0) {
-            interval = 10; // 10 minutes
+            interval = DAY; // 1 day
         } else if (interval < DAY) {
-            interval = Math.max(interval * 1.2, interval + 10); // At least 10 min more
+            interval = DAY; // 1 day
         } else {
             interval = Math.round(interval * 1.2);
         }
@@ -42,18 +42,18 @@ export function calculateNextReview(
     } else if (rating === 'good') {
         repetitions += 1;
         if (interval === 0) {
-            interval = DAY; // 1 day
+            interval = DAY * 4; // 4 days
         } else if (interval < DAY) {
-            interval = DAY * 3; // Jump to 3 days
+            interval = DAY * 4; // 4 days
         } else {
             interval = Math.round(interval * ease_factor);
         }
     } else if (rating === 'easy') {
         repetitions += 1;
         if (interval === 0) {
-            interval = DAY * 4; // 4 days
+            interval = DAY * 7; // 7 days
         } else if (interval < DAY) {
-            interval = DAY * 7; // Jump to 7 days
+            interval = DAY * 10; // 10 days
         } else {
             interval = Math.round(interval * ease_factor * 1.3);
         }
