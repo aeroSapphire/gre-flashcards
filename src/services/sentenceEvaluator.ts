@@ -74,3 +74,59 @@ export async function evaluateSentence(
     throw new Error(error.message || 'Evaluation failed');
   }
 }
+
+export interface SavedEvaluation {
+  id: string;
+  user_id: string;
+  flashcard_id: string;
+  sentence: string;
+  rating: SRSRating;
+  feedback: string | null;
+  created_at: string;
+  profile?: {
+    display_name: string;
+  };
+}
+
+export async function saveEvaluation(
+  flashcardId: string,
+  sentence: string,
+  rating: SRSRating,
+  feedback: string
+): Promise<void> {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return;
+
+  const { error } = await supabase
+    .from('sentence_evaluations')
+    .insert({
+      user_id: user.id,
+      flashcard_id: flashcardId,
+      sentence,
+      rating,
+      feedback,
+    });
+
+  if (error) {
+    console.error('Failed to save evaluation:', error);
+  }
+}
+
+export async function getEvaluationsForCard(flashcardId: string): Promise<SavedEvaluation[]> {
+  const { data, error } = await supabase
+    .from('sentence_evaluations')
+    .select(`
+      *,
+      profile:profiles!user_id(display_name)
+    `)
+    .eq('flashcard_id', flashcardId)
+    .order('created_at', { ascending: false })
+    .limit(10);
+
+  if (error) {
+    console.error('Failed to fetch evaluations:', error);
+    return [];
+  }
+
+  return data || [];
+}

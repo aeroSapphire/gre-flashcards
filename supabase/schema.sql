@@ -265,13 +265,46 @@ create index if not exists idx_user_test_attempts_completed on user_test_attempt
 
 
 -- ============================================
--- 8. ENABLE REALTIME
+-- 8. SENTENCE EVALUATIONS TABLE
+-- ============================================
+-- Stores AI evaluations of user sentences during SRS review
+create table if not exists sentence_evaluations (
+  id uuid default gen_random_uuid() primary key,
+  user_id uuid references auth.users(id) on delete cascade not null,
+  flashcard_id uuid references flashcards(id) on delete cascade not null,
+  sentence text not null,
+  rating text not null check (rating in ('again', 'hard', 'good', 'easy')),
+  feedback text,
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+-- Enable RLS
+alter table sentence_evaluations enable row level security;
+
+-- Policies for sentence_evaluations
+create policy "Evaluations are viewable by everyone"
+  on sentence_evaluations for select
+  using (true);
+
+create policy "Users can insert own evaluations"
+  on sentence_evaluations for insert
+  with check (auth.uid() = user_id);
+
+-- Indexes for sentence_evaluations
+create index if not exists idx_sentence_evaluations_user on sentence_evaluations(user_id);
+create index if not exists idx_sentence_evaluations_flashcard on sentence_evaluations(flashcard_id);
+create index if not exists idx_sentence_evaluations_created on sentence_evaluations(created_at desc);
+
+
+-- ============================================
+-- 9. ENABLE REALTIME
 -- ============================================
 -- Enable realtime for tables that need live updates
 alter publication supabase_realtime add table flashcards;
 alter publication supabase_realtime add table flashcard_lists;
 alter publication supabase_realtime add table user_word_progress;
 alter publication supabase_realtime add table profiles;
+alter publication supabase_realtime add table sentence_evaluations;
 
 
 -- ============================================

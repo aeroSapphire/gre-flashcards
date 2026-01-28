@@ -6,17 +6,22 @@ import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Textarea } from '@/components/ui/textarea';
-import { ArrowLeft, CheckCircle2, Trophy, Send, Loader2, SkipForward } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Trophy, Send, Loader2, SkipForward, Users } from 'lucide-react';
 import { SRSRating, getIntervalPreviews } from '@/utils/srs';
 import {
     isSentencePracticeEnabled,
     evaluateSentence,
+    saveEvaluation,
+    getEvaluationsForCard,
     EvaluationResult,
+    SavedEvaluation,
 } from '@/services/sentenceEvaluator';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function StudySession() {
     const navigate = useNavigate();
     const { dueCards, reviewCard, isLoaded } = useFlashcardsDb();
+    const { user } = useAuth();
     const [currentCardIndex, setCurrentCardIndex] = useState(0);
     const [isFlipped, setIsFlipped] = useState(false);
     const [sessionStats, setSessionStats] = useState({
@@ -38,12 +43,26 @@ export default function StudySession() {
     // Track if we're waiting for user to continue after evaluation
     const [awaitingContinue, setAwaitingContinue] = useState(false);
 
+    // Past evaluations from other users
+    const [pastEvaluations, setPastEvaluations] = useState<SavedEvaluation[]>([]);
+
     useEffect(() => {
         if (isLoaded && !sessionInitialized && dueCards.length > 0) {
             setStudyQueue(dueCards);
             setSessionInitialized(true);
         }
     }, [isLoaded, dueCards, sessionInitialized]);
+
+    // Fetch past evaluations when card changes
+    useEffect(() => {
+        if (currentCard) {
+            getEvaluationsForCard(currentCard.id).then(evals => {
+                // Filter out current user's evaluations
+                const othersEvals = evals.filter(e => e.user_id !== user?.id);
+                setPastEvaluations(othersEvals);
+            });
+        }
+    }, [currentCard?.id, user?.id]);
 
     const currentCard = studyQueue[currentCardIndex];
     const progress = studyQueue.length > 0 ? ((currentCardIndex) / studyQueue.length) * 100 : 100;
@@ -95,6 +114,14 @@ export default function StudySession() {
             setEvaluationResult(result);
             setIsFlipped(true);
             setAwaitingContinue(true);
+
+            // Save the evaluation to database
+            await saveEvaluation(
+                currentCard.id,
+                userSentence.trim(),
+                result.rating,
+                result.feedback
+            );
         } catch (error: any) {
             setEvaluationError(error.message);
         } finally {
@@ -121,6 +148,29 @@ export default function StudySession() {
         // Skip to manual rating mode
         setIsFlipped(true);
         setAwaitingContinue(false);
+    };
+
+    const formatRatingText = (rating: string): string => {
+        switch (rating) {
+            case 'easy': return 'Excellent';
+            case 'good': return 'Good';
+            case 'hard': return 'Some';
+            case 'again': return 'Weak';
+            default: return rating;
+        }
+    };
+
+    const formatPastEvaluations = (): string | null => {
+        if (pastEvaluations.length === 0) return null;
+
+        const latest = pastEvaluations[0];
+        const name = latest.profile?.display_name || 'Someone';
+        const ratingText = formatRatingText(latest.rating);
+
+        if (pastEvaluations.length === 1) {
+            return `${name} showed ${ratingText} understanding`;
+        }
+        return `${name} & ${pastEvaluations.length - 1} other${pastEvaluations.length > 2 ? 's' : ''} practiced this word`;
     };
 
     if (!isLoaded || (!sessionInitialized && dueCards.length > 0)) {
@@ -213,6 +263,12 @@ export default function StudySession() {
                                     <Badge key={tag} variant="secondary" className="text-xs px-2 py-0.5">{tag}</Badge>
                                 ))}
                             </div>
+                            {formatPastEvaluations() && (
+                                <div className="flex items-center justify-center gap-1 text-xs text-muted-foreground">
+                                    <Users className="h-3 w-3" />
+                                    <span>{formatPastEvaluations()}</span>
+                                </div>
+                            )}
                         </CardHeader>
 
                         <CardContent className="flex-1 flex flex-col items-center justify-center p-8 text-center">
