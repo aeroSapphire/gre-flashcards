@@ -53,6 +53,9 @@ export default function StudySession() {
         }
     }, [isLoaded, dueCards, sessionInitialized]);
 
+    const currentCard = studyQueue[currentCardIndex];
+    const progress = studyQueue.length > 0 ? ((currentCardIndex) / studyQueue.length) * 100 : 100;
+
     // Fetch past evaluations when card changes
     useEffect(() => {
         if (currentCard) {
@@ -68,9 +71,6 @@ export default function StudySession() {
                 });
         }
     }, [currentCard?.id, user?.id]);
-
-    const currentCard = studyQueue[currentCardIndex];
-    const progress = studyQueue.length > 0 ? ((currentCardIndex) / studyQueue.length) * 100 : 100;
 
     const handleFlip = () => {
         setIsFlipped(true);
