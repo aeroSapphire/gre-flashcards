@@ -791,6 +791,15 @@ export function useFlashcardsDb() {
     return shuffled;
   }, [cardsWithProgress]);
 
+  const stats = useMemo(() => {
+    return {
+      total: cardsWithProgress.length,
+      new: cardsWithProgress.filter((c) => c.status === 'new').length,
+      learning: cardsWithProgress.filter((c) => c.status === 'learning').length,
+      learned: cardsWithProgress.filter((c) => c.status === 'learned').length,
+    };
+  }, [cardsWithProgress]);
+
   const renameList = async (listId: string, newName: string) => {
     const existingList = lists.find((l) => l.id === listId);
 
@@ -823,6 +832,7 @@ export function useFlashcardsDb() {
     reviewCard,
     getCardsForList,
     getListStats,
+    stats,
     dueCards,
     allUserStats,
     renameList,
