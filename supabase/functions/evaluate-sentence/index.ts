@@ -43,6 +43,20 @@ Each question must have:
 You MUST respond ONLY in JSON format: 
 {"questions": [{"content": "...", "type": "single_choice", "options": ["...", "...", "...", "..."], "correct_answer": [0], "explanation": "..."}]}`;
       userPrompt = `Generate a quiz for these words:\n${words.map((w: any) => `- ${w.word}: ${w.definition}`).join('\n')}\nRespond in JSON format.`;
+    } else if (mode === "rc") {
+      systemPrompt = `You are a GRE tutor. Generate 3 professional GRE-style Reading Comprehension questions based on the provided passage.
+The questions should test main idea, inference, or specific details.
+The format must be a JSON object containing an array of questions.
+Each question must have:
+- "content": The question text
+- "type": "single_choice"
+- "options": An array of 5 options
+- "correct_answer": An array containing the index of the correct option (e.g., [1])
+- "explanation": A brief explanation of why that's the correct answer
+
+You MUST respond ONLY in JSON format: 
+{"questions": [{"content": "...", "type": "single_choice", "options": ["...", "...", "...", "...", "..."], "correct_answer": [0], "explanation": "..."}]}`;
+      userPrompt = `Passage:\n"${sentence}"\n\nGenerate 3 questions for this passage in JSON format.`;
     } else {
       systemPrompt = `You are a GRE tutor. Evaluate the student's sentence and return the results in a JSON object. Respond in JSON format.
 FORMAT: {"rating": "again"|"hard"|"good"|"easy", "feedback": "string", "suggestion": "string"|null, "examples": ["string", "string", "string"]}`;

@@ -74,7 +74,7 @@ const TestRunner = () => {
             setTimeLeft(testData.time_limit_minutes * 60);
 
             // Fetch questions
-            const { data: questionsData, error: qError } = await supabase
+            const { data: questionsData, error: qError } = await (supabase as any)
                 .from('questions')
                 .select('*')
                 .eq('test_id', testId)
@@ -183,13 +183,83 @@ const TestRunner = () => {
     if (!test) return <div>Test not found</div>;
 
     const currentQ = questions[currentQuestionIndex];
+    if (!currentQ) return <div>No questions found</div>;
+
     const isMultiSelect = currentQ.type === 'multi_choice' || currentQ.correct_answer.length > 1;
+
+    const renderOptions = () => {
+        if (currentQ.type === 'double_blank' || currentQ.type === 'triple_blank') {
+            const blanksCount = currentQ.type === 'double_blank' ? 2 : 3;
+            const optionsPerBlank = currentQ.options.length / blanksCount;
+            const groups = [];
+            for (let i = 0; i < blanksCount; i++) {
+                groups.push(currentQ.options.slice(i * optionsPerBlank, (i + 1) * optionsPerBlank));
+            }
+            return (
+                <div className="space-y-6">
+                    {groups.map((groupOptions, groupIdx) => (
+                        <div key={groupIdx} className="border rounded-lg p-4 bg-muted/30">
+                            <h4 className="text-sm font-semibold text-muted-foreground mb-3">
+                                Blank ({['i', 'ii', 'iii'][groupIdx]})
+                            </h4>
+                            <div className="space-y-2">
+                                {groupOptions.map((option, optIdx) => {
+                                    const actualIdx = groupIdx * optionsPerBlank + optIdx;
+                                    const isSelected = (answers[currentQ.id] || []).includes(actualIdx);
+                                    return (
+                                        <div
+                                            key={actualIdx}
+                                            className={`flex items-center p-3 rounded-lg border cursor-pointer transition-all ${isSelected
+                                                ? 'border-primary bg-primary/10'
+                                                : 'border-border bg-background hover:bg-muted'
+                                                }`}
+                                            onClick={() => handleAnswer(currentQ.id, actualIdx, true)}
+                                        >
+                                            <div className={`w-4 h-4 rounded-full border mr-3 flex items-center justify-center ${isSelected ? 'border-primary bg-primary text-primary-foreground' : 'border-muted-foreground'
+                                                }`}>
+                                                {isSelected && <div className="w-2 h-2 rounded-full bg-current" />}
+                                            </div>
+                                            <span className="flex-1 text-sm">{option}</span>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            );
+        }
+
+        return (
+            <div className="space-y-3">
+                {currentQ.options.map((option, idx) => {
+                    const isSelected = (answers[currentQ.id] || []).includes(idx);
+                    return (
+                        <div
+                            key={idx}
+                            className={`flex items-center p-4 rounded-lg border cursor-pointer transition-all ${isSelected
+                                ? 'border-primary bg-primary/5'
+                                : 'border-border hover:bg-muted'
+                                }`}
+                            onClick={() => handleAnswer(currentQ.id, idx, isMultiSelect)}
+                        >
+                            <div className={`w-5 h-5 rounded-full border mr-3 flex items-center justify-center ${isSelected ? 'border-primary bg-primary text-primary-foreground' : 'border-muted-foreground'
+                                }`}>
+                                {isSelected && <div className="w-2 h-2 rounded-full bg-current" />}
+                            </div>
+                            <span className="flex-1">{option}</span>
+                        </div>
+                    );
+                })}
+            </div>
+        );
+    };
 
     return (
         <div className="min-h-screen bg-background flex flex-col">
             {/* Header */}
             <header className="border-b border-border bg-card p-4 sticky top-0 z-10">
-                <div className="container max-w-3xl mx-auto flex items-center justify-between">
+                <div className="container max-w-4xl mx-auto flex items-center justify-between">
                     <div className="flex items-center gap-4">
                         <Button variant="ghost" size="icon" onClick={() => navigate('/tests')}>
                             <ArrowLeft className="h-5 w-5" />
@@ -210,91 +280,67 @@ const TestRunner = () => {
             </header>
 
             {/* Content */}
-            <main className="flex-1 container max-w-3xl mx-auto p-4 flex flex-col justify-center">
-                <Card className="mb-6">
-                    <CardContent className="pt-6">
-                        <p className="text-lg leading-relaxed mb-8 font-medium whitespace-pre-line">
-                            {currentQ.content}
-                        </p>
+            <main className="flex-1 container max-w-5xl mx-auto p-4 flex flex-col md:flex-row gap-6 mt-4">
+                {currentQ.content.includes('---') ? (
+                    <>
+                        {/* Reading Comprehension Layout */}
+                        <div className="flex-1 overflow-y-auto max-h-[60vh] md:max-h-full">
+                            <Card className="h-full border-none shadow-none md:border md:shadow-sm">
+                                <CardContent className="pt-6">
+                                    <div className="flex items-center gap-2 mb-4">
+                                        <span className="bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded">Passage</span>
+                                    </div>
+                                    <p className="text-lg leading-relaxed whitespace-pre-line text-foreground/90 font-serif">
+                                        {currentQ.content.split('---')[0].replace('PASSAGE:', '').trim()}
+                                    </p>
+                                </CardContent>
+                            </Card>
+                        </div>
+                        <div className="flex-1">
+                            <Card>
+                                <CardContent className="pt-6">
+                                    <div className="flex items-center gap-2 mb-4">
+                                        <span className="bg-muted text-muted-foreground text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded">Question</span>
+                                    </div>
+                                    <p className="text-xl leading-relaxed mb-8 font-medium whitespace-pre-line">
+                                        {currentQ.content.split('---')[1].replace('QUESTION:', '').trim()}
+                                    </p>
 
-                        {/* Multi-select hint for sentence equivalence */}
-                        {currentQ.type === 'sentence_equivalence' && (
-                            <p className="text-sm text-muted-foreground mb-4 italic">
-                                Select exactly two answers that produce sentences with equivalent meanings.
-                            </p>
-                        )}
+                                    {currentQ.type === 'sentence_equivalence' && (
+                                        <p className="text-sm text-muted-foreground mb-4 italic border-l-2 border-primary/20 pl-3">
+                                            Select exactly two answers that produce sentences with equivalent meanings.
+                                        </p>
+                                    )}
 
-                        {/* Grouped options for double/triple blank */}
-                        {(currentQ.type === 'double_blank' || currentQ.type === 'triple_blank') ? (
-                            <div className="space-y-6">
-                                {(() => {
-                                    const blanksCount = currentQ.type === 'double_blank' ? 2 : 3;
-                                    const optionsPerBlank = currentQ.options.length / blanksCount;
-                                    const groups = [];
-                                    for (let i = 0; i < blanksCount; i++) {
-                                        groups.push(currentQ.options.slice(i * optionsPerBlank, (i + 1) * optionsPerBlank));
-                                    }
-                                    return groups.map((groupOptions, groupIdx) => (
-                                        <div key={groupIdx} className="border rounded-lg p-4 bg-muted/30">
-                                            <h4 className="text-sm font-semibold text-muted-foreground mb-3">
-                                                Blank ({['i', 'ii', 'iii'][groupIdx]})
-                                            </h4>
-                                            <div className="space-y-2">
-                                                {groupOptions.map((option, optIdx) => {
-                                                    const actualIdx = groupIdx * optionsPerBlank + optIdx;
-                                                    const isSelected = (answers[currentQ.id] || []).includes(actualIdx);
-                                                    return (
-                                                        <div
-                                                            key={actualIdx}
-                                                            className={`flex items-center p-3 rounded-lg border cursor-pointer transition-all ${isSelected
-                                                                    ? 'border-primary bg-primary/10'
-                                                                    : 'border-border bg-background hover:bg-muted'
-                                                                }`}
-                                                            onClick={() => handleAnswer(currentQ.id, actualIdx, true)}
-                                                        >
-                                                            <div className={`w-4 h-4 rounded-full border mr-3 flex items-center justify-center ${isSelected ? 'border-primary bg-primary text-primary-foreground' : 'border-muted-foreground'
-                                                                }`}>
-                                                                {isSelected && <div className="w-2 h-2 rounded-full bg-current" />}
-                                                            </div>
-                                                            <span className="flex-1 text-sm">{option}</span>
-                                                        </div>
-                                                    );
-                                                })}
-                                            </div>
-                                        </div>
-                                    ));
-                                })()}
-                            </div>
-                        ) : (
-                            <div className="space-y-3">
-                                {currentQ.options.map((option, idx) => {
-                                    const isSelected = (answers[currentQ.id] || []).includes(idx);
-                                    return (
-                                        <div
-                                            key={idx}
-                                            className={`flex items-center p-4 rounded-lg border cursor-pointer transition-all ${isSelected
-                                                    ? 'border-primary bg-primary/5'
-                                                    : 'border-border hover:bg-muted'
-                                                }`}
-                                            onClick={() => handleAnswer(currentQ.id, idx, isMultiSelect)}
-                                        >
-                                            <div className={`w-5 h-5 rounded-full border mr-3 flex items-center justify-center ${isSelected ? 'border-primary bg-primary text-primary-foreground' : 'border-muted-foreground'
-                                                }`}>
-                                                {isSelected && <div className="w-2 h-2 rounded-full bg-current" />}
-                                            </div>
-                                            <span className="flex-1">{option}</span>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        )}
-                    </CardContent>
-                </Card>
+                                    {renderOptions()}
+                                </CardContent>
+                            </Card>
+                        </div>
+                    </>
+                ) : (
+                    <div className="max-w-3xl mx-auto w-full">
+                        <Card className="mb-6">
+                            <CardContent className="pt-6">
+                                <p className="text-lg leading-relaxed mb-8 font-medium whitespace-pre-line">
+                                    {currentQ.content}
+                                </p>
+
+                                {currentQ.type === 'sentence_equivalence' && (
+                                    <p className="text-sm text-muted-foreground mb-4 italic border-l-2 border-primary/20 pl-3">
+                                        Select exactly two answers that produce sentences with equivalent meanings.
+                                    </p>
+                                )}
+
+                                {renderOptions()}
+                            </CardContent>
+                        </Card>
+                    </div>
+                )}
             </main>
 
             {/* Footer */}
             <footer className="border-t border-border bg-card p-4">
-                <div className="container max-w-3xl mx-auto flex justify-between items-center">
+                <div className="container max-w-4xl mx-auto flex justify-between items-center">
                     <Button
                         variant="outline"
                         disabled={currentQuestionIndex === 0}
@@ -309,8 +355,8 @@ const TestRunner = () => {
                             <ChevronRight className="ml-2 h-4 w-4" />
                         </Button>
                     ) : (
-                        <Button onClick={() => submitTest()} disabled={submitting}>
-                            <CheckCircle2 className="ml-2 h-4 w-4" />
+                        <Button onClick={() => submitTest()} disabled={submitting} className="bg-success hover:bg-success/90">
+                            <CheckCircle2 className="mr-2 h-4 w-4" />
                             {submitting ? 'Submitting...' : 'Finish Test'}
                         </Button>
                     )}
