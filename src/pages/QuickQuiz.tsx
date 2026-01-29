@@ -124,6 +124,19 @@ const QuickQuiz = () => {
     const userAns = answers[currentIndex];
     const isCorrect = userAns === currentQ.correct_answer[0];
 
+    const renderContent = (content: string) => {
+        return content.split(/(\*\*.*?\*\*)/g).map((part, i) => {
+            if (part.startsWith('**') && part.endsWith('**')) {
+                return (
+                    <strong key={i} className="text-primary font-bold bg-primary/10 px-1.5 py-0.5 rounded-md decoration-primary/30 underline-offset-4">
+                        {part.slice(2, -2)}
+                    </strong>
+                );
+            }
+            return part;
+        });
+    };
+
     return (
         <div className="min-h-screen bg-background flex flex-col">
             <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-10 p-4">
@@ -152,7 +165,7 @@ const QuickQuiz = () => {
                         className="space-y-8"
                     >
                         <h2 className="text-2xl font-medium leading-relaxed">
-                            {currentQ.content}
+                            {renderContent(currentQ.content)}
                         </h2>
 
                         <div className="grid gap-3">

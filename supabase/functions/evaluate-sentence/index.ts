@@ -32,9 +32,10 @@ FORMAT: {"examples": ["string", "string", "string"]}`;
     } else if (mode === "quiz") {
       systemPrompt = `You are a GRE tutor. Generate a 5-question multiple choice quiz based on the provided list of GRE words.
 Each question should test the meaning or usage of one of the words.
+The word being quizzed MUST be highlighted by wrapping it in double asterisks (e.g., **word** or **vocabulary**).
 The format must be a JSON object containing an array of questions.
 Each question must have:
-- "content": The question text (e.g., a sentence with a blank or a "What is the meaning of..." question)
+- "content": The question text (e.g., "The **laconic** speaker was known for his...")
 - "type": "single_choice"
 - "options": An array of 4 strings
 - "correct_answer": An array containing the index of the correct option (e.g., [1])
