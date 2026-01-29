@@ -36,7 +36,7 @@ export function StudyMode({ cards, onMarkLearned, onMarkLearning, onUpdateCard, 
     if (newFlipped && currentCard && !currentCard.example && onUpdateCard) {
       console.log("Generating missing example for:", currentCard.word);
       try {
-        const examples = await generateExamples(currentCard.word, currentCard.definition);
+        const examples = await generateExamples(currentCard.word, currentCard.definition, currentCard.part_of_speech);
         if (examples.length > 0) {
           onUpdateCard(currentCard.id, { example: examples[0] });
         }
@@ -155,6 +155,11 @@ export function StudyMode({ cards, onMarkLearned, onMarkLearning, onUpdateCard, 
                   <h2 className="font-display text-4xl font-semibold text-foreground text-center">
                     {currentCard.word}
                   </h2>
+                  {currentCard.part_of_speech && (
+                    <p className="text-lg italic text-muted-foreground mt-2">
+                      {currentCard.part_of_speech}
+                    </p>
+                  )}
                   {currentCard.tags && currentCard.tags.length > 0 && (
                     <div className="flex flex-wrap gap-1 justify-center mt-4">
                       {currentCard.tags.map((tag) => (
