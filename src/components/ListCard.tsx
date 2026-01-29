@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { BookOpen, Edit2, Check, X, Trash2 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { BookOpen, Edit2, Check, X, Trash2, Sparkles } from 'lucide-react';
 import { FlashcardList } from '@/hooks/useFlashcardsDb';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -18,11 +19,13 @@ interface ListCardProps {
   onRename: (newName: string) => void;
   onDelete?: () => void;
   isAutoList?: boolean;
+  onStartQuiz?: () => void;
 }
 
-export function ListCard({ list, stats, onSelect, onRename, onDelete, isAutoList }: ListCardProps) {
+export function ListCard({ list, stats, onSelect, onRename, onDelete, isAutoList, onStartQuiz }: ListCardProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editName, setEditName] = useState(list.name);
+  const navigate = useNavigate();
 
   const handleSaveEdit = () => {
     if (editName.trim()) {
@@ -34,6 +37,11 @@ export function ListCard({ list, stats, onSelect, onRename, onDelete, isAutoList
   const handleCancelEdit = () => {
     setEditName(list.name);
     setIsEditing(false);
+  };
+
+  const handleQuizClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (onStartQuiz) onStartQuiz();
   };
 
   const progressPercent = stats.total > 0 ? (stats.learned / stats.total) * 100 : 0;
@@ -88,6 +96,16 @@ export function ListCard({ list, stats, onSelect, onRename, onDelete, isAutoList
         </div>
         {!isEditing && (
           <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
+            <Button
+              variant="outline"
+              size="sm"
+              className="h-8 px-2 text-xs flex gap-1 mr-1 border-primary/20 text-primary hover:bg-primary/5 hover:border-primary/40"
+              onClick={handleQuizClick}
+              disabled={stats.total < 2}
+            >
+              <Sparkles className="h-3 w-3" />
+              Quiz
+            </Button>
             <Button
               variant="ghost"
               size="icon"

@@ -176,3 +176,35 @@ export async function getEvaluationsForCard(flashcardId: string): Promise<SavedE
     return [];
   }
 }
+export interface QuizQuestion {
+  content: string;
+  type: 'single_choice';
+  options: string[];
+  correct_answer: number[];
+  explanation: string;
+}
+
+export async function generateQuiz(
+  words: { word: string; definition: string }[]
+): Promise<QuizQuestion[]> {
+  try {
+    const { data, error } = await supabase.functions.invoke('evaluate-sentence', {
+      body: {
+        words,
+        mode: 'quiz'
+      },
+    });
+
+    if (error) throw error;
+
+    let finalData = data;
+    if (typeof data === 'string') {
+      finalData = JSON.parse(data);
+    }
+
+    return finalData.questions || [];
+  } catch (error) {
+    console.error('Failed to generate quiz:', error);
+    return [];
+  }
+}

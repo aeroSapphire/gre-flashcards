@@ -443,6 +443,15 @@ const Index = () => {
                   onRename={(newName) => renameList(list.id, newName)}
                   onDelete={list.is_auto ? undefined : undefined}
                   isAutoList={list.is_auto}
+                  onStartQuiz={() => {
+                    const listCards = getCardsForList(list.id);
+                    navigate('/quick-quiz', {
+                      state: {
+                        listName: list.name,
+                        words: listCards.map(c => ({ word: c.word, definition: c.definition }))
+                      }
+                    });
+                  }}
                 />
               ))}
             </AnimatePresence>
