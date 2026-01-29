@@ -155,21 +155,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     initializeAuth();
 
-    return () => {
-      clearTimeout(timeoutId);
-    };
-
     // Listen for changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
         if (!mounted) return;
+        console.log('Auth state changed:', event, session?.user?.id);
 
         // Update state
         setSession(session);
         setUser(session?.user ?? null);
 
         if (session?.user) {
-          // Intentionally do not await here to avoid blocking UI on regular auth updates
           fetchOrCreateProfile(session.user.id, session.user.email || '');
         } else {
           setProfile(null);
@@ -181,6 +177,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     return () => {
       mounted = false;
+      clearTimeout(timeoutId);
       subscription.unsubscribe();
     };
   }, []);
