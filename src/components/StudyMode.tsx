@@ -178,6 +178,11 @@ export function StudyMode({ cards, onMarkLearned, onMarkLearning, onUpdateCard, 
                   style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
                 >
                   <div className="flex-1 overflow-y-auto flex flex-col items-center justify-center">
+                    {currentCard.part_of_speech && (
+                      <p className="text-sm italic text-muted-foreground mb-2 uppercase tracking-wide">
+                        {currentCard.part_of_speech}
+                      </p>
+                    )}
                     <p className="text-xl text-foreground text-center leading-relaxed">
                       {currentCard.definition}
                     </p>
