@@ -6,6 +6,7 @@ export interface UserProfile {
   id: string;
   display_name: string;
   created_at: string;
+  sentence_practice_enabled: boolean;
 }
 
 interface AuthContextType {
@@ -17,6 +18,7 @@ interface AuthContextType {
   signIn: (email: string, password: string) => Promise<{ error: Error | null }>;
   signOut: () => Promise<void>;
   updateDisplayName: (name: string) => Promise<{ error: Error | null }>;
+  updateSentencePracticeConfig: (enabled: boolean) => Promise<{ error: Error | null }>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -64,6 +66,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         id: userId,
         display_name: email.split('@')[0],
         created_at: new Date().toISOString(),
+        sentence_practice_enabled: false,
       };
       setProfile(offlineProfile);
       return;
@@ -107,6 +110,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           id: userId,
           display_name: email.split('@')[0],
           created_at: new Date().toISOString(),
+          sentence_practice_enabled: false,
         };
         setProfile(fallbackProfile);
       }
@@ -222,8 +226,33 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return { error };
   };
 
+  const updateSentencePracticeConfig = async (enabled: boolean) => {
+    if (!user) return { error: new Error('Not authenticated') };
+
+    const { error } = await supabase
+      .from('profiles')
+      .update({ sentence_practice_enabled: enabled })
+      .eq('id', user.id);
+
+    if (!error) {
+      setProfile(prev => prev ? { ...prev, sentence_practice_enabled: enabled } : null);
+    }
+
+    return { error };
+  };
+
   return (
-    <AuthContext.Provider value={{ user, session, profile, loading, signUp, signIn, signOut, updateDisplayName }}>
+    <AuthContext.Provider value={{
+      user,
+      session,
+      profile,
+      loading,
+      signUp,
+      signIn,
+      signOut,
+      updateDisplayName,
+      updateSentencePracticeConfig
+    }}>
       {children}
     </AuthContext.Provider>
   );

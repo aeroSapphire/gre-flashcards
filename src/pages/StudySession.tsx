@@ -22,7 +22,7 @@ import { useAuth } from '@/contexts/AuthContext';
 export default function StudySession() {
     const navigate = useNavigate();
     const { dueCards, reviewCard, updateCard, isLoaded } = useFlashcardsDb();
-    const { user } = useAuth();
+    const { user, profile } = useAuth();
     const [currentCardIndex, setCurrentCardIndex] = useState(0);
     const [isFlipped, setIsFlipped] = useState(false);
     const [sessionStats, setSessionStats] = useState({
@@ -40,8 +40,8 @@ export default function StudySession() {
     const [communitySentences, setCommunitySentences] = useState<SavedEvaluation[]>([]);
     const [isLoadingCommunity, setIsLoadingCommunity] = useState(false);
 
-    // Check if sentence practice is enabled
-    const practiceEnabled = isSentencePracticeEnabled();
+    // Check if sentence practice is enabled (Check profile first, then localStorage)
+    const practiceEnabled = profile?.sentence_practice_enabled ?? isSentencePracticeEnabled();
 
     // Track if we're waiting for user to continue after evaluation
     const [awaitingContinue, setAwaitingContinue] = useState(false);

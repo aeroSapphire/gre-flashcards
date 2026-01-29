@@ -79,16 +79,19 @@ export type Database = {
           id: string
           display_name: string
           created_at: string
+          sentence_practice_enabled: boolean
         }
         Insert: {
           id: string
           display_name: string
           created_at?: string
+          sentence_practice_enabled?: boolean
         }
         Update: {
           id?: string
           display_name?: string
           created_at?: string
+          sentence_practice_enabled?: boolean
         }
         Relationships: []
       }

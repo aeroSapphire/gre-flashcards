@@ -14,21 +14,35 @@ import {
 
 const Settings = () => {
   const navigate = useNavigate();
-  const { profile, updateDisplayName, user } = useAuth();
+  const { profile, updateDisplayName, user, updateSentencePracticeConfig } = useAuth();
   const { toast } = useToast();
   const [displayName, setDisplayName] = useState(profile?.display_name || '');
   const [isSaving, setIsSaving] = useState(false);
 
   // Sentence practice settings
-  const [practiceEnabled, setPracticeEnabled] = useState(false);
+  const [practiceEnabled, setPracticeEnabled] = useState(profile?.sentence_practice_enabled || false);
 
   useEffect(() => {
-    setPracticeEnabled(isSentencePracticeEnabled());
-  }, []);
+    if (profile) {
+      setPracticeEnabled(profile.sentence_practice_enabled);
+    }
+  }, [profile]);
 
-  const handlePracticeToggle = (enabled: boolean) => {
+  const handlePracticeToggle = async (enabled: boolean) => {
     setPracticeEnabled(enabled);
-    setSentencePracticeEnabled(enabled);
+    const { error } = await updateSentencePracticeConfig(enabled);
+
+    if (error) {
+      setPracticeEnabled(!enabled); // Rollback
+      toast({
+        title: 'Error saving setting',
+        description: error.message,
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    setSentencePracticeEnabled(enabled); // Still keep in localStorage for immediate sync
     toast({
       title: enabled ? 'Sentence Practice Enabled' : 'Sentence Practice Disabled',
       description: enabled
