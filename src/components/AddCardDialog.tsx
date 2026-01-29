@@ -10,11 +10,18 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface AddCardDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onAdd: (word: string, definition: string, example?: string, tags?: string[]) => void;
+  onAdd: (word: string, definition: string, part_of_speech?: string, example?: string, tags?: string[]) => void;
   onUpdate?: (id: string, updates: Partial<Omit<Flashcard, 'id' | 'created_at' | 'created_by'>>) => void;
   editingCard?: FlashcardWithProgress | null;
 }
@@ -28,6 +35,7 @@ export function AddCardDialog({
 }: AddCardDialogProps) {
   const [word, setWord] = useState('');
   const [definition, setDefinition] = useState('');
+  const [partOfSpeech, setPartOfSpeech] = useState<string>('');
   const [example, setExample] = useState('');
   const [tags, setTags] = useState('');
 
@@ -35,11 +43,13 @@ export function AddCardDialog({
     if (editingCard) {
       setWord(editingCard.word);
       setDefinition(editingCard.definition);
+      setPartOfSpeech(editingCard.part_of_speech || '');
       setExample(editingCard.example || '');
       setTags(editingCard.tags?.join(', ') || '');
     } else {
       setWord('');
       setDefinition('');
+      setPartOfSpeech('');
       setExample('');
       setTags('');
     }
@@ -49,7 +59,7 @@ export function AddCardDialog({
     e.preventDefault();
     if (!word.trim() || !definition.trim()) return;
 
-    const parsedTags = tags.trim() 
+    const parsedTags = tags.trim()
       ? tags.split(',').map(t => t.trim()).filter(Boolean)
       : undefined;
 
@@ -57,15 +67,17 @@ export function AddCardDialog({
       onUpdate(editingCard.id, {
         word: word.trim(),
         definition: definition.trim(),
+        part_of_speech: partOfSpeech || undefined,
         example: example.trim() || undefined,
         tags: parsedTags,
       });
     } else {
-      onAdd(word.trim(), definition.trim(), example.trim() || undefined, parsedTags);
+      onAdd(word.trim(), definition.trim(), partOfSpeech || undefined, example.trim() || undefined, parsedTags);
     }
 
     setWord('');
     setDefinition('');
+    setPartOfSpeech('');
     setExample('');
     setTags('');
     onOpenChange(false);
@@ -80,15 +92,32 @@ export function AddCardDialog({
           </DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4 mt-4">
-          <div className="space-y-2">
-            <Label htmlFor="word">Word</Label>
-            <Input
-              id="word"
-              value={word}
-              onChange={(e) => setWord(e.target.value)}
-              placeholder="e.g., Ephemeral"
-              className="font-display text-lg"
-            />
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="word">Word</Label>
+              <Input
+                id="word"
+                value={word}
+                onChange={(e) => setWord(e.target.value)}
+                placeholder="e.g., Ephemeral"
+                className="font-display text-lg"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="pos">Part of Speech</Label>
+              <Select value={partOfSpeech} onValueChange={setPartOfSpeech}>
+                <SelectTrigger id="pos">
+                  <SelectValue placeholder="Select type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="noun">Noun</SelectItem>
+                  <SelectItem value="verb">Verb</SelectItem>
+                  <SelectItem value="adjective">Adjective</SelectItem>
+                  <SelectItem value="adverb">Adverb</SelectItem>
+                  <SelectItem value="other">Other</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
           <div className="space-y-2">
             <Label htmlFor="definition">Definition</Label>

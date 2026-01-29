@@ -95,7 +95,7 @@ export default function StudySession() {
         // Auto-generate example if missing
         if (!currentCard.example) {
             console.log("Generating missing example for:", currentCard.word);
-            const examples = await generateExamples(currentCard.word, currentCard.definition);
+            const examples = await generateExamples(currentCard.word, currentCard.definition, currentCard.part_of_speech);
             if (examples.length > 0) {
                 await updateCard(currentCard.id, { example: examples[0] });
             }
@@ -140,7 +140,8 @@ export default function StudySession() {
             const result = await evaluateSentence(
                 currentCard.word,
                 currentCard.definition,
-                userSentence.trim()
+                userSentence.trim(),
+                currentCard.part_of_speech
             );
             setEvaluationResult(result);
             setIsFlipped(true);
@@ -308,9 +309,14 @@ export default function StudySession() {
                         </CardHeader>
 
                         <CardContent className="flex-1 flex flex-col items-center justify-center p-8 text-center">
-                            <h2 className="text-4xl md:text-5xl font-bold mb-8 tracking-tight text-foreground">
+                            <h2 className="text-4xl md:text-5xl font-bold mb-2 tracking-tight text-foreground">
                                 {currentCard.word}
                             </h2>
+                            {currentCard.part_of_speech && (
+                                <p className="text-lg italic text-muted-foreground mb-6">
+                                    {currentCard.part_of_speech}
+                                </p>
+                            )}
 
                             {isFlipped ? (
                                 <div className="space-y-6 w-full animate-in fade-in slide-in-from-bottom-4 duration-500">

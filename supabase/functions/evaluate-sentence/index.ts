@@ -20,7 +20,7 @@ Deno.serve(async (req: Request) => {
       return new Response(JSON.stringify({ error: "No body" }), { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } });
     }
 
-    const { word, definition, words, sentence, mode = "evaluate" } = body;
+    const { word, definition, part_of_speech, words, sentence, mode = "evaluate" } = body;
 
     let systemPrompt = "";
     let userPrompt = "";
@@ -28,8 +28,9 @@ Deno.serve(async (req: Request) => {
     if (mode === "generate") {
       systemPrompt = `You are a GRE tutor. Return a JSON object with exactly 3 professional example sentences for the word. Use the following JSON format:
 FORMAT: {"examples": ["string", "string", "string"]}`;
-      userPrompt = `Word: "${word}"\nDef: "${definition}"\nRespond in JSON format.`;
+      userPrompt = `Word: "${word}"\nPOS: "${part_of_speech || 'N/A'}"\nDef: "${definition}"\nRespond in JSON format.`;
     } else if (mode === "quiz") {
+      // ... same as before but could include POS if words had it
       systemPrompt = `You are a GRE tutor. Generate a 5-question multiple choice quiz based on the provided list of GRE words.
 Each question should test the meaning or usage of one of the words.
 The word being quizzed MUST be highlighted by wrapping it in double asterisks (e.g., **word** or **vocabulary**).
@@ -43,8 +44,9 @@ Each question must have:
 
 You MUST respond ONLY in JSON format: 
 {"questions": [{"content": "...", "type": "single_choice", "options": ["...", "...", "...", "..."], "correct_answer": [0], "explanation": "..."}]}`;
-      userPrompt = `Generate a quiz for these words:\n${words.map((w: any) => `- ${w.word}: ${w.definition}`).join('\n')}\nRespond in JSON format.`;
+      userPrompt = `Generate a quiz for these words:\n${words.map((w: any) => `- ${w.word} (${w.part_of_speech || ''}): ${w.definition}`).join('\n')}\nRespond in JSON format.`;
     } else if (mode === "rc") {
+      // ... same
       systemPrompt = `You are a GRE tutor. Generate 3 professional GRE-style Reading Comprehension questions based on the provided passage.
 The questions should test main idea, inference, or specific details.
 The format must be a JSON object containing an array of questions.
@@ -61,7 +63,7 @@ You MUST respond ONLY in JSON format:
     } else {
       systemPrompt = `You are a GRE tutor. Evaluate the student's sentence and return the results in a JSON object. Respond in JSON format.
 FORMAT: {"rating": "again"|"hard"|"good"|"easy", "feedback": "string", "suggestion": "string"|null, "examples": ["string", "string", "string"]}`;
-      userPrompt = `Word: "${word}"\nDef: "${definition}"\nSentence: "${sentence}"\nRespond in JSON format.`;
+      userPrompt = `Word: "${word}"\nPOS: "${part_of_speech || 'N/A'}"\nDef: "${definition}"\nSentence: "${sentence}"\nRespond in JSON format.`;
     }
 
     const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {

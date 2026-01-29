@@ -49,6 +49,7 @@ export type Database = {
           tags: string[] | null
           updated_at: string
           word: string
+          part_of_speech: string | null
         }
         Insert: {
           created_at?: string
@@ -60,6 +61,7 @@ export type Database = {
           tags?: string[] | null
           updated_at?: string
           word: string
+          part_of_speech?: string | null
         }
         Update: {
           created_at?: string
@@ -71,6 +73,7 @@ export type Database = {
           tags?: string[] | null
           updated_at?: string
           word?: string
+          part_of_speech?: string | null
         }
         Relationships: []
       }

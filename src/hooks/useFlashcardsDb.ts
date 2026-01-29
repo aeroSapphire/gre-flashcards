@@ -9,6 +9,7 @@ export interface Flashcard {
   id: string;
   word: string;
   definition: string;
+  part_of_speech?: string;
   example?: string;
   tags?: string[];
   created_at: string;
@@ -652,10 +653,11 @@ export function useFlashcardsDb() {
     }
   };
 
-  const addCard = async (word: string, definition: string, example?: string, tags?: string[]) => {
+  const addCard = async (word: string, definition: string, part_of_speech?: string, example?: string, tags?: string[]) => {
     const { error } = await supabase.from('flashcards').insert({
       word,
       definition,
+      part_of_speech,
       example,
       tags,
       status: 'new', // Keep for backward compatibility
@@ -805,33 +807,8 @@ export function useFlashcardsDb() {
           variant: 'destructive',
         });
       }
-    } else if (listId.startsWith('auto-')) {
-      const autoIndex = parseInt(listId.split('-')[1], 10);
-      const { error } = await supabase.from('flashcard_lists').insert({
-        name: newName,
-        is_auto: true,
-        auto_index: autoIndex,
-      });
-
-      if (error) {
-        toast({
-          title: 'Error saving list name',
-          description: error.message,
-          variant: 'destructive',
-        });
-      }
     }
   };
-
-  const stats = useMemo(
-    () => ({
-      total: cardsWithProgress.length,
-      new: cardsWithProgress.filter((c) => c.status === 'new').length,
-      learning: cardsWithProgress.filter((c) => c.status === 'learning').length,
-      learned: cardsWithProgress.filter((c) => c.status === 'learned').length,
-    }),
-    [cardsWithProgress]
-  );
 
   return {
     cards: cardsWithProgress,
@@ -843,12 +820,11 @@ export function useFlashcardsDb() {
     markAsLearned,
     markAsLearning,
     resetCard,
-    renameList,
+    reviewCard,
     getCardsForList,
     getListStats,
-    stats,
-    allUserStats,
-    reviewCard,
     dueCards,
+    allUserStats,
+    renameList,
   };
 }

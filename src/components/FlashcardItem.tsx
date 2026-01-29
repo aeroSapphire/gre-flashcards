@@ -96,6 +96,11 @@ export function FlashcardItem({
             </h3>
           </div>
           <div className="flex flex-wrap gap-1 justify-center mb-2">
+            {card.part_of_speech && (
+              <span className="text-xs px-2 py-0.5 rounded-full bg-secondary text-secondary-foreground font-medium italic">
+                {card.part_of_speech}
+              </span>
+            )}
             {card.tags?.map((tag) => (
               <span key={tag} className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary">
                 {tag}

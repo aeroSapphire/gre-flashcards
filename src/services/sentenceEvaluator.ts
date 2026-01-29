@@ -23,13 +23,15 @@ export function setSentencePracticeEnabled(enabled: boolean): void {
 export async function evaluateSentence(
   word: string,
   definition: string,
-  userSentence: string
+  userSentence: string,
+  part_of_speech?: string
 ): Promise<EvaluationResult> {
   try {
     const { data, error } = await supabase.functions.invoke('evaluate-sentence', {
       body: {
         word,
         definition,
+        part_of_speech,
         sentence: userSentence,
       },
     });
@@ -79,13 +81,15 @@ export async function evaluateSentence(
 
 export async function generateExamples(
   word: string,
-  definition: string
+  definition: string,
+  part_of_speech?: string
 ): Promise<string[]> {
   try {
     const { data, error } = await supabase.functions.invoke('evaluate-sentence', {
       body: {
         word,
         definition,
+        part_of_speech,
         mode: 'generate'
       },
     });
