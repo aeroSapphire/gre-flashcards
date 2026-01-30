@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, BookOpen, GraduationCap, Filter, ArrowLeft, LogOut, Settings, Trophy, Clock, FileText } from 'lucide-react';
+import { Plus, BookOpen, GraduationCap, Filter, ArrowLeft, LogOut, Settings, Trophy, Clock, FileText, Brain } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useFlashcardsDb, FlashcardWithProgress, FlashcardList } from '@/hooks/useFlashcardsDb';
 import { useAuth } from '@/contexts/AuthContext';
@@ -314,6 +314,10 @@ const Index = () => {
               <Button variant="outline" size="sm" onClick={() => navigate('/verbal')}>
                 <FileText className="h-4 w-4 mr-1" />
                 Verbal
+              </Button>
+              <Button variant="outline" size="sm" onClick={() => navigate('/stats')}>
+                <Brain className="h-4 w-4 mr-1" />
+                Stats
               </Button>
               <Button variant="ghost" size="icon" onClick={() => navigate('/settings')} title="Settings">
                 <Settings className="h-4 w-4" />
