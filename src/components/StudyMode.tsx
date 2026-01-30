@@ -163,8 +163,8 @@ export function StudyMode({ cards, onMarkLearned, onMarkLearning, onUpdateCard, 
               >
                 {/* Front */}
                 <div
-                  className="absolute inset-0 backface-hidden rounded-3xl glass-card p-8 flex flex-col items-center justify-center min-h-80 transition-all duration-300 hover:scale-[1.02]"
-                  style={{ backfaceVisibility: 'hidden' }}
+                  className="absolute inset-0 rounded-3xl bg-card/95 border border-border/50 shadow-2xl p-8 flex flex-col items-center justify-center min-h-80 transition-all duration-300 hover:scale-[1.02]"
+                  style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
                 >
                   <h2 className="font-display text-4xl md:text-5xl font-semibold text-foreground text-center tracking-tight">
                     {currentCard.word}
@@ -188,8 +188,8 @@ export function StudyMode({ cards, onMarkLearned, onMarkLearning, onUpdateCard, 
 
                 {/* Back */}
                 <div
-                  className="absolute inset-0 backface-hidden rounded-3xl glass-card p-8 flex flex-col min-h-80"
-                  style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
+                  className="absolute inset-0 rounded-3xl bg-card/95 border border-border/50 shadow-2xl p-8 flex flex-col min-h-80"
+                  style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
                 >
                   <div className="flex-1 overflow-y-auto -mx-2 px-2">
                     <div className="min-h-full flex flex-col items-center justify-center">
