@@ -11,6 +11,9 @@ export interface Flashcard {
   definition: string;
   part_of_speech?: string;
   etymology?: string;
+  synonyms?: string[];
+  antonyms?: string[];
+  related_roots?: string[];
   example?: string;
   tags?: string[];
   created_at: string;

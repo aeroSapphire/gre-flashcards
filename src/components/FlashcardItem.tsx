@@ -5,9 +5,11 @@ import { FlashcardWithProgress } from '@/hooks/useFlashcardsDb';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
+import { WordConnections } from '@/components/WordConnections';
 
 interface FlashcardItemProps {
   card: FlashcardWithProgress;
+  allCards?: FlashcardWithProgress[];
   onMarkLearned: (id: string) => void;
   onMarkLearning: (id: string) => void;
   onReset: (id: string) => void;
@@ -17,6 +19,7 @@ interface FlashcardItemProps {
 
 export function FlashcardItem({
   card,
+  allCards = [],
   onMarkLearned,
   onMarkLearning,
   onReset,
@@ -136,6 +139,10 @@ export function FlashcardItem({
                   "{card.example}"
                 </p>
               )}
+              
+              <div className="w-full">
+                <WordConnections card={card} allCards={allCards} />
+              </div>
             </div>
           </div>
           <div className="flex gap-2 justify-center pt-4 border-t border-border/50 flex-shrink-0" onClick={(e) => e.stopPropagation()}>

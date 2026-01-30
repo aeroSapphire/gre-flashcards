@@ -89,7 +89,19 @@ YOU MUST ALWAYS PROVIDE A RESULT. Use your extensive linguistic knowledge.
 FORMAT: {"etymology": "derives from [Language] [root]: [breakdown]. [Literal meaning explanation connecting to modern usage]."}
 EXAMPLE: {"etymology": "derives from Latin circumspectus: circum (around) + spectare (to look/watch). Literally 'looking around,' it suggests careful observation of one's surroundings before acting."}`;
       userPrompt = `Word: "${word}"\nDefinition: "${definition}"\nRespond ONLY in JSON format.`;
+    } else if (mode === "word-connections") {
+      systemPrompt = `You are a GRE vocabulary expert. Analyze the given word and identify:
+1. Synonyms: Words from the provided vocabulary list that have similar meanings
+2. Antonyms: Words from the provided vocabulary list that have opposite meanings
+3. Related Roots: Any common etymological roots shared with other words in the list
+
+IMPORTANT: Only include words that are ACTUALLY in the provided vocabulary list. Do not invent words.
+If no matches exist, return empty arrays.
+
+FORMAT: {"synonyms": ["word1", "word2"], "antonyms": ["word3"], "related_roots": ["word4", "word5"]}`;
+      userPrompt = `Target Word: "${word}"\nDefinition: "${definition}"\nVocabulary List: ${JSON.stringify(body.vocabulary_list)}\nRespond ONLY in JSON format.`;
     } else {
+
       systemPrompt = `You are a GRE tutor. Evaluate the student's sentence and return the results in a JSON object. Respond in JSON format.
 FORMAT: {"rating": "again"|"hard"|"good"|"easy", "feedback": "string", "suggestion": "string"|null, "examples": ["string", "string", "string"]}`;
       userPrompt = `Word: "${word}"\nPOS: "${part_of_speech || 'N/A'}"\nDef: "${definition}"\nSentence: "${sentence}"\nRespond in JSON format.`;

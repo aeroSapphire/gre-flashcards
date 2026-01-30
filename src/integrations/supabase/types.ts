@@ -51,6 +51,9 @@ export type Database = {
           word: string
           part_of_speech: string | null
           etymology: string | null
+          synonyms: string[] | null
+          antonyms: string[] | null
+          related_roots: string[] | null
         }
         Insert: {
           created_at?: string
@@ -64,6 +67,9 @@ export type Database = {
           word: string
           part_of_speech?: string | null
           etymology?: string | null
+          synonyms?: string[] | null
+          antonyms?: string[] | null
+          related_roots?: string[] | null
         }
         Update: {
           created_at?: string
@@ -77,6 +83,9 @@ export type Database = {
           word?: string
           part_of_speech?: string | null
           etymology?: string | null
+          synonyms?: string[] | null
+          antonyms?: string[] | null
+          related_roots?: string[] | null
         }
         Relationships: []
       }

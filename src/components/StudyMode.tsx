@@ -5,9 +5,11 @@ import { FlashcardWithProgress } from '@/hooks/useFlashcardsDb';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { generateExamples } from '@/services/sentenceEvaluator';
+import { WordConnections } from '@/components/WordConnections';
 
 interface StudyModeProps {
   cards: FlashcardWithProgress[];
+  allCards: FlashcardWithProgress[];
   onMarkLearned: (id: string) => void;
   onMarkLearning: (id: string) => void;
   onUpdateCard?: (id: string, updates: any) => void;
@@ -15,7 +17,7 @@ interface StudyModeProps {
   listName?: string;
 }
 
-export function StudyMode({ cards, onMarkLearned, onMarkLearning, onUpdateCard, onExit, listName }: StudyModeProps) {
+export function StudyMode({ cards, allCards, onMarkLearned, onMarkLearning, onUpdateCard, onExit, listName }: StudyModeProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   const [completed, setCompleted] = useState<Set<string>>(new Set());
@@ -208,6 +210,10 @@ export function StudyMode({ cards, onMarkLearned, onMarkLearning, onUpdateCard, 
                           </p>
                         </div>
                       )}
+                      
+                      <div className="w-full">
+                        <WordConnections card={currentCard} allCards={allCards} />
+                      </div>
                     </div>
                   </div>
                 </div>

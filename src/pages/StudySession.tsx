@@ -8,6 +8,7 @@ import { Progress } from '@/components/ui/progress';
 import { Textarea } from '@/components/ui/textarea';
 import { ArrowLeft, CheckCircle2, Trophy, Send, Loader2, SkipForward, Users, BookOpen, X } from 'lucide-react';
 import { SRSRating, getIntervalPreviews } from '@/utils/srs';
+import { WordConnections } from '@/components/WordConnections';
 import {
     isSentencePracticeEnabled,
     evaluateSentence,
@@ -21,7 +22,7 @@ import { useAuth } from '@/contexts/AuthContext';
 
 export default function StudySession() {
     const navigate = useNavigate();
-    const { dueCards, reviewCard, updateCard, isLoaded } = useFlashcardsDb();
+    const { dueCards, reviewCard, updateCard, isLoaded, cards: allCards } = useFlashcardsDb();
     const { user, profile } = useAuth();
     const [currentCardIndex, setCurrentCardIndex] = useState(0);
     const [isFlipped, setIsFlipped] = useState(false);
@@ -353,6 +354,12 @@ export default function StudySession() {
                                                 </p>
                                             </div>
                                         )}
+
+                                        {/* Word Connections - Etymology, Synonyms, Antonyms */}
+                                        <WordConnections
+                                            card={currentCard}
+                                            allCards={allCards.map(c => ({ ...c, status: 'new' as const, learnedBy: [] }))}
+                                        />
 
                                         {/* AI Evaluation Result */}
                                         {evaluationResult && (
