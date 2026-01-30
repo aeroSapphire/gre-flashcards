@@ -304,6 +304,10 @@ const Index = () => {
                 <Trophy className="h-4 w-4 mr-1" />
                 Tests
               </Button>
+              <Button variant="outline" size="sm" onClick={() => navigate('/etymology')}>
+                <GraduationCap className="h-4 w-4 mr-1" />
+                Etymology
+              </Button>
               <Button variant="ghost" size="icon" onClick={() => navigate('/settings')} title="Settings">
                 <Settings className="h-4 w-4" />
               </Button>

@@ -221,6 +221,64 @@ export type Database = {
         }
         Relationships: []
       }
+      etymology_roots: {
+        Row: {
+          id: string
+          root: string
+          meaning: string
+          origin: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          root: string
+          meaning: string
+          origin?: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          root?: string
+          meaning?: string
+          origin?: string
+          created_at?: string
+        }
+        Relationships: []
+      }
+      etymology_words: {
+        Row: {
+          id: string
+          root_id: string
+          word: string
+          definition: string
+          breakdown: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          root_id: string
+          word: string
+          definition: string
+          breakdown: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          root_id?: string
+          word?: string
+          definition?: string
+          breakdown?: string
+          created_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "etymology_words_root_id_fkey"
+            columns: ["root_id"]
+            referencedRelation: "etymology_roots"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
     }
     Views: {
       [_ in never]: never
