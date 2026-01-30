@@ -6,7 +6,7 @@ import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Textarea } from '@/components/ui/textarea';
-import { ArrowLeft, CheckCircle2, Trophy, Send, Loader2, SkipForward, Users } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Trophy, Send, Loader2, SkipForward, Users, BookOpen, X } from 'lucide-react';
 import { SRSRating, getIntervalPreviews } from '@/utils/srs';
 import {
     isSentencePracticeEnabled,
@@ -48,6 +48,9 @@ export default function StudySession() {
 
     // Past evaluations from other users
     const [pastEvaluations, setPastEvaluations] = useState<SavedEvaluation[]>([]);
+
+    // Etymology panel visibility
+    const [showEtymology, setShowEtymology] = useState(false);
 
     useEffect(() => {
         if (isLoaded && !sessionInitialized && dueCards.length > 0) {
@@ -107,6 +110,7 @@ export default function StudySession() {
         setEvaluationResult(null);
         setEvaluationError(null);
         setAwaitingContinue(false);
+        setShowEtymology(false);
     };
 
     const handleRate = async (rating: SRSRating) => {
@@ -283,8 +287,21 @@ export default function StudySession() {
                         <ArrowLeft className="h-4 w-4 mr-2" />
                         Quit
                     </Button>
-                    <div className="text-sm font-medium text-muted-foreground">
-                        {currentCardIndex + 1} / {studyQueue.length}
+                    <div className="flex items-center gap-3">
+                        {currentCard?.etymology && (
+                            <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => setShowEtymology(!showEtymology)}
+                                className={showEtymology ? 'text-primary' : 'text-muted-foreground'}
+                            >
+                                <BookOpen className="h-4 w-4 mr-1" />
+                                Etymology
+                            </Button>
+                        )}
+                        <div className="text-sm font-medium text-muted-foreground">
+                            {currentCardIndex + 1} / {studyQueue.length}
+                        </div>
                     </div>
                 </div>
                 <Progress value={progress} className="h-1 rounded-none" />
@@ -327,17 +344,6 @@ export default function StudySession() {
                                                 {currentCard.definition}
                                             </p>
                                         </div>
-
-                                        {currentCard.etymology && (
-                                            <div className="pt-4 border-t w-full">
-                                                <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-2">Etymology</p>
-                                                <div className="px-4 py-2 bg-primary/5 rounded-lg border border-primary/10">
-                                                    <p className="text-base text-primary font-mono italic">
-                                                        {currentCard.etymology}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        )}
 
                                         {currentCard.example && (
                                             <div className="pt-4 border-t w-full">
@@ -492,6 +498,45 @@ export default function StudySession() {
                     </Card>
                 </div>
             </main >
+
+            {/* Etymology Side Panel */}
+            {showEtymology && currentCard?.etymology && (
+                <div className="fixed right-0 top-0 h-full w-80 md:w-96 bg-card border-l shadow-xl z-50 animate-in slide-in-from-right duration-300">
+                    <div className="flex flex-col h-full">
+                        <div className="flex items-center justify-between p-4 border-b bg-primary/5">
+                            <div className="flex items-center gap-2">
+                                <BookOpen className="h-5 w-5 text-primary" />
+                                <h3 className="font-semibold text-lg">Etymology</h3>
+                            </div>
+                            <Button variant="ghost" size="sm" onClick={() => setShowEtymology(false)}>
+                                <X className="h-4 w-4" />
+                            </Button>
+                        </div>
+                        <div className="flex-1 overflow-y-auto p-6">
+                            <div className="space-y-4">
+                                <div>
+                                    <h4 className="text-2xl font-bold text-primary mb-1">{currentCard.word}</h4>
+                                    <p className="text-sm text-muted-foreground italic">{currentCard.part_of_speech}</p>
+                                </div>
+                                <div className="h-px bg-border" />
+                                <div className="space-y-3">
+                                    <p className="text-base leading-relaxed">
+                                        {currentCard.etymology}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Backdrop for etymology panel */}
+            {showEtymology && (
+                <div
+                    className="fixed inset-0 bg-black/20 z-40 animate-in fade-in duration-200"
+                    onClick={() => setShowEtymology(false)}
+                />
+            )}
 
             {/* Controls */}
             {

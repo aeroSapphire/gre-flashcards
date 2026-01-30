@@ -77,15 +77,17 @@ YOU MUST respond ONLY in JSON format:
 {"word": "...", "options": ["...", "...", "...", "..."], "correct_index": 0, "breakdown": "..."}`;
       userPrompt = `Root: "${body.root}"\nMeaning: "${body.root_meaning}"\nExisting Words: ${JSON.stringify(body.existing_words)}\nRespond in JSON format.`;
     } else if (mode === "etymology") {
-      systemPrompt = `You are an expert etymologist and GRE tutor. Your task is to provide the etymological origin and linguistic breakdown for the given GRE word.
-Focus on Latin, Greek, French, or Old English roots. 
-If the word is a combination of roots, break it down clearly (e.g., "Root A (meaning) + Root B (meaning)").
-If it's from a single root, describe that root's origin.
+      systemPrompt = `You are an expert etymologist and GRE tutor. Provide a detailed etymological breakdown for the given GRE word.
 
-YOU MUST ALWAYS PROVIDE A RESULT. Do not say you don't know. Research your extensive internal knowledge of linguistics.
+Your response must include:
+1. The language of origin (Latin, Greek, French, Old English, etc.)
+2. The root word(s) with their meanings
+3. A brief explanation of how the literal meaning connects to the modern definition
 
-FORMAT: {"etymology": "Latin/Greek [root] (meaning) + [suffix/root] (meaning)"}
-EXAMPLE: {"etymology": "Latin circum (around) + specere (to look)"}`;
+YOU MUST ALWAYS PROVIDE A RESULT. Use your extensive linguistic knowledge.
+
+FORMAT: {"etymology": "derives from [Language] [root]: [breakdown]. [Literal meaning explanation connecting to modern usage]."}
+EXAMPLE: {"etymology": "derives from Latin circumspectus: circum (around) + spectare (to look/watch). Literally 'looking around,' it suggests careful observation of one's surroundings before acting."}`;
       userPrompt = `Word: "${word}"\nDefinition: "${definition}"\nRespond ONLY in JSON format.`;
     } else {
       systemPrompt = `You are a GRE tutor. Evaluate the student's sentence and return the results in a JSON object. Respond in JSON format.
