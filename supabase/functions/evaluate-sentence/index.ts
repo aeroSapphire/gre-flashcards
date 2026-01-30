@@ -64,6 +64,18 @@ You MUST respond ONLY in JSON format:
       systemPrompt = `You are a GRE tutor. Identify the part of speech (noun, verb, adjective, adverb, or other) for the given word based on its word and definition. Return a JSON object correctly formatted.
 FORMAT: {"part_of_speech": "noun"|"verb"|"adjective"|"adverb"|"other"}`;
       userPrompt = `Word: "${word}"\nDef: "${definition}"\nRespond in JSON format.`;
+    } else if (mode === "etymology-challenge") {
+      systemPrompt = `You are a GRE tutor specializing in etymology. Generate a challenge for the student based on a root they just learned.
+Identify a sophisticated GRE word that uses the given root but is NOT in the provided list.
+The format must be a JSON object:
+- "word": The new GRE word
+- "options": 4 definitions (one correct)
+- "correct_index": index of correct option
+- "breakdown": How the root helps define this specific word
+
+YOU MUST respond ONLY in JSON format: 
+{"word": "...", "options": ["...", "...", "...", "..."], "correct_index": 0, "breakdown": "..."}`;
+      userPrompt = `Root: "${body.root}"\nMeaning: "${body.root_meaning}"\nExisting Words: ${JSON.stringify(body.existing_words)}\nRespond in JSON format.`;
     } else {
       systemPrompt = `You are a GRE tutor. Evaluate the student's sentence and return the results in a JSON object. Respond in JSON format.
 FORMAT: {"rating": "again"|"hard"|"good"|"easy", "feedback": "string", "suggestion": "string"|null, "examples": ["string", "string", "string"]}`;

@@ -212,3 +212,39 @@ export async function generateQuiz(
     return [];
   }
 }
+
+export interface EtymologyChallenge {
+  word: string;
+  options: string[];
+  correct_index: number;
+  breakdown: string;
+}
+
+export async function generateEtymologyChallenge(
+  root: string,
+  rootMeaning: string,
+  existingWords: string[]
+): Promise<EtymologyChallenge | null> {
+  try {
+    const { data, error } = await supabase.functions.invoke('evaluate-sentence', {
+      body: {
+        root: root,
+        root_meaning: rootMeaning,
+        existing_words: existingWords,
+        mode: 'etymology-challenge'
+      },
+    });
+
+    if (error) throw error;
+
+    let finalData = data;
+    if (typeof data === 'string') {
+      finalData = JSON.parse(data);
+    }
+
+    return finalData || null;
+  } catch (error) {
+    console.error('Failed to generate etymology challenge:', error);
+    return null;
+  }
+}
