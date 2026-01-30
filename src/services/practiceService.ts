@@ -34,6 +34,11 @@ export async function generateTargetedPractice(mistakeLabel: MistakeLabel): Prom
       }
     }
 
+    if (!finalData.questions || !Array.isArray(finalData.questions) || finalData.questions.length === 0) {
+      console.error('Unexpected API response:', finalData);
+      throw new Error('API returned no questions');
+    }
+
     return finalData.questions || [];
   } catch (error) {
     console.error('Targeted Practice Generation Failed:', error);
