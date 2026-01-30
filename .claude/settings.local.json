@@ -36,7 +36,8 @@
       "Bash(git restore:*)",
       "Bash(npx ts-node:*)",
       "Bash(del \"D:\\\\GRE\\\\Flashcards\\\\check_etymology.ts\")",
-      "Bash(npx supabase functions deploy:*)"
+      "Bash(npx supabase functions deploy:*)",
+      "Bash(npx eslint:*)"
     ]
   }
 }

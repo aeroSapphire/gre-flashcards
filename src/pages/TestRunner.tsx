@@ -166,7 +166,7 @@ const TestRunner = () => {
                 description: `You scored ${score} / ${questions.length}`,
             });
 
-            navigate(`/test/${test.id}/results`);
+            navigate(`/test/${test.id}/results`, { state: { justFinished: true } });
 
         } catch (error: any) {
             console.error('Submit error:', error);

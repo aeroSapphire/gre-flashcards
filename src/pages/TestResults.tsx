@@ -1,20 +1,29 @@
+
 import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeft, RefreshCw, Trophy } from 'lucide-react';
+import { ArrowLeft, RefreshCw, Trophy, Loader2 } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+import { classifyMistake, MistakeClassifierInput } from '@/utils/mistakeClassifier';
+import { recordMistake } from '@/services/mistakeService';
 
 interface Attempt {
     score: number;
     total_questions: number;
     time_taken_seconds: number;
     answers: Record<string, number[]>;
+    test: {
+        title: string;
+        category: string;
+    };
 }
 
 interface Question {
     id: string;
     content: string;
+    type: string;
     options: string[];
     correct_answer: number[];
     explanation: string;
@@ -24,23 +33,28 @@ interface Question {
 const TestResults = () => {
     const { testId } = useParams();
     const navigate = useNavigate();
+    const location = useLocation();
+    const { toast } = useToast();
+    
     const [attempt, setAttempt] = useState<Attempt | null>(null);
     const [questions, setQuestions] = useState<Question[]>([]);
     const [loading, setLoading] = useState(true);
+    const [analyzing, setAnalyzing] = useState(false);
 
     useEffect(() => {
         const fetchResults = async () => {
-            // Get latest attempt
-            const { data: attemptData } = await supabase
+            // Get latest attempt with test details
+            const { data: attemptData, error } = await supabase
                 .from('user_test_attempts')
-                .select('*')
+                .select('*, test:tests(title, category)')
                 .eq('test_id', testId)
                 .order('completed_at', { ascending: false })
                 .limit(1)
                 .single();
 
             if (attemptData) {
-                setAttempt(attemptData);
+                setAttempt(attemptData as any);
+                
                 // Get questions for review
                 const { data: qData } = await supabase
                     .from('questions')
@@ -61,6 +75,95 @@ const TestResults = () => {
 
         fetchResults();
     }, [testId]);
+
+    // Analyze mistakes if just finished
+    useEffect(() => {
+        if (!loading && attempt && questions.length > 0 && location.state?.justFinished && !analyzing) {
+            analyzeMistakes();
+        }
+    }, [loading, attempt, questions, location.state]);
+
+    const analyzeMistakes = async () => {
+        if (!attempt) return;
+        setAnalyzing(true);
+        
+        // Clear navigation state to prevent re-running on refresh
+        window.history.replaceState({}, document.title);
+
+        const incorrectQuestions = questions.filter(q => {
+            const userAns = attempt.answers[q.id] || [];
+            const isCorrect = userAns.length === q.correct_answer.length &&
+                userAns.every(v => q.correct_answer.includes(v));
+            return !isCorrect;
+        });
+
+        if (incorrectQuestions.length === 0) {
+            setAnalyzing(false);
+            return;
+        }
+
+        toast({
+            title: "Analyzing Performance",
+            description: "Identifying mistake patterns...",
+        });
+
+        let processedCount = 0;
+
+        // Process in parallel but limited? Grok API is fast but rate limited.
+        // We implemented rate limiting in the script, but here we are calling client -> edge -> grok.
+        // Let's do them one by one or in small batches to be safe and not overwhelm the client/UI.
+        
+        for (const q of incorrectQuestions) {
+            try {
+                const userIndices = attempt.answers[q.id] || [];
+                const correctIndices = q.correct_answer;
+                
+                // Map indices to strings
+                // Handle multi-blank options structure if necessary
+                // The current component renders options simply, assuming flat array or handled by logic.
+                // In TestRunner, options are handled as flat array for single/multi, 
+                // but for double/triple blank it chunks them for display.
+                // The DB 'options' is likely a flat array of all options?
+                // Let's assume flat array for mapping indices.
+                
+                const getOptionText = (idx: number) => q.options[idx] || '';
+                
+                const userAnswersText = userIndices.map(getOptionText);
+                const correctAnswersText = correctIndices.map(getOptionText);
+                
+                // Determine Type
+                let qType: 'TC' | 'SE' | 'RC' = 'TC';
+                if (q.type === 'sentence_equivalence') qType = 'SE';
+                else if (attempt.test.category.includes('Reading')) qType = 'RC';
+                
+                const input: MistakeClassifierInput = {
+                    questionType: qType,
+                    questionText: q.content,
+                    options: q.options,
+                    correctAnswer: correctAnswersText,
+                    userAnswer: userAnswersText
+                };
+
+                const result = await classifyMistake(input);
+                
+                if (result.label !== 'NONE' && result.label !== 'ELIMINATION_FAILURE') {
+                    await recordMistake(result.label, qType);
+                }
+                
+                processedCount++;
+            } catch (err) {
+                console.error('Error analyzing question:', q.id, err);
+            }
+        }
+
+        setAnalyzing(false);
+        if (processedCount > 0) {
+            toast({
+                title: "Analysis Complete",
+                description: "Your mistake patterns have been updated.",
+            });
+        }
+    };
 
     if (loading) return <div>Loading results...</div>;
     if (!attempt) return <div>No attempt found</div>;
@@ -86,6 +189,12 @@ const TestResults = () => {
                 <p className="text-muted-foreground">
                     You scored {attempt.score} out of {attempt.total_questions} questions correct
                 </p>
+                {analyzing && (
+                    <div className="mt-4 flex items-center justify-center text-sm text-muted-foreground animate-pulse">
+                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                        Analyzing mistake patterns...
+                    </div>
+                )}
             </Card>
 
             <h2 className="text-xl font-bold mb-4">Detailed Review</h2>

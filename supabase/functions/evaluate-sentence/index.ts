@@ -100,6 +100,59 @@ If no matches exist, return empty arrays.
 
 FORMAT: {"synonyms": ["word1", "word2"], "antonyms": ["word3"], "related_roots": ["word4", "word5"]}`;
       userPrompt = `Target Word: "${word}"\nDefinition: "${definition}"\nVocabulary List: ${JSON.stringify(body.vocabulary_list)}\nRespond ONLY in JSON format.`;
+    } else if (mode === "classify-mistake") {
+      const { questionType, questionText, options, correctAnswer, userAnswer } = body;
+      
+      systemPrompt = `You are a GRE Verbal error classifier.
+
+Your task is NOT to teach, motivate, or explain broadly.
+Your task is to classify the user's mistake as precisely as possible.
+
+You must choose exactly ONE label from the list below:
+POLARITY_ERROR
+INTENSITY_MISMATCH
+SCOPE_ERROR
+LOGICAL_CONTRADICTION
+TONE_REGISTER_MISMATCH
+TEMPORAL_ERROR
+PARTIAL_SYNONYM_TRAP
+DOUBLE_NEGATIVE_CONFUSION
+CONTEXT_MISREAD
+ELIMINATION_FAILURE
+NONE
+
+Rules:
+- Do NOT invent new labels.
+- Do NOT use multiple labels.
+- If multiple issues exist, choose the MOST FUNDAMENTAL error.
+- Output must be valid JSON.
+- Explanations must be ONE sentence, max 20 words.
+- No advice. No examples. No extra text.
+
+Interpretation guidance:
+- POLARITY_ERROR: user chose a word with opposite meaning.
+- INTENSITY_MISMATCH: correct direction but too strong/weak.
+- SCOPE_ERROR: meaning applies too broadly or narrowly.
+- PARTIAL_SYNONYM_TRAP: similar meaning but fails in this context.
+- ELIMINATION_FAILURE: user kept an option that should have been eliminated easily.
+- CONTEXT_MISREAD: user misunderstood sentence logic or intent.
+
+If the user's answer is correct, return:
+{ "label": "NONE", "explanation": "Answer is correct." }`;
+
+      userPrompt = `QUESTION_TYPE: ${questionType}
+
+QUESTION:
+${questionText}
+
+OPTIONS:
+${Array.isArray(options) ? options.join('\n') : options}
+
+CORRECT_ANSWER:
+${Array.isArray(correctAnswer) ? correctAnswer.join(', ') : correctAnswer}
+
+USER_ANSWER:
+${Array.isArray(userAnswer) ? userAnswer.join(', ') : userAnswer}`;
     } else {
 
       systemPrompt = `You are a GRE tutor. Evaluate the student's sentence and return the results in a JSON object. Respond in JSON format.

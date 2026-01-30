@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check, ArrowLeft, ArrowRight, RotateCcw, Sparkles, BookOpen, X } from 'lucide-react';
+import { Check, ArrowLeft, ArrowRight, RotateCcw, Sparkles, BookOpen, X, GitBranch } from 'lucide-react';
 import { FlashcardWithProgress } from '@/hooks/useFlashcardsDb';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
@@ -212,7 +212,7 @@ export function StudyMode({ cards, allCards, onMarkLearned, onMarkLearning, onUp
                       )}
                       
                       <div className="w-full">
-                        <WordConnections card={currentCard} allCards={allCards} />
+                        <WordConnections card={currentCard} allCards={allCards} showEtymology={false} />
                       </div>
                     </div>
                   </div>
@@ -223,31 +223,76 @@ export function StudyMode({ cards, allCards, onMarkLearned, onMarkLearning, onUp
         </AnimatePresence>
       </div>
 
+      {/* Etymology Panel */}
+      <AnimatePresence>
+        {showEtymology && currentCard.etymology && (
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+            className="fixed bottom-0 left-0 right-0 p-4 z-50 bg-card border-t border-border shadow-2xl"
+          >
+            <div className="container max-w-lg mx-auto">
+              <div className="flex items-start gap-4">
+                <div className="p-2 rounded-xl bg-primary/10">
+                  <GitBranch className="h-5 w-5 text-primary" />
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="font-semibold text-foreground">Word Origin</h3>
+                    <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => setShowEtymology(false)}>
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  <p className="text-sm text-foreground/90 font-mono leading-relaxed">
+                    {currentCard.etymology}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Controls */}
       <div className="mt-8 flex flex-col gap-4">
         {isFlipped && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex gap-3 justify-center"
+            className="flex flex-col gap-4 items-center"
           >
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-accent text-accent hover:bg-accent/10"
-              onClick={handleStillLearning}
-            >
-              <RotateCcw className="h-4 w-4 mr-2" />
-              Still Learning
-            </Button>
-            <Button
-              size="lg"
-              className="bg-success hover:bg-success/90 text-success-foreground"
-              onClick={handleGotIt}
-            >
-              <Check className="h-4 w-4 mr-2" />
-              Got It!
-            </Button>
+            {currentCard.etymology && !showEtymology && (
+               <Button 
+                 variant="ghost" 
+                 size="sm" 
+                 onClick={() => setShowEtymology(true)}
+                 className="text-muted-foreground hover:text-primary"
+               >
+                 <GitBranch className="h-4 w-4 mr-2" />
+                 Show Origin
+               </Button>
+            )}
+
+            <div className="flex gap-3 justify-center w-full">
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-accent text-accent hover:bg-accent/10"
+                onClick={handleStillLearning}
+              >
+                <RotateCcw className="h-4 w-4 mr-2" />
+                Still Learning
+              </Button>
+              <Button
+                size="lg"
+                className="bg-success hover:bg-success/90 text-success-foreground"
+                onClick={handleGotIt}
+              >
+                <Check className="h-4 w-4 mr-2" />
+                Got It!
+              </Button>
+            </div>
           </motion.div>
         )}
         <div className="flex justify-center gap-4">

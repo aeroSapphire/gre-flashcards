@@ -10,6 +10,7 @@ import { StudyModeSelector } from '@/components/StudyModeSelector';
 import { AddCardDialog } from '@/components/AddCardDialog';
 import { StatsCard } from '@/components/StatsCard';
 import { ListCard } from '@/components/ListCard';
+import { DailyTutor } from '@/components/DailyTutor';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -330,6 +331,9 @@ const Index = () => {
         <div className="mb-4 text-sm text-muted-foreground">
           Signed in as <span className="font-medium text-foreground">{profile?.display_name || user?.email}</span>
         </div>
+
+        {/* Daily Tutor Nudge */}
+        <DailyTutor />
 
         {/* Overall Stats */}
         <div className="mb-8">
