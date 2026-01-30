@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowLeft, BrainCircuit, CheckCircle2, XCircle, Loader2, RefreshCw } from 'lucide-react';
 import { getMistakeHistory } from '@/services/mistakeService';
 import { analyzeMistakes } from '@/services/mistakeAnalysis';
-import { generateTargetedPractice, PracticeQuestion } from '@/services/practiceService';
+import { generateTargetedPractice, PracticeQuestion, markQuestionAsUsed } from '@/services/practiceService';
 import { MistakeLabel } from '@/utils/mistakeClassifier';
 import { useToast } from '@/hooks/use-toast';
 
@@ -80,6 +80,12 @@ export default function WeaknessPractice() {
     const checkAnswer = () => {
         setShowResult(true);
         const currentQ = questions[currentQIndex];
+        
+        // Mark as used
+        if (currentQ.id) {
+            markQuestionAsUsed(currentQ.id);
+        }
+
         const correct = currentQ.correct_answer;
         
         const isCorrect = selectedIndices.length === correct.length && 
