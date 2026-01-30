@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check, ArrowLeft, ArrowRight, RotateCcw, Sparkles } from 'lucide-react';
+import { Check, ArrowLeft, ArrowRight, RotateCcw, Sparkles, BookOpen, X } from 'lucide-react';
 import { FlashcardWithProgress } from '@/hooks/useFlashcardsDb';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
@@ -19,6 +19,7 @@ export function StudyMode({ cards, onMarkLearned, onMarkLearning, onUpdateCard, 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   const [completed, setCompleted] = useState<Set<string>>(new Set());
+  const [showEtymology, setShowEtymology] = useState(false);
 
   const studyCards = useMemo(
     () => cards.filter((c) => c.status !== 'learned'),
@@ -48,6 +49,7 @@ export function StudyMode({ cards, onMarkLearned, onMarkLearning, onUpdateCard, 
 
   const handleNext = () => {
     setIsFlipped(false);
+    setShowEtymology(false);
     setTimeout(() => {
       if (currentIndex < studyCards.length - 1) {
         setCurrentIndex(currentIndex + 1);
@@ -57,6 +59,7 @@ export function StudyMode({ cards, onMarkLearned, onMarkLearning, onUpdateCard, 
 
   const handlePrev = () => {
     setIsFlipped(false);
+    setShowEtymology(false);
     setTimeout(() => {
       if (currentIndex > 0) {
         setCurrentIndex(currentIndex - 1);
@@ -118,7 +121,18 @@ export function StudyMode({ cards, onMarkLearned, onMarkLearning, onUpdateCard, 
             {currentIndex + 1} of {studyCards.length}
           </span>
         </div>
-        <div className="w-20" />
+        <div className="w-20 flex justify-end">
+          {currentCard?.etymology && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setShowEtymology(!showEtymology)}
+              className={showEtymology ? 'text-primary' : 'text-muted-foreground'}
+            >
+              <BookOpen className="h-4 w-4" />
+            </Button>
+          )}
+        </div>
       </div>
 
       {/* Progress */}
@@ -247,6 +261,45 @@ export function StudyMode({ cards, onMarkLearned, onMarkLearning, onUpdateCard, 
           </Button>
         </div>
       </div>
+
+      {/* Etymology Side Panel */}
+      {showEtymology && currentCard?.etymology && (
+        <div className="fixed right-0 top-0 h-full w-80 md:w-96 bg-card border-l shadow-xl z-50 animate-in slide-in-from-right duration-300">
+          <div className="flex flex-col h-full">
+            <div className="flex items-center justify-between p-4 border-b bg-primary/5">
+              <div className="flex items-center gap-2">
+                <BookOpen className="h-5 w-5 text-primary" />
+                <h3 className="font-semibold text-lg">Etymology</h3>
+              </div>
+              <Button variant="ghost" size="sm" onClick={() => setShowEtymology(false)}>
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+            <div className="flex-1 overflow-y-auto p-6">
+              <div className="space-y-4">
+                <div>
+                  <h4 className="text-2xl font-bold text-primary mb-1">{currentCard.word}</h4>
+                  <p className="text-sm text-muted-foreground italic">{currentCard.part_of_speech}</p>
+                </div>
+                <div className="h-px bg-border" />
+                <div className="space-y-3">
+                  <p className="text-base leading-relaxed">
+                    {currentCard.etymology}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Backdrop for etymology panel */}
+      {showEtymology && (
+        <div
+          className="fixed inset-0 bg-black/20 z-40 animate-in fade-in duration-200"
+          onClick={() => setShowEtymology(false)}
+        />
+      )}
     </div>
   );
 }
