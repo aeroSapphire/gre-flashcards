@@ -155,67 +155,69 @@ const QuickQuiz = () => {
                 </div>
             </header>
 
-            <main className="flex-1 container max-w-2xl mx-auto p-4 flex flex-col justify-center py-12">
-                <AnimatePresence mode="wait">
-                    <motion.div
-                        key={currentIndex}
-                        initial={{ x: 20, opacity: 0 }}
-                        animate={{ x: 0, opacity: 1 }}
-                        exit={{ x: -20, opacity: 0 }}
-                        className="space-y-8"
-                    >
-                        <h2 className="text-2xl font-medium leading-relaxed">
-                            {renderContent(currentQ.content)}
-                        </h2>
+            <main className="flex-1 container max-w-2xl mx-auto p-4 overflow-y-auto">
+                <div className="min-h-full flex flex-col justify-center py-12">
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={currentIndex}
+                            initial={{ x: 20, opacity: 0 }}
+                            animate={{ x: 0, opacity: 1 }}
+                            exit={{ x: -20, opacity: 0 }}
+                            className="space-y-8"
+                        >
+                            <h2 className="text-2xl font-medium leading-relaxed">
+                                {renderContent(currentQ.content)}
+                            </h2>
 
-                        <div className="grid gap-3">
-                            {currentQ.options.map((option, idx) => {
-                                const isSelected = userAns === idx;
-                                const isCorrectTarget = idx === currentQ.correct_answer[0];
+                            <div className="grid gap-3">
+                                {currentQ.options.map((option, idx) => {
+                                    const isSelected = userAns === idx;
+                                    const isCorrectTarget = idx === currentQ.correct_answer[0];
 
-                                let variantClasses = "border-border hover:bg-muted";
-                                if (showExplanation) {
-                                    if (isCorrectTarget) variantClasses = "border-success bg-success/10 ring-1 ring-success";
-                                    else if (isSelected) variantClasses = "border-destructive bg-destructive/10 ring-1 ring-destructive";
-                                } else if (isSelected) {
-                                    variantClasses = "border-primary bg-primary/10";
-                                }
+                                    let variantClasses = "border-border hover:bg-muted";
+                                    if (showExplanation) {
+                                        if (isCorrectTarget) variantClasses = "border-success bg-success/10 ring-1 ring-success";
+                                        else if (isSelected) variantClasses = "border-destructive bg-destructive/10 ring-1 ring-destructive";
+                                    } else if (isSelected) {
+                                        variantClasses = "border-primary bg-primary/10";
+                                    }
 
-                                return (
-                                    <button
-                                        key={idx}
-                                        disabled={showExplanation}
-                                        onClick={() => handleAnswer(idx)}
-                                        className={`w-full text-left p-5 rounded-xl border transition-all flex items-center justify-between ${variantClasses}`}
-                                    >
-                                        <span className="text-lg">{option}</span>
-                                        {showExplanation && isCorrectTarget && <CheckCircle2 className="h-6 w-6 text-success" />}
-                                        {showExplanation && isSelected && !isCorrectTarget && <XCircle className="h-6 w-6 text-destructive" />}
-                                    </button>
-                                );
-                            })}
-                        </div>
+                                    return (
+                                        <button
+                                            key={idx}
+                                            disabled={showExplanation}
+                                            onClick={() => handleAnswer(idx)}
+                                            className={`w-full text-left p-5 rounded-xl border transition-all flex items-center justify-between ${variantClasses}`}
+                                        >
+                                            <span className="text-lg">{option}</span>
+                                            {showExplanation && isCorrectTarget && <CheckCircle2 className="h-6 w-6 text-success" />}
+                                            {showExplanation && isSelected && !isCorrectTarget && <XCircle className="h-6 w-6 text-destructive" />}
+                                        </button>
+                                    );
+                                })}
+                            </div>
 
-                        {showExplanation && (
-                            <motion.div
-                                initial={{ y: 10, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
-                                className="space-y-6"
-                            >
-                                <div className={`p-4 rounded-xl border ${isCorrect ? 'bg-success/5 border-success/20' : 'bg-destructive/5 border-destructive/20'}`}>
-                                    <h4 className={`font-semibold mb-1 ${isCorrect ? 'text-success' : 'text-destructive'}`}>
-                                        {isCorrect ? 'Correct!' : 'Incorrect'}
-                                    </h4>
-                                    <p className="text-muted-foreground">{currentQ.explanation}</p>
-                                </div>
-                                <Button className="w-full h-12" onClick={handleNext}>
-                                    {currentIndex === questions.length - 1 ? 'Finish Quiz' : 'Next Question'}
-                                    <ChevronRight className="ml-2 h-5 w-5" />
-                                </Button>
-                            </motion.div>
-                        )}
-                    </motion.div>
-                </AnimatePresence>
+                            {showExplanation && (
+                                <motion.div
+                                    initial={{ y: 10, opacity: 0 }}
+                                    animate={{ y: 0, opacity: 1 }}
+                                    className="space-y-6"
+                                >
+                                    <div className={`p-4 rounded-xl border ${isCorrect ? 'bg-success/5 border-success/20' : 'bg-destructive/5 border-destructive/20'}`}>
+                                        <h4 className={`font-semibold mb-1 ${isCorrect ? 'text-success' : 'text-destructive'}`}>
+                                            {isCorrect ? 'Correct!' : 'Incorrect'}
+                                        </h4>
+                                        <p className="text-muted-foreground">{currentQ.explanation}</p>
+                                    </div>
+                                    <Button className="w-full h-12" onClick={handleNext}>
+                                        {currentIndex === questions.length - 1 ? 'Finish Quiz' : 'Next Question'}
+                                        <ChevronRight className="ml-2 h-5 w-5" />
+                                    </Button>
+                                </motion.div>
+                            )}
+                        </motion.div>
+                    </AnimatePresence>
+                </div>
             </main>
         </div>
     );
