@@ -121,20 +121,22 @@ export function FlashcardItem({
           className="absolute inset-0 backface-hidden rounded-2xl bg-card border border-border shadow-lg p-6 flex flex-col min-h-64"
           style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
         >
-          <div className="flex-1 overflow-y-auto max-h-48 mb-4 flex flex-col items-center justify-center">
-            {card.part_of_speech && (
-              <p className="text-sm italic text-muted-foreground mb-2 uppercase tracking-wide">
-                {card.part_of_speech}
+          <div className="flex-1 overflow-y-auto max-h-48 mb-4 -mx-2 px-2">
+            <div className="min-h-full flex flex-col items-center justify-center">
+              {card.part_of_speech && (
+                <p className="text-sm italic text-muted-foreground mb-2 uppercase tracking-wide">
+                  {card.part_of_speech}
+                </p>
+              )}
+              <p className="text-xl text-foreground text-center leading-relaxed">
+                {card.definition}
               </p>
-            )}
-            <p className="text-xl text-foreground text-center leading-relaxed">
-              {card.definition}
-            </p>
-            {card.example && (
-              <p className="text-sm text-muted-foreground text-center italic mt-3">
-                "{card.example}"
-              </p>
-            )}
+              {card.example && (
+                <p className="text-sm text-muted-foreground text-center italic mt-3">
+                  "{card.example}"
+                </p>
+              )}
+            </div>
           </div>
           <div className="flex gap-2 justify-center pt-4 border-t border-border/50 flex-shrink-0" onClick={(e) => e.stopPropagation()}>
             {card.status !== 'learned' && (

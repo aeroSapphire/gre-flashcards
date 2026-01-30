@@ -177,20 +177,22 @@ export function StudyMode({ cards, onMarkLearned, onMarkLearning, onUpdateCard, 
                   className="absolute inset-0 backface-hidden rounded-2xl bg-card border border-border shadow-xl p-8 flex flex-col min-h-80"
                   style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
                 >
-                  <div className="flex-1 overflow-y-auto flex flex-col items-center justify-center">
-                    {currentCard.part_of_speech && (
-                      <p className="text-sm italic text-muted-foreground mb-2 uppercase tracking-wide">
-                        {currentCard.part_of_speech}
+                  <div className="flex-1 overflow-y-auto -mx-2 px-2">
+                    <div className="min-h-full flex flex-col items-center justify-center">
+                      {currentCard.part_of_speech && (
+                        <p className="text-sm italic text-muted-foreground mb-2 uppercase tracking-wide">
+                          {currentCard.part_of_speech}
+                        </p>
+                      )}
+                      <p className="text-xl text-foreground text-center leading-relaxed">
+                        {currentCard.definition}
                       </p>
-                    )}
-                    <p className="text-xl text-foreground text-center leading-relaxed">
-                      {currentCard.definition}
-                    </p>
-                    {currentCard.example && (
-                      <p className="text-sm text-muted-foreground text-center italic mt-4">
-                        "{currentCard.example}"
-                      </p>
-                    )}
+                      {currentCard.example && (
+                        <p className="text-sm text-muted-foreground text-center italic mt-4">
+                          "{currentCard.example}"
+                        </p>
+                      )}
+                    </div>
                   </div>
                 </div>
               </motion.div>

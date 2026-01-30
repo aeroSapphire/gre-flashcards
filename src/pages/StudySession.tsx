@@ -308,159 +308,161 @@ export default function StudySession() {
                             )}
                         </CardHeader>
 
-                        <CardContent className="flex-1 flex flex-col items-center justify-center p-8 text-center">
-                            <h2 className="text-4xl md:text-5xl font-bold mb-2 tracking-tight text-foreground">
-                                {currentCard.word}
-                            </h2>
-                            {currentCard.part_of_speech && (
-                                <p className="text-lg italic text-muted-foreground mb-6">
-                                    {currentCard.part_of_speech}
-                                </p>
-                            )}
+                        <CardContent className="flex-1 overflow-y-auto p-8 -mx-2 px-2">
+                            <div className="min-h-full flex flex-col items-center justify-center text-center">
+                                <h2 className="text-4xl md:text-5xl font-bold mb-2 tracking-tight text-foreground">
+                                    {currentCard.word}
+                                </h2>
+                                {currentCard.part_of_speech && (
+                                    <p className="text-lg italic text-muted-foreground mb-6">
+                                        {currentCard.part_of_speech}
+                                    </p>
+                                )}
 
-                            {isFlipped ? (
-                                <div className="space-y-6 w-full animate-in fade-in slide-in-from-bottom-4 duration-500">
-                                    <div className="space-y-2">
-                                        <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Definition</p>
-                                        <p className="text-xl md:text-2xl leading-relaxed font-medium">
-                                            {currentCard.definition}
-                                        </p>
-                                    </div>
-
-                                    {currentCard.example && (
-                                        <div className="pt-4 border-t w-full">
-                                            <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-2">Example</p>
-                                            <p className="text-lg italic text-muted-foreground">
-                                                "{currentCard.example}"
+                                {isFlipped ? (
+                                    <div className="space-y-6 w-full animate-in fade-in slide-in-from-bottom-4 duration-500">
+                                        <div className="space-y-2">
+                                            <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Definition</p>
+                                            <p className="text-xl md:text-2xl leading-relaxed font-medium">
+                                                {currentCard.definition}
                                             </p>
                                         </div>
-                                    )}
 
-                                    {/* AI Evaluation Result */}
-                                    {evaluationResult && (
-                                        <div className="pt-4 border-t w-full space-y-4">
-                                            <div className="p-4 rounded-lg bg-muted/50 border text-left">
-                                                <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-2">Your sentence</p>
-                                                <p className="text-base italic">"{userSentence}"</p>
+                                        {currentCard.example && (
+                                            <div className="pt-4 border-t w-full">
+                                                <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-2">Example</p>
+                                                <p className="text-lg italic text-muted-foreground">
+                                                    "{currentCard.example}"
+                                                </p>
                                             </div>
-                                            <div className={`p-4 rounded-lg border ${evaluationResult.rating === 'easy' || evaluationResult.rating === 'good'
-                                                ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800'
-                                                : evaluationResult.rating === 'hard'
-                                                    ? 'bg-amber-50 dark:bg-amber-900/20 border-amber-200 dark:border-amber-800'
-                                                    : 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800'
-                                                }`}>
-                                                <div className="space-y-2 text-left">
-                                                    <div className="flex items-center justify-between">
-                                                        <p className={`font-medium ${evaluationResult.rating === 'easy' || evaluationResult.rating === 'good'
-                                                            ? 'text-green-700 dark:text-green-300'
-                                                            : evaluationResult.rating === 'hard'
-                                                                ? 'text-amber-700 dark:text-amber-300'
-                                                                : 'text-red-700 dark:text-red-300'
-                                                            }`}>
-                                                            {evaluationResult.rating === 'easy' ? 'Excellent!' :
-                                                                evaluationResult.rating === 'good' ? 'Good job!' :
-                                                                    evaluationResult.rating === 'hard' ? 'Almost there!' : 'Try again next time!'}
+                                        )}
+
+                                        {/* AI Evaluation Result */}
+                                        {evaluationResult && (
+                                            <div className="pt-4 border-t w-full space-y-4">
+                                                <div className="p-4 rounded-lg bg-muted/50 border text-left">
+                                                    <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-2">Your sentence</p>
+                                                    <p className="text-base italic">"{userSentence}"</p>
+                                                </div>
+                                                <div className={`p-4 rounded-lg border ${evaluationResult.rating === 'easy' || evaluationResult.rating === 'good'
+                                                    ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800'
+                                                    : evaluationResult.rating === 'hard'
+                                                        ? 'bg-amber-50 dark:bg-amber-900/20 border-amber-200 dark:border-amber-800'
+                                                        : 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800'
+                                                    }`}>
+                                                    <div className="space-y-2 text-left">
+                                                        <div className="flex items-center justify-between">
+                                                            <p className={`font-medium ${evaluationResult.rating === 'easy' || evaluationResult.rating === 'good'
+                                                                ? 'text-green-700 dark:text-green-300'
+                                                                : evaluationResult.rating === 'hard'
+                                                                    ? 'text-amber-700 dark:text-amber-300'
+                                                                    : 'text-red-700 dark:text-red-300'
+                                                                }`}>
+                                                                {evaluationResult.rating === 'easy' ? 'Excellent!' :
+                                                                    evaluationResult.rating === 'good' ? 'Good job!' :
+                                                                        evaluationResult.rating === 'hard' ? 'Almost there!' : 'Try again next time!'}
+                                                            </p>
+                                                            <Badge variant="outline" className={`uppercase ${evaluationResult.rating === 'easy' ? 'border-green-500 text-green-600' :
+                                                                evaluationResult.rating === 'good' ? 'border-blue-500 text-blue-600' :
+                                                                    evaluationResult.rating === 'hard' ? 'border-amber-500 text-amber-600' :
+                                                                        'border-red-500 text-red-600'
+                                                                }`}>
+                                                                {evaluationResult.rating}
+                                                            </Badge>
+                                                        </div>
+                                                        <p className="text-sm text-muted-foreground">
+                                                            {evaluationResult.feedback}
                                                         </p>
-                                                        <Badge variant="outline" className={`uppercase ${evaluationResult.rating === 'easy' ? 'border-green-500 text-green-600' :
-                                                            evaluationResult.rating === 'good' ? 'border-blue-500 text-blue-600' :
-                                                                evaluationResult.rating === 'hard' ? 'border-amber-500 text-amber-600' :
-                                                                    'border-red-500 text-red-600'
-                                                            }`}>
-                                                            {evaluationResult.rating}
-                                                        </Badge>
+                                                        {evaluationResult.suggestion && (
+                                                            <p className="text-sm text-muted-foreground italic">
+                                                                Suggestion: {evaluationResult.suggestion}
+                                                            </p>
+                                                        )}
                                                     </div>
-                                                    <p className="text-sm text-muted-foreground">
-                                                        {evaluationResult.feedback}
-                                                    </p>
-                                                    {evaluationResult.suggestion && (
-                                                        <p className="text-sm text-muted-foreground italic">
-                                                            Suggestion: {evaluationResult.suggestion}
+                                                </div>
+                                                {/* Example sentences from AI */}
+                                                {evaluationResult.examples && evaluationResult.examples.length > 0 && (
+                                                    <div className="p-4 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800">
+                                                        <p className="text-sm font-medium text-blue-700 dark:text-blue-300 uppercase tracking-wider mb-3">
+                                                            Example Sentences
                                                         </p>
-                                                    )}
-                                                </div>
+                                                        <ul className="space-y-2 text-left">
+                                                            {evaluationResult.examples.map((example, idx) => (
+                                                                <li key={idx} className="text-sm text-muted-foreground italic">
+                                                                    "{example}"
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    </div>
+                                                )}
                                             </div>
-                                            {/* Example sentences from AI */}
-                                            {evaluationResult.examples && evaluationResult.examples.length > 0 && (
-                                                <div className="p-4 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800">
-                                                    <p className="text-sm font-medium text-blue-700 dark:text-blue-300 uppercase tracking-wider mb-3">
-                                                        Example Sentences
-                                                    </p>
-                                                    <ul className="space-y-2 text-left">
-                                                        {evaluationResult.examples.map((example, idx) => (
-                                                            <li key={idx} className="text-sm text-muted-foreground italic">
-                                                                "{example}"
-                                                            </li>
-                                                        ))}
-                                                    </ul>
-                                                </div>
-                                            )}
-                                        </div>
-                                    )}
-                                </div>
-                            ) : practiceEnabled ? (
-                                // Sentence practice mode - show input before reveal
-                                <div className="space-y-4 w-full animate-in fade-in slide-in-from-bottom-2">
-                                    <p className="text-sm font-medium text-muted-foreground">
-                                        Write a sentence using this word to test your understanding
-                                    </p>
+                                        )}
+                                    </div>
+                                ) : practiceEnabled ? (
+                                    // Sentence practice mode - show input before reveal
+                                    <div className="space-y-4 w-full animate-in fade-in slide-in-from-bottom-2">
+                                        <p className="text-sm font-medium text-muted-foreground">
+                                            Write a sentence using this word to test your understanding
+                                        </p>
 
-                                    <Textarea
-                                        placeholder={`Use "${currentCard.word}" in a sentence...`}
-                                        value={userSentence}
-                                        onChange={(e) => setUserSentence(e.target.value)}
-                                        className="min-h-[100px] text-base"
-                                        disabled={isEvaluating}
-                                        autoFocus
-                                    />
+                                        <Textarea
+                                            placeholder={`Use "${currentCard.word}" in a sentence...`}
+                                            value={userSentence}
+                                            onChange={(e) => setUserSentence(e.target.value)}
+                                            className="min-h-[100px] text-base"
+                                            disabled={isEvaluating}
+                                            autoFocus
+                                        />
 
-                                    {evaluationError && (
-                                        <div className="p-4 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800">
-                                            <p className="text-sm text-red-700 dark:text-red-300">{evaluationError}</p>
+                                        {evaluationError && (
+                                            <div className="p-4 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800">
+                                                <p className="text-sm text-red-700 dark:text-red-300">{evaluationError}</p>
+                                                <Button
+                                                    variant="outline"
+                                                    size="sm"
+                                                    onClick={() => setEvaluationError(null)}
+                                                    className="mt-2"
+                                                >
+                                                    Try Again
+                                                </Button>
+                                            </div>
+                                        )}
+
+                                        <div className="flex gap-2">
+                                            <Button
+                                                onClick={handleEvaluateSentence}
+                                                disabled={!userSentence.trim() || isEvaluating}
+                                                className="flex-1 gap-2"
+                                            >
+                                                {isEvaluating ? (
+                                                    <>
+                                                        <Loader2 className="h-4 w-4 animate-spin" />
+                                                        Evaluating...
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <Send className="h-4 w-4" />
+                                                        Submit
+                                                    </>
+                                                )}
+                                            </Button>
                                             <Button
                                                 variant="outline"
-                                                size="sm"
-                                                onClick={() => setEvaluationError(null)}
-                                                className="mt-2"
+                                                onClick={handleSkipSentencePractice}
+                                                disabled={isEvaluating}
+                                                className="gap-2"
                                             >
-                                                Try Again
+                                                <SkipForward className="h-4 w-4" />
+                                                Skip
                                             </Button>
                                         </div>
-                                    )}
-
-                                    <div className="flex gap-2">
-                                        <Button
-                                            onClick={handleEvaluateSentence}
-                                            disabled={!userSentence.trim() || isEvaluating}
-                                            className="flex-1 gap-2"
-                                        >
-                                            {isEvaluating ? (
-                                                <>
-                                                    <Loader2 className="h-4 w-4 animate-spin" />
-                                                    Evaluating...
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <Send className="h-4 w-4" />
-                                                    Submit
-                                                </>
-                                            )}
-                                        </Button>
-                                        <Button
-                                            variant="outline"
-                                            onClick={handleSkipSentencePractice}
-                                            disabled={isEvaluating}
-                                            className="gap-2"
-                                        >
-                                            <SkipForward className="h-4 w-4" />
-                                            Skip
-                                        </Button>
                                     </div>
-                                </div>
-                            ) : (
-                                <div className="text-muted-foreground text-sm animate-pulse">
-                                    Tap reveal to see definition
-                                </div>
-                            )}
+                                ) : (
+                                    <div className="text-muted-foreground text-sm animate-pulse">
+                                        Tap reveal to see definition
+                                    </div>
+                                )}
+                            </div>
                         </CardContent>
 
                         {!isFlipped && !practiceEnabled && (
@@ -478,67 +480,69 @@ export default function StudySession() {
                         {isFlipped && <div className="h-4" />}
                     </Card>
                 </div>
-            </main>
+            </main >
 
             {/* Controls */}
-            {isFlipped && currentCard && (
-                <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/80 backdrop-blur-md border-t animate-in slide-in-from-bottom duration-300">
-                    <div className="container max-w-2xl mx-auto">
-                        {awaitingContinue && evaluationResult ? (
-                            // AI-rated mode: show continue button
-                            <Button
-                                onClick={handleContinueAfterEvaluation}
-                                className={`w-full h-14 text-lg font-semibold shadow-md ${evaluationResult.rating === 'easy' ? 'bg-green-600 hover:bg-green-700' :
-                                    evaluationResult.rating === 'good' ? 'bg-blue-600 hover:bg-blue-700' :
-                                        evaluationResult.rating === 'hard' ? 'bg-amber-600 hover:bg-amber-700' :
-                                            'bg-red-600 hover:bg-red-700'
-                                    }`}
-                            >
-                                Continue ({evaluationResult.rating.charAt(0).toUpperCase() + evaluationResult.rating.slice(1)} - {previews[evaluationResult.rating]})
-                            </Button>
-                        ) : (
-                            // Manual rating mode
-                            <div className="grid grid-cols-4 gap-2 md:gap-4">
+            {
+                isFlipped && currentCard && (
+                    <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/80 backdrop-blur-md border-t animate-in slide-in-from-bottom duration-300">
+                        <div className="container max-w-2xl mx-auto">
+                            {awaitingContinue && evaluationResult ? (
+                                // AI-rated mode: show continue button
                                 <Button
-                                    variant="outline"
-                                    className="flex flex-col h-auto py-3 gap-1 hover:bg-red-100 hover:text-red-700 hover:border-red-200 dark:hover:bg-red-900/30"
-                                    onClick={() => handleRate('again')}
+                                    onClick={handleContinueAfterEvaluation}
+                                    className={`w-full h-14 text-lg font-semibold shadow-md ${evaluationResult.rating === 'easy' ? 'bg-green-600 hover:bg-green-700' :
+                                        evaluationResult.rating === 'good' ? 'bg-blue-600 hover:bg-blue-700' :
+                                            evaluationResult.rating === 'hard' ? 'bg-amber-600 hover:bg-amber-700' :
+                                                'bg-red-600 hover:bg-red-700'
+                                        }`}
                                 >
-                                    <span className="font-bold text-base">Again</span>
-                                    <span className="text-[10px] text-muted-foreground font-normal">{previews.again}</span>
+                                    Continue ({evaluationResult.rating.charAt(0).toUpperCase() + evaluationResult.rating.slice(1)} - {previews[evaluationResult.rating]})
                                 </Button>
+                            ) : (
+                                // Manual rating mode
+                                <div className="grid grid-cols-4 gap-2 md:gap-4">
+                                    <Button
+                                        variant="outline"
+                                        className="flex flex-col h-auto py-3 gap-1 hover:bg-red-100 hover:text-red-700 hover:border-red-200 dark:hover:bg-red-900/30"
+                                        onClick={() => handleRate('again')}
+                                    >
+                                        <span className="font-bold text-base">Again</span>
+                                        <span className="text-[10px] text-muted-foreground font-normal">{previews.again}</span>
+                                    </Button>
 
-                                <Button
-                                    variant="outline"
-                                    className="flex flex-col h-auto py-3 gap-1 hover:bg-orange-100 hover:text-orange-700 hover:border-orange-200 dark:hover:bg-orange-900/30"
-                                    onClick={() => handleRate('hard')}
-                                >
-                                    <span className="font-bold text-base">Hard</span>
-                                    <span className="text-[10px] text-muted-foreground font-normal">{previews.hard}</span>
-                                </Button>
+                                    <Button
+                                        variant="outline"
+                                        className="flex flex-col h-auto py-3 gap-1 hover:bg-orange-100 hover:text-orange-700 hover:border-orange-200 dark:hover:bg-orange-900/30"
+                                        onClick={() => handleRate('hard')}
+                                    >
+                                        <span className="font-bold text-base">Hard</span>
+                                        <span className="text-[10px] text-muted-foreground font-normal">{previews.hard}</span>
+                                    </Button>
 
-                                <Button
-                                    variant="outline"
-                                    className="flex flex-col h-auto py-3 gap-1 hover:bg-blue-100 hover:text-blue-700 hover:border-blue-200 dark:hover:bg-blue-900/30"
-                                    onClick={() => handleRate('good')}
-                                >
-                                    <span className="font-bold text-base">Good</span>
-                                    <span className="text-[10px] text-muted-foreground font-normal">{previews.good}</span>
-                                </Button>
+                                    <Button
+                                        variant="outline"
+                                        className="flex flex-col h-auto py-3 gap-1 hover:bg-blue-100 hover:text-blue-700 hover:border-blue-200 dark:hover:bg-blue-900/30"
+                                        onClick={() => handleRate('good')}
+                                    >
+                                        <span className="font-bold text-base">Good</span>
+                                        <span className="text-[10px] text-muted-foreground font-normal">{previews.good}</span>
+                                    </Button>
 
-                                <Button
-                                    variant="outline"
-                                    className="flex flex-col h-auto py-3 gap-1 hover:bg-green-100 hover:text-green-700 hover:border-green-200 dark:hover:bg-green-900/30"
-                                    onClick={() => handleRate('easy')}
-                                >
-                                    <span className="font-bold text-base">Easy</span>
-                                    <span className="text-[10px] text-muted-foreground font-normal">{previews.easy}</span>
-                                </Button>
-                            </div>
-                        )}
+                                    <Button
+                                        variant="outline"
+                                        className="flex flex-col h-auto py-3 gap-1 hover:bg-green-100 hover:text-green-700 hover:border-green-200 dark:hover:bg-green-900/30"
+                                        onClick={() => handleRate('easy')}
+                                    >
+                                        <span className="font-bold text-base">Easy</span>
+                                        <span className="text-[10px] text-muted-foreground font-normal">{previews.easy}</span>
+                                    </Button>
+                                </div>
+                            )}
+                        </div>
                     </div>
-                </div>
-            )}
-        </div>
+                )
+            }
+        </div >
     );
 }

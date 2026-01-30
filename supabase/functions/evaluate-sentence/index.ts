@@ -60,6 +60,10 @@ Each question must have:
 You MUST respond ONLY in JSON format: 
 {"questions": [{"content": "...", "type": "single_choice", "options": ["...", "...", "...", "...", "..."], "correct_answer": [0], "explanation": "..."}]}`;
       userPrompt = `Passage:\n"${sentence}"\n\nGenerate 3 questions for this passage in JSON format.`;
+    } else if (mode === "enrich") {
+      systemPrompt = `You are a GRE tutor. Identify the part of speech (noun, verb, adjective, adverb, or other) for the given word based on its word and definition. Return a JSON object correctly formatted.
+FORMAT: {"part_of_speech": "noun"|"verb"|"adjective"|"adverb"|"other"}`;
+      userPrompt = `Word: "${word}"\nDef: "${definition}"\nRespond in JSON format.`;
     } else {
       systemPrompt = `You are a GRE tutor. Evaluate the student's sentence and return the results in a JSON object. Respond in JSON format.
 FORMAT: {"rating": "again"|"hard"|"good"|"easy", "feedback": "string", "suggestion": "string"|null, "examples": ["string", "string", "string"]}`;
