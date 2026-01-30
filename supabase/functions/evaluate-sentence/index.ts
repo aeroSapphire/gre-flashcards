@@ -1,15 +1,18 @@
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
+
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
 };
 
-Deno.serve(async (req: Request) => {
+serve(async (req: Request) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { status: 204, headers: corsHeaders });
   }
 
   try {
+    console.log("Request received:", req.method, req.url);
     const apiKey = Deno.env.get("GROQ_API_KEY");
     if (!apiKey) {
       return new Response(JSON.stringify({ error: "Missing GROQ_API_KEY" }), { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } });
@@ -156,18 +159,24 @@ ${Array.isArray(userAnswer) ? userAnswer.join(', ') : userAnswer}`;
     } else if (mode === "generate-targeted-practice") {
       const { mistakeLabel } = body;
 
-      systemPrompt = `You are an expert GRE Verbal test creator.
-Your goal is to create 3 high-quality practice questions specifically designed to fix a student's weakness.
+      systemPrompt = `You are an expert GRE Verbal test creator (ETS style).
+Your goal is to create 3 HIGH-DIFFICULTY practice questions specifically designed to fix a student's weakness.
 
 WEAKNESS TYPE: ${mistakeLabel}
 
+GENERAL RULES:
+- Vocabulary must be ADVANCED (GRE tier).
+- Sentences must be complex, academic, and syntactically dense.
+- Distractors (wrong answers) must be plausible to a careless reader.
+- Avoid simple, short sentences. Use compound-complex structures.
+
 INSTRUCTIONS PER WEAKNESS:
-- POLARITY_ERROR: Create Text Completion (TC) questions with strong contrast signals (however, although, despite) where the blank flips the meaning.
-- INTENSITY_MISMATCH: Create TC questions where options have similar meanings but different degrees (e.g., dislike vs abhor), and the context demands a specific intensity.
-- SCOPE_ERROR: Create Reading Comprehension (RC) style mini-passages (1-2 sentences) where options are too broad or too narrow.
-- LOGICAL_CONTRADICTION: Create TC questions where the wrong answer creates a paradox.
-- TONE_REGISTER_MISMATCH: Create TC questions requiring a specific formality level.
-- PARTIAL_SYNONYM_TRAP: Create Sentence Equivalence (SE) questions with "near synonyms" that don't fit the specific context.
+- POLARITY_ERROR: Create Text Completion (TC) questions with subtle contrast signals (e.g., "belies," "antithetical," "notwithstanding") or double-negatives. The blank must require identifying a shift in meaning.
+- INTENSITY_MISMATCH: Create TC questions where options have nearly identical definitions but differ in STRENGTH (e.g., "dislike" vs "loathe", "smart" vs "ingenious"). Context must dictate the extreme or moderate choice.
+- SCOPE_ERROR: Create Reading Comprehension (RC) style mini-passages (2-3 sentences) where the correct answer is strictly supported by the text, while the "trap" answer is slightly too broad or makes an unsupported inference.
+- LOGICAL_CONTRADICTION: Create TC questions where the wrong answer creates a paradox or oxymoron in context.
+- TONE_REGISTER_MISMATCH: Create TC questions requiring a specific formality level or academic tone.
+- PARTIAL_SYNONYM_TRAP: Create Sentence Equivalence (SE) questions with "near synonyms" that don't fit the specific context (collocation errors or nuance differences).
 - DEFAULT: If the label is generic, create a mix of hard TC and SE questions.
 
 OUTPUT FORMAT:
@@ -175,27 +184,32 @@ Return a JSON object with an array of "questions".
 Each question must have:
 - "content": The question text (use _____ for blanks).
 - "type": "single_choice" or "multi_choice" (for SE).
-- "options": Array of strings.
+- "options": Array of strings (4-5 options).
 - "correct_answer": Array of indices [0] or [0, 1].
-- "explanation": Why the correct answer works and why the "trap" answer (related to the weakness) is wrong.
+- "explanation": Detailed explanation of why the correct answer fits and specifically why the "trap" answer (related to the weakness) is wrong.
 
-EXAMPLE JSON:
+EXAMPLE JSON (Complex Polarity):
 {
   "questions": [
     {
-      "content": "Although the politician's speech was _____, it failed to address the core issues.",
+      "content": "Far from being a ________ figure, the director was actually quite accessible, often engaging in lively debates with his detractors.",
       "type": "single_choice",
-      "options": ["eloquent", "tedious", "brief", "confusing"],
-      "correct_answer": [0],
-      "explanation": "The word 'Although' signals contrast. The speech was good (eloquent) BUT failed to address issues."
+      "options": ["aloof", "gregarious", "cantankerous", "solicitous", "reclusive"],
+      "correct_answer": [0, 4], 
+      "explanation": "The phrase 'Far from being' sets up a contrast with 'accessible' and 'engaging'. We need a word that means distant or unapproachable. 'Aloof' and 'reclusive' fit this description perfectly."
     }
   ]
 }`;
-      userPrompt = `Generate 3 practice questions for weakness: ${mistakeLabel}. Respond in JSON format.`;
+      userPrompt = `Generate 3 GRE-level practice questions for weakness: ${mistakeLabel}. Make them difficult. Respond in JSON format.`;
     } else {
+      // Default evaluation mode
+      // Check if examples should be included (default to true for backward compatibility)
+      const includeExamples = body.include_examples !== false;
+      
+      const exampleField = includeExamples ? ', "examples": ["string", "string", "string"]' : '';
 
       systemPrompt = `You are a GRE tutor. Evaluate the student's sentence and return the results in a JSON object. Respond in JSON format.
-FORMAT: {"rating": "again"|"hard"|"good"|"easy", "feedback": "string", "suggestion": "string"|null, "examples": ["string", "string", "string"]}`;
+FORMAT: {"rating": "again"|"hard"|"good"|"easy", "feedback": "string", "suggestion": "string"|null${exampleField}}`;
       userPrompt = `Word: "${word}"\nPOS: "${part_of_speech || 'N/A'}"\nDef: "${definition}"\nSentence: "${sentence}"\nRespond in JSON format.`;
     }
 

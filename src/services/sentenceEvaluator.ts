@@ -27,12 +27,24 @@ export async function evaluateSentence(
   part_of_speech?: string
 ): Promise<EvaluationResult> {
   try {
+    // Check for cached examples
+    const { data: flashcard } = await supabase
+      .from('flashcards')
+      .select('id, example_sentences')
+      .eq('word', word)
+      .maybeSingle();
+
+    // @ts-ignore - example_sentences is a new column
+    const cachedExamples = flashcard?.example_sentences as string[] | undefined;
+    const hasCachedExamples = Array.isArray(cachedExamples) && cachedExamples.length > 0;
+
     const { data, error } = await supabase.functions.invoke('evaluate-sentence', {
       body: {
         word,
         definition,
         part_of_speech,
         sentence: userSentence,
+        include_examples: !hasCachedExamples
       },
     });
 
@@ -67,11 +79,23 @@ export async function evaluateSentence(
     const validRatings: SRSRating[] = ['again', 'hard', 'good', 'easy'];
     const rating = validRatings.includes(finalData.rating) ? finalData.rating : 'hard';
 
+    // Cache examples if we got new ones
+    if (!hasCachedExamples && finalData.examples && Array.isArray(finalData.examples) && finalData.examples.length > 0 && flashcard?.id) {
+      // Fire and forget update
+      supabase
+        .from('flashcards')
+        .update({ example_sentences: finalData.examples } as any)
+        .eq('id', flashcard.id)
+        .then(({ error }) => {
+          if (error) console.error('Failed to cache examples:', error);
+        });
+    }
+
     return {
       rating,
       feedback: finalData.feedback || 'No feedback provided',
       suggestion: finalData.suggestion,
-      examples: finalData.examples || [],
+      examples: hasCachedExamples ? cachedExamples : (finalData.examples || []),
     };
   } catch (error: any) {
     console.error('Evaluation error:', error);
