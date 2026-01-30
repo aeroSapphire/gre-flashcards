@@ -2,7 +2,7 @@ export function AnimatedBackground() {
   return (
     <>
       {/* Animated Orbs Background */}
-      <div className="fixed inset-0 -z-10 overflow-hidden">
+      <div className="fixed inset-0 -z-10 overflow-hidden bg-background">
         {/* Orb 1: Teal/Cyan - "Focus" */}
         <div
           className="absolute w-[500px] h-[500px] rounded-full opacity-40 dark:opacity-60 animate-float-slow"

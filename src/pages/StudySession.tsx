@@ -216,7 +216,7 @@ export default function StudySession() {
 
     if (!isLoaded || (!sessionInitialized && dueCards.length > 0)) {
         return (
-            <div className="flex items-center justify-center min-h-screen bg-background">
+            <div className="flex items-center justify-center min-h-screen">
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
             </div>
         );
@@ -279,7 +279,7 @@ export default function StudySession() {
     const previews = getIntervalPreviews(cardState);
 
     return (
-        <div className="min-h-screen bg-background flex flex-col">
+        <div className="min-h-screen flex flex-col">
             {/* Header */}
             <header className="border-b bg-card/50 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-10">
                 <div className="container max-w-2xl mx-auto px-4 h-14 flex items-center justify-between">

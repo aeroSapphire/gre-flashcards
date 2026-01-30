@@ -256,7 +256,7 @@ const TestRunner = () => {
     };
 
     return (
-        <div className="min-h-screen bg-background flex flex-col">
+        <div className="min-h-screen flex flex-col">
             {/* Header */}
             <header className="border-b border-border bg-card p-4 sticky top-0 z-10">
                 <div className="container max-w-4xl mx-auto flex items-center justify-between">

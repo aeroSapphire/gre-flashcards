@@ -68,7 +68,7 @@ const TestResults = () => {
     const percentage = Math.round((attempt.score / attempt.total_questions) * 100);
 
     return (
-        <div className="min-h-screen bg-background container max-w-3xl mx-auto p-4 py-8">
+        <div className="min-h-screen container max-w-3xl mx-auto p-4 py-8">
             <div className="flex items-center gap-4 mb-8">
                 <Button variant="ghost" onClick={() => navigate('/tests')}>
                     <ArrowLeft className="h-4 w-4 mr-2" /> Back to Tests

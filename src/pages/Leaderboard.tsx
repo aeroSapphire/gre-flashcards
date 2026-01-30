@@ -225,7 +225,7 @@ const Leaderboard = () => {
     }
 
     return (
-        <div className="min-h-screen bg-background">
+        <div className="min-h-screen">
             <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-10">
                 <div className="container max-w-4xl mx-auto px-4 py-4">
                     <div className="flex items-center gap-3">

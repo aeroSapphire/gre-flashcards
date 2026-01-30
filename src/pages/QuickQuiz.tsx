@@ -91,7 +91,7 @@ const QuickQuiz = () => {
     if (isFinished) {
         const score = calculateScore();
         return (
-            <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
+            <div className="min-h-screen flex flex-col items-center justify-center p-4">
                 <motion.div
                     initial={{ scale: 0.9, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
@@ -138,7 +138,7 @@ const QuickQuiz = () => {
     };
 
     return (
-        <div className="min-h-screen bg-background flex flex-col">
+        <div className="min-h-screen flex flex-col">
             <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-10 p-4">
                 <div className="container max-w-2xl mx-auto flex items-center justify-between">
                     <Button variant="ghost" size="icon" onClick={() => navigate('/')}>
