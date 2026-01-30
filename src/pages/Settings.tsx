@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ArrowLeft, Save, User, Brain } from 'lucide-react';
+import { ArrowLeft, Save, User, Brain, Palette } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/hooks/use-toast';
+import { ThemeSelector } from '@/components/ThemeSelector';
 import {
   isSentencePracticeEnabled,
   setSentencePracticeEnabled,
@@ -157,6 +158,23 @@ const Settings = () => {
               onCheckedChange={handlePracticeToggle}
             />
           </div>
+        </div>
+
+        {/* Theme Settings */}
+        <div className="bg-card rounded-xl border border-border p-6 space-y-6">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
+              <Palette className="h-6 w-6 text-primary" />
+            </div>
+            <div>
+              <h2 className="font-semibold text-lg">Theme</h2>
+              <p className="text-sm text-muted-foreground">
+                Customize the look and feel of your app
+              </p>
+            </div>
+          </div>
+
+          <ThemeSelector />
         </div>
       </main>
     </div>
