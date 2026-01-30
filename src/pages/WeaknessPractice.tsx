@@ -3,26 +3,29 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeft, BrainCircuit, CheckCircle2, XCircle, Loader2, RefreshCw } from 'lucide-react';
+import { ArrowLeft, BrainCircuit, CheckCircle2, XCircle, Loader2, RefreshCw, GraduationCap } from 'lucide-react';
 import { getMistakeHistory } from '@/services/mistakeService';
-import { analyzeMistakes } from '@/services/mistakeAnalysis';
+import { analyzeMistakes, NUDGE_MESSAGES } from '@/services/mistakeAnalysis';
 import { generateTargetedPractice, PracticeQuestion, markQuestionAsUsed } from '@/services/practiceService';
 import { MistakeLabel } from '@/utils/mistakeClassifier';
 import { useToast } from '@/hooks/use-toast';
+import { TutorLesson } from '@/components/TutorLesson';
+
+type Phase = 'initial' | 'tutor' | 'practice' | 'finished';
 
 export default function WeaknessPractice() {
     const navigate = useNavigate();
     const { toast } = useToast();
-    
+
     const [loading, setLoading] = useState(true);
     const [generating, setGenerating] = useState(false);
     const [dominantMistake, setDominantMistake] = useState<MistakeLabel | null>(null);
+    const [phase, setPhase] = useState<Phase>('initial');
     const [questions, setQuestions] = useState<PracticeQuestion[]>([]);
     const [currentQIndex, setCurrentQIndex] = useState(0);
     const [selectedIndices, setSelectedIndices] = useState<number[]>([]);
     const [showResult, setShowResult] = useState(false);
     const [score, setScore] = useState(0);
-    const [finished, setFinished] = useState(false);
 
     useEffect(() => {
         loadWeakness();
@@ -40,15 +43,19 @@ export default function WeaknessPractice() {
         }
     };
 
+    const startTutor = () => {
+        setPhase('tutor');
+    };
+
     const startPractice = async () => {
         if (!dominantMistake) return;
         setGenerating(true);
+        setPhase('practice');
         try {
             const newQuestions = await generateTargetedPractice(dominantMistake);
             setQuestions(newQuestions);
             setCurrentQIndex(0);
             setScore(0);
-            setFinished(false);
             setShowResult(false);
             setSelectedIndices([]);
         } catch (error) {
@@ -57,6 +64,7 @@ export default function WeaknessPractice() {
                 description: "Failed to generate practice questions. Please try again.",
                 variant: "destructive"
             });
+            setPhase('tutor');
         } finally {
             setGenerating(false);
         }
@@ -100,8 +108,17 @@ export default function WeaknessPractice() {
             setSelectedIndices([]);
             setShowResult(false);
         } else {
-            setFinished(true);
+            setPhase('finished');
         }
+    };
+
+    const resetAndStartOver = () => {
+        setPhase('tutor');
+        setQuestions([]);
+        setCurrentQIndex(0);
+        setScore(0);
+        setShowResult(false);
+        setSelectedIndices([]);
     };
 
     if (loading) {
@@ -113,7 +130,10 @@ export default function WeaknessPractice() {
     }
 
     // View: Finished
-    if (finished) {
+    if (phase === 'finished') {
+        const percentage = Math.round((score / questions.length) * 100);
+        const isGood = percentage >= 70;
+
         return (
             <div className="min-h-screen container max-w-2xl mx-auto p-4 py-8">
                  <div className="flex items-center gap-4 mb-8">
@@ -122,28 +142,72 @@ export default function WeaknessPractice() {
                     </Button>
                 </div>
                 <Card className="text-center py-10">
-                    <h1 className="text-3xl font-bold mb-4">Practice Complete</h1>
-                    <div className="text-5xl font-black text-primary mb-4">
-                        {Math.round((score / questions.length) * 100)}%
-                    </div>
-                    <p className="text-muted-foreground mb-8">
-                        You scored {score} out of {questions.length} on your weakness: {dominantMistake}
-                    </p>
-                    <div className="flex justify-center gap-4">
-                        <Button onClick={startPractice}>
-                            <RefreshCw className="mr-2 h-4 w-4" /> Try Again
-                        </Button>
-                        <Button variant="outline" onClick={() => navigate('/')}>
-                            Return Home
-                        </Button>
-                    </div>
+                    <CardContent>
+                        <h1 className="text-3xl font-bold mb-4">Practice Complete</h1>
+                        <div className={`text-5xl font-black mb-4 ${isGood ? 'text-green-500' : 'text-amber-500'}`}>
+                            {percentage}%
+                        </div>
+                        <p className="text-muted-foreground mb-2">
+                            You scored {score} out of {questions.length}
+                        </p>
+                        <p className="text-sm text-muted-foreground mb-8">
+                            Weakness: <span className="font-mono text-primary">{dominantMistake}</span>
+                        </p>
+
+                        {!isGood && (
+                            <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-4 mb-6 text-left">
+                                <p className="text-sm text-amber-800 dark:text-amber-200">
+                                    <strong>Tip:</strong> Review the lesson again and pay close attention to the strategies. Practice makes perfect!
+                                </p>
+                            </div>
+                        )}
+
+                        <div className="flex flex-col sm:flex-row justify-center gap-3">
+                            <Button onClick={resetAndStartOver}>
+                                <GraduationCap className="mr-2 h-4 w-4" /> Review Lesson
+                            </Button>
+                            <Button variant="outline" onClick={startPractice}>
+                                <RefreshCw className="mr-2 h-4 w-4" /> More Practice
+                            </Button>
+                            <Button variant="ghost" onClick={() => navigate('/')}>
+                                Return Home
+                            </Button>
+                        </div>
+                    </CardContent>
                 </Card>
             </div>
         );
     }
 
+    // View: Tutor Lesson
+    if (phase === 'tutor' && dominantMistake) {
+        return (
+            <div className="min-h-screen container max-w-2xl mx-auto p-4 py-8">
+                <div className="flex items-center gap-4 mb-8">
+                    <Button variant="ghost" onClick={() => setPhase('initial')}>
+                        <ArrowLeft className="h-4 w-4 mr-2" /> Back
+                    </Button>
+                </div>
+
+                <TutorLesson
+                    mistakeLabel={dominantMistake}
+                    onContinue={startPractice}
+                />
+
+                {generating && (
+                    <div className="fixed inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center z-50">
+                        <div className="flex flex-col items-center gap-4">
+                            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                            <p className="text-muted-foreground">Generating practice questions...</p>
+                        </div>
+                    </div>
+                )}
+            </div>
+        );
+    }
+
     // View: Initial (Start)
-    if (questions.length === 0) {
+    if (phase === 'initial') {
         return (
             <div className="min-h-screen container max-w-2xl mx-auto p-4 py-8">
                 <div className="flex items-center gap-4 mb-8">
@@ -164,20 +228,22 @@ export default function WeaknessPractice() {
                             <>
                                 <div className="p-4 bg-background rounded-lg border">
                                     <p className="text-sm text-muted-foreground uppercase tracking-wider mb-1">Identified Weakness</p>
-                                    <p className="text-xl font-bold text-red-500">{dominantMistake}</p>
+                                    <p className="text-xl font-bold text-red-500">{dominantMistake?.replace(/_/g, ' ')}</p>
                                 </div>
+
+                                <div className="bg-muted/50 rounded-lg p-4 border-l-4 border-primary">
+                                    <p className="text-sm text-muted-foreground italic">
+                                        "{NUDGE_MESSAGES[dominantMistake]}"
+                                    </p>
+                                </div>
+
                                 <p className="text-muted-foreground">
-                                    We will generate custom questions specifically designed to help you overcome this mistake pattern.
+                                    We'll first help you understand this pattern, then give you targeted practice questions.
                                 </p>
-                                <Button size="lg" className="w-full" onClick={startPractice} disabled={generating}>
-                                    {generating ? (
-                                        <>
-                                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                            Generating Questions...
-                                        </>
-                                    ) : (
-                                        "Start Targeted Practice"
-                                    )}
+
+                                <Button size="lg" className="w-full" onClick={startTutor}>
+                                    <GraduationCap className="mr-2 h-5 w-5" />
+                                    Start Learning
                                 </Button>
                             </>
                         ) : (
@@ -196,9 +262,32 @@ export default function WeaknessPractice() {
         );
     }
 
+    // View: Practice - Loading
+    if (phase === 'practice' && (generating || questions.length === 0)) {
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <div className="flex flex-col items-center gap-4">
+                    <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                    <p className="text-muted-foreground">Generating practice questions...</p>
+                </div>
+            </div>
+        );
+    }
+
     // View: Question
     const currentQ = questions[currentQIndex];
-    
+
+    if (!currentQ) {
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <div className="text-center">
+                    <p className="text-muted-foreground mb-4">Something went wrong loading questions.</p>
+                    <Button onClick={() => setPhase('initial')}>Go Back</Button>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="min-h-screen container max-w-2xl mx-auto p-4 py-8">
             <div className="mb-6 flex justify-between items-center">
