@@ -6,9 +6,9 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowLeft, RefreshCw, Trophy, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { classifyMistake, MistakeClassifierInput } from '@/utils/mistakeClassifier';
+import { classifyMistake, MistakeClassifierInput, MistakeLabel } from '@/utils/mistakeClassifier';
 import { recordMistake } from '@/services/mistakeService';
-import { updateSkillModel } from '@/services/skillEngine';
+import { updateSkillModel, SkillType, ALL_SKILL_TYPES } from '@/services/skillEngine';
 
 interface Attempt {
     score: number;
@@ -29,6 +29,7 @@ interface Question {
     correct_answer: number[];
     explanation: string;
     order_index: number;
+    primary_skill?: string; // The primary skill being tested by this question
 }
 
 const TestResults = () => {
@@ -87,72 +88,87 @@ const TestResults = () => {
     const analyzeMistakes = async () => {
         if (!attempt) return;
         setAnalyzing(true);
-        
+
         // Clear navigation state to prevent re-running on refresh
         window.history.replaceState({}, document.title);
 
-        const incorrectQuestions = questions.filter(q => {
-            const userAns = attempt.answers[q.id] || [];
-            const isCorrect = userAns.length === q.correct_answer.length &&
-                userAns.every(v => q.correct_answer.includes(v));
-            return !isCorrect;
-        });
-
-        if (incorrectQuestions.length === 0) {
-            setAnalyzing(false);
-            return;
-        }
-
         toast({
             title: "Analyzing Performance",
-            description: "Identifying mistake patterns...",
+            description: "Updating skill model...",
         });
+
+        // Map test difficulty to numeric value
+        const testDifficultyMap: Record<string, number> = {
+            easy: -1.0,
+            medium: 0.0,
+            hard: 1.0
+        };
+
+        // Get test difficulty from the attempt or default to medium
+        const testDifficulty = testDifficultyMap[(attempt.test as any).difficulty] ?? 0;
 
         let processedCount = 0;
 
-        // Process in parallel but limited? Grok API is fast but rate limited.
-        // We implemented rate limiting in the script, but here we are calling client -> edge -> grok.
-        // Let's do them one by one or in small batches to be safe and not overwhelm the client/UI.
-        
-        for (const q of incorrectQuestions) {
+        for (const q of questions) {
             try {
                 const userIndices = attempt.answers[q.id] || [];
                 const correctIndices = q.correct_answer;
-                
-                // Map indices to strings
-                // Handle multi-blank options structure if necessary
-                // The current component renders options simply, assuming flat array or handled by logic.
-                // In TestRunner, options are handled as flat array for single/multi, 
-                // but for double/triple blank it chunks them for display.
-                // The DB 'options' is likely a flat array of all options?
-                // Let's assume flat array for mapping indices.
-                
-                const getOptionText = (idx: number) => q.options[idx] || '';
-                
-                const userAnswersText = userIndices.map(getOptionText);
-                const correctAnswersText = correctIndices.map(getOptionText);
-                
-                // Determine Type
-                let qType: 'TC' | 'SE' | 'RC' = 'TC';
-                if (q.type === 'sentence_equivalence') qType = 'SE';
-                else if (attempt.test.category.includes('Reading')) qType = 'RC';
-                
-                const input: MistakeClassifierInput = {
-                    questionType: qType,
-                    questionText: q.content,
-                    options: q.options,
-                    correctAnswer: correctAnswersText,
-                    userAnswer: userAnswersText
-                };
 
-                const result = await classifyMistake(input);
-                
-                if (result.label !== 'NONE' && result.label !== 'ELIMINATION_FAILURE') {
-                    await recordMistake(result.label, qType);
-                    await updateSkillModel(result.label, false);
+                const isCorrect = userIndices.length === correctIndices.length &&
+                    userIndices.every(v => correctIndices.includes(v));
+
+                if (isCorrect) {
+                    // Credit correct answers: if question has a primary_skill, update it
+                    // Otherwise, pick a random skill from the category based on question type
+                    const primarySkill = q.primary_skill as SkillType | undefined;
+
+                    if (primarySkill && ALL_SKILL_TYPES.includes(primarySkill)) {
+                        await updateSkillModel({
+                            isCorrect: true,
+                            primarySkill,
+                            questionDifficulty: testDifficulty
+                        });
+                        processedCount++;
+                    }
+                    // If no primary_skill, we skip crediting (we don't have enough info)
+                } else {
+                    // For incorrect answers, classify the mistake
+                    const getOptionText = (idx: number) => q.options[idx] || '';
+
+                    const userAnswersText = userIndices.map(getOptionText);
+                    const correctAnswersText = correctIndices.map(getOptionText);
+
+                    // Determine question type
+                    let qType: 'TC' | 'SE' | 'RC' = 'TC';
+                    if (q.type === 'sentence_equivalence') qType = 'SE';
+                    else if (attempt.test.category.includes('Reading')) qType = 'RC';
+
+                    const input: MistakeClassifierInput = {
+                        questionType: qType,
+                        questionText: q.content,
+                        options: q.options,
+                        correctAnswer: correctAnswersText,
+                        userAnswer: userAnswersText
+                    };
+
+                    const result = await classifyMistake(input);
+
+                    // Record mistake and update skill model
+                    if (result.label !== 'NONE') {
+                        await recordMistake(result.label, qType);
+
+                        // Update skill model with the classified mistake
+                        if (ALL_SKILL_TYPES.includes(result.label as SkillType)) {
+                            await updateSkillModel({
+                                isCorrect: false,
+                                primarySkill: result.label as SkillType,
+                                questionDifficulty: testDifficulty
+                            });
+                        }
+                    }
+
+                    processedCount++;
                 }
-                
-                processedCount++;
             } catch (err) {
                 console.error('Error analyzing question:', q.id, err);
             }
@@ -162,7 +178,7 @@ const TestResults = () => {
         if (processedCount > 0) {
             toast({
                 title: "Analysis Complete",
-                description: "Your mistake patterns have been updated.",
+                description: "Your skill model has been updated.",
             });
         }
     };

@@ -291,6 +291,42 @@ export type Database = {
           }
         ]
       }
+      user_skills: {
+        Row: {
+          id: string
+          user_id: string
+          skill_type: string
+          mu: number
+          sigma: number
+          correct_count: number
+          incorrect_count: number
+          last_practice_at: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          skill_type: string
+          mu?: number
+          sigma?: number
+          correct_count?: number
+          incorrect_count?: number
+          last_practice_at?: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          skill_type?: string
+          mu?: number
+          sigma?: number
+          correct_count?: number
+          incorrect_count?: number
+          last_practice_at?: string
+          created_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

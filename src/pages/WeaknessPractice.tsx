@@ -7,7 +7,7 @@ import { ArrowLeft, BrainCircuit, CheckCircle2, XCircle, Loader2, RefreshCw, Gra
 import { getMistakeHistory } from '@/services/mistakeService';
 import { analyzeMistakes, NUDGE_MESSAGES } from '@/services/mistakeAnalysis';
 import { generateTargetedPractice, PracticeQuestion, markQuestionAsUsed } from '@/services/practiceService';
-import { updateSkillModel } from '@/services/skillEngine';
+import { updateSkillModel, SkillType } from '@/services/skillEngine';
 import { MistakeLabel } from '@/utils/mistakeClassifier';
 import { useToast } from '@/hooks/use-toast';
 import { TutorLesson } from '@/components/TutorLesson';
@@ -102,8 +102,15 @@ export default function WeaknessPractice() {
         
         if (isCorrect) setScore(s => s + 1);
 
-        if (dominantMistake) {
-            updateSkillModel(dominantMistake, isCorrect);
+        // Update skill model for both correct and incorrect answers
+        if (dominantMistake && dominantMistake !== 'NONE') {
+            // Get question difficulty if available, default to 0 (medium)
+            const questionDifficulty = currentQ.difficulty ?? 0;
+            updateSkillModel({
+                isCorrect,
+                primarySkill: dominantMistake as SkillType,
+                questionDifficulty
+            });
         }
     };
 
