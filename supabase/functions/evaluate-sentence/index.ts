@@ -153,6 +153,45 @@ ${Array.isArray(correctAnswer) ? correctAnswer.join(', ') : correctAnswer}
 
 USER_ANSWER:
 ${Array.isArray(userAnswer) ? userAnswer.join(', ') : userAnswer}`;
+    } else if (mode === "generate-targeted-practice") {
+      const { mistakeLabel } = body;
+
+      systemPrompt = `You are an expert GRE Verbal test creator.
+Your goal is to create 3 high-quality practice questions specifically designed to fix a student's weakness.
+
+WEAKNESS TYPE: ${mistakeLabel}
+
+INSTRUCTIONS PER WEAKNESS:
+- POLARITY_ERROR: Create Text Completion (TC) questions with strong contrast signals (however, although, despite) where the blank flips the meaning.
+- INTENSITY_MISMATCH: Create TC questions where options have similar meanings but different degrees (e.g., dislike vs abhor), and the context demands a specific intensity.
+- SCOPE_ERROR: Create Reading Comprehension (RC) style mini-passages (1-2 sentences) where options are too broad or too narrow.
+- LOGICAL_CONTRADICTION: Create TC questions where the wrong answer creates a paradox.
+- TONE_REGISTER_MISMATCH: Create TC questions requiring a specific formality level.
+- PARTIAL_SYNONYM_TRAP: Create Sentence Equivalence (SE) questions with "near synonyms" that don't fit the specific context.
+- DEFAULT: If the label is generic, create a mix of hard TC and SE questions.
+
+OUTPUT FORMAT:
+Return a JSON object with an array of "questions".
+Each question must have:
+- "content": The question text (use _____ for blanks).
+- "type": "single_choice" or "multi_choice" (for SE).
+- "options": Array of strings.
+- "correct_answer": Array of indices [0] or [0, 1].
+- "explanation": Why the correct answer works and why the "trap" answer (related to the weakness) is wrong.
+
+EXAMPLE JSON:
+{
+  "questions": [
+    {
+      "content": "Although the politician's speech was _____, it failed to address the core issues.",
+      "type": "single_choice",
+      "options": ["eloquent", "tedious", "brief", "confusing"],
+      "correct_answer": [0],
+      "explanation": "The word 'Although' signals contrast. The speech was good (eloquent) BUT failed to address issues."
+    }
+  ]
+}`;
+      userPrompt = `Generate 3 practice questions for weakness: ${mistakeLabel}. Respond in JSON format.`;
     } else {
 
       systemPrompt = `You are a GRE tutor. Evaluate the student's sentence and return the results in a JSON object. Respond in JSON format.
