@@ -20,11 +20,30 @@ const DEFAULT_MU = 50;
 const DEFAULT_SIGMA = 15;
 
 export function SkillRadar({ skills }: SkillRadarProps) {
+  // Check if using old schema
+  const isOldSchema = useMemo(() => {
+    const oldCategoryNames = ['precision', 'vocab', 'logic', 'context'];
+    return skills.some(s => oldCategoryNames.includes(s.skill_type as string));
+  }, [skills]);
+
   const skillMap = useMemo(() => {
     const map = new Map<SkillType, UserSkill>();
     skills.forEach(s => map.set(s.skill_type as SkillType, s));
     return map;
   }, [skills]);
+
+  // Don't render detailed radar if using old schema
+  if (isOldSchema) {
+    return (
+      <div className="w-full max-w-2xl mx-auto p-4 text-center">
+        <h3 className="text-lg font-semibold mb-4">Detailed Skill Breakdown</h3>
+        <p className="text-muted-foreground text-sm">
+          Detailed 10-skill breakdown will be available after the database migration is applied.
+          Currently showing aggregated 4-category view above.
+        </p>
+      </div>
+    );
+  }
 
   const getSkillData = (type: SkillType) => {
     return skillMap.get(type) || {

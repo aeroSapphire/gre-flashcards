@@ -39,6 +39,20 @@ export const SKILL_CATEGORIES: Record<SkillCategory, SkillType[]> = {
   context: ['TONE_REGISTER_MISMATCH', 'CONTEXT_MISREAD']
 };
 
+// Reverse mapping: 10 skills to their category (for backward compatibility)
+export const SKILL_TO_CATEGORY: Record<SkillType, SkillCategory> = {
+  POLARITY_ERROR: 'precision',
+  TEMPORAL_ERROR: 'precision',
+  INTENSITY_MISMATCH: 'vocab',
+  PARTIAL_SYNONYM_TRAP: 'vocab',
+  SCOPE_ERROR: 'logic',
+  LOGICAL_CONTRADICTION: 'logic',
+  DOUBLE_NEGATIVE_CONFUSION: 'logic',
+  ELIMINATION_FAILURE: 'logic',
+  TONE_REGISTER_MISMATCH: 'context',
+  CONTEXT_MISREAD: 'context'
+};
+
 // Base difficulty by mistake type (inherent difficulty of avoiding this mistake)
 export const MISTAKE_BASE_DIFFICULTY: Record<SkillType, number> = {
   POLARITY_ERROR: 0.0,          // Medium - common trap
@@ -54,11 +68,11 @@ export const MISTAKE_BASE_DIFFICULTY: Record<SkillType, number> = {
 };
 
 export interface UserSkill {
-  skill_type: SkillType;
+  skill_type: SkillType | SkillCategory; // Supports both new 10-skill and old 4-category schemas
   mu: number;           // Ability estimate (0-100)
   sigma: number;        // Uncertainty (2-20)
-  correct_count: number;
-  incorrect_count: number;
+  correct_count?: number;  // Optional for old schema compatibility
+  incorrect_count?: number; // Optional for old schema compatibility
   last_practice_at: string;
 }
 
@@ -175,7 +189,7 @@ export async function updateSkillModel(params: UpdateSkillParams): Promise<void>
       incorrectCount++;
     }
 
-    // 9. Save to database
+    // 9. Save to database - try new schema first, fall back to old 4-category schema
     const { error: upsertError } = await supabase
       .from('user_skills')
       .upsert({
@@ -188,7 +202,30 @@ export async function updateSkillModel(params: UpdateSkillParams): Promise<void>
         last_practice_at: new Date().toISOString()
       }, { onConflict: 'user_id,skill_type' });
 
-    if (upsertError) throw upsertError;
+    if (upsertError) {
+      // Check if it's a constraint violation (old schema with 4 skills)
+      if (upsertError.code === '23514' || upsertError.message?.includes('check')) {
+        // Fall back to old 4-category schema
+        const categorySkill = SKILL_TO_CATEGORY[primarySkill];
+        console.log(`Falling back to old schema: ${primarySkill} -> ${categorySkill}`);
+
+        const { error: fallbackError } = await supabase
+          .from('user_skills')
+          .upsert({
+            user_id: user.id,
+            skill_type: categorySkill,
+            mu: newMu,
+            sigma: newSigma,
+            last_practice_at: new Date().toISOString()
+          }, { onConflict: 'user_id,skill_type' });
+
+        if (fallbackError) throw fallbackError;
+
+        console.log(`Updated ${categorySkill} (fallback): mu ${mu.toFixed(1)} → ${newMu.toFixed(1)}`);
+        return;
+      }
+      throw upsertError;
+    }
 
     const direction = isCorrect ? '↑' : '↓';
     console.log(`Updated ${primarySkill}: mu ${mu.toFixed(1)} → ${newMu.toFixed(1)} ${direction} (difficulty: ${combinedDifficulty.toFixed(2)})`);
@@ -215,12 +252,37 @@ export async function getUserSkills(): Promise<UserSkill[]> {
 }
 
 /**
- * Aggregates 10 skills into 4 categories using weighted average.
- * Weight is based on total practice count (more practiced = more weight).
+ * Aggregates skills into 4 categories.
+ * Handles both new 10-skill schema and old 4-category schema.
  */
 export function aggregateSkillsToCategories(skills: UserSkill[]): CategorySkill[] {
+  // Detect schema: check if any skill has an old category name
+  const oldCategoryNames = ['precision', 'vocab', 'logic', 'context'];
+  const isOldSchema = skills.some(s => oldCategoryNames.includes(s.skill_type));
+
+  if (isOldSchema) {
+    // Old 4-category schema: use skills directly as categories
+    const categoryMap = new Map<SkillCategory, UserSkill>();
+    skills.forEach(s => {
+      if (oldCategoryNames.includes(s.skill_type)) {
+        categoryMap.set(s.skill_type as SkillCategory, s);
+      }
+    });
+
+    return (['precision', 'vocab', 'logic', 'context'] as SkillCategory[]).map(category => {
+      const skill = categoryMap.get(category);
+      return {
+        category,
+        mu: skill?.mu ?? DEFAULT_MU,
+        sigma: skill?.sigma ?? DEFAULT_SIGMA,
+        componentSkills: SKILL_CATEGORIES[category]
+      };
+    });
+  }
+
+  // New 10-skill schema: aggregate into categories
   const skillMap = new Map<SkillType, UserSkill>();
-  skills.forEach(s => skillMap.set(s.skill_type, s));
+  skills.forEach(s => skillMap.set(s.skill_type as SkillType, s));
 
   const categories: CategorySkill[] = [];
 
@@ -233,7 +295,7 @@ export function aggregateSkillsToCategories(skills: UserSkill[]): CategorySkill[
       const skill = skillMap.get(skillType);
       if (skill) {
         // Weight by total practice (correct + incorrect), min weight of 1
-        const weight = Math.max(1, skill.correct_count + skill.incorrect_count);
+        const weight = Math.max(1, (skill.correct_count || 0) + (skill.incorrect_count || 0));
         totalWeight += weight;
         weightedMuSum += skill.mu * weight;
         weightedSigmaSum += skill.sigma * weight;

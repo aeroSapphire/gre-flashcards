@@ -119,8 +119,23 @@ export function BrainMap({ skills }: BrainMapProps) {
     );
   };
 
+  // Check if using old schema (skills have category names instead of 10-skill types)
+  const isOldSchema = useMemo(() => {
+    const oldCategoryNames = ['precision', 'vocab', 'logic', 'context'];
+    return skills.some(s => oldCategoryNames.includes(s.skill_type));
+  }, [skills]);
+
   // Get component skills info for hover tooltip
   const getComponentSkillsInfo = (category: SkillCategory) => {
+    if (isOldSchema) {
+      // Old schema: just show the category skill
+      const categoryData = getCategoryData(category);
+      return [{
+        name: `${category} (aggregated)`,
+        mu: categoryData.mu
+      }];
+    }
+
     const componentSkills = SKILL_CATEGORIES[category];
     return componentSkills.map(skillType => {
       const skill = skillMap.get(skillType);

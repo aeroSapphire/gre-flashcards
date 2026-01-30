@@ -18,6 +18,7 @@ interface Attempt {
     test: {
         title: string;
         category: string;
+        difficulty: string;
     };
 }
 
@@ -48,7 +49,7 @@ const TestResults = () => {
             // Get latest attempt with test details
             const { data: attemptData, error } = await supabase
                 .from('user_test_attempts')
-                .select('*, test:tests(title, category)')
+                .select('*, test:tests(title, category, difficulty)')
                 .eq('test_id', testId)
                 .order('completed_at', { ascending: false })
                 .limit(1)
@@ -105,7 +106,7 @@ const TestResults = () => {
         };
 
         // Get test difficulty from the attempt or default to medium
-        const testDifficulty = testDifficultyMap[(attempt.test as any).difficulty] ?? 0;
+        const testDifficulty = testDifficultyMap[attempt.test.difficulty] ?? 0;
 
         let processedCount = 0;
 
