@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 
 const DB_NAME = 'gre-vocab-offline';
-const DB_VERSION = 2; // Bumped for new store
+const DB_VERSION = 3; // Bumped to refresh cache with etymology data
 
 export interface PendingProgressUpdate {
   id: string;

@@ -10,6 +10,7 @@ export interface Flashcard {
   word: string;
   definition: string;
   part_of_speech?: string;
+  etymology?: string;
   example?: string;
   tags?: string[];
   created_at: string;
@@ -653,11 +654,12 @@ export function useFlashcardsDb() {
     }
   };
 
-  const addCard = async (word: string, definition: string, part_of_speech?: string, example?: string, tags?: string[]) => {
+  const addCard = async (word: string, definition: string, part_of_speech?: string, etymology?: string, example?: string, tags?: string[]) => {
     const { error } = await supabase.from('flashcards').insert({
       word,
       definition,
       part_of_speech,
+      etymology,
       example,
       tags,
       status: 'new', // Keep for backward compatibility

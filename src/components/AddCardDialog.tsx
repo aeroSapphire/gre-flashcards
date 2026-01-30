@@ -21,7 +21,7 @@ import {
 interface AddCardDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onAdd: (word: string, definition: string, part_of_speech?: string, example?: string, tags?: string[]) => void;
+  onAdd: (word: string, definition: string, part_of_speech?: string, etymology?: string, example?: string, tags?: string[]) => void;
   onUpdate?: (id: string, updates: Partial<Omit<Flashcard, 'id' | 'created_at' | 'created_by'>>) => void;
   editingCard?: FlashcardWithProgress | null;
 }
@@ -36,6 +36,7 @@ export function AddCardDialog({
   const [word, setWord] = useState('');
   const [definition, setDefinition] = useState('');
   const [partOfSpeech, setPartOfSpeech] = useState<string>('');
+  const [etymology, setEtymology] = useState('');
   const [example, setExample] = useState('');
   const [tags, setTags] = useState('');
 
@@ -44,12 +45,14 @@ export function AddCardDialog({
       setWord(editingCard.word);
       setDefinition(editingCard.definition);
       setPartOfSpeech(editingCard.part_of_speech || '');
+      setEtymology(editingCard.etymology || '');
       setExample(editingCard.example || '');
       setTags(editingCard.tags?.join(', ') || '');
     } else {
       setWord('');
       setDefinition('');
       setPartOfSpeech('');
+      setEtymology('');
       setExample('');
       setTags('');
     }
@@ -68,16 +71,18 @@ export function AddCardDialog({
         word: word.trim(),
         definition: definition.trim(),
         part_of_speech: partOfSpeech || undefined,
+        etymology: etymology.trim() || undefined,
         example: example.trim() || undefined,
         tags: parsedTags,
       });
     } else {
-      onAdd(word.trim(), definition.trim(), partOfSpeech || undefined, example.trim() || undefined, parsedTags);
+      onAdd(word.trim(), definition.trim(), partOfSpeech || undefined, etymology.trim() || undefined, example.trim() || undefined, parsedTags);
     }
 
     setWord('');
     setDefinition('');
     setPartOfSpeech('');
+    setEtymology('');
     setExample('');
     setTags('');
     onOpenChange(false);
@@ -127,6 +132,15 @@ export function AddCardDialog({
               onChange={(e) => setDefinition(e.target.value)}
               placeholder="e.g., Lasting for a very short time"
               rows={3}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="etymology">Etymology / Origin (optional)</Label>
+            <Input
+              id="etymology"
+              value={etymology}
+              onChange={(e) => setEtymology(e.target.value)}
+              placeholder="e.g., Latin circum (around) + specere (to look)"
             />
           </div>
           <div className="space-y-2">

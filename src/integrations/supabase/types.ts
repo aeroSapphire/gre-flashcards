@@ -50,6 +50,7 @@ export type Database = {
           updated_at: string
           word: string
           part_of_speech: string | null
+          etymology: string | null
         }
         Insert: {
           created_at?: string
@@ -62,6 +63,7 @@ export type Database = {
           updated_at?: string
           word: string
           part_of_speech?: string | null
+          etymology?: string | null
         }
         Update: {
           created_at?: string
@@ -74,6 +76,7 @@ export type Database = {
           updated_at?: string
           word?: string
           part_of_speech?: string | null
+          etymology?: string | null
         }
         Relationships: []
       }

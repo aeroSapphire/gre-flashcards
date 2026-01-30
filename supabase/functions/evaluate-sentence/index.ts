@@ -76,6 +76,17 @@ The format must be a JSON object:
 YOU MUST respond ONLY in JSON format: 
 {"word": "...", "options": ["...", "...", "...", "..."], "correct_index": 0, "breakdown": "..."}`;
       userPrompt = `Root: "${body.root}"\nMeaning: "${body.root_meaning}"\nExisting Words: ${JSON.stringify(body.existing_words)}\nRespond in JSON format.`;
+    } else if (mode === "etymology") {
+      systemPrompt = `You are an expert etymologist and GRE tutor. Your task is to provide the etymological origin and linguistic breakdown for the given GRE word.
+Focus on Latin, Greek, French, or Old English roots. 
+If the word is a combination of roots, break it down clearly (e.g., "Root A (meaning) + Root B (meaning)").
+If it's from a single root, describe that root's origin.
+
+YOU MUST ALWAYS PROVIDE A RESULT. Do not say you don't know. Research your extensive internal knowledge of linguistics.
+
+FORMAT: {"etymology": "Latin/Greek [root] (meaning) + [suffix/root] (meaning)"}
+EXAMPLE: {"etymology": "Latin circum (around) + specere (to look)"}`;
+      userPrompt = `Word: "${word}"\nDefinition: "${definition}"\nRespond ONLY in JSON format.`;
     } else {
       systemPrompt = `You are a GRE tutor. Evaluate the student's sentence and return the results in a JSON object. Respond in JSON format.
 FORMAT: {"rating": "again"|"hard"|"good"|"easy", "feedback": "string", "suggestion": "string"|null, "examples": ["string", "string", "string"]}`;

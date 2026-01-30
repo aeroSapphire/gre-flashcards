@@ -328,6 +328,17 @@ export default function StudySession() {
                                             </p>
                                         </div>
 
+                                        {currentCard.etymology && (
+                                            <div className="pt-4 border-t w-full">
+                                                <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-2">Etymology</p>
+                                                <div className="px-4 py-2 bg-primary/5 rounded-lg border border-primary/10">
+                                                    <p className="text-base text-primary font-mono italic">
+                                                        {currentCard.etymology}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        )}
+
                                         {currentCard.example && (
                                             <div className="pt-4 border-t w-full">
                                                 <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-2">Example</p>
