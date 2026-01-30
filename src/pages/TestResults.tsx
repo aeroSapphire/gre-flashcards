@@ -8,6 +8,7 @@ import { ArrowLeft, RefreshCw, Trophy, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { classifyMistake, MistakeClassifierInput } from '@/utils/mistakeClassifier';
 import { recordMistake } from '@/services/mistakeService';
+import { updateSkillModel } from '@/services/skillEngine';
 
 interface Attempt {
     score: number;
@@ -148,6 +149,7 @@ const TestResults = () => {
                 
                 if (result.label !== 'NONE' && result.label !== 'ELIMINATION_FAILURE') {
                     await recordMistake(result.label, qType);
+                    await updateSkillModel(result.label, false);
                 }
                 
                 processedCount++;

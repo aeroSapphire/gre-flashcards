@@ -38,7 +38,8 @@
       "Bash(del \"D:\\\\GRE\\\\Flashcards\\\\check_etymology.ts\")",
       "Bash(npx supabase functions deploy:*)",
       "Bash(npx eslint:*)",
-      "Bash(git status:*)"
+      "Bash(git status:*)",
+      "Bash(grep:*)"
     ]
   }
 }

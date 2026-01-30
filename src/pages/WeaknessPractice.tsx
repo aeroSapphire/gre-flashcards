@@ -7,6 +7,7 @@ import { ArrowLeft, BrainCircuit, CheckCircle2, XCircle, Loader2, RefreshCw, Gra
 import { getMistakeHistory } from '@/services/mistakeService';
 import { analyzeMistakes, NUDGE_MESSAGES } from '@/services/mistakeAnalysis';
 import { generateTargetedPractice, PracticeQuestion, markQuestionAsUsed } from '@/services/practiceService';
+import { updateSkillModel } from '@/services/skillEngine';
 import { MistakeLabel } from '@/utils/mistakeClassifier';
 import { useToast } from '@/hooks/use-toast';
 import { TutorLesson } from '@/components/TutorLesson';
@@ -100,6 +101,10 @@ export default function WeaknessPractice() {
                           selectedIndices.every(i => correct.includes(i));
         
         if (isCorrect) setScore(s => s + 1);
+
+        if (dominantMistake) {
+            updateSkillModel(dominantMistake, isCorrect);
+        }
     };
 
     const nextQuestion = () => {
