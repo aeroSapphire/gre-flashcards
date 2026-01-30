@@ -141,7 +141,7 @@ export function FlashcardItem({
               )}
               
               <div className="w-full">
-                <WordConnections card={card} allCards={allCards} />
+                <WordConnections card={card} allCards={allCards} showEtymology={false} />
               </div>
             </div>
           </div>

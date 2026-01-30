@@ -1,7 +1,6 @@
-import { Link } from 'react-router-dom';
-import { ArrowRight, GitBranch, Link2 } from 'lucide-react';
+import { GitBranch } from 'lucide-react';
 import { FlashcardWithProgress } from '@/hooks/useFlashcardsDb';
-import { getSynonymCards, getAntonymCards, getRelatedRootCards } from '@/utils/wordConnections';
+import { getRelatedRootCards } from '@/utils/wordConnections';
 
 interface WordConnectionsProps {
     card: FlashcardWithProgress;
@@ -11,11 +10,9 @@ interface WordConnectionsProps {
 }
 
 export function WordConnections({ card, allCards, compact = false, showEtymology = true }: WordConnectionsProps) {
-    const synonymCards = getSynonymCards(card, allCards);
-    const antonymCards = getAntonymCards(card, allCards);
     const relatedRootCards = getRelatedRootCards(card, allCards);
 
-    const hasConnections = synonymCards.length > 0 || antonymCards.length > 0 || relatedRootCards.length > 0 || (showEtymology && card.etymology);
+    const hasConnections = relatedRootCards.length > 0 || (showEtymology && card.etymology);
 
     if (!hasConnections) return null;
 
@@ -25,16 +22,6 @@ export function WordConnections({ card, allCards, compact = false, showEtymology
                 {showEtymology && card.etymology && (
                     <span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary font-mono">
                         📚 {card.etymology.slice(0, 50)}{card.etymology.length > 50 ? '...' : ''}
-                    </span>
-                )}
-                {synonymCards.length > 0 && (
-                    <span className="text-xs px-2 py-0.5 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300">
-                        ≈ {synonymCards.map(c => c.word).join(', ')}
-                    </span>
-                )}
-                {antonymCards.length > 0 && (
-                    <span className="text-xs px-2 py-0.5 rounded-full bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300">
-                        ≠ {antonymCards.map(c => c.word).join(', ')}
                     </span>
                 )}
             </div>
@@ -52,52 +39,6 @@ export function WordConnections({ card, allCards, compact = false, showEtymology
                     <div className="flex-1">
                         <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">Origin</p>
                         <p className="text-sm text-foreground/80 font-mono leading-relaxed">{card.etymology}</p>
-                    </div>
-                </div>
-            )}
-
-            {/* Synonyms */}
-            {synonymCards.length > 0 && (
-                <div className="flex items-start gap-2">
-                    <div className="p-1.5 rounded-lg bg-green-100 dark:bg-green-900/30 mt-0.5">
-                        <Link2 className="h-3.5 w-3.5 text-green-700 dark:text-green-300" />
-                    </div>
-                    <div className="flex-1">
-                        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">Similar Words</p>
-                        <div className="flex flex-wrap gap-1.5">
-                            {synonymCards.map(c => (
-                                <span
-                                    key={c.id}
-                                    className="text-sm px-2 py-0.5 rounded-lg bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300 border border-green-200 dark:border-green-800 cursor-pointer hover:bg-green-100 dark:hover:bg-green-900/40 transition-colors"
-                                    title={c.definition}
-                                >
-                                    {c.word}
-                                </span>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {/* Antonyms */}
-            {antonymCards.length > 0 && (
-                <div className="flex items-start gap-2">
-                    <div className="p-1.5 rounded-lg bg-red-100 dark:bg-red-900/30 mt-0.5">
-                        <ArrowRight className="h-3.5 w-3.5 text-red-700 dark:text-red-300 rotate-180" />
-                    </div>
-                    <div className="flex-1">
-                        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-1">Opposites</p>
-                        <div className="flex flex-wrap gap-1.5">
-                            {antonymCards.map(c => (
-                                <span
-                                    key={c.id}
-                                    className="text-sm px-2 py-0.5 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800 cursor-pointer hover:bg-red-100 dark:hover:bg-red-900/40 transition-colors"
-                                    title={c.definition}
-                                >
-                                    {c.word}
-                                </span>
-                            ))}
-                        </div>
                     </div>
                 </div>
             )}

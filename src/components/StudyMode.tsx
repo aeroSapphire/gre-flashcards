@@ -212,7 +212,7 @@ export function StudyMode({ cards, allCards, onMarkLearned, onMarkLearning, onUp
                       )}
                       
                       <div className="w-full">
-                        <WordConnections card={currentCard} allCards={allCards} showEtymology={false} />
+                        <WordConnections card={currentCard} allCards={allCards} showEtymology={true} />
                       </div>
                     </div>
                   </div>
