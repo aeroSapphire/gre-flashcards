@@ -131,14 +131,6 @@ export function FlashcardItem({
               <p className="text-xl text-foreground text-center leading-relaxed">
                 {card.definition}
               </p>
-              {card.etymology && (
-                <div className="mt-3 px-3 py-1.5 bg-primary/5 rounded-lg border border-primary/10">
-                  <p className="text-xs text-primary font-mono text-center">
-                    <span className="opacity-70 uppercase tracking-tighter mr-1 font-bold">Origin:</span>
-                    {card.etymology}
-                  </p>
-                </div>
-              )}
               {card.example && (
                 <p className="text-sm text-muted-foreground text-center italic mt-3">
                   "{card.example}"

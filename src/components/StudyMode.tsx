@@ -187,14 +187,6 @@ export function StudyMode({ cards, onMarkLearned, onMarkLearning, onUpdateCard, 
                       <p className="text-xl text-foreground text-center leading-relaxed">
                         {currentCard.definition}
                       </p>
-                      {currentCard.etymology && (
-                        <div className="mt-4 px-3 py-1.5 bg-primary/5 rounded-lg border border-primary/10">
-                          <p className="text-xs text-primary font-mono text-center">
-                            <span className="opacity-70 uppercase tracking-tighter mr-1 font-bold">Origin:</span>
-                            {currentCard.etymology}
-                          </p>
-                        </div>
-                      )}
                       {currentCard.example && (
                         <p className="text-sm text-muted-foreground text-center italic mt-4">
                           "{currentCard.example}"
