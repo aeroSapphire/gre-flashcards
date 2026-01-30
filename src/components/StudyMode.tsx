@@ -163,48 +163,50 @@ export function StudyMode({ cards, onMarkLearned, onMarkLearning, onUpdateCard, 
               >
                 {/* Front */}
                 <div
-                  className="absolute inset-0 backface-hidden rounded-2xl bg-card border border-border shadow-xl p-8 flex flex-col items-center justify-center min-h-80"
+                  className="absolute inset-0 backface-hidden rounded-3xl glass-card p-8 flex flex-col items-center justify-center min-h-80 transition-all duration-300 hover:scale-[1.02]"
                   style={{ backfaceVisibility: 'hidden' }}
                 >
-                  <h2 className="font-display text-4xl font-semibold text-foreground text-center">
+                  <h2 className="font-display text-4xl md:text-5xl font-semibold text-foreground text-center tracking-tight">
                     {currentCard.word}
                   </h2>
                   {currentCard.part_of_speech && (
-                    <p className="text-lg italic text-muted-foreground mt-2">
+                    <p className="text-lg italic text-primary/80 mt-3 uppercase tracking-widest text-sm">
                       {currentCard.part_of_speech}
                     </p>
                   )}
                   {currentCard.tags && currentCard.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-1 justify-center mt-4">
+                    <div className="flex flex-wrap gap-2 justify-center mt-4">
                       {currentCard.tags.map((tag) => (
-                        <span key={tag} className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary">
+                        <span key={tag} className="text-xs px-3 py-1 rounded-full bg-primary/20 text-primary border border-primary/30">
                           {tag}
                         </span>
                       ))}
                     </div>
                   )}
-                  <p className="text-sm text-muted-foreground mt-6">Tap to reveal</p>
+                  <p className="text-sm text-muted-foreground mt-8 animate-pulse">Tap to reveal</p>
                 </div>
 
                 {/* Back */}
                 <div
-                  className="absolute inset-0 backface-hidden rounded-2xl bg-card border border-border shadow-xl p-8 flex flex-col min-h-80"
+                  className="absolute inset-0 backface-hidden rounded-3xl glass-card p-8 flex flex-col min-h-80"
                   style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
                 >
                   <div className="flex-1 overflow-y-auto -mx-2 px-2">
                     <div className="min-h-full flex flex-col items-center justify-center">
                       {currentCard.part_of_speech && (
-                        <p className="text-sm italic text-muted-foreground mb-2 uppercase tracking-wide">
+                        <p className="text-primary/80 mb-3 uppercase tracking-widest text-sm font-medium">
                           {currentCard.part_of_speech}
                         </p>
                       )}
-                      <p className="text-xl text-foreground text-center leading-relaxed">
+                      <p className="text-xl md:text-2xl text-foreground text-center leading-relaxed font-medium">
                         {currentCard.definition}
                       </p>
                       {currentCard.example && (
-                        <p className="text-sm text-muted-foreground text-center italic mt-4">
-                          "{currentCard.example}"
-                        </p>
+                        <div className="mt-6 pt-6 border-t border-white/10 w-full">
+                          <p className="text-base text-muted-foreground text-center italic">
+                            "{currentCard.example}"
+                          </p>
+                        </div>
                       )}
                     </div>
                   </div>

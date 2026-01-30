@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRE App Background</title>
+    <style>
+        /* 1. RESET & BASE */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Prevents scrollbars */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0f172a; /* Deep Midnight Blue Base */
+        }
+
+        /* 2. THE BACKGROUND LAYER */
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1; /* Ensures it stays behind your app content */
+        }
+
+        /* 3. THE GLOWING ORBS */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px); /* This creates the "fog" effect */
+            opacity: 0.6;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        /* Orb 1: The "Focus" (Teal/Cyan) */
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: #2dd4bf; 
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+
+        /* Orb 2: The "Memory" (Warm Amber/Orange) */
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: #f59e0b;
+            bottom: -50px;
+            right: -50px;
+            animation-delay: -5s;
+        }
+
+        /* Orb 3: The "Logic" (Deep Purple/Indigo) */
+        .orb-3 {
+            width: 600px;
+            height: 600px;
+            background: #6366f1;
+            top: 40%;
+            left: 30%;
+            animation-delay: -10s;
+            opacity: 0.4;
+        }
+
+        /* 4. THE ANIMATION KEYFRAMES */
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(30px, -50px) scale(1.1);
+            }
+            66% {
+                transform: translate(-20px, 20px) scale(0.9);
+            }
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+        }
+
+        /* 5. OPTIONAL: NOISE OVERLAY (Adds texture like paper) */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* 6. MOCKUP UI (Just to show you how text looks on it) */
+        .app-content {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1); /* Glassmorphism */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 300px;
+            text-align: center;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        h1 { margin: 0 0 10px 0; font-size: 2rem; letter-spacing: 1px; }
+        p { margin: 0; color: #cbd5e1; font-weight: 300; line-height: 1.5; }
+        .pos { color: #2dd4bf; font-weight: bold; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; display: block;}
+
+    </style>
+</head>
+<body>
+
+    <!-- This is the background layer -->
+    <div class="background-container">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <!-- This adds the subtle grain texture -->
+    <div class="noise-overlay"></div>
+
+    <!-- This is your app content mock-up -->
+    <div class="app-content">
+        <div class="card">
+            <h1>Obdurate</h1>
+            <span class="pos">Adjective</span>
+            <p>Stubbornly refusing to change one's opinion or course of action.</p>
+        </div>
+    </div>
+
+</body>
+</html>

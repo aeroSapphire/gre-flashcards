@@ -33,7 +33,10 @@
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(git push)",
-      "Bash(git restore:*)"
+      "Bash(git restore:*)",
+      "Bash(npx ts-node:*)",
+      "Bash(del \"D:\\\\GRE\\\\Flashcards\\\\check_etymology.ts\")",
+      "Bash(npx supabase functions deploy:*)"
     ]
   }
 }

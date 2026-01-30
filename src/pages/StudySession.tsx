@@ -310,11 +310,11 @@ export default function StudySession() {
             {/* Main Card Area */}
             <main className="flex-1 container max-w-2xl mx-auto p-4 flex flex-col justify-center min-h-[500px]">
                 <div className="w-full relative perspective-1000">
-                    <Card className="w-full min-h-[400px] flex flex-col shadow-lg border-2">
+                    <Card className="w-full min-h-[400px] flex flex-col glass-card rounded-3xl border-0">
                         <CardHeader className="text-center pt-8 pb-4">
                             <div className="flex justify-center gap-2 mb-4">
                                 {currentCard.tags?.map(tag => (
-                                    <Badge key={tag} variant="secondary" className="text-xs px-2 py-0.5">{tag}</Badge>
+                                    <Badge key={tag} variant="secondary" className="text-xs px-3 py-1 rounded-full bg-primary/20 text-primary border border-primary/30">{tag}</Badge>
                                 ))}
                             </div>
                             {formatPastEvaluations() && (
@@ -327,11 +327,11 @@ export default function StudySession() {
 
                         <CardContent className="flex-1 overflow-y-auto p-8 -mx-2 px-2">
                             <div className="min-h-full flex flex-col items-center justify-center text-center">
-                                <h2 className="text-4xl md:text-5xl font-bold mb-2 tracking-tight text-foreground">
+                                <h2 className="font-display text-4xl md:text-5xl font-bold mb-3 tracking-tight text-foreground">
                                     {currentCard.word}
                                 </h2>
                                 {currentCard.part_of_speech && (
-                                    <p className="text-lg italic text-muted-foreground mb-6">
+                                    <p className="text-primary/80 uppercase tracking-widest text-sm font-medium mb-6">
                                         {currentCard.part_of_speech}
                                     </p>
                                 )}

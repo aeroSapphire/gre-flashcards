@@ -17,29 +17,51 @@ const supabase = createClient(
 );
 
 async function enrichEtymology() {
-    console.log('Fetching cards missing etymology...');
+    console.log('Fetching all cards...');
 
-    // Fetch cards with NULL or empty string etymology
-    const { data: cards, error } = await supabase
+    // Fetch all cards with their etymology
+    const { data: allCards, error } = await supabase
         .from('flashcards')
-        .select('id, word, definition')
-        .or('etymology.is.null,etymology.eq.');
+        .select('id, word, definition, etymology');
 
     if (error) {
         console.error('Error fetching cards:', error);
         return;
     }
 
-    if (!cards || cards.length === 0) {
-        console.log('No cards missing etymology.');
+    if (!allCards || allCards.length === 0) {
+        console.log('No cards found.');
         return;
     }
 
-    console.log(`Found ${cards.length} cards missing etymology.`);
+    // Find cards that need enrichment:
+    // 1. No etymology (null or empty string)
+    // 2. Old short format (doesn't start with "derives from")
+    const cardsToEnrich = allCards.filter(card => {
+        if (!card.etymology || card.etymology.trim() === '') {
+            return true; // Missing etymology
+        }
+        // Check if it's the old short format (doesn't start with "derives from")
+        const lowercaseEtymology = card.etymology.toLowerCase().trim();
+        return !lowercaseEtymology.startsWith('derives from');
+    });
 
-    for (let i = 0; i < cards.length; i++) {
-        const card = cards[i];
-        console.log(`[${i + 1}/${cards.length}] Enriching: ${card.word}...`);
+    if (cardsToEnrich.length === 0) {
+        console.log('All cards already have detailed etymology.');
+        return;
+    }
+
+    const missingCount = cardsToEnrich.filter(c => !c.etymology || c.etymology.trim() === '').length;
+    const shortFormatCount = cardsToEnrich.length - missingCount;
+
+    console.log(`Found ${cardsToEnrich.length} cards to enrich:`);
+    console.log(`  - ${missingCount} cards missing etymology`);
+    console.log(`  - ${shortFormatCount} cards with old short format`);
+
+    for (let i = 0; i < cardsToEnrich.length; i++) {
+        const card = cardsToEnrich[i];
+        const hasOldFormat = card.etymology && card.etymology.trim() !== '';
+        console.log(`[${i + 1}/${cardsToEnrich.length}] ${hasOldFormat ? 'Upgrading' : 'Adding'}: ${card.word}...`);
 
         try {
             const { data, error: functionError } = await supabase.functions.invoke('evaluate-sentence', {
@@ -78,13 +100,13 @@ async function enrichEtymology() {
                 if (updateError) {
                     console.error(`  Error updating ${card.word}:`, updateError);
                 } else {
-                    console.log(`  Success: ${etymology}`);
+                    console.log(`  Success: ${etymology.substring(0, 80)}...`);
                 }
             } else {
                 console.log(`  No etymology field in response for ${card.word}`);
             }
 
-            // Final pass: stay well clear of rate limits
+            // Stay well clear of rate limits
             await new Promise(resolve => setTimeout(resolve, 5000));
         } catch (err: any) {
             console.error(`  Failed to enrich ${card.word}:`, err.message);
