@@ -1,6 +1,7 @@
 
 import { supabase } from '@/integrations/supabase/client';
 import { MistakeLabel } from '@/utils/mistakeClassifier';
+import { DIAGNOSTIC_QUESTIONS, SkillCategory } from '@/data/diagnosticQuestions';
 
 export interface PracticeQuestion {
   id?: string;
@@ -18,6 +19,72 @@ export async function markQuestionAsUsed(id: string) {
     .eq('id', id);
   
   if (error) console.error('Failed to mark question as used:', error);
+}
+
+// Map MistakeLabel to SkillCategory for finding relevant diagnostic questions
+function mapMistakeToSkillCategory(label: MistakeLabel): SkillCategory | null {
+  switch (label) {
+    case 'POLARITY_ERROR':
+    case 'DOUBLE_NEGATIVE_CONFUSION':
+      return 'Polarity & Direction';
+    
+    case 'INTENSITY_MISMATCH':
+    case 'PARTIAL_SYNONYM_TRAP':
+      return 'Intensity & Precision';
+    
+    case 'SCOPE_ERROR':
+    case 'LOGICAL_CONTRADICTION':
+    case 'CONTEXT_MISREAD':
+      return 'Scope & Logic';
+      
+    case 'ELIMINATION_FAILURE':
+      return 'Elimination Skill';
+      
+    case 'TONE_REGISTER_MISMATCH':
+      return 'Intensity & Precision'; // Closest fit
+
+    case 'TEMPORAL_ERROR':
+      return 'Scope & Logic';
+
+    default:
+      return null;
+  }
+}
+
+/**
+ * Generates a specific Skill Assessment (Mini-Test) for a given mistake label.
+ * This is used for "Validation Mode" in the Tutor.
+ * Returns 5 questions if possible.
+ */
+export async function generateSkillAssessment(mistakeLabel: MistakeLabel): Promise<PracticeQuestion[]> {
+  const category = mapMistakeToSkillCategory(mistakeLabel);
+  
+  if (!category) {
+    // Fallback if no specific category map (e.g. NONE)
+    return generateTargetedPractice(mistakeLabel);
+  }
+
+  // Filter diagnostic questions for this category
+  const relevantQuestions = DIAGNOSTIC_QUESTIONS.filter(q => q.primarySkill === category);
+  
+  // Shuffle and pick 5
+  const shuffled = [...relevantQuestions].sort(() => 0.5 - Math.random());
+  const selected = shuffled.slice(0, 5);
+
+  if (selected.length < 3) {
+    // Fallback if not enough diagnostic questions found
+    return generateTargetedPractice(mistakeLabel);
+  }
+
+  // Convert to PracticeQuestion format
+  return selected.map(q => ({
+    id: q.id,
+    content: q.content + (q.passageText ? `\n\n(Passage: ${q.passageText})` : ""),
+    type: q.type === 'SE' ? 'multi_choice' : 'single_choice',
+    options: q.options,
+    correct_answer: q.correctAnswer,
+    explanation: q.explanation
+  }));
 }
 
 export async function generateTargetedPractice(mistakeLabel: MistakeLabel): Promise<PracticeQuestion[]> {

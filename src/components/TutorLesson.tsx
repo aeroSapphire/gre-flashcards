@@ -345,10 +345,14 @@ export function TutorLesson({ mistakeLabel, onContinue }: TutorLessonProps) {
                 </Card>
             )}
 
-            {/* Continue Button */}
-            <div className="pt-4">
-                <Button size="lg" className="w-full" onClick={onContinue}>
-                    I Understand - Start Practice
+            {/* Action Buttons */}
+            <div className="pt-4 flex flex-col sm:flex-row gap-3">
+                <Button size="lg" className="flex-1 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white shadow-lg shadow-indigo-500/20" onClick={onStartAssessment}>
+                    <Target className="mr-2 h-4 w-4" />
+                    Verify Mastery (Skill Test)
+                </Button>
+                <Button size="lg" variant="outline" className="flex-1" onClick={onStartPractice}>
+                    Just Practice
                     <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
             </div>

@@ -7,7 +7,7 @@ import { Progress } from '@/components/ui/progress';
 import { ArrowLeft, BrainCircuit, CheckCircle2, XCircle, Loader2, RefreshCw, GraduationCap, Target } from 'lucide-react';
 import { getMistakeHistory } from '@/services/mistakeService';
 import { analyzeMistakes, NUDGE_MESSAGES } from '@/services/mistakeAnalysis';
-import { generateTargetedPractice, PracticeQuestion, markQuestionAsUsed } from '@/services/practiceService';
+import { generateTargetedPractice, generateSkillAssessment, PracticeQuestion, markQuestionAsUsed } from '@/services/practiceService';
 import { updateSkillModel, SkillType, getSkillDisplayName } from '@/services/skillEngine';
 import { MistakeLabel } from '@/utils/mistakeClassifier';
 import { useToast } from '@/hooks/use-toast';
@@ -31,6 +31,7 @@ export default function WeaknessPractice() {
     const [score, setScore] = useState(0);
     const [curriculumStatus, setCurriculumStatus] = useState<PhaseStatus | null>(null);
     const [usingCurriculumFallback, setUsingCurriculumFallback] = useState(false);
+    const [isAssessment, setIsAssessment] = useState(false);
 
     useEffect(() => {
         loadWeakness();
@@ -71,6 +72,7 @@ export default function WeaknessPractice() {
         if (!dominantMistake) return;
         setGenerating(true);
         setPhase('practice');
+        setIsAssessment(false);
         try {
             const newQuestions = await generateTargetedPractice(dominantMistake);
             setQuestions(newQuestions);
@@ -85,6 +87,35 @@ export default function WeaknessPractice() {
                 variant: "destructive"
             });
             setPhase('tutor');
+        } finally {
+            setGenerating(false);
+        }
+    };
+
+    const startAssessment = async () => {
+        if (!dominantMistake) return;
+        setGenerating(true);
+        setPhase('practice');
+        setIsAssessment(true);
+        try {
+            const newQuestions = await generateSkillAssessment(dominantMistake);
+            setQuestions(newQuestions);
+            setCurrentQIndex(0);
+            setScore(0);
+            setShowResult(false);
+            setSelectedIndices([]);
+            
+            toast({
+                title: "Assessment Started",
+                description: "This mini-test will verify your mastery of this skill.",
+            });
+        } catch (error) {
+            toast({
+                title: "Error",
+                description: "Failed to generate assessment. Falling back to standard practice.",
+                variant: "destructive"
+            });
+            startPractice(); // Fallback
         } finally {
             setGenerating(false);
         }
@@ -163,7 +194,7 @@ export default function WeaknessPractice() {
     // View: Finished
     if (phase === 'finished') {
         const percentage = Math.round((score / questions.length) * 100);
-        const isGood = percentage >= 70;
+        const isGood = percentage >= 80; // Higher bar for assessment mastery
 
         return (
             <div className="min-h-screen container max-w-2xl mx-auto p-4 py-8">
@@ -174,7 +205,9 @@ export default function WeaknessPractice() {
                 </div>
                 <Card className="text-center py-10">
                     <CardContent>
-                        <h1 className="text-3xl font-bold mb-4">Practice Complete</h1>
+                        <h1 className="text-3xl font-bold mb-4">
+                            {isAssessment ? "Skill Assessment Complete" : "Practice Complete"}
+                        </h1>
                         <div className={`text-5xl font-black mb-4 ${isGood ? 'text-green-500' : 'text-amber-500'}`}>
                             {percentage}%
                         </div>
@@ -185,10 +218,19 @@ export default function WeaknessPractice() {
                             Weakness: <span className="font-mono text-primary">{dominantMistake}</span>
                         </p>
 
+                        {isAssessment && isGood && (
+                            <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4 mb-6 text-left">
+                                <p className="text-sm text-green-800 dark:text-green-200 flex items-center gap-2">
+                                    <CheckCircle2 className="h-5 w-5 text-green-600" />
+                                    <strong>Mastery Verified:</strong> You've demonstrated a solid understanding of this skill!
+                                </p>
+                            </div>
+                        )}
+
                         {!isGood && (
                             <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-4 mb-6 text-left">
                                 <p className="text-sm text-amber-800 dark:text-amber-200">
-                                    <strong>Tip:</strong> Review the lesson again and pay close attention to the strategies. Practice makes perfect!
+                                    <strong>Tip:</strong> {isAssessment ? "You haven't fully mastered this yet." : "Keep practicing!"} Review the lesson again and pay close attention to the strategies.
                                 </p>
                             </div>
                         )}
@@ -197,8 +239,8 @@ export default function WeaknessPractice() {
                             <Button onClick={resetAndStartOver}>
                                 <GraduationCap className="mr-2 h-4 w-4" /> Review Lesson
                             </Button>
-                            <Button variant="outline" onClick={startPractice}>
-                                <RefreshCw className="mr-2 h-4 w-4" /> More Practice
+                            <Button variant="outline" onClick={isAssessment ? startAssessment : startPractice}>
+                                <RefreshCw className="mr-2 h-4 w-4" /> {isAssessment ? "Retake Assessment" : "More Practice"}
                             </Button>
                             <Button variant="ghost" onClick={() => navigate('/')}>
                                 Return Home
