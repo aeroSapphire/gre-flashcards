@@ -11,7 +11,7 @@ import {
   getSkillDisplayName
 } from '@/services/skillEngine';
 import { SkillRadar } from './SkillRadar';
-import { Brain3D } from './Brain3D';
+import { BrainPolygon } from './BrainPolygon';
 import { Loader2, BrainCircuit, BookOpen, Network, Target } from 'lucide-react';
 
 interface BrainMapProps {
@@ -133,24 +133,12 @@ export function BrainMap({ skills }: BrainMapProps) {
       {/* 3D Brain Visualization Section */}
       <div className="flex flex-col lg:flex-row items-start justify-center gap-8">
         {/* 3D Brain */}
-        <div className="flex-1 w-full max-w-2xl">
-          <Suspense fallback={
-            <div className="w-full h-[400px] flex items-center justify-center">
-              <Loader2 className="h-8 w-8 animate-spin text-primary" />
-              <span className="sr-only">Loading 3D Brain Map...</span>
-            </div>
-          }>
-            <Brain3D
-              categoryScores={categoryScores}
-              onRegionHover={setHoveredCategory}
-              onRegionClick={setSelectedCategory}
-              hoveredRegion={hoveredCategory}
-            />
-          </Suspense>
+        <div className="flex-1 w-full max-w-2xl flex flex-col items-center">
+          <BrainPolygon categoryScores={categoryScores} />
 
           {/* Instructions */}
-          <p className="text-center text-xs text-muted-foreground mt-2">
-            Drag to rotate | Scroll to zoom | Hover regions for details
+          <p className="text-center text-xs text-muted-foreground mt-4">
+            Low-poly visualization of your cognitive map
           </p>
         </div>
 
