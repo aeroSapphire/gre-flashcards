@@ -150,7 +150,7 @@ export default function DiagnosticRunner() {
   }
 
   return (
-    <div className="container max-w-2xl mx-auto py-8 px-4 h-screen flex flex-col justify-center">
+    <div className="container max-w-2xl mx-auto py-8 px-4 min-h-screen flex flex-col justify-center">
       <div className="mb-6 space-y-2">
         <div className="flex justify-between text-sm text-muted-foreground">
           <span>Diagnostic Assessment</span>
