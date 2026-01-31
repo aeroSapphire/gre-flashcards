@@ -11,8 +11,7 @@ import {
   getSkillDisplayName
 } from '@/services/skillEngine';
 import { SkillRadar } from './SkillRadar';
-import { BrainPlexus } from './BrainPlexus';
-import { BrainCircuit, BookOpen, Network, Target } from 'lucide-react';
+import { BrainCircuit, BookOpen, Network, Target, TrendingUp, TrendingDown, ChevronDown } from 'lucide-react';
 
 interface BrainMapProps {
   skills: UserSkill[];
@@ -20,71 +19,61 @@ interface BrainMapProps {
 
 // Colors for skill levels
 const getSkillColor = (mu: number) => {
-  if (mu < 30) return "#ef4444"; // Red-500
-  if (mu < 50) return "#f97316"; // Orange-500
-  if (mu < 70) return "#eab308"; // Yellow-500
-  if (mu < 90) return "#84cc16"; // Lime-500
-  return "#22c55e"; // Green-500
+  if (mu < 30) return { bg: "#fef2f2", border: "#fecaca", text: "#dc2626", label: "Needs Work" };
+  if (mu < 50) return { bg: "#fff7ed", border: "#fed7aa", text: "#ea580c", label: "Developing" };
+  if (mu < 70) return { bg: "#fefce8", border: "#fef08a", text: "#ca8a04", label: "Progressing" };
+  if (mu < 90) return { bg: "#f0fdf4", border: "#bbf7d0", text: "#16a34a", label: "Strong" };
+  return { bg: "#ecfdf5", border: "#a7f3d0", text: "#059669", label: "Mastered" };
 };
 
-const CATEGORY_DESCRIPTIONS: Record<SkillCategory, { title: string; description: string; region: string; icon: any }> = {
+const CATEGORY_INFO: Record<SkillCategory, {
+  title: string;
+  description: string;
+  icon: any;
+  gradient: string;
+}> = {
   logic: {
     title: "Logic & Reasoning",
     description: "Constructing valid arguments and detecting fallacies.",
-    region: "Frontal Lobe",
-    icon: BrainCircuit
+    icon: BrainCircuit,
+    gradient: "from-orange-500 to-red-500"
   },
   vocab: {
-    title: "Vocabulary & Language",
-    description: "Lexicon depth and ability to recall definitions.",
-    region: "Temporal Lobe",
-    icon: BookOpen
+    title: "Vocabulary",
+    description: "Word knowledge, definitions, and nuance.",
+    icon: BookOpen,
+    gradient: "from-purple-500 to-pink-500"
   },
   context: {
     title: "Context & Synthesis",
-    description: "Inferring meaning from surrounding text.",
-    region: "Parietal Lobe",
-    icon: Network
+    description: "Reading between the lines and synthesizing information.",
+    icon: Network,
+    gradient: "from-blue-500 to-cyan-500"
   },
   precision: {
     title: "Precision & Attention",
-    description: "Attention to detail and spotting subtle traps.",
-    region: "Occipital Lobe",
-    icon: Target
+    description: "Spotting subtle traps and polarity shifts.",
+    icon: Target,
+    gradient: "from-green-500 to-emerald-500"
   }
 };
 
 export function BrainMap({ skills }: BrainMapProps) {
-  const [hoveredCategory, setHoveredCategory] = useState<SkillCategory | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<SkillCategory | null>(null);
+  const [expandedCategory, setExpandedCategory] = useState<SkillCategory | null>(null);
 
-  // Aggregate 10 skills into 4 categories
+  // Aggregate skills into 4 categories
   const categorySkills = useMemo(() => {
     return aggregateSkillsToCategories(skills);
   }, [skills]);
 
-  // Create a map for easy lookup
+  // Create category map
   const categoryMap = useMemo(() => {
     const map = new Map<SkillCategory, CategorySkill>();
     categorySkills.forEach(cs => map.set(cs.category, cs));
     return map;
   }, [categorySkills]);
 
-  // Create category scores for 3D brain
-  const categoryScores = useMemo(() => {
-    const scores: Record<SkillCategory, { mu: number; sigma: number }> = {
-      logic: { mu: 50, sigma: 15 },
-      vocab: { mu: 50, sigma: 15 },
-      context: { mu: 50, sigma: 15 },
-      precision: { mu: 50, sigma: 15 }
-    };
-    categorySkills.forEach(cs => {
-      scores[cs.category] = { mu: cs.mu, sigma: cs.sigma };
-    });
-    return scores;
-  }, [categorySkills]);
-
-  // Create a skill map for component skill lookup
+  // Create skill map for component skills
   const skillMap = useMemo(() => {
     const map = new Map<SkillType, UserSkill>();
     skills.forEach(s => map.set(s.skill_type as SkillType, s));
@@ -106,147 +95,201 @@ export function BrainMap({ skills }: BrainMapProps) {
     };
   };
 
-  // Get component skills info for hover tooltip
+  // Get component skills info
   const getComponentSkillsInfo = (category: SkillCategory) => {
     if (isOldSchema) {
-      const categoryData = getCategoryData(category);
-      return [{
-        name: `${category} (aggregated)`,
-        mu: categoryData.mu
-      }];
+      return [];
     }
-
     const componentSkills = SKILL_CATEGORIES[category];
     return componentSkills.map(skillType => {
       const skill = skillMap.get(skillType);
       return {
         name: getSkillDisplayName(skillType),
-        mu: skill?.mu ?? 50
+        skillType,
+        mu: skill?.mu ?? 50,
+        correct: skill?.correct_count ?? 0,
+        incorrect: skill?.incorrect_count ?? 0
       };
     });
   };
 
-  const activeCategory = hoveredCategory || selectedCategory;
+  // Sort categories by score to show weakest first
+  const sortedCategories = useMemo(() => {
+    return (['logic', 'vocab', 'context', 'precision'] as SkillCategory[])
+      .map(cat => ({ category: cat, data: getCategoryData(cat) }))
+      .sort((a, b) => a.data.mu - b.data.mu);
+  }, [categoryMap]);
+
+  // Overall stats
+  const overallScore = useMemo(() => {
+    if (categorySkills.length === 0) return 50;
+    return Math.round(categorySkills.reduce((acc, s) => acc + s.mu, 0) / categorySkills.length);
+  }, [categorySkills]);
+
+  const weakestCategory = sortedCategories[0];
+  const strongestCategory = sortedCategories[sortedCategories.length - 1];
 
   return (
-    <div className="flex flex-col gap-8 p-6">
-      {/* 3D Brain Visualization Section */}
-      <div className="flex flex-col lg:flex-row items-start justify-center gap-8">
-        {/* 3D Brain */}
-        <div className="flex-1 w-full max-w-2xl flex flex-col items-center">
-          <BrainPlexus categoryScores={categoryScores} />
-
-          {/* Instructions */}
-          <p className="text-center text-xs text-muted-foreground mt-4">
-            Interactive 3D Neural Network
-          </p>
+    <div className="flex flex-col gap-6 p-4">
+      {/* Top Stats Row */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {/* Overall Score */}
+        <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl p-6 text-center">
+          <p className="text-sm text-slate-400 mb-1">Overall Proficiency</p>
+          <p className="text-5xl font-black text-white">{overallScore}%</p>
+          <div className="mt-3 h-2 bg-slate-700 rounded-full overflow-hidden">
+            <motion.div
+              className="h-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full"
+              initial={{ width: 0 }}
+              animate={{ width: `${overallScore}%` }}
+              transition={{ duration: 1, ease: "easeOut" }}
+            />
+          </div>
         </div>
 
-        {/* Stats Detail Panel */}
-        <div className="flex-1 space-y-4 w-full max-w-md">
-          <h2 className="text-2xl font-bold mb-4">Neural Skill Map</h2>
-
-          {/* Active region detail card */}
-          <AnimatePresence mode="wait">
-            {activeCategory && (
-              <motion.div
-                key={activeCategory}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                className="p-4 rounded-lg border bg-primary/5 border-primary/30 mb-4"
-              >
-                <h3 className="font-bold text-lg flex items-center gap-2">
-                  <div
-                    className="w-3 h-3 rounded-full"
-                    style={{ backgroundColor: getSkillColor(getCategoryData(activeCategory).mu) }}
-                    aria-hidden="true"
-                  />
-                  {(() => {
-                    const Icon = CATEGORY_DESCRIPTIONS[activeCategory].icon;
-                    return <Icon className="w-5 h-5 text-primary" aria-hidden="true" />;
-                  })()}
-                  {CATEGORY_DESCRIPTIONS[activeCategory].title}
-                </h3>
-                <p className="text-sm text-muted-foreground mb-3">
-                  {CATEGORY_DESCRIPTIONS[activeCategory].region} - {CATEGORY_DESCRIPTIONS[activeCategory].description}
-                </p>
-                <div className="text-sm space-y-1">
-                  {getComponentSkillsInfo(activeCategory).map(skill => (
-                    <div key={skill.name} className="flex justify-between items-center">
-                      <span className="text-muted-foreground">{skill.name}</span>
-                      <span className="font-mono font-bold" style={{ color: getSkillColor(skill.mu) }}>
-                        {Math.round(skill.mu)}%
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* All regions grid */}
-          <div className="grid gap-3">
-            {(['logic', 'vocab', 'context', 'precision'] as SkillCategory[]).map(category => {
-              const data = getCategoryData(category);
-              const info = CATEGORY_DESCRIPTIONS[category];
-              const color = getSkillColor(data.mu);
-              const isActive = activeCategory === category;
-
-              return (
-                <motion.div
-                  key={category}
-                  onMouseEnter={() => setHoveredCategory(category)}
-                  onMouseLeave={() => setHoveredCategory(null)}
-                  onClick={() => setSelectedCategory(selectedCategory === category ? null : category)}
-                  onFocus={() => setHoveredCategory(category)}
-                  onBlur={() => setHoveredCategory(null)}
-                  tabIndex={0}
-                  role="button"
-                  aria-label={`${info.title}: ${Math.round(data.mu)}% Proficiency`}
-                  className={`p-3 rounded-lg border transition-all cursor-pointer outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
-                    isActive
-                      ? 'bg-muted border-primary shadow-lg'
-                      : 'bg-card hover:bg-muted/50'
-                  }`}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <div className="flex justify-between items-center mb-2">
-                    <div className="flex items-center gap-2">
-                      <div
-                        className="w-3 h-3 rounded-full transition-transform"
-                        style={{
-                          backgroundColor: color,
-                          boxShadow: isActive ? `0 0 10px ${color}` : 'none'
-                        }}
-                        aria-hidden="true"
-                      />
-                      <info.icon className="w-4 h-4 text-muted-foreground" aria-hidden="true" />
-                      <span className="font-semibold text-sm">{info.title}</span>
-                    </div>
-                    <span className="font-mono font-bold text-sm">{Math.round(data.mu)}%</span>
-                  </div>
-                  <div className="w-full bg-secondary h-1.5 rounded-full overflow-hidden">
-                    <motion.div
-                      className="h-full rounded-full"
-                      style={{ backgroundColor: color }}
-                      initial={{ width: 0 }}
-                      animate={{ width: `${data.mu}%` }}
-                      transition={{ duration: 1, ease: "easeOut" }}
-                    />
-                  </div>
-                </motion.div>
-              );
-            })}
+        {/* Weakest Area */}
+        <div className="bg-gradient-to-br from-red-950/50 to-orange-950/50 border border-red-900/30 rounded-xl p-6">
+          <div className="flex items-center gap-2 text-red-400 mb-2">
+            <TrendingDown className="w-4 h-4" />
+            <p className="text-sm">Needs Attention</p>
           </div>
+          <p className="text-xl font-bold text-white">{CATEGORY_INFO[weakestCategory.category].title}</p>
+          <p className="text-3xl font-black text-red-400">{Math.round(weakestCategory.data.mu)}%</p>
+        </div>
+
+        {/* Strongest Area */}
+        <div className="bg-gradient-to-br from-green-950/50 to-emerald-950/50 border border-green-900/30 rounded-xl p-6">
+          <div className="flex items-center gap-2 text-green-400 mb-2">
+            <TrendingUp className="w-4 h-4" />
+            <p className="text-sm">Strongest Skill</p>
+          </div>
+          <p className="text-xl font-bold text-white">{CATEGORY_INFO[strongestCategory.category].title}</p>
+          <p className="text-3xl font-black text-green-400">{Math.round(strongestCategory.data.mu)}%</p>
         </div>
       </div>
 
-      {/* Divider */}
-      <div className="border-t border-border my-4" />
+      {/* Skill Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {sortedCategories.map(({ category, data }, index) => {
+          const info = CATEGORY_INFO[category];
+          const colors = getSkillColor(data.mu);
+          const Icon = info.icon;
+          const isExpanded = expandedCategory === category;
+          const componentSkills = getComponentSkillsInfo(category);
 
-      {/* Radar Chart Section */}
+          return (
+            <motion.div
+              key={category}
+              layout
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+              className={`rounded-xl border overflow-hidden transition-all cursor-pointer ${
+                isExpanded ? 'ring-2 ring-primary' : ''
+              }`}
+              style={{
+                backgroundColor: 'var(--card)',
+                borderColor: 'var(--border)'
+              }}
+              onClick={() => setExpandedCategory(isExpanded ? null : category)}
+            >
+              {/* Header */}
+              <div className={`bg-gradient-to-r ${info.gradient} p-4`}>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-white/20 rounded-lg">
+                      <Icon className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-white">{info.title}</h3>
+                      <p className="text-xs text-white/70">{info.description}</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-3xl font-black text-white">{Math.round(data.mu)}%</p>
+                    <span className="text-xs px-2 py-0.5 bg-white/20 rounded-full text-white">
+                      {colors.label}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Progress Bar */}
+              <div className="px-4 py-3 bg-card">
+                <div className="h-2 bg-secondary rounded-full overflow-hidden">
+                  <motion.div
+                    className={`h-full bg-gradient-to-r ${info.gradient} rounded-full`}
+                    initial={{ width: 0 }}
+                    animate={{ width: `${data.mu}%` }}
+                    transition={{ duration: 1, ease: "easeOut", delay: index * 0.1 }}
+                  />
+                </div>
+
+                {/* Expand indicator */}
+                {componentSkills.length > 0 && (
+                  <div className="flex items-center justify-center mt-2 text-muted-foreground">
+                    <motion.div
+                      animate={{ rotate: isExpanded ? 180 : 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <ChevronDown className="w-4 h-4" />
+                    </motion.div>
+                    <span className="text-xs ml-1">
+                      {isExpanded ? 'Hide details' : 'Show details'}
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              {/* Expanded Component Skills */}
+              <AnimatePresence>
+                {isExpanded && componentSkills.length > 0 && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="border-t border-border"
+                  >
+                    <div className="p-4 space-y-3">
+                      {componentSkills.map(skill => {
+                        const skillColors = getSkillColor(skill.mu);
+                        return (
+                          <div key={skill.skillType} className="flex items-center justify-between">
+                            <span className="text-sm text-muted-foreground">{skill.name}</span>
+                            <div className="flex items-center gap-3">
+                              <div className="w-24 h-1.5 bg-secondary rounded-full overflow-hidden">
+                                <div
+                                  className="h-full rounded-full transition-all"
+                                  style={{
+                                    width: `${skill.mu}%`,
+                                    backgroundColor: skillColors.text
+                                  }}
+                                />
+                              </div>
+                              <span
+                                className="text-sm font-mono font-bold w-12 text-right"
+                                style={{ color: skillColors.text }}
+                              >
+                                {Math.round(skill.mu)}%
+                              </span>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          );
+        })}
+      </div>
+
+      {/* Divider */}
+      <div className="border-t border-border my-2" />
+
+      {/* Radar Chart */}
       <SkillRadar skills={skills} />
     </div>
   );
