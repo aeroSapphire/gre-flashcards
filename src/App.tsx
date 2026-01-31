@@ -18,6 +18,7 @@ import TestRunner from "./pages/TestRunner";
 import TestResults from "./pages/TestResults";
 import Leaderboard from "./pages/Leaderboard";
 import StudySession from "./pages/StudySession";
+import Arcade from "./pages/Arcade";
 import QuickQuiz from "./pages/QuickQuiz";
 import EtymologyDashboard from "./pages/EtymologyDashboard";
 import EtymologyDetail from "./pages/EtymologyDetail";
@@ -66,6 +67,7 @@ const App = () => (
             <Route path="/practice-weakness" element={<WeaknessPractice />} />
             <Route path="/stats" element={<UserStats />} />
             <Route path="/study" element={<StudySession />} />
+            <Route path="/arcade" element={<Arcade />} />
             <Route path="/quick-quiz" element={<QuickQuiz />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
             <Route path="*" element={<NotFound />} />

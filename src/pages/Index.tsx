@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, BookOpen, GraduationCap, Filter, ArrowLeft, LogOut, Settings, Trophy, Clock, FileText, Brain } from 'lucide-react';
+import { Plus, BookOpen, GraduationCap, Filter, ArrowLeft, LogOut, Settings, Trophy, Clock, FileText, Brain, Gamepad2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useFlashcardsDb, FlashcardWithProgress, FlashcardList } from '@/hooks/useFlashcardsDb';
 import { useAuth } from '@/contexts/AuthContext';
@@ -307,6 +307,10 @@ const Index = () => {
                 <Trophy className="h-4 w-4 mr-1" />
                 Tests
               </Button>
+              <Button variant="outline" size="sm" onClick={() => navigate('/arcade')}>
+                <Gamepad2 className="h-4 w-4 mr-1" />
+                Arcade
+              </Button>
               <Button variant="outline" size="sm" onClick={() => navigate('/etymology')}>
                 <GraduationCap className="h-4 w-4 mr-1" />
                 Etymology
@@ -375,6 +379,35 @@ const Index = () => {
             </div>
           </div>
         )}
+
+        {/* Arcade Banner */}
+        <div className="mb-8">
+          <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-xl border border-purple-500/20 p-6">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center">
+                  <Gamepad2 className="h-6 w-6 text-purple-600" />
+                </div>
+                <div>
+                  <h3 className="font-display text-lg font-semibold text-foreground">
+                    Word Arcade
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Reinforce your vocabulary with fast-paced mini-games.
+                  </p>
+                </div>
+              </div>
+              <Button
+                variant="outline"
+                className="border-purple-500/20 hover:bg-purple-500/10 hover:text-purple-600"
+                onClick={() => navigate('/arcade')}
+              >
+                <Gamepad2 className="h-4 w-4 mr-2" />
+                Play Now
+              </Button>
+            </div>
+          </div>
+        </div>
 
         {/* Leaderboard */}
         {allUserStats.length > 0 && (
