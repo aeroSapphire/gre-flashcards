@@ -116,8 +116,14 @@ function calculateExpectedProbability(mu: number, difficulty: number): number {
 export async function updateSkillModel(params: UpdateSkillParams): Promise<void> {
   const { isCorrect, primarySkill, questionDifficulty = 0 } = params;
 
+  console.log('[SkillEngine] updateSkillModel called:', { isCorrect, primarySkill, questionDifficulty });
+
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) return;
+  if (!user) {
+    console.error('[SkillEngine] No authenticated user found');
+    return;
+  }
+  console.log('[SkillEngine] User:', user.id);
 
   try {
     // 1. Fetch current skill
@@ -190,6 +196,8 @@ export async function updateSkillModel(params: UpdateSkillParams): Promise<void>
     }
 
     // 9. Save to database - try new schema first, fall back to old 4-category schema
+    console.log('[SkillEngine] Attempting upsert with new schema:', primarySkill);
+
     const { error: upsertError } = await supabase
       .from('user_skills')
       .upsert({
@@ -203,11 +211,20 @@ export async function updateSkillModel(params: UpdateSkillParams): Promise<void>
       }, { onConflict: 'user_id,skill_type' });
 
     if (upsertError) {
+      console.log('[SkillEngine] Upsert error:', upsertError.code, upsertError.message);
+
       // Check if it's a constraint violation (old schema with 4 skills)
-      if (upsertError.code === '23514' || upsertError.message?.includes('check')) {
+      // PostgreSQL check constraint violation codes: 23514, or message contains 'violates check constraint'
+      const isCheckConstraintError =
+        upsertError.code === '23514' ||
+        upsertError.message?.includes('check') ||
+        upsertError.message?.includes('violates') ||
+        upsertError.message?.includes('skill_type');
+
+      if (isCheckConstraintError) {
         // Fall back to old 4-category schema
         const categorySkill = SKILL_TO_CATEGORY[primarySkill];
-        console.log(`Falling back to old schema: ${primarySkill} -> ${categorySkill}`);
+        console.log(`[SkillEngine] Falling back to old schema: ${primarySkill} -> ${categorySkill}`);
 
         const { error: fallbackError } = await supabase
           .from('user_skills')
@@ -219,13 +236,18 @@ export async function updateSkillModel(params: UpdateSkillParams): Promise<void>
             last_practice_at: new Date().toISOString()
           }, { onConflict: 'user_id,skill_type' });
 
-        if (fallbackError) throw fallbackError;
+        if (fallbackError) {
+          console.error('[SkillEngine] Fallback also failed:', fallbackError);
+          throw fallbackError;
+        }
 
-        console.log(`Updated ${categorySkill} (fallback): mu ${mu.toFixed(1)} → ${newMu.toFixed(1)}`);
+        console.log(`[SkillEngine] Updated ${categorySkill} (fallback): mu ${mu.toFixed(1)} → ${newMu.toFixed(1)}`);
         return;
       }
       throw upsertError;
     }
+
+    console.log('[SkillEngine] Upsert successful');
 
     const direction = isCorrect ? '↑' : '↓';
     console.log(`Updated ${primarySkill}: mu ${mu.toFixed(1)} → ${newMu.toFixed(1)} ${direction} (difficulty: ${combinedDifficulty.toFixed(2)})`);

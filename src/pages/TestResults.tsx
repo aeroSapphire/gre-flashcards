@@ -81,17 +81,31 @@ const TestResults = () => {
 
     // Analyze mistakes if just finished
     useEffect(() => {
+        console.log('[TestResults] Analysis check:', {
+            loading,
+            hasAttempt: !!attempt,
+            questionsCount: questions.length,
+            justFinished: location.state?.justFinished,
+            analyzing
+        });
         if (!loading && attempt && questions.length > 0 && location.state?.justFinished && !analyzing) {
+            console.log('[TestResults] Triggering analyzeMistakes');
             analyzeMistakes();
         }
     }, [loading, attempt, questions, location.state]);
 
     const analyzeMistakes = async () => {
-        if (!attempt) return;
+        console.log('[TestResults] analyzeMistakes called');
+        if (!attempt) {
+            console.log('[TestResults] No attempt, returning');
+            return;
+        }
         setAnalyzing(true);
 
         // Clear navigation state to prevent re-running on refresh
         window.history.replaceState({}, document.title);
+
+        console.log('[TestResults] Starting analysis for', questions.length, 'questions');
 
         toast({
             title: "Analyzing Performance",
@@ -117,6 +131,8 @@ const TestResults = () => {
 
                 const isCorrect = userIndices.length === correctIndices.length &&
                     userIndices.every(v => correctIndices.includes(v));
+
+                console.log('[TestResults] Processing question:', q.id, 'isCorrect:', isCorrect);
 
                 if (isCorrect) {
                     // Credit correct answers: if question has a primary_skill, update it
@@ -153,6 +169,7 @@ const TestResults = () => {
                     };
 
                     const result = await classifyMistake(input);
+                    console.log('[TestResults] Mistake classification result:', result.label);
 
                     // Record mistake and update skill model
                     if (result.label !== 'NONE') {
