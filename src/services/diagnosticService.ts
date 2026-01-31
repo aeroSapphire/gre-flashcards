@@ -1,8 +1,16 @@
-
 import { DIAGNOSTIC_QUESTIONS, DiagnosticQuestion, SkillCategory } from '@/data/diagnosticQuestions';
 import { LearningPhase } from './curriculumOrchestrator';
 import { MistakeLabel } from '@/utils/mistakeClassifier';
-import { supabase } from '@/integrations/supabase/client';
+import { updateSkillModel, type SkillType } from './skillEngine';
+
+/** Map diagnostic question primarySkill (category name) to skill engine SkillType for updates. */
+const CATEGORY_TO_PRIMARY_SKILL: Record<SkillCategory, SkillType> = {
+  'Polarity & Direction': 'POLARITY_ERROR',
+  'Intensity & Precision': 'INTENSITY_MISMATCH',
+  'Scope & Logic': 'SCOPE_ERROR',
+  'Elimination Skill': 'ELIMINATION_FAILURE',
+  'Mixed Stress & Switching': 'PARTIAL_SYNONYM_TRAP',
+};
 
 export interface DiagnosticResult {
   dominantMistake: MistakeLabel | null;
@@ -98,8 +106,12 @@ export const analyzeDiagnostic = async (
   const focusArea = getFocusArea(startingPhase);
   const nextStep = getNextStep(startingPhase);
 
-  // 6. Save Results (Seed User Skills)
-  await seedUserSkills(userId, answers);
+  // 6. Save Results (Seed User Skills) — best-effort; don't fail the diagnostic if skills fail
+  try {
+    await seedUserSkills(userId, answers);
+  } catch (err) {
+    console.warn('[Diagnostic] Seed user skills failed (result still returned):', err);
+  }
 
   return {
     dominantMistake,

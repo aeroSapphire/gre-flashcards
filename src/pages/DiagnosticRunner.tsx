@@ -201,7 +201,7 @@ export default function DiagnosticRunner() {
                     : `Select ${currentQuestion.correctAnswer.length} answers`}
                 </span>
               </div>
-              {displayPassage && (
+              {currentQuestion.type === 'RC' && displayPassage && (
                 <div className="mb-4 p-4 rounded-lg bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 max-h-48 overflow-y-auto">
                   <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap">
                     {displayPassage}
