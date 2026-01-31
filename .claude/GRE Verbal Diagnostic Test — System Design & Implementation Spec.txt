@@ -1,0 +1,198 @@
+# GRE Verbal Diagnostic Test — System Design & Implementation Spec
+
+## Purpose
+Design and implement a **GRE-style diagnostic test** whose sole purpose is to determine a user’s **current verbal skill profile** and **starting position in the curriculum spine**.  
+This diagnostic is **not** a score predictor and **not** a practice set.
+
+The diagnostic must expose **systematic weaknesses**, not maximize realism.
+
+---
+
+## Core Design Philosophy
+- Designed like a real GRE tutor’s intake assessment
+- Over-samples trap types and cognitive failure modes
+- Slightly harder than average GRE practice
+- Optimized for **mistake classification**, not user confidence
+- Uses existing GRE-style question formats (TC, SE, RC)
+
+---
+
+## Test Length & Structure
+- Total questions: **35–45**
+- Expected duration: **45–60 minutes**
+- Timing:
+  - No hard time limit
+  - Suggested time shown per question
+  - Time spent per question must be logged
+
+---
+
+## Skill Categories Covered (Non-Negotiable)
+
+Each diagnostic question must target **exactly one primary skill category**.
+
+| Skill Category | Primary Question Types | Target Count | Primary Failure Signals |
+|---------------|------------------------|--------------|--------------------------|
+| Polarity & Direction | TC, SE | 8–10 | POLARITY_ERROR |
+| Intensity & Precision | SE, TC | 8–10 | INTENSITY_MISMATCH, PARTIAL_SYNONYM_TRAP |
+| Scope & Logic | TC, RC | 8–10 | SCOPE_ERROR, CONTEXT_MISREAD, LOGICAL_CONTRADICTION |
+| Elimination Skill | Mixed | 6–8 | ELIMINATION_FAILURE |
+| Mixed Stress & Switching | Mixed | 5–7 | Combined / fatigue errors |
+
+This is intentionally **not** a balanced GRE section.
+
+---
+
+## Difficulty Profile
+- ~60% Medium–Hard
+- ~30% Hard
+- ~10% Brutal (designed to fail)
+
+Failure under pressure is diagnostically valuable.
+
+---
+
+## Diagnostic Question Blueprint
+
+Each diagnostic question must be created from a blueprint with the following fields:
+
+```ts
+type DiagnosticQuestionBlueprint = {
+  questionType: "TC" | "SE" | "RC"
+  difficulty: "MEDIUM" | "HARD" | "BRUTAL"
+  primarySkill: SkillCategory
+  intendedTrap: string
+  expectedMistakeLabel: MistakeLabel
+  greRealismNotes: string
+}
+```
+
+## Rules
+- Each question has one primary skill
+- Each wrong option must map to a plausible GRE mistake
+- Correct answers should be unambiguous after reasoning
+
+# Diagnostic Assembly Logic
+
+## Composition Rules
+- Fixed blueprint mix for all users
+- No adaptive ordering during the test
+- Questions ordered to:
+	- Start manageable
+        - Increase logical density
+	- End with mixed stress and switching
+
+## Assembly output
+```ts
+type DiagnosticTest = {
+  questions: DiagnosticQuestion[]
+  totalQuestions: number
+}
+```
+
+## Integration with mistake classifier
+For each answered question:
+- Run the deterministic GRE Verbal Mistake Classifier
+- Store:
+	- mistake label
+
+	- question type
+
+	- timestamp
+
+	- time spent
+
+**Correct answers must be labeled as NONE.
+
+# Diagnostic Result Analysis (Critical)
+
+## Inputs
+- Mistake label distribution
+
+- Recency-weighted counts
+
+- Time spent per question
+
+- Question type breakdown
+
+## Outputs
+```ts
+type DiagnosticResult = {
+  dominantMistake: MistakeLabel | null
+  secondaryMistake: MistakeLabel | null
+  startingLearningPhase: LearningPhase
+  confidenceFlags: {
+    falseConfidence: boolean
+    timePressureSensitivity: boolean
+  }
+}
+```
+
+## Rules
+- ignore raw score
+- use patterns, not total
+- require minimum data thresholds before conclusions
+
+# Mapping to Learning phases
+
+The diagnostic must determine the user's initial **LearningPhase**:
+
+- CALIBRATION (default if data is sparse)
+
+- POLARITY_MASTERY
+
+- INTENSITY_PRECISION
+
+- SCOPE_AND_LOGIC
+
+- ELIMINATION_UNDER_PRESSURE
+
+- MIXED_READINESS
+
+The earliest phase with dominant mistakes wins.
+
+
+# User-facing Diagnostic Completion Output
+
+## Constraints
+- No numerical score emphasis
+
+- No percentile comparisons
+
+- No discouraging language
+
+## Required Output
+
+- One-paragraph summary of how the user currently fails
+
+- One primary focus area
+
+- One concrete next step
+
+Tone: calm, tutor-like, confident, precise
+
+
+# Safeguards & Retakes
+
+- Diagnostic cannot be retaken within a short cooldown period
+- Partial diagnostics must be flagged as incomplete
+- Diagnostic questions must never appear in normal practice pools
+
+# Explicit Non-Goals
+
+- This diagnostic does NOT predict GRE score
+- This diagnostic does NOT replace full-length tests
+- This diagnostic does NOT adapt mid-test
+
+# Success Criteria
+
+- Diagnostic reliably triggers dominant mistake labels
+- Starting LearningPhase aligns with observed behavior
+- Users report clarity, not discouragement
+- Downstream curriculum recommendations improve accuracy
+
+# Final Guiding Principle
+
+This diagnostic should answer one question only:
+
+“How does this user fail under GRE-like pressure, and what must we fix first?”

@@ -25,6 +25,7 @@ import EtymologyDetail from "./pages/EtymologyDetail";
 import VerbalPractice from "./pages/VerbalPractice";
 import WeaknessPractice from "./pages/WeaknessPractice";
 import UserStats from "./pages/UserStats";
+import DiagnosticRunner from "./pages/DiagnosticRunner";
 
 const queryClient = new QueryClient();
 
@@ -66,6 +67,7 @@ const App = () => (
             <Route path="/verbal" element={<VerbalPractice />} />
             <Route path="/practice-weakness" element={<WeaknessPractice />} />
             <Route path="/stats" element={<UserStats />} />
+            <Route path="/diagnostic" element={<DiagnosticRunner />} />
             <Route path="/study" element={<StudySession />} />
             <Route path="/arcade" element={<Arcade />} />
             <Route path="/quick-quiz" element={<QuickQuiz />} />

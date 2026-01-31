@@ -82,7 +82,7 @@ export const DailyTutor = () => {
                     <Button 
                         className="w-full" 
                         size="lg"
-                        onClick={() => navigate('/tests')}
+                        onClick={() => navigate('/diagnostic')}
                     >
                         Start Diagnostic Test <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
