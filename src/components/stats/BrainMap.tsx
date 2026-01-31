@@ -1,5 +1,5 @@
 
-import { useMemo, useState, Suspense } from 'react';
+import { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   UserSkill,
@@ -12,7 +12,7 @@ import {
 } from '@/services/skillEngine';
 import { SkillRadar } from './SkillRadar';
 import { BrainPlexus } from './BrainPlexus';
-import { Loader2, BrainCircuit, BookOpen, Network, Target } from 'lucide-react';
+import { BrainCircuit, BookOpen, Network, Target } from 'lucide-react';
 
 interface BrainMapProps {
   skills: UserSkill[];

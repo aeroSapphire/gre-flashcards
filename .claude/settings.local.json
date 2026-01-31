@@ -39,7 +39,8 @@
       "Bash(npx supabase functions deploy:*)",
       "Bash(npx eslint:*)",
       "Bash(git status:*)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(unzip:*)"
     ]
   }
 }
