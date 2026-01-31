@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, BookOpen, GraduationCap, Filter, ArrowLeft, LogOut, Settings, Trophy, Clock, FileText, Brain, Gamepad2 } from 'lucide-react';
+import { Plus, BookOpen, GraduationCap, Filter, ArrowLeft, LogOut, Settings, Trophy, Clock, FileText, Gamepad2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useFlashcardsDb, FlashcardWithProgress, FlashcardList } from '@/hooks/useFlashcardsDb';
 import { useAuth } from '@/contexts/AuthContext';
@@ -10,7 +10,6 @@ import { StudyModeSelector } from '@/components/StudyModeSelector';
 import { AddCardDialog } from '@/components/AddCardDialog';
 import { StatsCard } from '@/components/StatsCard';
 import { ListCard } from '@/components/ListCard';
-import { DailyTutor } from '@/components/DailyTutor';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -321,10 +320,6 @@ const Index = () => {
                 <FileText className="h-4 w-4 mr-1" />
                 Verbal
               </Button>
-              <Button variant="outline" size="sm" onClick={() => navigate('/stats')}>
-                <Brain className="h-4 w-4 mr-1" />
-                Stats
-              </Button>
               <Button variant="ghost" size="icon" onClick={() => navigate('/settings')} title="Settings">
                 <Settings className="h-4 w-4" />
               </Button>
@@ -341,9 +336,6 @@ const Index = () => {
         <div className="mb-4 text-sm text-muted-foreground">
           Signed in as <span className="font-medium text-foreground">{profile?.display_name || user?.email}</span>
         </div>
-
-        {/* Daily Tutor Nudge */}
-        <DailyTutor />
 
         {/* Overall Stats */}
         <div className="mb-8">
