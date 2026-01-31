@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -17,10 +17,16 @@ export default function DiagnosticRunner() {
   
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, number[]>>({});
+  const [timings, setTimings] = useState<Record<string, number>>({});
+  const [startTime, setStartTime] = useState(() => Date.now());
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [result, setResult] = useState<DiagnosticResult | null>(null);
 
   const currentQuestion = questions[currentIndex];
+
+  useEffect(() => {
+    setStartTime(Date.now());
+  }, [currentIndex]);
   const progress = ((currentIndex) / questions.length) * 100;
 
   const handleOptionSelect = (index: number) => {
