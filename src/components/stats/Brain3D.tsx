@@ -424,7 +424,11 @@ export function Brain3D({
   hoveredRegion
 }: Brain3DProps) {
   return (
-    <div className="w-full h-[400px] md:h-[500px] bg-gradient-to-b from-slate-900/50 to-slate-800/30 rounded-xl">
+    <div
+      className="w-full h-[400px] md:h-[500px] bg-gradient-to-b from-slate-900/50 to-slate-800/30 rounded-xl"
+      role="img"
+      aria-label="Interactive 3D Brain Map showing skill proficiency across four cognitive regions. Rotate to view different angles, or use the list below to highlight specific regions."
+    >
       <Canvas
         camera={{ position: [0, 0.5, 3], fov: 45 }}
         style={{ background: 'transparent' }}

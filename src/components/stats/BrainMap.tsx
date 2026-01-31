@@ -12,7 +12,7 @@ import {
 } from '@/services/skillEngine';
 import { SkillRadar } from './SkillRadar';
 import { Brain3D } from './Brain3D';
-import { Loader2 } from 'lucide-react';
+import { Loader2, BrainCircuit, BookOpen, Network, Target } from 'lucide-react';
 
 interface BrainMapProps {
   skills: UserSkill[];
@@ -27,26 +27,30 @@ const getSkillColor = (mu: number) => {
   return "#22c55e"; // Green-500
 };
 
-const CATEGORY_DESCRIPTIONS: Record<SkillCategory, { title: string; description: string; region: string }> = {
+const CATEGORY_DESCRIPTIONS: Record<SkillCategory, { title: string; description: string; region: string; icon: any }> = {
   logic: {
     title: "Logic & Reasoning",
     description: "Constructing valid arguments and detecting fallacies.",
-    region: "Frontal Lobe"
+    region: "Frontal Lobe",
+    icon: BrainCircuit
   },
   vocab: {
     title: "Vocabulary & Language",
     description: "Lexicon depth and ability to recall definitions.",
-    region: "Temporal Lobe"
+    region: "Temporal Lobe",
+    icon: BookOpen
   },
   context: {
     title: "Context & Synthesis",
     description: "Inferring meaning from surrounding text.",
-    region: "Parietal Lobe"
+    region: "Parietal Lobe",
+    icon: Network
   },
   precision: {
     title: "Precision & Attention",
     description: "Attention to detail and spotting subtle traps.",
-    region: "Occipital Lobe"
+    region: "Occipital Lobe",
+    icon: Target
   }
 };
 
@@ -133,6 +137,7 @@ export function BrainMap({ skills }: BrainMapProps) {
           <Suspense fallback={
             <div className="w-full h-[400px] flex items-center justify-center">
               <Loader2 className="h-8 w-8 animate-spin text-primary" />
+              <span className="sr-only">Loading 3D Brain Map...</span>
             </div>
           }>
             <Brain3D
@@ -167,7 +172,12 @@ export function BrainMap({ skills }: BrainMapProps) {
                   <div
                     className="w-3 h-3 rounded-full"
                     style={{ backgroundColor: getSkillColor(getCategoryData(activeCategory).mu) }}
+                    aria-hidden="true"
                   />
+                  {(() => {
+                    const Icon = CATEGORY_DESCRIPTIONS[activeCategory].icon;
+                    return <Icon className="w-5 h-5 text-primary" aria-hidden="true" />;
+                  })()}
                   {CATEGORY_DESCRIPTIONS[activeCategory].title}
                 </h3>
                 <p className="text-sm text-muted-foreground mb-3">
@@ -201,7 +211,12 @@ export function BrainMap({ skills }: BrainMapProps) {
                   onMouseEnter={() => setHoveredCategory(category)}
                   onMouseLeave={() => setHoveredCategory(null)}
                   onClick={() => setSelectedCategory(selectedCategory === category ? null : category)}
-                  className={`p-3 rounded-lg border transition-all cursor-pointer ${
+                  onFocus={() => setHoveredCategory(category)}
+                  onBlur={() => setHoveredCategory(null)}
+                  tabIndex={0}
+                  role="button"
+                  aria-label={`${info.title}: ${Math.round(data.mu)}% Proficiency`}
+                  className={`p-3 rounded-lg border transition-all cursor-pointer outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
                     isActive
                       ? 'bg-muted border-primary shadow-lg'
                       : 'bg-card hover:bg-muted/50'
@@ -217,7 +232,9 @@ export function BrainMap({ skills }: BrainMapProps) {
                           backgroundColor: color,
                           boxShadow: isActive ? `0 0 10px ${color}` : 'none'
                         }}
+                        aria-hidden="true"
                       />
+                      <info.icon className="w-4 h-4 text-muted-foreground" aria-hidden="true" />
                       <span className="font-semibold text-sm">{info.title}</span>
                     </div>
                     <span className="font-mono font-bold text-sm">{Math.round(data.mu)}%</span>
