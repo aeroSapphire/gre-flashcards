@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, BookOpen, GraduationCap, Filter, ArrowLeft, LogOut, Settings, Trophy, Clock, FileText, Gamepad2 } from 'lucide-react';
+import { Plus, BookOpen, GraduationCap, Filter, ArrowLeft, LogOut, Settings, Trophy, Clock, FileText, Gamepad2, Search, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useFlashcardsDb, FlashcardWithProgress, FlashcardList } from '@/hooks/useFlashcardsDb';
 import { useAuth } from '@/contexts/AuthContext';
@@ -11,6 +11,7 @@ import { AddCardDialog } from '@/components/AddCardDialog';
 import { StatsCard } from '@/components/StatsCard';
 import { ListCard } from '@/components/ListCard';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -50,8 +51,18 @@ const Index = () => {
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [editingCard, setEditingCard] = useState<FlashcardWithProgress | null>(null);
   const [filter, setFilter] = useState<FilterType>('all');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const existingWords = useMemo(() => new Set(cards.map(c => c.word.toLowerCase())), [cards]);
+
+  const searchResults = useMemo(() => {
+    if (!searchQuery.trim()) return [];
+    const query = searchQuery.toLowerCase();
+    return cards.filter(card =>
+      card.word.toLowerCase().includes(query) ||
+      card.definition.toLowerCase().includes(query)
+    );
+  }, [cards, searchQuery]);
 
   const selectedListCards = useMemo(() => {
     if (!selectedList) return [];
@@ -337,13 +348,85 @@ const Index = () => {
           Signed in as <span className="font-medium text-foreground">{profile?.display_name || user?.email}</span>
         </div>
 
-        {/* Overall Stats */}
-        <div className="mb-8">
-          <StatsCard stats={stats} />
+        {/* Search */}
+        <div className="mb-6">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              type="text"
+              placeholder="Search words or definitions..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10 pr-10"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            )}
+          </div>
         </div>
 
-        {/* Spaced Repetition Review */}
-        {(dueCards.length > 0 || stats.learned > 0) && (
+        {/* Search Results */}
+        {searchQuery.trim() && (
+          <div className="mb-8">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="font-display text-xl font-semibold text-foreground">
+                Search Results
+              </h2>
+              <span className="text-sm text-muted-foreground">
+                {searchResults.length} {searchResults.length === 1 ? 'word' : 'words'} found
+              </span>
+            </div>
+            {searchResults.length === 0 ? (
+              <div className="text-center py-12 bg-muted/30 rounded-xl border border-border">
+                <Search className="h-8 w-8 text-muted-foreground mx-auto mb-3" />
+                <p className="text-muted-foreground">No words found matching "{searchQuery}"</p>
+              </div>
+            ) : (
+              <div className="grid gap-4 md:grid-cols-2">
+                <AnimatePresence>
+                  {searchResults.map((card) => (
+                    <motion.div
+                      key={card.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      layout
+                    >
+                      <FlashcardItem
+                        card={card}
+                        allCards={cards}
+                        onMarkLearned={markAsLearned}
+                        onMarkLearning={markAsLearning}
+                        onReset={resetCard}
+                        onDelete={deleteCard}
+                        onEdit={(card) => {
+                          setEditingCard(card);
+                          setIsAddDialogOpen(true);
+                        }}
+                      />
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Main content - hidden during search */}
+        {!searchQuery.trim() && (
+          <>
+            {/* Overall Stats */}
+            <div className="mb-8">
+              <StatsCard stats={stats} />
+            </div>
+
+            {/* Spaced Repetition Review */}
+            {(dueCards.length > 0 || stats.learned > 0) && (
           <div className="mb-8">
             <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl border border-primary/20 p-6">
               <div className="flex items-center justify-between">
@@ -501,6 +584,8 @@ const Index = () => {
               ))}
             </AnimatePresence>
           </div>
+        )}
+          </>
         )}
       </main>
 
