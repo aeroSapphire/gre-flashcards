@@ -52,6 +52,8 @@ const Index = () => {
   const [editingCard, setEditingCard] = useState<FlashcardWithProgress | null>(null);
   const [filter, setFilter] = useState<FilterType>('all');
 
+  const existingWords = useMemo(() => new Set(cards.map(c => c.word.toLowerCase())), [cards]);
+
   const selectedListCards = useMemo(() => {
     if (!selectedList) return [];
     return getCardsForList(selectedList.id);
@@ -519,6 +521,7 @@ const Index = () => {
         onAdd={addCard}
         onUpdate={updateCard}
         editingCard={editingCard}
+        existingWords={existingWords}
       />
     </div>
   );

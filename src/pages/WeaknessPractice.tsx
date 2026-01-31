@@ -1,10 +1,10 @@
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { ArrowLeft, BrainCircuit, CheckCircle2, XCircle, Loader2, RefreshCw, GraduationCap, Target } from 'lucide-react';
+import { ArrowLeft, BrainCircuit, CheckCircle2, XCircle, Loader2, RefreshCw, GraduationCap, Target, Plus } from 'lucide-react';
 import { getMistakeHistory } from '@/services/mistakeService';
 import { analyzeMistakes, NUDGE_MESSAGES } from '@/services/mistakeAnalysis';
 import { generateTargetedPractice, generateSkillAssessment, PracticeQuestion, markQuestionAsUsed } from '@/services/practiceService';
@@ -13,6 +13,8 @@ import { MistakeLabel } from '@/utils/mistakeClassifier';
 import { useToast } from '@/hooks/use-toast';
 import { TutorLesson } from '@/components/TutorLesson';
 import { getCurriculumStatus, PhaseStatus, PHASE_NAMES } from '@/services/curriculumOrchestrator';
+import { useFlashcardsDb } from '@/hooks/useFlashcardsDb';
+import { AddCardDialog } from '@/components/AddCardDialog';
 
 type Phase = 'initial' | 'tutor' | 'practice' | 'finished';
 
@@ -32,6 +34,13 @@ export default function WeaknessPractice() {
     const [curriculumStatus, setCurriculumStatus] = useState<PhaseStatus | null>(null);
     const [usingCurriculumFallback, setUsingCurriculumFallback] = useState(false);
     const [isAssessment, setIsAssessment] = useState(false);
+    
+    // Flashcard integration
+    const { addCard, cards } = useFlashcardsDb();
+    const [isAddCardOpen, setIsAddCardOpen] = useState(false);
+    const [wordToAdd, setWordToAdd] = useState('');
+    
+    const existingWords = useMemo(() => new Set(cards.map(c => c.word.toLowerCase())), [cards]);
 
     useEffect(() => {
         loadWeakness();
@@ -420,24 +429,41 @@ export default function WeaknessPractice() {
                             }
 
                             return (
-                                <Button
-                                    key={idx}
-                                    variant="ghost"
-                                    className={styles}
-                                    onClick={() => handleAnswer(idx)}
-                                    disabled={showResult}
-                                >
-                                    <div className="flex items-center w-full">
-                                        <div className={`w-6 h-6 rounded-full border flex items-center justify-center mr-3 shrink-0 ${
-                                            isSelected ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground"
-                                        }`}>
-                                            {String.fromCharCode(65 + idx)}
+                                <div key={idx} className="flex gap-2 w-full">
+                                    <Button
+                                        variant="ghost"
+                                        className={styles + " flex-1"}
+                                        onClick={() => handleAnswer(idx)}
+                                        disabled={showResult}
+                                    >
+                                        <div className="flex items-center w-full">
+                                            <div className={`w-6 h-6 rounded-full border flex items-center justify-center mr-3 shrink-0 ${
+                                                isSelected ? "border-primary bg-primary text-primary-foreground" : "border-muted-foreground"
+                                            }`}>
+                                                {String.fromCharCode(65 + idx)}
+                                            </div>
+                                            <span className="whitespace-normal text-left">{opt}</span>
+                                            {showResult && isCorrect && <CheckCircle2 className="ml-auto h-5 w-5 text-green-600" />}
+                                            {showResult && isSelected && !isCorrect && <XCircle className="ml-auto h-5 w-5 text-red-600" />}
                                         </div>
-                                        <span className="whitespace-normal">{opt}</span>
-                                        {showResult && isCorrect && <CheckCircle2 className="ml-auto h-5 w-5 text-green-600" />}
-                                        {showResult && isSelected && !isCorrect && <XCircle className="ml-auto h-5 w-5 text-red-600" />}
-                                    </div>
-                                </Button>
+                                    </Button>
+                                    <Button
+                                        variant="outline"
+                                        size="icon"
+                                        className="h-auto w-12 border-2 border-transparent hover:border-primary/20 shrink-0 self-stretch"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            // If option is a sentence, maybe don't pre-fill? 
+                                            // But for GRE vocab, it's usually a word or short phrase.
+                                            // We'll pre-fill and let user edit.
+                                            setWordToAdd(opt);
+                                            setIsAddCardOpen(true);
+                                        }}
+                                        title="Add to Flashcards"
+                                    >
+                                        <Plus className="h-5 w-5 text-muted-foreground" />
+                                    </Button>
+                                </div>
                             );
                         })}
                     </div>
@@ -466,6 +492,14 @@ export default function WeaknessPractice() {
                     )}
                 </CardContent>
             </Card>
+
+            <AddCardDialog
+                open={isAddCardOpen}
+                onOpenChange={setIsAddCardOpen}
+                onAdd={addCard}
+                initialWord={wordToAdd}
+                existingWords={existingWords}
+            />
         </div>
     );
 }

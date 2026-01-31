@@ -658,8 +658,38 @@ export function useFlashcardsDb() {
   };
 
   const addCard = async (word: string, definition: string, part_of_speech?: string, etymology?: string, example?: string, tags?: string[]) => {
+    const trimmedWord = word.trim();
+
+    // 1. Client-side check (Case-insensitive)
+    // "Vigilant" check against loaded cards
+    const existingCard = cards.find(c => c.word.trim().toLowerCase() === trimmedWord.toLowerCase());
+    if (existingCard) {
+      toast({
+        title: 'Word already exists',
+        description: `"${existingCard.word}" is already in your vocabulary list.`,
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    // 2. DB-side check (Case-insensitive) - Extra vigilance against duplicates not locally loaded
+    const { data: dbExisting, error: dbCheckError } = await supabase
+      .from('flashcards')
+      .select('word')
+      .ilike('word', trimmedWord)
+      .limit(1);
+
+    if (dbExisting && dbExisting.length > 0) {
+      toast({
+        title: 'Word already exists',
+        description: `"${dbExisting[0].word}" is already in the database.`,
+        variant: 'destructive',
+      });
+      return;
+    }
+
     const { error } = await supabase.from('flashcards').insert({
-      word,
+      word: trimmedWord,
       definition,
       part_of_speech,
       etymology,
@@ -673,7 +703,7 @@ export function useFlashcardsDb() {
       if (error.code === '23505') {
         toast({
           title: 'Word already exists',
-          description: `"${word}" is already in your vocabulary list.`,
+          description: `"${trimmedWord}" is already in your vocabulary list.`,
           variant: 'destructive',
         });
       } else {

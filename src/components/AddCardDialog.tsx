@@ -24,6 +24,8 @@ interface AddCardDialogProps {
   onAdd: (word: string, definition: string, part_of_speech?: string, etymology?: string, example?: string, tags?: string[]) => void;
   onUpdate?: (id: string, updates: Partial<Omit<Flashcard, 'id' | 'created_at' | 'created_by'>>) => void;
   editingCard?: FlashcardWithProgress | null;
+  initialWord?: string;
+  existingWords?: Set<string>;
 }
 
 export function AddCardDialog({
@@ -32,13 +34,18 @@ export function AddCardDialog({
   onAdd,
   onUpdate,
   editingCard,
+  initialWord = '',
+  existingWords,
 }: AddCardDialogProps) {
-  const [word, setWord] = useState('');
+  const [word, setWord] = useState(initialWord);
   const [definition, setDefinition] = useState('');
   const [partOfSpeech, setPartOfSpeech] = useState<string>('');
   const [etymology, setEtymology] = useState('');
   const [example, setExample] = useState('');
   const [tags, setTags] = useState('');
+
+  const isDuplicate = existingWords?.has(word.trim().toLowerCase()) && 
+    (!editingCard || word.trim().toLowerCase() !== editingCard.word.trim().toLowerCase());
 
   useEffect(() => {
     if (editingCard) {
@@ -105,8 +112,13 @@ export function AddCardDialog({
                 value={word}
                 onChange={(e) => setWord(e.target.value)}
                 placeholder="e.g., Ephemeral"
-                className="font-display text-lg"
+                className={`font-display text-lg ${isDuplicate ? 'border-destructive focus-visible:ring-destructive' : ''}`}
               />
+              {isDuplicate && (
+                <p className="text-xs text-destructive font-medium">
+                  Word already exists in your list
+                </p>
+              )}
             </div>
             <div className="space-y-2">
               <Label htmlFor="pos">Part of Speech</Label>
@@ -166,7 +178,7 @@ export function AddCardDialog({
             <Button type="button" variant="ghost" onClick={() => onOpenChange(false)}>
               Cancel
             </Button>
-            <Button type="submit" disabled={!word.trim() || !definition.trim()}>
+            <Button type="submit" disabled={!word.trim() || !definition.trim() || !!isDuplicate}>
               {editingCard ? 'Save Changes' : 'Add Card'}
             </Button>
           </div>
