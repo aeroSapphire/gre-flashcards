@@ -1,5 +1,5 @@
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   UserSkill,
@@ -11,24 +11,12 @@ import {
   getSkillDisplayName
 } from '@/services/skillEngine';
 import { SkillRadar } from './SkillRadar';
+import { Brain3D } from './Brain3D';
+import { Loader2 } from 'lucide-react';
 
 interface BrainMapProps {
   skills: UserSkill[];
 }
-
-// Mapping skills to Brain Regions
-// Logic -> Frontal Lobe (Reasoning, Planning)
-// Vocab -> Temporal Lobe (Language, Memory)
-// Context -> Parietal Lobe (Sensory integration, Context)
-// Precision -> Occipital/Cerebellum (Visual processing, Fine detail)
-
-const BRAIN_PATHS = {
-  frontal: "M 40 100 C 40 60, 70 20, 150 20 C 200 20, 220 50, 220 50 L 220 120 L 150 150 L 40 100 Z",
-  parietal: "M 150 20 C 230 20, 280 40, 300 80 L 300 130 L 220 120 L 220 50 C 220 50, 200 20, 150 20 Z",
-  temporal: "M 40 100 L 150 150 L 220 120 L 240 160 C 200 220, 100 200, 60 160 Z",
-  occipital: "M 300 80 C 320 120, 320 160, 280 190 L 240 160 L 300 130 Z",
-  cerebellum: "M 240 160 L 280 190 C 260 220, 200 230, 180 210 L 240 160 Z"
-};
 
 // Colors for skill levels
 const getSkillColor = (mu: number) => {
@@ -64,6 +52,7 @@ const CATEGORY_DESCRIPTIONS: Record<SkillCategory, { title: string; description:
 
 export function BrainMap({ skills }: BrainMapProps) {
   const [hoveredCategory, setHoveredCategory] = useState<SkillCategory | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<SkillCategory | null>(null);
 
   // Aggregate 10 skills into 4 categories
   const categorySkills = useMemo(() => {
@@ -77,11 +66,31 @@ export function BrainMap({ skills }: BrainMapProps) {
     return map;
   }, [categorySkills]);
 
+  // Create category scores for 3D brain
+  const categoryScores = useMemo(() => {
+    const scores: Record<SkillCategory, { mu: number; sigma: number }> = {
+      logic: { mu: 50, sigma: 15 },
+      vocab: { mu: 50, sigma: 15 },
+      context: { mu: 50, sigma: 15 },
+      precision: { mu: 50, sigma: 15 }
+    };
+    categorySkills.forEach(cs => {
+      scores[cs.category] = { mu: cs.mu, sigma: cs.sigma };
+    });
+    return scores;
+  }, [categorySkills]);
+
   // Create a skill map for component skill lookup
   const skillMap = useMemo(() => {
     const map = new Map<SkillType, UserSkill>();
     skills.forEach(s => map.set(s.skill_type as SkillType, s));
     return map;
+  }, [skills]);
+
+  // Check if using old schema
+  const isOldSchema = useMemo(() => {
+    const oldCategoryNames = ['precision', 'vocab', 'logic', 'context'];
+    return skills.some(s => oldCategoryNames.includes(s.skill_type as string));
   }, [skills]);
 
   const getCategoryData = (category: SkillCategory) => {
@@ -93,42 +102,9 @@ export function BrainMap({ skills }: BrainMapProps) {
     };
   };
 
-  const renderRegion = (category: SkillCategory, path: string) => {
-    const data = getCategoryData(category);
-    const color = getSkillColor(data.mu);
-    const opacity = hoveredCategory === category ? 1 : hoveredCategory ? 0.3 : 0.8;
-    const glow = hoveredCategory === category ? `drop-shadow(0 0 10px ${color})` : "none";
-
-    return (
-      <motion.path
-        d={path}
-        fill={color}
-        stroke="white"
-        strokeWidth="2"
-        initial={{ opacity: 0 }}
-        animate={{
-          opacity,
-          filter: glow,
-          scale: hoveredCategory === category ? 1.02 : 1
-        }}
-        transition={{ duration: 0.3 }}
-        onMouseEnter={() => setHoveredCategory(category)}
-        onMouseLeave={() => setHoveredCategory(null)}
-        className="cursor-pointer transition-all duration-300"
-      />
-    );
-  };
-
-  // Check if using old schema (skills have category names instead of 10-skill types)
-  const isOldSchema = useMemo(() => {
-    const oldCategoryNames = ['precision', 'vocab', 'logic', 'context'];
-    return skills.some(s => oldCategoryNames.includes(s.skill_type));
-  }, [skills]);
-
   // Get component skills info for hover tooltip
   const getComponentSkillsInfo = (category: SkillCategory) => {
     if (isOldSchema) {
-      // Old schema: just show the category skill
       const categoryData = getCategoryData(category);
       return [{
         name: `${category} (aggregated)`,
@@ -146,50 +122,59 @@ export function BrainMap({ skills }: BrainMapProps) {
     });
   };
 
+  const activeCategory = hoveredCategory || selectedCategory;
+
   return (
     <div className="flex flex-col gap-8 p-6">
-      {/* Brain Visualization Section */}
-      <div className="flex flex-col md:flex-row items-center justify-center gap-8">
-        {/* Brain SVG */}
-        <div className="relative w-[300px] h-[300px] md:w-[400px] md:h-[400px]">
-          <svg viewBox="0 0 350 250" className="w-full h-full overflow-visible">
-            {/* Filter for Glow Effect */}
-            <defs>
-              <filter id="glow">
-                <feGaussianBlur stdDeviation="4" result="coloredBlur" />
-                <feMerge>
-                  <feMergeNode in="coloredBlur" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
-            </defs>
+      {/* 3D Brain Visualization Section */}
+      <div className="flex flex-col lg:flex-row items-start justify-center gap-8">
+        {/* 3D Brain */}
+        <div className="flex-1 w-full max-w-2xl">
+          <Suspense fallback={
+            <div className="w-full h-[400px] flex items-center justify-center">
+              <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            </div>
+          }>
+            <Brain3D
+              categoryScores={categoryScores}
+              onRegionHover={setHoveredCategory}
+              onRegionClick={setSelectedCategory}
+              hoveredRegion={hoveredCategory}
+            />
+          </Suspense>
 
-            {/* Frontal - Logic */}
-            {renderRegion('logic', BRAIN_PATHS.frontal)}
+          {/* Instructions */}
+          <p className="text-center text-xs text-muted-foreground mt-2">
+            Drag to rotate | Scroll to zoom | Hover regions for details
+          </p>
+        </div>
 
-            {/* Parietal - Context */}
-            {renderRegion('context', BRAIN_PATHS.parietal)}
+        {/* Stats Detail Panel */}
+        <div className="flex-1 space-y-4 w-full max-w-md">
+          <h2 className="text-2xl font-bold mb-4">Neural Skill Map</h2>
 
-            {/* Temporal - Vocab */}
-            {renderRegion('vocab', BRAIN_PATHS.temporal)}
-
-            {/* Occipital + Cerebellum - Precision */}
-            {renderRegion('precision', BRAIN_PATHS.occipital + " " + BRAIN_PATHS.cerebellum)}
-          </svg>
-
-          {/* Floating Label when hovering */}
-          <AnimatePresence>
-            {hoveredCategory && (
+          {/* Active region detail card */}
+          <AnimatePresence mode="wait">
+            {activeCategory && (
               <motion.div
-                initial={{ opacity: 0, y: 10 }}
+                key={activeCategory}
+                initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 10 }}
-                className="absolute bottom-0 left-0 right-0 text-center bg-background/80 backdrop-blur-md p-3 rounded-lg border shadow-lg z-10"
+                exit={{ opacity: 0, y: -10 }}
+                className="p-4 rounded-lg border bg-primary/5 border-primary/30 mb-4"
               >
-                <h3 className="font-bold text-lg">{CATEGORY_DESCRIPTIONS[hoveredCategory].title}</h3>
-                <p className="text-sm text-muted-foreground mb-2">{CATEGORY_DESCRIPTIONS[hoveredCategory].region}</p>
-                <div className="text-xs text-left mt-2 space-y-1">
-                  {getComponentSkillsInfo(hoveredCategory).map(skill => (
+                <h3 className="font-bold text-lg flex items-center gap-2">
+                  <div
+                    className="w-3 h-3 rounded-full"
+                    style={{ backgroundColor: getSkillColor(getCategoryData(activeCategory).mu) }}
+                  />
+                  {CATEGORY_DESCRIPTIONS[activeCategory].title}
+                </h3>
+                <p className="text-sm text-muted-foreground mb-3">
+                  {CATEGORY_DESCRIPTIONS[activeCategory].region} - {CATEGORY_DESCRIPTIONS[activeCategory].description}
+                </p>
+                <div className="text-sm space-y-1">
+                  {getComponentSkillsInfo(activeCategory).map(skill => (
                     <div key={skill.name} className="flex justify-between items-center">
                       <span className="text-muted-foreground">{skill.name}</span>
                       <span className="font-mono font-bold" style={{ color: getSkillColor(skill.mu) }}>
@@ -201,35 +186,43 @@ export function BrainMap({ skills }: BrainMapProps) {
               </motion.div>
             )}
           </AnimatePresence>
-        </div>
 
-        {/* Stats Detail Panel */}
-        <div className="flex-1 space-y-4 w-full max-w-md">
-          <h2 className="text-2xl font-bold mb-4">Neural Skill Map</h2>
-          <div className="grid gap-4">
+          {/* All regions grid */}
+          <div className="grid gap-3">
             {(['logic', 'vocab', 'context', 'precision'] as SkillCategory[]).map(category => {
               const data = getCategoryData(category);
               const info = CATEGORY_DESCRIPTIONS[category];
               const color = getSkillColor(data.mu);
+              const isActive = activeCategory === category;
 
               return (
                 <motion.div
                   key={category}
                   onMouseEnter={() => setHoveredCategory(category)}
                   onMouseLeave={() => setHoveredCategory(null)}
-                  className={`p-4 rounded-lg border transition-colors cursor-pointer ${
-                    hoveredCategory === category ? 'bg-muted border-primary' : 'bg-card'
+                  onClick={() => setSelectedCategory(selectedCategory === category ? null : category)}
+                  className={`p-3 rounded-lg border transition-all cursor-pointer ${
+                    isActive
+                      ? 'bg-muted border-primary shadow-lg'
+                      : 'bg-card hover:bg-muted/50'
                   }`}
                   whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                 >
                   <div className="flex justify-between items-center mb-2">
                     <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 rounded-full" style={{ backgroundColor: color }} />
-                      <span className="font-semibold">{info.title}</span>
+                      <div
+                        className="w-3 h-3 rounded-full transition-transform"
+                        style={{
+                          backgroundColor: color,
+                          boxShadow: isActive ? `0 0 10px ${color}` : 'none'
+                        }}
+                      />
+                      <span className="font-semibold text-sm">{info.title}</span>
                     </div>
-                    <span className="font-mono font-bold">{Math.round(data.mu)}%</span>
+                    <span className="font-mono font-bold text-sm">{Math.round(data.mu)}%</span>
                   </div>
-                  <div className="w-full bg-secondary h-2 rounded-full overflow-hidden">
+                  <div className="w-full bg-secondary h-1.5 rounded-full overflow-hidden">
                     <motion.div
                       className="h-full rounded-full"
                       style={{ backgroundColor: color }}
@@ -237,10 +230,6 @@ export function BrainMap({ skills }: BrainMapProps) {
                       animate={{ width: `${data.mu}%` }}
                       transition={{ duration: 1, ease: "easeOut" }}
                     />
-                  </div>
-                  <div className="mt-2 flex justify-between text-xs text-muted-foreground">
-                    <span>Uncertainty: +/-{Math.round(data.sigma)}%</span>
-                    <span>{info.description}</span>
                   </div>
                 </motion.div>
               );
