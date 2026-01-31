@@ -209,6 +209,7 @@ export default function DiagnosticRunner() {
             </CardContent>
             <CardFooter className="border-t p-6 bg-slate-50/50 dark:bg-slate-900/50">
               <Button 
+                type="button"
                 onClick={handleNext} 
                 className="w-full ml-auto md:w-auto"
                 disabled={!answers[currentQuestion.id] || answers[currentQuestion.id].length === 0}
