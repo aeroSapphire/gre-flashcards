@@ -4,11 +4,13 @@ import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeft, RefreshCw, Trophy, Loader2 } from 'lucide-react';
+import { Progress } from '@/components/ui/progress';
+import { ArrowLeft, RefreshCw, Trophy, Loader2, Target, TrendingUp, ArrowRight } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { classifyMistake, MistakeClassifierInput, MistakeLabel } from '@/utils/mistakeClassifier';
 import { recordMistake } from '@/services/mistakeService';
-import { updateSkillModel, SkillType, ALL_SKILL_TYPES } from '@/services/skillEngine';
+import { updateSkillModel, SkillType, ALL_SKILL_TYPES, getSkillDisplayName } from '@/services/skillEngine';
+import { getCurriculumStatus, PhaseStatus, PHASE_NAMES } from '@/services/curriculumOrchestrator';
 
 interface Attempt {
     score: number;
@@ -43,6 +45,7 @@ const TestResults = () => {
     const [questions, setQuestions] = useState<Question[]>([]);
     const [loading, setLoading] = useState(true);
     const [analyzing, setAnalyzing] = useState(false);
+    const [curriculumStatus, setCurriculumStatus] = useState<PhaseStatus | null>(null);
 
     useEffect(() => {
         const fetchResults = async () => {
@@ -198,6 +201,14 @@ const TestResults = () => {
                 title: "Analysis Complete",
                 description: "Your skill model has been updated.",
             });
+
+            // Fetch updated curriculum status after analysis
+            try {
+                const status = await getCurriculumStatus();
+                setCurriculumStatus(status);
+            } catch (err) {
+                console.error('Failed to fetch curriculum status:', err);
+            }
         }
     };
 
@@ -232,6 +243,70 @@ const TestResults = () => {
                     </div>
                 )}
             </Card>
+
+            {/* What's Next Section */}
+            {curriculumStatus && !analyzing && (
+                <Card className="mb-8 border-violet-200 dark:border-violet-800 bg-violet-50 dark:bg-violet-900/20">
+                    <CardHeader className="pb-2">
+                        <div className="flex items-center justify-between">
+                            <CardTitle className="text-lg flex items-center gap-2">
+                                <TrendingUp className="h-5 w-5 text-violet-600" />
+                                What's Next?
+                            </CardTitle>
+                            <span className="text-xs font-medium px-2 py-1 rounded-full bg-violet-200 dark:bg-violet-800 text-violet-700 dark:text-violet-300">
+                                Phase {curriculumStatus.currentPhase}: {curriculumStatus.phaseName}
+                            </span>
+                        </div>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                        {/* Phase Progress */}
+                        <div>
+                            <div className="flex justify-between items-center mb-2">
+                                <span className="text-sm text-violet-700 dark:text-violet-300">
+                                    Phase Progress
+                                </span>
+                                <span className="text-xs text-violet-600 dark:text-violet-400">
+                                    {curriculumStatus.phaseProgress}%
+                                </span>
+                            </div>
+                            <Progress value={curriculumStatus.phaseProgress} className="h-2" />
+                        </div>
+
+                        {/* Priority Focus */}
+                        {curriculumStatus.dominantWeakness && (
+                            <div className="flex items-start gap-3 p-3 rounded-lg bg-violet-100/50 dark:bg-violet-900/30">
+                                <Target className="h-5 w-5 text-violet-600 dark:text-violet-400 shrink-0 mt-0.5" />
+                                <div>
+                                    <p className="text-sm font-medium text-violet-800 dark:text-violet-200">
+                                        Focus on: {getSkillDisplayName(curriculumStatus.dominantWeakness)}
+                                    </p>
+                                    <p className="text-xs text-violet-600 dark:text-violet-400 mt-0.5">
+                                        {curriculumStatus.recommendation.reason}
+                                    </p>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Action Button */}
+                        <Button
+                            className="w-full"
+                            onClick={() => {
+                                if (curriculumStatus.recommendation.type === 'weakness_practice') {
+                                    navigate('/practice-weakness');
+                                } else {
+                                    navigate('/tests');
+                                }
+                            }}
+                        >
+                            {curriculumStatus.recommendation.type === 'weakness_practice' ? (
+                                <>Practice This Skill <ArrowRight className="ml-2 h-4 w-4" /></>
+                            ) : (
+                                <>Continue Testing <ArrowRight className="ml-2 h-4 w-4" /></>
+                            )}
+                        </Button>
+                    </CardContent>
+                </Card>
+            )}
 
             <h2 className="text-xl font-bold mb-4">Detailed Review</h2>
             <div className="space-y-6">

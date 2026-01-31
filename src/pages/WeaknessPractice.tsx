@@ -3,14 +3,16 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeft, BrainCircuit, CheckCircle2, XCircle, Loader2, RefreshCw, GraduationCap } from 'lucide-react';
+import { Progress } from '@/components/ui/progress';
+import { ArrowLeft, BrainCircuit, CheckCircle2, XCircle, Loader2, RefreshCw, GraduationCap, Target } from 'lucide-react';
 import { getMistakeHistory } from '@/services/mistakeService';
 import { analyzeMistakes, NUDGE_MESSAGES } from '@/services/mistakeAnalysis';
 import { generateTargetedPractice, PracticeQuestion, markQuestionAsUsed } from '@/services/practiceService';
-import { updateSkillModel, SkillType } from '@/services/skillEngine';
+import { updateSkillModel, SkillType, getSkillDisplayName } from '@/services/skillEngine';
 import { MistakeLabel } from '@/utils/mistakeClassifier';
 import { useToast } from '@/hooks/use-toast';
 import { TutorLesson } from '@/components/TutorLesson';
+import { getCurriculumStatus, PhaseStatus, PHASE_NAMES } from '@/services/curriculumOrchestrator';
 
 type Phase = 'initial' | 'tutor' | 'practice' | 'finished';
 
@@ -27,6 +29,8 @@ export default function WeaknessPractice() {
     const [selectedIndices, setSelectedIndices] = useState<number[]>([]);
     const [showResult, setShowResult] = useState(false);
     const [score, setScore] = useState(0);
+    const [curriculumStatus, setCurriculumStatus] = useState<PhaseStatus | null>(null);
+    const [usingCurriculumFallback, setUsingCurriculumFallback] = useState(false);
 
     useEffect(() => {
         loadWeakness();
@@ -34,9 +38,24 @@ export default function WeaknessPractice() {
 
     const loadWeakness = async () => {
         try {
+            // First, try to find a dominant mistake from history
             const history = await getMistakeHistory();
             const weakness = analyzeMistakes(history);
-            setDominantMistake(weakness);
+
+            if (weakness) {
+                setDominantMistake(weakness);
+                setUsingCurriculumFallback(false);
+            } else {
+                // No clear dominant mistake - fall back to curriculum phase priority
+                const status = await getCurriculumStatus();
+                setCurriculumStatus(status);
+
+                if (status.dominantWeakness) {
+                    // Use the phase-appropriate skill as the weakness to practice
+                    setDominantMistake(status.dominantWeakness as MistakeLabel);
+                    setUsingCurriculumFallback(true);
+                }
+            }
         } catch (error) {
             console.error(error);
         } finally {
@@ -238,8 +257,26 @@ export default function WeaknessPractice() {
                     <CardContent className="space-y-4">
                         {dominantMistake ? (
                             <>
+                                {/* Curriculum Context Badge */}
+                                {usingCurriculumFallback && curriculumStatus && (
+                                    <div className="p-3 bg-violet-50 dark:bg-violet-900/20 rounded-lg border border-violet-200 dark:border-violet-800 mb-2">
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <Target className="h-4 w-4 text-violet-600" />
+                                            <span className="text-sm font-medium text-violet-700 dark:text-violet-300">
+                                                Phase {curriculumStatus.currentPhase}: {curriculumStatus.phaseName}
+                                            </span>
+                                        </div>
+                                        <Progress value={curriculumStatus.phaseProgress} className="h-1.5 mb-2" />
+                                        <p className="text-xs text-violet-600 dark:text-violet-400">
+                                            Based on your learning phase, we recommend focusing on this skill.
+                                        </p>
+                                    </div>
+                                )}
+
                                 <div className="p-4 bg-background rounded-lg border">
-                                    <p className="text-sm text-muted-foreground uppercase tracking-wider mb-1">Identified Weakness</p>
+                                    <p className="text-sm text-muted-foreground uppercase tracking-wider mb-1">
+                                        {usingCurriculumFallback ? 'Phase Focus Skill' : 'Identified Weakness'}
+                                    </p>
                                     <p className="text-xl font-bold text-red-500">{dominantMistake?.replace(/_/g, ' ')}</p>
                                 </div>
 
