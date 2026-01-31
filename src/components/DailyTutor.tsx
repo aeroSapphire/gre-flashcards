@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { BrainCircuit, Lightbulb, ArrowRight, Target, TrendingUp } from 'lucide-react';
+import { BrainCircuit, Lightbulb, ArrowRight, Target, TrendingUp, GraduationCap } from 'lucide-react';
 import { getMistakeHistory } from '@/services/mistakeService';
 import { generateDailyNudge } from '@/services/mistakeAnalysis';
 import { useCurriculumStatus } from '@/hooks/useCurriculumStatus';
@@ -56,6 +56,40 @@ export const DailyTutor = () => {
 
     // Show loading state while curriculum loads
     if (loading && curriculumLoading) return null;
+
+    // Fresh User Welcome
+    if (curriculumStatus && curriculumStatus.totalQuestions === 0) {
+        return (
+            <Card className="bg-primary/5 border-primary/20 mb-6">
+                <CardHeader className="pb-2">
+                    <div className="flex items-center gap-2">
+                        <GraduationCap className="h-6 w-6 text-primary" />
+                        <CardTitle className="text-xl text-primary">
+                            Welcome to GRE Tutor
+                        </CardTitle>
+                    </div>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                    <p className="text-muted-foreground">
+                        I'm your personal AI tutor. To create your custom curriculum, I need to understand your current strengths and weaknesses.
+                    </p>
+                    <div className="bg-background p-4 rounded-lg border">
+                        <p className="font-medium text-sm mb-1">Step 1: Initial Assessment</p>
+                        <p className="text-xs text-muted-foreground">
+                            Take a short test to set your baseline skill levels.
+                        </p>
+                    </div>
+                    <Button 
+                        className="w-full" 
+                        size="lg"
+                        onClick={() => navigate('/tests')}
+                    >
+                        Start Diagnostic Test <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                </CardContent>
+            </Card>
+        );
+    }
 
     // Use curriculum status if available, otherwise fall back to legacy nudge
     const hasCurriculumData = curriculumStatus && curriculumStatus.totalQuestions > 0;

@@ -238,6 +238,15 @@ function generateRecommendation(
 ): Recommendation {
   // Phase 0: Calibration - need more test data
   if (phase === 0) {
+    if (totalQuestions === 0) {
+      return {
+        type: 'test',
+        priority: 'high',
+        reason: 'Welcome! Take a diagnostic test to establish your baseline skills.',
+        estimatedBenefit: 10
+      };
+    }
+
     const questionsNeeded = Math.max(0, MIN_CALIBRATION_QUESTIONS - totalQuestions);
     return {
       type: 'test',
