@@ -15,7 +15,7 @@ export interface DiagnosticQuestion {
   passageText?: string; // For RC questions
 }
 
-export const DIAGNOSTIC_QUESTIONS: DiagnosticQuestion[] = [
+const DIAGNOSTIC_QUESTIONS_FULL: DiagnosticQuestion[] = [
   // SECTION A — POLARITY & DIRECTION
   {
     id: 'diag_001',
@@ -657,3 +657,16 @@ export const DIAGNOSTIC_QUESTIONS: DiagnosticQuestion[] = [
     explanation: "Mixed review (praised X but Y lacking). 'Ambivalent' and 'Qualified' fit."
   }
 ];
+
+/** 20-question diagnostic subset: balanced coverage with RC passages. Order preserved. */
+const DIAGNOSTIC_QUESTION_IDS_20 = [
+  'diag_001', 'diag_002', 'diag_003', 'diag_007', 'diag_009',
+  'diag_010', 'diag_011', 'diag_013', 'diag_015',
+  'diag_019', 'diag_022_1', 'diag_022_2', 'diag_022_3', 'diag_023',
+  'diag_026', 'diag_028', 'diag_029',
+  'diag_032_1', 'diag_032_2', 'diag_033',
+] as const;
+
+export const DIAGNOSTIC_QUESTIONS: DiagnosticQuestion[] = DIAGNOSTIC_QUESTION_IDS_20.map(
+  (id) => DIAGNOSTIC_QUESTIONS_FULL.find((q) => q.id === id)!
+);

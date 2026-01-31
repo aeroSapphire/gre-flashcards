@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -7,8 +7,20 @@ import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/componen
 import { Progress } from '@/components/ui/progress';
 import { ArrowRight, CheckCircle2, AlertCircle } from 'lucide-react';
 import { getDiagnosticQuestions, analyzeDiagnostic, DiagnosticResult } from '@/services/diagnosticService';
+import type { DiagnosticQuestion } from '@/data/diagnosticQuestions';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+
+function getPassageForQuestion(questions: DiagnosticQuestion[], index: number): string | undefined {
+  const q = questions[index];
+  const raw = q?.passageText;
+  if (raw && raw !== '(Passage from previous question)') return raw;
+  for (let i = index - 1; i >= 0; i--) {
+    const prev = questions[i]?.passageText;
+    if (prev && prev !== '(Passage from previous question)') return prev;
+  }
+  return undefined;
+}
 
 export default function DiagnosticRunner() {
   const navigate = useNavigate();
@@ -23,6 +35,10 @@ export default function DiagnosticRunner() {
   const [result, setResult] = useState<DiagnosticResult | null>(null);
 
   const currentQuestion = questions[currentIndex];
+  const displayPassage = useMemo(
+    () => getPassageForQuestion(questions, currentIndex),
+    [questions, currentIndex]
+  );
 
   useEffect(() => {
     setStartTime(Date.now());
@@ -45,8 +61,8 @@ export default function DiagnosticRunner() {
           [currentQuestion.id]: current.filter(i => i !== index)
         }));
       } else {
-        // Limit to 2 for SE usually, but flexible here
-        if (current.length < 2) {
+        const maxSelect = currentQuestion.correctAnswer.length;
+        if (current.length < maxSelect) {
           setAnswers(prev => ({
             ...prev,
             [currentQuestion.id]: [...current, index]
@@ -175,9 +191,23 @@ export default function DiagnosticRunner() {
         >
           <Card className="min-h-[400px] flex flex-col">
             <CardHeader>
-              <span className="text-xs font-medium px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 w-fit mb-2">
-                {currentQuestion.type}
-              </span>
+              <div className="flex flex-wrap items-center gap-2 mb-2">
+                <span className="text-xs font-medium px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 w-fit">
+                  {currentQuestion.type}
+                </span>
+                <span className="text-xs text-muted-foreground">
+                  {currentQuestion.correctAnswer.length === 1
+                    ? 'Select one answer'
+                    : `Select ${currentQuestion.correctAnswer.length} answers`}
+                </span>
+              </div>
+              {displayPassage && (
+                <div className="mb-4 p-4 rounded-lg bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 max-h-48 overflow-y-auto">
+                  <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-wrap">
+                    {displayPassage}
+                  </p>
+                </div>
+              )}
               <CardTitle className="text-xl leading-relaxed">
                 {currentQuestion.content}
               </CardTitle>
