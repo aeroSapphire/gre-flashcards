@@ -99,7 +99,7 @@ export const analyzeDiagnostic = async (
   const nextStep = getNextStep(startingPhase);
 
   // 6. Save Results (Seed User Skills)
-  await seedUserSkills(userId, mistakeCounts, startingPhase);
+  await seedUserSkills(userId, answers);
 
   return {
     dominantMistake,
