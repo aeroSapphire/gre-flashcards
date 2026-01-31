@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, BookOpen, PenLine, GitCompare, Play } from 'lucide-react';
+import { ArrowLeft, BookOpen, PenLine, GitCompare, Play, Brain } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { QuestionTypeCard } from '@/components/verbal/QuestionTypeCard';
 import { ReadingComprehensionGuide } from '@/components/verbal/ReadingComprehensionGuide';
 import { TextCompletionGuide } from '@/components/verbal/TextCompletionGuide';
 import { SentenceEquivalenceGuide } from '@/components/verbal/SentenceEquivalenceGuide';
+import { EssentialPatternsGuide } from '@/components/verbal/EssentialPatternsGuide';
 import { supabase } from '@/integrations/supabase/client';
 
 interface Test {
@@ -17,7 +18,7 @@ interface Test {
   time_limit_minutes: number;
 }
 
-type GuideType = 'reading' | 'text-completion' | 'sentence-equivalence' | null;
+type GuideType = 'reading' | 'text-completion' | 'sentence-equivalence' | 'essential-patterns' | null;
 
 // Map categories to question types
 const CATEGORY_MAP = {
@@ -163,6 +164,33 @@ const VerbalPractice = () => {
           </p>
         </div>
 
+        {/* Essential Patterns Card */}
+        <Card className="mb-8 border-primary/30 bg-gradient-to-br from-primary/5 to-transparent">
+          <CardHeader className="pb-2">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-lg bg-primary/10">
+                <Brain className="h-5 w-5 text-primary" />
+              </div>
+              <div>
+                <CardTitle className="text-lg">Essential Verbal Patterns</CardTitle>
+                <CardDescription>
+                  Master the key patterns that appear across all verbal question types
+                </CardDescription>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm text-muted-foreground mb-4">
+              Learn passage structures, logical signal words, sentence equivalence pairs, and how to avoid trap answers.
+              These patterns will help you recognize question structures and answer more confidently.
+            </p>
+            <Button onClick={() => setOpenGuide('essential-patterns')}>
+              <BookOpen className="h-4 w-4 mr-2" />
+              Study Patterns
+            </Button>
+          </CardContent>
+        </Card>
+
         {/* Question Type Cards */}
         <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-3">
           <QuestionTypeCard
@@ -240,6 +268,10 @@ const VerbalPractice = () => {
       />
       <SentenceEquivalenceGuide
         open={openGuide === 'sentence-equivalence'}
+        onOpenChange={(open) => !open && setOpenGuide(null)}
+      />
+      <EssentialPatternsGuide
+        open={openGuide === 'essential-patterns'}
         onOpenChange={(open) => !open && setOpenGuide(null)}
       />
     </div>
