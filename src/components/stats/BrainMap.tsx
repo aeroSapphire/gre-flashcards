@@ -11,7 +11,7 @@ import {
   getSkillDisplayName
 } from '@/services/skillEngine';
 import { SkillRadar } from './SkillRadar';
-import { BrainPolygon } from './BrainPolygon';
+import { BrainPlexus } from './BrainPlexus';
 import { Loader2, BrainCircuit, BookOpen, Network, Target } from 'lucide-react';
 
 interface BrainMapProps {
@@ -134,11 +134,11 @@ export function BrainMap({ skills }: BrainMapProps) {
       <div className="flex flex-col lg:flex-row items-start justify-center gap-8">
         {/* 3D Brain */}
         <div className="flex-1 w-full max-w-2xl flex flex-col items-center">
-          <BrainPolygon categoryScores={categoryScores} />
+          <BrainPlexus categoryScores={categoryScores} />
 
           {/* Instructions */}
           <p className="text-center text-xs text-muted-foreground mt-4">
-            Low-poly visualization of your cognitive map
+            Interactive 3D Neural Network
           </p>
         </div>
 
