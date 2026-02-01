@@ -23,6 +23,8 @@ import QuickQuiz from "./pages/QuickQuiz";
 import EtymologyDashboard from "./pages/EtymologyDashboard";
 import EtymologyDetail from "./pages/EtymologyDetail";
 import VerbalPractice from "./pages/VerbalPractice";
+import PatternPracticeHub from "./pages/PatternPracticeHub";
+import PatternModule from "./pages/PatternModule";
 import DiagnosticRunner from "./pages/DiagnosticRunner";
 
 const queryClient = new QueryClient();
@@ -63,6 +65,8 @@ const App = () => (
             <Route path="/etymology" element={<EtymologyDashboard />} />
             <Route path="/etymology/:rootId" element={<EtymologyDetail />} />
             <Route path="/verbal" element={<VerbalPractice />} />
+            <Route path="/verbal/patterns" element={<PatternPracticeHub />} />
+            <Route path="/verbal/patterns/:moduleId" element={<PatternModule />} />
             <Route path="/diagnostic" element={<DiagnosticRunner />} />
             <Route path="/study" element={<StudySession />} />
             <Route path="/arcade" element={<Arcade />} />

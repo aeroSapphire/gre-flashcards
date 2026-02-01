@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, BookOpen, PenLine, GitCompare, Play, Brain } from 'lucide-react';
+import { ArrowLeft, BookOpen, PenLine, GitCompare, Play, Brain, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { QuestionTypeCard } from '@/components/verbal/QuestionTypeCard';
@@ -165,7 +165,7 @@ const VerbalPractice = () => {
         </div>
 
         {/* Essential Patterns Card */}
-        <Card className="mb-8 border-primary/30 bg-gradient-to-br from-primary/5 to-transparent">
+        <Card className="mb-6 border-primary/30 bg-gradient-to-br from-primary/5 to-transparent">
           <CardHeader className="pb-2">
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-lg bg-primary/10">
@@ -187,6 +187,33 @@ const VerbalPractice = () => {
             <Button onClick={() => setOpenGuide('essential-patterns')}>
               <BookOpen className="h-4 w-4 mr-2" />
               Study Patterns
+            </Button>
+          </CardContent>
+        </Card>
+
+        {/* RC Pattern Practice Card */}
+        <Card className="mb-8 border-green-500/30 bg-gradient-to-br from-green-500/5 to-transparent">
+          <CardHeader className="pb-2">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-lg bg-green-500/10">
+                <Sparkles className="h-5 w-5 text-green-500" />
+              </div>
+              <div>
+                <CardTitle className="text-lg">RC Pattern Practice</CardTitle>
+                <CardDescription>
+                  Master 12 reading comprehension patterns with interactive practice
+                </CardDescription>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm text-muted-foreground mb-4">
+              Learn to recognize the logical and rhetorical patterns that appear in GRE passages.
+              Each module includes pattern definitions, signal words, example passages, and practice questions with detailed explanations.
+            </p>
+            <Button onClick={() => navigate('/verbal/patterns')} className="bg-green-600 hover:bg-green-700">
+              <Play className="h-4 w-4 mr-2" />
+              Start Practice
             </Button>
           </CardContent>
         </Card>
