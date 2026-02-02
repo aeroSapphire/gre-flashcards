@@ -28,6 +28,7 @@ const CATEGORY_MAP = {
 };
 
 const VerbalPractice = () => {
+  console.log("VerbalPractice mounting");
   const navigate = useNavigate();
   const [tests, setTests] = useState<Test[]>([]);
   const [loading, setLoading] = useState(true);

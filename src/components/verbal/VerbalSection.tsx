@@ -4,7 +4,7 @@ import { ArrowLeft, BookOpen, Play, Info, type LucideIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
-import { ScrollArea } from '@/components/ui/scroll-area';
+
 
 interface Test {
     id: string;
