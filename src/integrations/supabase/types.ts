@@ -327,6 +327,92 @@ export type Database = {
         }
         Relationships: []
       }
+      user_hard_words: {
+        Row: {
+          id: string
+          user_id: string
+          flashcard_id: string
+          marked_at: string
+          reason: string | null
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          flashcard_id: string
+          marked_at?: string
+          reason?: string | null
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          flashcard_id?: string
+          marked_at?: string
+          reason?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_hard_words_flashcard_id_fkey"
+            columns: ["flashcard_id"]
+            referencedRelation: "flashcards"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      word_mnemonics: {
+        Row: {
+          id: string
+          flashcard_id: string
+          mnemonic_text: string
+          technique: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          flashcard_id: string
+          mnemonic_text: string
+          technique?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          flashcard_id?: string
+          mnemonic_text?: string
+          technique?: string | null
+          created_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "word_mnemonics_flashcard_id_fkey"
+            columns: ["flashcard_id"]
+            referencedRelation: "flashcards"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      confusion_clusters: {
+        Row: {
+          id: string
+          name: string
+          description: string | null
+          words: string[]
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          description?: string | null
+          words: string[]
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          description?: string | null
+          words?: string[]
+          created_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

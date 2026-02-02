@@ -6,6 +6,11 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
 import { WordConnections } from '@/components/WordConnections';
+import { HardWordButton } from '@/components/HardWordButton';
+import { MnemonicDisplay } from '@/components/MnemonicDisplay';
+import { ConfusionClusterCard } from '@/components/ConfusionClusterCard';
+import { findClusterForWord } from '@/data/confusionClusters';
+import { StoredMnemonic } from '@/services/mnemonicService';
 
 interface FlashcardItemProps {
   card: FlashcardWithProgress;
@@ -15,6 +20,11 @@ interface FlashcardItemProps {
   onReset: (id: string) => void;
   onDelete: (id: string) => void;
   onEdit: (card: FlashcardWithProgress) => void;
+  isHard?: boolean;
+  onToggleHard?: (id: string, isHard: boolean) => void;
+  mnemonic?: StoredMnemonic | null;
+  isGeneratingMnemonic?: boolean;
+  onGenerateMnemonic?: () => void;
 }
 
 export function FlashcardItem({
@@ -25,9 +35,15 @@ export function FlashcardItem({
   onReset,
   onDelete,
   onEdit,
+  isHard = false,
+  onToggleHard,
+  mnemonic,
+  isGeneratingMnemonic = false,
+  onGenerateMnemonic,
 }: FlashcardItemProps) {
   const [isFlipped, setIsFlipped] = useState(false);
   const { user } = useAuth();
+  const cluster = findClusterForWord(card.word);
 
   // Filter out current user from learnedBy list
   const othersWhoLearned = card.learnedBy?.filter((p) => p.id !== user?.id) || [];
@@ -75,6 +91,12 @@ export function FlashcardItem({
               {card.status === 'new' ? 'New' : card.status === 'learning' ? 'Learning' : 'Learned'}
             </span>
             <div className="flex gap-1" onClick={(e) => e.stopPropagation()}>
+              {onToggleHard && (
+                <HardWordButton
+                  isHard={isHard}
+                  onToggle={() => onToggleHard(card.id, !isHard)}
+                />
+              )}
               <Button
                 variant="ghost"
                 size="icon"
@@ -143,6 +165,29 @@ export function FlashcardItem({
               <div className="w-full">
                 <WordConnections card={card} allCards={allCards} showEtymology={false} />
               </div>
+
+              {/* Mnemonic Display */}
+              {(mnemonic || onGenerateMnemonic) && (
+                <div className="w-full mt-2">
+                  <MnemonicDisplay
+                    mnemonic={mnemonic || null}
+                    isGenerating={isGeneratingMnemonic}
+                    onGenerate={onGenerateMnemonic || (() => {})}
+                    compact
+                  />
+                </div>
+              )}
+
+              {/* Confusion Cluster Display */}
+              {cluster && (
+                <div className="w-full mt-2">
+                  <ConfusionClusterCard
+                    cluster={cluster}
+                    currentWord={card.word}
+                    compact
+                  />
+                </div>
+              )}
             </div>
           </div>
           <div className="flex gap-2 justify-center pt-4 border-t border-border/50 flex-shrink-0" onClick={(e) => e.stopPropagation()}>

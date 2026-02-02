@@ -1,14 +1,20 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect, useMemo } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useFlashcardsDb, FlashcardWithProgress } from '@/hooks/useFlashcardsDb';
+import { useHardWords } from '@/hooks/useHardWords';
+import { useMnemonics } from '@/hooks/useMnemonics';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Textarea } from '@/components/ui/textarea';
-import { ArrowLeft, CheckCircle2, Trophy, Send, Loader2, SkipForward, Users, BookOpen, X } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Trophy, Send, Loader2, SkipForward, Users, BookOpen, X, Flame } from 'lucide-react';
 import { SRSRating, getIntervalPreviews } from '@/utils/srs';
 import { WordConnections } from '@/components/WordConnections';
+import { HardWordButton } from '@/components/HardWordButton';
+import { MnemonicDisplay } from '@/components/MnemonicDisplay';
+import { ConfusionClusterCard } from '@/components/ConfusionClusterCard';
+import { findClusterForWord } from '@/data/confusionClusters';
 import {
     isSentencePracticeEnabled,
     evaluateSentence,
@@ -22,8 +28,14 @@ import { useAuth } from '@/contexts/AuthContext';
 
 export default function StudySession() {
     const navigate = useNavigate();
+    const location = useLocation();
     const { dueCards, reviewCard, updateCard, isLoaded, cards: allCards } = useFlashcardsDb();
+    const { hardWordIds, toggleHardWord } = useHardWords();
+    const { getMnemonic, isGenerating, generateAndSaveMnemonic } = useMnemonics();
     const { user, profile } = useAuth();
+
+    // Check if we're in "hard words only" mode from navigation state
+    const hardWordsOnly = location.state?.hardWordsOnly === true;
     const [currentCardIndex, setCurrentCardIndex] = useState(0);
     const [isFlipped, setIsFlipped] = useState(false);
     const [sessionStats, setSessionStats] = useState({
@@ -53,12 +65,28 @@ export default function StudySession() {
     // Etymology panel visibility
     const [showEtymology, setShowEtymology] = useState(false);
 
+    // Prioritize hard words: sort them to appear first
+    const prioritizedDueCards = useMemo(() => {
+        if (hardWordsOnly) {
+            // Filter to only hard words from all cards (not just due cards)
+            return allCards.filter(card => hardWordIds.has(card.id));
+        }
+        // Sort due cards with hard words first
+        return [...dueCards].sort((a, b) => {
+            const aIsHard = hardWordIds.has(a.id);
+            const bIsHard = hardWordIds.has(b.id);
+            if (aIsHard && !bIsHard) return -1;
+            if (!aIsHard && bIsHard) return 1;
+            return 0;
+        });
+    }, [dueCards, hardWordIds, hardWordsOnly, allCards]);
+
     useEffect(() => {
-        if (isLoaded && !sessionInitialized && dueCards.length > 0) {
-            setStudyQueue(dueCards);
+        if (isLoaded && !sessionInitialized && prioritizedDueCards.length > 0) {
+            setStudyQueue(prioritizedDueCards);
             setSessionInitialized(true);
         }
-    }, [isLoaded, dueCards, sessionInitialized]);
+    }, [isLoaded, prioritizedDueCards, sessionInitialized]);
 
     useEffect(() => {
         if (currentCard) {
@@ -289,6 +317,12 @@ export default function StudySession() {
                         Quit
                     </Button>
                     <div className="flex items-center gap-3">
+                        {currentCard && (
+                            <HardWordButton
+                                isHard={hardWordIds.has(currentCard.id)}
+                                onToggle={() => toggleHardWord(currentCard.id, !hardWordIds.has(currentCard.id))}
+                            />
+                        )}
                         {currentCard?.etymology && (
                             <Button
                                 variant="ghost"
@@ -301,6 +335,7 @@ export default function StudySession() {
                             </Button>
                         )}
                         <div className="text-sm font-medium text-muted-foreground">
+                            {hardWordsOnly && <Flame className="h-3 w-3 inline mr-1 text-orange-500" />}
                             {currentCardIndex + 1} / {studyQueue.length}
                         </div>
                     </div>
@@ -360,6 +395,34 @@ export default function StudySession() {
                                             card={currentCard}
                                             allCards={allCards.map(c => ({ ...c, status: 'new' as const, learnedBy: [] }))}
                                         />
+
+                                        {/* Mnemonic Display */}
+                                        <div className="w-full">
+                                            <MnemonicDisplay
+                                                mnemonic={getMnemonic(currentCard.id)}
+                                                isGenerating={isGenerating(currentCard.id)}
+                                                onGenerate={() => generateAndSaveMnemonic(
+                                                    currentCard.id,
+                                                    currentCard.word,
+                                                    currentCard.definition,
+                                                    currentCard.part_of_speech,
+                                                    currentCard.etymology
+                                                )}
+                                            />
+                                        </div>
+
+                                        {/* Confusion Cluster Display */}
+                                        {(() => {
+                                            const cluster = findClusterForWord(currentCard.word);
+                                            return cluster ? (
+                                                <div className="w-full">
+                                                    <ConfusionClusterCard
+                                                        cluster={cluster}
+                                                        currentWord={currentCard.word}
+                                                    />
+                                                </div>
+                                            ) : null;
+                                        })()}
 
                                         {/* AI Evaluation Result */}
                                         {evaluationResult && (

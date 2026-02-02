@@ -28,6 +28,7 @@ export interface FlashcardWithProgress extends Flashcard {
   interval?: number;
   repetition?: number;
   ease_factor?: number;
+  isHard?: boolean;
 }
 
 export interface FlashcardList {

@@ -6,6 +6,11 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { generateExamples } from '@/services/sentenceEvaluator';
 import { WordConnections } from '@/components/WordConnections';
+import { HardWordButton } from '@/components/HardWordButton';
+import { MnemonicDisplay } from '@/components/MnemonicDisplay';
+import { ConfusionClusterCard } from '@/components/ConfusionClusterCard';
+import { findClusterForWord } from '@/data/confusionClusters';
+import { StoredMnemonic } from '@/services/mnemonicService';
 
 interface StudyModeProps {
   cards: FlashcardWithProgress[];
@@ -15,9 +20,27 @@ interface StudyModeProps {
   onUpdateCard?: (id: string, updates: any) => void;
   onExit: () => void;
   listName?: string;
+  hardWordIds?: Set<string>;
+  onToggleHard?: (id: string, isHard: boolean) => void;
+  getMnemonic?: (id: string) => StoredMnemonic | null;
+  isGeneratingMnemonic?: (id: string) => boolean;
+  onGenerateMnemonic?: (id: string, word: string, definition: string, pos?: string | null, etymology?: string | null) => void;
 }
 
-export function StudyMode({ cards, allCards, onMarkLearned, onMarkLearning, onUpdateCard, onExit, listName }: StudyModeProps) {
+export function StudyMode({
+  cards,
+  allCards,
+  onMarkLearned,
+  onMarkLearning,
+  onUpdateCard,
+  onExit,
+  listName,
+  hardWordIds,
+  onToggleHard,
+  getMnemonic,
+  isGeneratingMnemonic,
+  onGenerateMnemonic,
+}: StudyModeProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   const [completed, setCompleted] = useState<Set<string>>(new Set());
@@ -123,7 +146,13 @@ export function StudyMode({ cards, allCards, onMarkLearned, onMarkLearning, onUp
             {currentIndex + 1} of {studyCards.length}
           </span>
         </div>
-        <div className="w-20 flex justify-end">
+        <div className="w-24 flex justify-end gap-1">
+          {onToggleHard && (
+            <HardWordButton
+              isHard={hardWordIds?.has(currentCard?.id || '') || false}
+              onToggle={() => currentCard && onToggleHard(currentCard.id, !hardWordIds?.has(currentCard.id))}
+            />
+          )}
           {currentCard?.etymology && (
             <Button
               variant="ghost"
@@ -214,6 +243,38 @@ export function StudyMode({ cards, allCards, onMarkLearned, onMarkLearning, onUp
                       <div className="w-full">
                         <WordConnections card={currentCard} allCards={allCards} showEtymology={true} />
                       </div>
+
+                      {/* Mnemonic Display */}
+                      {getMnemonic && (
+                        <div className="w-full mt-4">
+                          <MnemonicDisplay
+                            mnemonic={getMnemonic(currentCard.id)}
+                            isGenerating={isGeneratingMnemonic?.(currentCard.id) || false}
+                            onGenerate={() => onGenerateMnemonic?.(
+                              currentCard.id,
+                              currentCard.word,
+                              currentCard.definition,
+                              currentCard.part_of_speech,
+                              currentCard.etymology
+                            )}
+                            compact={false}
+                          />
+                        </div>
+                      )}
+
+                      {/* Confusion Cluster Display */}
+                      {(() => {
+                        const cluster = findClusterForWord(currentCard.word);
+                        return cluster ? (
+                          <div className="w-full mt-4">
+                            <ConfusionClusterCard
+                              cluster={cluster}
+                              currentWord={currentCard.word}
+                              compact={false}
+                            />
+                          </div>
+                        ) : null;
+                      })()}
                     </div>
                   </div>
                 </div>

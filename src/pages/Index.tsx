@@ -1,9 +1,11 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, BookOpen, GraduationCap, Filter, ArrowLeft, LogOut, Settings, Trophy, Clock, FileText, Gamepad2, Search, X } from 'lucide-react';
+import { Plus, BookOpen, GraduationCap, Filter, ArrowLeft, LogOut, Settings, Trophy, Clock, FileText, Gamepad2, Search, X, Flame } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useFlashcardsDb, FlashcardWithProgress, FlashcardList } from '@/hooks/useFlashcardsDb';
 import { useAuth } from '@/contexts/AuthContext';
+import { useHardWords } from '@/hooks/useHardWords';
+import { useMnemonics } from '@/hooks/useMnemonics';
 import { FlashcardItem } from '@/components/FlashcardItem';
 import { StudyMode } from '@/components/StudyMode';
 import { StudyModeSelector } from '@/components/StudyModeSelector';
@@ -43,6 +45,8 @@ const Index = () => {
 
   const { signOut, user, profile } = useAuth();
   const navigate = useNavigate();
+  const { hardWordIds, toggleHardWord, isHard } = useHardWords();
+  const { getMnemonic, isGenerating, generateAndSaveMnemonic } = useMnemonics();
 
   const [viewMode, setViewMode] = useState<ViewMode>('lists');
   const [selectedList, setSelectedList] = useState<FlashcardList | null>(null);
@@ -128,6 +132,11 @@ const Index = () => {
             onUpdateCard={updateCard}
             onExit={handleExitStudy}
             listName={studyListName}
+            hardWordIds={hardWordIds}
+            onToggleHard={(id, isHard) => toggleHardWord(id, isHard)}
+            getMnemonic={getMnemonic}
+            isGeneratingMnemonic={isGenerating}
+            onGenerateMnemonic={generateAndSaveMnemonic}
           />
         </div>
       </div>
@@ -266,6 +275,17 @@ const Index = () => {
                         setEditingCard(card);
                         setIsAddDialogOpen(true);
                       }}
+                      isHard={isHard(card.id)}
+                      onToggleHard={(id, hard) => toggleHardWord(id, hard)}
+                      mnemonic={getMnemonic(card.id)}
+                      isGeneratingMnemonic={isGenerating(card.id)}
+                      onGenerateMnemonic={() => generateAndSaveMnemonic(
+                        card.id,
+                        card.word,
+                        card.definition,
+                        card.part_of_speech,
+                        card.etymology
+                      )}
                     />
                   </motion.div>
                 ))}
@@ -408,6 +428,17 @@ const Index = () => {
                           setEditingCard(card);
                           setIsAddDialogOpen(true);
                         }}
+                        isHard={isHard(card.id)}
+                        onToggleHard={(id, hard) => toggleHardWord(id, hard)}
+                        mnemonic={getMnemonic(card.id)}
+                        isGeneratingMnemonic={isGenerating(card.id)}
+                        onGenerateMnemonic={() => generateAndSaveMnemonic(
+                          card.id,
+                          card.word,
+                          card.definition,
+                          card.part_of_speech,
+                          card.etymology
+                        )}
                       />
                     </motion.div>
                   ))}
@@ -456,6 +487,35 @@ const Index = () => {
             </div>
           </div>
         )}
+
+        {/* Hard Words Banner */}
+        <div className="mb-8">
+          <div className="bg-gradient-to-r from-orange-500/10 to-red-500/10 rounded-xl border border-orange-500/20 p-6">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-orange-500/20 flex items-center justify-center">
+                  <Flame className="h-6 w-6 text-orange-500" />
+                </div>
+                <div>
+                  <h3 className="font-display text-lg font-semibold text-foreground">
+                    Hard Words Hub
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Track difficult words, generate mnemonics, and master confusion clusters.
+                  </p>
+                </div>
+              </div>
+              <Button
+                variant="outline"
+                className="border-orange-500/20 hover:bg-orange-500/10 hover:text-orange-600"
+                onClick={() => navigate('/hard-words')}
+              >
+                <Flame className="h-4 w-4 mr-2" />
+                View Hub
+              </Button>
+            </div>
+          </div>
+        </div>
 
         {/* Arcade Banner */}
         <div className="mb-8">

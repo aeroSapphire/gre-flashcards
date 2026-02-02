@@ -156,6 +156,23 @@ ${Array.isArray(correctAnswer) ? correctAnswer.join(', ') : correctAnswer}
 
 USER_ANSWER:
 ${Array.isArray(userAnswer) ? userAnswer.join(', ') : userAnswer}`;
+    } else if (mode === "mnemonic") {
+      systemPrompt = `You are a GRE vocabulary expert specializing in memory techniques. Generate a creative, memorable mnemonic to help students remember this word.
+
+Your mnemonic should:
+1. Be clever, funny, or create a vivid mental image
+2. Connect the word's sound or spelling to its meaning
+3. Be easy to remember and recall during a test
+
+Include one of these techniques:
+- SOUND: Use words that sound similar (e.g., "GREGARIOUS sounds like GREG at a party - he's super social!")
+- VISUAL: Create a vivid mental picture
+- STORY: Tell a mini-story connecting the word to its meaning
+- BREAKDOWN: Break down the word into memorable parts
+- ASSOCIATION: Link to something familiar
+
+FORMAT: {"mnemonic": "The memory aid text", "technique": "SOUND|VISUAL|STORY|BREAKDOWN|ASSOCIATION", "explanation": "Brief explanation of how it works"}`;
+      userPrompt = `Word: "${word}"\nDefinition: "${definition}"\nPart of Speech: "${part_of_speech || 'N/A'}"\n${body.etymology ? `Etymology: "${body.etymology}"` : ''}\nRespond ONLY in JSON format.`;
     } else if (mode === "generate-targeted-practice") {
       const { mistakeLabel } = body;
 
