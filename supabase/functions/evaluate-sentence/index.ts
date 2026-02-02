@@ -157,30 +157,29 @@ ${Array.isArray(correctAnswer) ? correctAnswer.join(', ') : correctAnswer}
 USER_ANSWER:
 ${Array.isArray(userAnswer) ? userAnswer.join(', ') : userAnswer}`;
     } else if (mode === "mnemonic") {
-      systemPrompt = `You are a GRE vocabulary mnemonic expert. Create a memorable trick by breaking down the word phonetically and connecting sounds to meaning.
+      systemPrompt = `You are a GRE vocabulary expert specializing in etymology-based memory techniques.
 
-STRATEGY (in order of preference):
-1. PHONETIC BREAKDOWN: Split the word into parts that sound like familiar words related to the meaning
-   - Example: "pusillanimous" → "pussy + animal" → a timid, cowardly creature
-   - Example: "gregarious" → "GREG goes to every party" → sociable
-   - Example: "ameliorate" → "A MEAL makes things better" → to improve
-   - Example: "cacophony" → "CACA + PHONE" → bad/harsh sound
-   - Example: "pulchritude" → "PULL CRUDE" but means beauty (ironic!)
+Your task: Break down the word into its Latin/Greek roots and show how the literal meaning connects to the modern definition.
 
-2. ETYMOLOGY + PHONETICS: If etymology is provided, use root meanings with sound associations
-   - Example: "magnanimous" → "MAGNA (great) + ANIMUS (spirit)" → generous spirit
+FORMAT:
+"[ROOT1] (meaning1) + [ROOT2] (meaning2) = literal meaning → modern definition"
 
-3. VISUAL PHONETICS: Create a vivid image from the sounds
-   - Example: "lugubrious" → "LOO-GOO-bree-us" → imagine someone going "boo-hoo" in a loo (bathroom) → sad/mournful
+EXAMPLES:
+- "magnanimous" → "MAGNUS (great) + ANIMUS (soul/spirit) = great-souled → generous, forgiving"
+- "pusillanimous" → "PUSILLUS (tiny) + ANIMUS (spirit) = tiny-spirited → cowardly, timid"
+- "circumspect" → "CIRCUM (around) + SPECTARE (to look) = looking around → careful, cautious"
+- "benevolent" → "BENE (good/well) + VOLENS (wishing) = well-wishing → kind, charitable"
+- "malevolent" → "MALE (bad) + VOLENS (wishing) = ill-wishing → evil, hostile"
+- "ambivalent" → "AMBI (both) + VALENS (strong) = strong on both sides → having mixed feelings"
 
 RULES:
-- Be irreverent, funny, even slightly crude if it helps memory (like "pussy" for pusill-)
-- The sillier/more memorable, the better
-- Always show the phonetic breakdown: "Think: [PART1] + [PART2] → [connection to meaning]"
-- Keep it SHORT - one line if possible
+- Always identify the actual Latin/Greek roots
+- Show the literal translation
+- Connect it clearly to the modern meaning
+- Keep it concise - one line
 
-FORMAT: {"mnemonic": "Think: '[sound1]' + '[sound2]' → [vivid connection to meaning]", "technique": "PHONETIC|ETYMOLOGY|VISUAL", "explanation": "Brief note on what parts mean"}`;
-      userPrompt = `Word: "${word}"\nDefinition: "${definition}"\nPart of Speech: "${part_of_speech || 'N/A'}"\n${body.etymology ? `Etymology: "${body.etymology}"` : ''}\nCreate a phonetic breakdown mnemonic. Respond ONLY in JSON format.`;
+FORMAT: {"mnemonic": "[ROOT1] (meaning) + [ROOT2] (meaning) = [literal] → [modern meaning]", "technique": "ETYMOLOGY", "explanation": "Origin: [language]"}`;
+      userPrompt = `Word: "${word}"\nDefinition: "${definition}"\nPart of Speech: "${part_of_speech || 'N/A'}"\n${body.etymology ? `Etymology hint: "${body.etymology}"` : ''}\nProvide an etymology-based breakdown. Respond ONLY in JSON format.`;
     } else if (mode === "generate-targeted-practice") {
       const { mistakeLabel } = body;
 
