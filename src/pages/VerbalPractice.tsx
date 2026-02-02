@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, BookOpen, PenLine, GitCompare, Play, Brain, Sparkles } from 'lucide-react';
+import { BookOpen, PenLine, GitCompare, Brain, Sparkles, GraduationCap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { QuestionTypeCard } from '@/components/verbal/QuestionTypeCard';
 import { ReadingComprehensionGuide } from '@/components/verbal/ReadingComprehensionGuide';
 import { TextCompletionGuide } from '@/components/verbal/TextCompletionGuide';
 import { SentenceEquivalenceGuide } from '@/components/verbal/SentenceEquivalenceGuide';
 import { EssentialPatternsGuide } from '@/components/verbal/EssentialPatternsGuide';
+import { VerbalSection } from '@/components/verbal/VerbalSection';
 import { supabase } from '@/integrations/supabase/client';
 
 interface Test {
@@ -18,7 +18,7 @@ interface Test {
   time_limit_minutes: number;
 }
 
-type GuideType = 'reading' | 'text-completion' | 'sentence-equivalence' | 'essential-patterns' | null;
+type SectionType = 'reading' | 'text-completion' | 'sentence-equivalence' | 'patterns' | null;
 
 // Map categories to question types
 const CATEGORY_MAP = {
@@ -31,8 +31,8 @@ const VerbalPractice = () => {
   const navigate = useNavigate();
   const [tests, setTests] = useState<Test[]>([]);
   const [loading, setLoading] = useState(true);
-  const [openGuide, setOpenGuide] = useState<GuideType>(null);
-  const [selectedType, setSelectedType] = useState<keyof typeof CATEGORY_MAP | null>(null);
+  const [activeSection, setActiveSection] = useState<SectionType>(null);
+  const [activeGuide, setActiveGuide] = useState<SectionType | 'essential'>(null);
 
   useEffect(() => {
     fetchTests();
@@ -59,248 +59,235 @@ const VerbalPractice = () => {
     return tests.filter(t => categories.includes(t.category));
   };
 
-  const handlePractice = (type: keyof typeof CATEGORY_MAP) => {
-    setSelectedType(type);
-  };
-
-  const handleBackToTypes = () => {
-    setSelectedType(null);
-  };
-
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="animate-pulse text-muted-foreground">Loading...</div>
+        <div className="animate-pulse text-muted-foreground flex items-center gap-2">
+          <Brain className="h-5 w-5 animate-bounce" />
+          Loading Verbal Hub...
+        </div>
       </div>
     );
   }
 
-  // Show filtered tests for selected type
-  if (selectedType) {
-    const filteredTests = getTestsByType(selectedType);
-    const typeLabels = {
-      'reading': 'Reading Comprehension',
-      'text-completion': 'Text Completion',
-      'sentence-equivalence': 'Sentence Equivalence',
-    };
+  // --- Detailed Section Views ---
 
+  if (activeSection === 'reading') {
     return (
-      <div className="min-h-screen">
-        <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-10">
-          <div className="container max-w-4xl mx-auto px-4 py-4">
-            <div className="flex items-center gap-3">
-              <Button variant="ghost" size="icon" onClick={handleBackToTypes}>
-                <ArrowLeft className="h-5 w-5" />
-              </Button>
-              <div>
-                <h1 className="font-display text-xl font-semibold text-foreground">
-                  {typeLabels[selectedType]} Practice
-                </h1>
-                <p className="text-xs text-muted-foreground">{filteredTests.length} tests available</p>
-              </div>
-            </div>
-          </div>
-        </header>
-
-        <main className="container max-w-4xl mx-auto px-4 py-8">
-          {filteredTests.length === 0 ? (
-            <div className="text-center py-12 text-muted-foreground">
-              No practice tests available for this category yet.
-            </div>
-          ) : (
-            <div className="grid gap-4 md:grid-cols-2">
-              {filteredTests.map((test) => (
-                <Card key={test.id} className="hover:border-primary/50 transition-colors">
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-base">{test.title}</CardTitle>
-                    <CardDescription className="text-xs">
-                      {test.category} · {test.time_limit_minutes} min
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                      {test.description}
-                    </p>
-                    <Button className="w-full" onClick={() => navigate(`/test/${test.id}`)}>
-                      <Play className="h-4 w-4 mr-2" />
-                      Start Practice
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          )}
-        </main>
-      </div>
+      <>
+        <VerbalSection
+          title="Reading Comprehension"
+          icon={BookOpen}
+          description="Analyze passages and understand structure and intent."
+          tests={getTestsByType('reading')}
+          onBack={() => setActiveSection(null)}
+          onStartTest={(id) => navigate(`/test/${id}`)}
+          onOpenGuide={() => setActiveGuide('reading')}
+          extraTools={
+            <Card className="border-green-500/20 bg-green-500/5">
+              <CardHeader>
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <Sparkles className="h-5 w-5 text-green-600" />
+                  RC Pattern Practice
+                </CardTitle>
+                <CardDescription>
+                  Master 12 specific reading comprehension logic patterns.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button onClick={() => navigate('/verbal/patterns')} className="w-full sm:w-auto bg-green-600 hover:bg-green-700">
+                  Launch Pattern Drills
+                </Button>
+              </CardContent>
+            </Card>
+          }
+        />
+        <ReadingComprehensionGuide open={activeGuide === 'reading'} onOpenChange={(o) => !o && setActiveGuide(null)} />
+      </>
     );
   }
 
-  // Main hub view
+  if (activeSection === 'text-completion') {
+    return (
+      <>
+        <VerbalSection
+          title="Text Completion"
+          icon={PenLine}
+          description="Use logic and vocabulary to fill in the blanks."
+          tests={getTestsByType('text-completion')}
+          onBack={() => setActiveSection(null)}
+          onStartTest={(id) => navigate(`/test/${id}`)}
+          onOpenGuide={() => setActiveGuide('text-completion')}
+        />
+        <TextCompletionGuide open={activeGuide === 'text-completion'} onOpenChange={(o) => !o && setActiveGuide(null)} />
+      </>
+    );
+  }
+
+  if (activeSection === 'sentence-equivalence') {
+    return (
+      <>
+        <VerbalSection
+          title="Sentence Equivalence"
+          icon={GitCompare}
+          description="Find synonyms that create equivalent sentences."
+          tests={getTestsByType('sentence-equivalence')}
+          onBack={() => setActiveSection(null)}
+          onStartTest={(id) => navigate(`/test/${id}`)}
+          onOpenGuide={() => setActiveGuide('sentence-equivalence')}
+        />
+        <SentenceEquivalenceGuide open={activeGuide === 'sentence-equivalence'} onOpenChange={(o) => !o && setActiveGuide(null)} />
+      </>
+    );
+  }
+
+  // --- Main Dashboard View ---
+
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background text-foreground">
       <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-10">
-        <div className="container max-w-4xl mx-auto px-4 py-4">
+        <div className="container max-w-5xl mx-auto px-4 py-4">
           <div className="flex items-center gap-3">
             <Button variant="ghost" size="icon" onClick={() => navigate('/')}>
               <ArrowLeft className="h-5 w-5" />
             </Button>
             <div>
-              <h1 className="font-display text-xl font-semibold text-foreground">
-                GRE Verbal Reasoning
+              <h1 className="font-display text-xl font-semibold flex items-center gap-2">
+                <GraduationCap className="h-6 w-6 text-primary" />
+                Verbal Reasoning
               </h1>
-              <p className="text-xs text-muted-foreground">Master the three question types</p>
+              <p className="text-xs text-muted-foreground">Master the three pillars of GRE Verbal</p>
             </div>
           </div>
         </div>
       </header>
 
-      <main className="container max-w-4xl mx-auto px-4 py-8">
-        {/* Introduction */}
-        <div className="mb-8">
-          <p className="text-muted-foreground">
-            The GRE Verbal Reasoning section measures your ability to analyze and evaluate written material,
-            synthesize information, and recognize relationships among component parts of sentences.
-            Master these three question types to excel on test day.
+      <main className="container max-w-5xl mx-auto px-4 py-8 space-y-8">
+
+        {/* Hero / Intro */}
+        <section className="text-center space-y-4 py-4">
+          <h2 className="text-3xl font-bold tracking-tight">Choose your focus area</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            The verbal section tests your ability to analyze written material and recognize relationships among words and concepts.
           </p>
+        </section>
+
+        {/* Main Grid */}
+        <div className="grid gap-6 md:grid-cols-3">
+
+          {/* Reading Comprehension Card */}
+          <Card
+            className="group relative overflow-hidden hover:shadow-lg transition-all cursor-pointer border-t-4 border-t-blue-500"
+            onClick={() => setActiveSection('reading')}
+          >
+            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+              <BookOpen className="h-24 w-24" />
+            </div>
+            <CardHeader>
+              <div className="h-12 w-12 rounded-lg bg-blue-500/10 flex items-center justify-center mb-4">
+                <BookOpen className="h-6 w-6 text-blue-600" />
+              </div>
+              <CardTitle className="text-xl">Reading Comprehension</CardTitle>
+              <CardDescription>
+                Long & short passages testing deep understanding.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="text-sm font-medium text-muted-foreground">
+                {getTestsByType('reading').length} Tests Available
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Text Completion Card */}
+          <Card
+            className="group relative overflow-hidden hover:shadow-lg transition-all cursor-pointer border-t-4 border-t-amber-500"
+            onClick={() => setActiveSection('text-completion')}
+          >
+            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+              <PenLine className="h-24 w-24" />
+            </div>
+            <CardHeader>
+              <div className="h-12 w-12 rounded-lg bg-amber-500/10 flex items-center justify-center mb-4">
+                <PenLine className="h-6 w-6 text-amber-600" />
+              </div>
+              <CardTitle className="text-xl">Text Completion</CardTitle>
+              <CardDescription>
+                Fill-in-the-blank questions with 1-3 blanks.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="text-sm font-medium text-muted-foreground">
+                {getTestsByType('text-completion').length} Tests Available
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Sentence Equivalence Card */}
+          <Card
+            className="group relative overflow-hidden hover:shadow-lg transition-all cursor-pointer border-t-4 border-t-purple-500"
+            onClick={() => setActiveSection('sentence-equivalence')}
+          >
+            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+              <GitCompare className="h-24 w-24" />
+            </div>
+            <CardHeader>
+              <div className="h-12 w-12 rounded-lg bg-purple-500/10 flex items-center justify-center mb-4">
+                <GitCompare className="h-6 w-6 text-purple-600" />
+              </div>
+              <CardTitle className="text-xl">Sentence Equivalence</CardTitle>
+              <CardDescription>
+                Find synonyms that complete the sentence similarly.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="text-sm font-medium text-muted-foreground">
+                {getTestsByType('sentence-equivalence').length} Tests Available
+              </div>
+            </CardContent>
+          </Card>
         </div>
 
-        {/* Essential Patterns Card */}
-        <Card className="mb-6 border-primary/30 bg-gradient-to-br from-primary/5 to-transparent">
-          <CardHeader className="pb-2">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-primary/10">
+        {/* Strategy Section */}
+        <div className="grid gap-6 md:grid-cols-2">
+          <Card className="bg-gradient-to-br from-primary/5 to-transparent border-primary/20">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
                 <Brain className="h-5 w-5 text-primary" />
+                Essential Patterns
+              </CardTitle>
+              <CardDescription>
+                Master the core logic patterns that appear across all verbal question types.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button variant="outline" onClick={() => setActiveGuide('essential')}>
+                Open Pattern Guide
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-muted/50 border-transparent">
+            <CardHeader>
+              <CardTitle className="text-base text-muted-foreground">Quick Stats</CardTitle>
+            </CardHeader>
+            <CardContent className="grid grid-cols-2 gap-4">
+              <div>
+                <div className="text-2xl font-bold">{tests.length}</div>
+                <div className="text-xs text-muted-foreground">Total Tests</div>
               </div>
               <div>
-                <CardTitle className="text-lg">Essential Verbal Patterns</CardTitle>
-                <CardDescription>
-                  Master the key patterns that appear across all verbal question types
-                </CardDescription>
+                <div className="text-2xl font-bold">3</div>
+                <div className="text-xs text-muted-foreground">Question Types</div>
               </div>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-muted-foreground mb-4">
-              Learn passage structures, logical signal words, sentence equivalence pairs, and how to avoid trap answers.
-              These patterns will help you recognize question structures and answer more confidently.
-            </p>
-            <Button onClick={() => setOpenGuide('essential-patterns')}>
-              <BookOpen className="h-4 w-4 mr-2" />
-              Study Patterns
-            </Button>
-          </CardContent>
-        </Card>
-
-        {/* RC Pattern Practice Card */}
-        <Card className="mb-8 border-green-500/30 bg-gradient-to-br from-green-500/5 to-transparent">
-          <CardHeader className="pb-2">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-green-500/10">
-                <Sparkles className="h-5 w-5 text-green-500" />
-              </div>
-              <div>
-                <CardTitle className="text-lg">RC Pattern Practice</CardTitle>
-                <CardDescription>
-                  Master 12 reading comprehension patterns with interactive practice
-                </CardDescription>
-              </div>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-muted-foreground mb-4">
-              Learn to recognize the logical and rhetorical patterns that appear in GRE passages.
-              Each module includes pattern definitions, signal words, example passages, and practice questions with detailed explanations.
-            </p>
-            <Button onClick={() => navigate('/verbal/patterns')} className="bg-green-600 hover:bg-green-700">
-              <Play className="h-4 w-4 mr-2" />
-              Start Practice
-            </Button>
-          </CardContent>
-        </Card>
-
-        {/* Question Type Cards */}
-        <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-3">
-          <QuestionTypeCard
-            icon={BookOpen}
-            title="Reading Comprehension"
-            description="Analyze passages and answer questions about meaning, structure, and author's intent."
-            testCount={getTestsByType('reading').length}
-            onLearn={() => setOpenGuide('reading')}
-            onPractice={() => handlePractice('reading')}
-          />
-
-          <QuestionTypeCard
-            icon={PenLine}
-            title="Text Completion"
-            description="Fill in blanks with words that complete passages coherently and meaningfully."
-            testCount={getTestsByType('text-completion').length}
-            onLearn={() => setOpenGuide('text-completion')}
-            onPractice={() => handlePractice('text-completion')}
-          />
-
-          <QuestionTypeCard
-            icon={GitCompare}
-            title="Sentence Equivalence"
-            description="Select two answers that create sentences with equivalent meanings."
-            testCount={getTestsByType('sentence-equivalence').length}
-            onLearn={() => setOpenGuide('sentence-equivalence')}
-            onPractice={() => handlePractice('sentence-equivalence')}
-          />
+            </CardContent>
+          </Card>
         </div>
 
-        {/* Overview Section */}
-        <div className="mt-12">
-          <h2 className="font-display text-lg font-semibold text-foreground mb-4">
-            About Verbal Reasoning
-          </h2>
-          <div className="grid gap-4 md:grid-cols-2">
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-base">Section Format</CardTitle>
-              </CardHeader>
-              <CardContent className="text-sm text-muted-foreground">
-                <ul className="space-y-1">
-                  <li>Two 27-question sections</li>
-                  <li>41 minutes per section</li>
-                  <li>Mix of all three question types</li>
-                  <li>Score range: 130-170</li>
-                </ul>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-base">Key Skills</CardTitle>
-              </CardHeader>
-              <CardContent className="text-sm text-muted-foreground">
-                <ul className="space-y-1">
-                  <li>Vocabulary in context</li>
-                  <li>Critical reasoning</li>
-                  <li>Sentence structure analysis</li>
-                  <li>Understanding complex ideas</li>
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
       </main>
 
-      {/* Guide Dialogs */}
-      <ReadingComprehensionGuide
-        open={openGuide === 'reading'}
-        onOpenChange={(open) => !open && setOpenGuide(null)}
-      />
-      <TextCompletionGuide
-        open={openGuide === 'text-completion'}
-        onOpenChange={(open) => !open && setOpenGuide(null)}
-      />
-      <SentenceEquivalenceGuide
-        open={openGuide === 'sentence-equivalence'}
-        onOpenChange={(open) => !open && setOpenGuide(null)}
-      />
-      <EssentialPatternsGuide
-        open={openGuide === 'essential-patterns'}
-        onOpenChange={(open) => !open && setOpenGuide(null)}
-      />
+      {/* Global Guides */}
+      <EssentialPatternsGuide open={activeGuide === 'essential'} onOpenChange={(o) => !o && setActiveGuide(null)} />
     </div>
   );
 };
