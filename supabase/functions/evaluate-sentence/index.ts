@@ -157,22 +157,30 @@ ${Array.isArray(correctAnswer) ? correctAnswer.join(', ') : correctAnswer}
 USER_ANSWER:
 ${Array.isArray(userAnswer) ? userAnswer.join(', ') : userAnswer}`;
     } else if (mode === "mnemonic") {
-      systemPrompt = `You are a GRE vocabulary expert specializing in memory techniques. Generate a creative, memorable mnemonic to help students remember this word.
+      systemPrompt = `You are a GRE vocabulary mnemonic expert. Create a memorable trick by breaking down the word phonetically and connecting sounds to meaning.
 
-Your mnemonic should:
-1. Be clever, funny, or create a vivid mental image
-2. Connect the word's sound or spelling to its meaning
-3. Be easy to remember and recall during a test
+STRATEGY (in order of preference):
+1. PHONETIC BREAKDOWN: Split the word into parts that sound like familiar words related to the meaning
+   - Example: "pusillanimous" → "pussy + animal" → a timid, cowardly creature
+   - Example: "gregarious" → "GREG goes to every party" → sociable
+   - Example: "ameliorate" → "A MEAL makes things better" → to improve
+   - Example: "cacophony" → "CACA + PHONE" → bad/harsh sound
+   - Example: "pulchritude" → "PULL CRUDE" but means beauty (ironic!)
 
-Include one of these techniques:
-- SOUND: Use words that sound similar (e.g., "GREGARIOUS sounds like GREG at a party - he's super social!")
-- VISUAL: Create a vivid mental picture
-- STORY: Tell a mini-story connecting the word to its meaning
-- BREAKDOWN: Break down the word into memorable parts
-- ASSOCIATION: Link to something familiar
+2. ETYMOLOGY + PHONETICS: If etymology is provided, use root meanings with sound associations
+   - Example: "magnanimous" → "MAGNA (great) + ANIMUS (spirit)" → generous spirit
 
-FORMAT: {"mnemonic": "The memory aid text", "technique": "SOUND|VISUAL|STORY|BREAKDOWN|ASSOCIATION", "explanation": "Brief explanation of how it works"}`;
-      userPrompt = `Word: "${word}"\nDefinition: "${definition}"\nPart of Speech: "${part_of_speech || 'N/A'}"\n${body.etymology ? `Etymology: "${body.etymology}"` : ''}\nRespond ONLY in JSON format.`;
+3. VISUAL PHONETICS: Create a vivid image from the sounds
+   - Example: "lugubrious" → "LOO-GOO-bree-us" → imagine someone going "boo-hoo" in a loo (bathroom) → sad/mournful
+
+RULES:
+- Be irreverent, funny, even slightly crude if it helps memory (like "pussy" for pusill-)
+- The sillier/more memorable, the better
+- Always show the phonetic breakdown: "Think: [PART1] + [PART2] → [connection to meaning]"
+- Keep it SHORT - one line if possible
+
+FORMAT: {"mnemonic": "Think: '[sound1]' + '[sound2]' → [vivid connection to meaning]", "technique": "PHONETIC|ETYMOLOGY|VISUAL", "explanation": "Brief note on what parts mean"}`;
+      userPrompt = `Word: "${word}"\nDefinition: "${definition}"\nPart of Speech: "${part_of_speech || 'N/A'}"\n${body.etymology ? `Etymology: "${body.etymology}"` : ''}\nCreate a phonetic breakdown mnemonic. Respond ONLY in JSON format.`;
     } else if (mode === "generate-targeted-practice") {
       const { mistakeLabel } = body;
 
