@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, BookOpen, PenLine, GitCompare, Brain, Sparkles, GraduationCap } from 'lucide-react';
+import { ArrowLeft, BookOpen, PenLine, GitCompare, Brain, Sparkles, GraduationCap, Trophy, Clock, FileText, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ReadingComprehensionGuide } from '@/components/verbal/ReadingComprehensionGuide';
@@ -9,6 +9,7 @@ import { SentenceEquivalenceGuide } from '@/components/verbal/SentenceEquivalenc
 import { EssentialPatternsGuide } from '@/components/verbal/EssentialPatternsGuide';
 import { VerbalSection } from '@/components/verbal/VerbalSection';
 import { supabase } from '@/integrations/supabase/client';
+import { useGRETest } from '@/hooks/useGRETest';
 
 interface Test {
   id: string;
@@ -34,6 +35,7 @@ const VerbalPractice = () => {
   const [loading, setLoading] = useState(true);
   const [activeSection, setActiveSection] = useState<SectionType>(null);
   const [activeGuide, setActiveGuide] = useState<SectionType | 'essential'>(null);
+  const { combinedScore, isComplete } = useGRETest();
 
   useEffect(() => {
     fetchTests();
@@ -164,6 +166,62 @@ const VerbalPractice = () => {
       </header>
 
       <main className="container max-w-5xl mx-auto px-4 py-8 space-y-8">
+
+        {/* Featured: GRE Practice Test */}
+        <Card
+          className="relative overflow-hidden cursor-pointer group border-2 border-primary/30 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent hover:border-primary/50 transition-all"
+          onClick={() => navigate('/gre-test')}
+        >
+          <div className="absolute top-0 right-0 w-40 h-40 opacity-10 group-hover:opacity-20 transition-opacity">
+            <Trophy className="w-full h-full" />
+          </div>
+          <CardHeader>
+            <div className="flex items-center gap-2 mb-2">
+              <span className="px-2 py-1 text-xs font-semibold rounded-full bg-primary text-primary-foreground">
+                FEATURED
+              </span>
+            </div>
+            <CardTitle className="text-2xl flex items-center gap-3">
+              <div className="h-12 w-12 rounded-xl bg-primary/20 flex items-center justify-center">
+                <Trophy className="h-6 w-6 text-primary" />
+              </div>
+              Try GRE Test: Verbal Section
+            </CardTitle>
+            <CardDescription className="text-base mt-2">
+              Take a full-length GRE Verbal Reasoning practice test with timed sections and get your estimated GRE score (130-170).
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-wrap items-center gap-4 mb-4 text-sm text-muted-foreground">
+              <div className="flex items-center gap-1.5">
+                <FileText className="h-4 w-4" />
+                <span>35 Questions</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Clock className="h-4 w-4" />
+                <span>41 Minutes</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Trophy className="h-4 w-4" />
+                <span>GRE Score Estimate</span>
+              </div>
+            </div>
+            {isComplete && combinedScore && (
+              <div className="mb-4 p-3 rounded-lg bg-green-500/10 border border-green-500/20">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-green-600 dark:text-green-400">Your Best Score</span>
+                  <span className="text-xl font-bold text-green-600 dark:text-green-400">
+                    {combinedScore.greScore.scaled}/170
+                  </span>
+                </div>
+              </div>
+            )}
+            <Button className="group-hover:bg-primary/90">
+              {isComplete ? 'View Results' : 'Start Practice Test'}
+              <ArrowRight className="h-4 w-4 ml-2" />
+            </Button>
+          </CardContent>
+        </Card>
 
         {/* Hero / Intro */}
         <section className="text-center space-y-4 py-4">

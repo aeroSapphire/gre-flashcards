@@ -11,6 +11,7 @@ import { classifyMistake, MistakeClassifierInput, MistakeLabel } from '@/utils/m
 import { recordMistake } from '@/services/mistakeService';
 import { updateSkillModel, SkillType, ALL_SKILL_TYPES, getSkillDisplayName } from '@/services/skillEngine';
 import { getCurriculumStatus, PhaseStatus, PHASE_NAMES } from '@/services/curriculumOrchestrator';
+import { GRE_PRACTICE_TEST_1 } from '@/hooks/useGRETest';
 
 interface Attempt {
     score: number;
@@ -217,6 +218,11 @@ const TestResults = () => {
 
     const percentage = Math.round((attempt.score / attempt.total_questions) * 100);
 
+    // Check if this is a GRE Full Test
+    const isGRETest = attempt.test.category === 'GRE Full Test';
+    const isSection2 = testId === GRE_PRACTICE_TEST_1.SECTION_2;
+    const isSection3 = testId === GRE_PRACTICE_TEST_1.SECTION_3;
+
     return (
         <div className="min-h-screen container max-w-3xl mx-auto p-4 py-8">
             <div className="flex items-center gap-4 mb-8">
@@ -243,6 +249,49 @@ const TestResults = () => {
                     </div>
                 )}
             </Card>
+
+            {/* GRE Test Navigation */}
+            {isGRETest && !analyzing && (
+                <Card className="mb-8 border-primary/20 bg-primary/5">
+                    <CardHeader className="pb-2">
+                        <CardTitle className="text-lg flex items-center gap-2">
+                            <Trophy className="h-5 w-5 text-primary" />
+                            GRE Practice Test
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                        <p className="text-sm text-muted-foreground">
+                            {isSection2
+                                ? "You've completed Section 2. Continue to Section 3 to get your full GRE score estimate."
+                                : "You've completed Section 3. View your combined results to see your GRE score estimate."}
+                        </p>
+                        <div className="flex gap-2">
+                            {isSection2 && (
+                                <Button
+                                    className="flex-1"
+                                    onClick={() => navigate(`/test/${GRE_PRACTICE_TEST_1.SECTION_3}`)}
+                                >
+                                    Continue to Section 3 <ArrowRight className="ml-2 h-4 w-4" />
+                                </Button>
+                            )}
+                            <Button
+                                variant={isSection2 ? "outline" : "default"}
+                                className="flex-1"
+                                onClick={() => navigate('/gre-test/results')}
+                            >
+                                View Combined Results
+                            </Button>
+                        </div>
+                        <Button
+                            variant="ghost"
+                            className="w-full"
+                            onClick={() => navigate('/gre-test')}
+                        >
+                            Back to GRE Test Hub
+                        </Button>
+                    </CardContent>
+                </Card>
+            )}
 
             {/* What's Next Section */}
             {curriculumStatus && !analyzing && (

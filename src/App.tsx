@@ -27,6 +27,8 @@ import PatternPracticeHub from "./pages/PatternPracticeHub";
 import PatternModule from "./pages/PatternModule";
 import DiagnosticRunner from "./pages/DiagnosticRunner";
 import HardWordsHub from "./pages/HardWordsHub";
+import GRETestHub from "./pages/GRETestHub";
+import GRETestResults from "./pages/GRETestResults";
 
 const queryClient = new QueryClient();
 
@@ -70,6 +72,8 @@ const App = () => (
             <Route path="/verbal/patterns/:moduleId" element={<PatternModule />} />
             <Route path="/diagnostic" element={<DiagnosticRunner />} />
             <Route path="/hard-words" element={<HardWordsHub />} />
+            <Route path="/gre-test" element={<GRETestHub />} />
+            <Route path="/gre-test/results" element={<GRETestResults />} />
             <Route path="/study" element={<StudySession />} />
             <Route path="/arcade" element={<Arcade />} />
             <Route path="/quick-quiz" element={<QuickQuiz />} />
