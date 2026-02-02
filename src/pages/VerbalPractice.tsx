@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { BookOpen, PenLine, GitCompare, Brain, Sparkles, GraduationCap } from 'lucide-react';
+import { ArrowLeft, BookOpen, PenLine, GitCompare, Brain, Sparkles, GraduationCap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ReadingComprehensionGuide } from '@/components/verbal/ReadingComprehensionGuide';
