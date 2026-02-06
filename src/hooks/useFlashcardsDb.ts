@@ -59,7 +59,6 @@ interface UserStats {
 }
 
 const WORDS_PER_LIST = 30;
-const PAGE_SIZE = 100;
 
 export function useFlashcardsDb() {
   const [cards, setCards] = useState<Flashcard[]>([]);
@@ -70,8 +69,6 @@ export function useFlashcardsDb() {
   const [allProfiles, setAllProfiles] = useState<UserProfile[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [totalCardCount, setTotalCardCount] = useState<number | null>(null);
-  const [hasMoreCards, setHasMoreCards] = useState(false);
-  const [isLoadingMore, setIsLoadingMore] = useState(false);
   const { user } = useAuth();
   const { toast } = useToast();
   const {
@@ -86,8 +83,9 @@ export function useFlashcardsDb() {
     cacheUserProgress,
   } = useOfflineStorage();
 
-  // Fetch cards from database (with offline fallback and pagination)
-  const fetchCards = useCallback(async (page = 0, append = false) => {
+  // Fetch cards from database (with offline fallback)
+  // Note: Loads all cards at once since the app needs full data for list organization
+  const fetchCards = useCallback(async () => {
     // Check online status directly for real-time accuracy
     const currentlyOnline = navigator.onLine;
 
@@ -117,31 +115,19 @@ export function useFlashcardsDb() {
     }
 
     try {
-      if (append) {
-        setIsLoadingMore(true);
-      }
-
-      const { data, error, count } = await supabase
+      const { data, error } = await supabase
         .from('flashcards')
-        .select('*', { count: 'exact' })
-        .order('created_at', { ascending: false })
-        .range(page * PAGE_SIZE, (page + 1) * PAGE_SIZE - 1);
+        .select('*')
+        .order('created_at', { ascending: false });
 
       if (error) throw error;
 
-      if (append) {
-        setCards(prev => [...prev, ...(data as Flashcard[])]);
-      } else {
-        setCards(data as Flashcard[]);
-      }
+      setCards(data as Flashcard[]);
+      setTotalCardCount(data?.length || 0);
+      setHasMoreCards(false);
 
-      setTotalCardCount(count);
-      setHasMoreCards(count !== null && (page + 1) * PAGE_SIZE < count);
-
-      // Cache all fetched cards for offline use
-      if (!append) {
-        cacheFlashcards(data);
-      }
+      // Cache for offline use
+      cacheFlashcards(data);
     } catch (error: any) {
       console.error('Fetch error, trying cache:', error);
       // Try cache on any error (network issues, etc.)
@@ -165,17 +151,8 @@ export function useFlashcardsDb() {
         description: error.message || 'Network error',
         variant: 'destructive',
       });
-    } finally {
-      setIsLoadingMore(false);
     }
   }, [toast, getCachedFlashcards, cacheFlashcards]);
-
-  // Load more cards function
-  const loadMoreCards = useCallback(async () => {
-    if (isLoadingMore || !hasMoreCards) return;
-    const currentPage = Math.floor(cards.length / PAGE_SIZE);
-    await fetchCards(currentPage, true);
-  }, [isLoadingMore, hasMoreCards, cards.length, fetchCards]);
 
   // Fetch lists from database
   const fetchLists = useCallback(async () => {
@@ -971,10 +948,6 @@ export function useFlashcardsDb() {
     dueCards,
     allUserStats,
     renameList,
-    // Pagination
     totalCardCount,
-    hasMoreCards,
-    isLoadingMore,
-    loadMoreCards,
   };
 }
