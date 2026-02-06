@@ -1,14 +1,15 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, BookOpen, GraduationCap, Filter, ArrowLeft, LogOut, Settings, Trophy, Clock, FileText, Gamepad2, Search, X, Flame } from 'lucide-react';
+import { Plus, BookOpen, GraduationCap, Filter, ArrowLeft, LogOut, Settings, Trophy, Clock, FileText, Gamepad2, Search, X, Flame, Zap } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useFlashcardsDb, FlashcardWithProgress, FlashcardList } from '@/hooks/useFlashcardsDb';
 import { useAuth } from '@/contexts/AuthContext';
 import { useHardWords } from '@/hooks/useHardWords';
 import { useMnemonics } from '@/hooks/useMnemonics';
+import { useStreak } from '@/hooks/useStreak';
 import { FlashcardItem } from '@/components/FlashcardItem';
 import { StudyMode } from '@/components/StudyMode';
-import { StudyModeSelector } from '@/components/StudyModeSelector';
+import { StudyModeSelector, StudyDirection } from '@/components/StudyModeSelector';
 import { AddCardDialog } from '@/components/AddCardDialog';
 import { StatsCard } from '@/components/StatsCard';
 import { ListCard } from '@/components/ListCard';
@@ -21,7 +22,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-type FilterType = 'all' | 'new' | 'learning' | 'learned';
+type FilterType = 'all' | 'new' | 'learning' | 'learned' | 'hard' | 'due';
 type ViewMode = 'lists' | 'list-detail' | 'study-selector' | 'study';
 
 const Index = () => {
@@ -47,11 +48,13 @@ const Index = () => {
   const navigate = useNavigate();
   const { hardWordIds, toggleHardWord, isHard } = useHardWords();
   const { getMnemonic, isGenerating, generateAndSaveMnemonic } = useMnemonics();
+  const { currentStreak, longestStreak, isStudiedToday } = useStreak();
 
   const [viewMode, setViewMode] = useState<ViewMode>('lists');
   const [selectedList, setSelectedList] = useState<FlashcardList | null>(null);
   const [studyCards, setStudyCards] = useState<FlashcardWithProgress[]>([]);
   const [studyListName, setStudyListName] = useState<string | undefined>();
+  const [studyDirection, setStudyDirection] = useState<StudyDirection>('standard');
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [editingCard, setEditingCard] = useState<FlashcardWithProgress | null>(null);
   const [filter, setFilter] = useState<FilterType>('all');
@@ -74,8 +77,20 @@ const Index = () => {
   }, [selectedList, getCardsForList]);
 
   const filteredCards = selectedListCards.filter((card) => {
-    if (filter === 'all') return true;
-    return card.status === filter;
+    switch (filter) {
+      case 'all':
+        return true;
+      case 'new':
+      case 'learning':
+      case 'learned':
+        return card.status === filter;
+      case 'hard':
+        return isHard(card.id);
+      case 'due':
+        return card.status === 'learned' && card.next_review_at && new Date(card.next_review_at) <= new Date();
+      default:
+        return true;
+    }
   });
 
   const handleSelectList = (list: FlashcardList) => {
@@ -84,7 +99,7 @@ const Index = () => {
     setFilter('all');
   };
 
-  const handleStartStudy = (selection: string[] | 'all') => {
+  const handleStartStudy = (selection: string[] | 'all', direction: StudyDirection = 'standard') => {
     let cardsToStudy: FlashcardWithProgress[];
     let listName: string | undefined;
 
@@ -102,6 +117,7 @@ const Index = () => {
 
     setStudyCards(cardsToStudy);
     setStudyListName(listName);
+    setStudyDirection(direction);
     setViewMode('study');
   };
 
@@ -132,6 +148,7 @@ const Index = () => {
             onUpdateCard={updateCard}
             onExit={handleExitStudy}
             listName={studyListName}
+            studyDirection={studyDirection}
             hardWordIds={hardWordIds}
             onToggleHard={(id, isHard) => toggleHardWord(id, isHard)}
             getMnemonic={getMnemonic}
@@ -217,14 +234,19 @@ const Index = () => {
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="sm">
                   <Filter className="h-4 w-4 mr-2" />
-                  {filter === 'all' ? 'All' : filter.charAt(0).toUpperCase() + filter.slice(1)}
+                  {filter === 'all' ? 'All' :
+                   filter === 'hard' ? 'Hard Words' :
+                   filter === 'due' ? 'Due for Review' :
+                   filter.charAt(0).toUpperCase() + filter.slice(1)}
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => setFilter('all')}>All</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setFilter('new')}>New</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setFilter('all')}>All Cards</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setFilter('new')}>New Only</DropdownMenuItem>
                 <DropdownMenuItem onClick={() => setFilter('learning')}>Learning</DropdownMenuItem>
                 <DropdownMenuItem onClick={() => setFilter('learned')}>Mastered</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setFilter('hard')}>Hard Words</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setFilter('due')}>Due for Review</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
@@ -363,9 +385,21 @@ const Index = () => {
       </header>
 
       <main className="container max-w-4xl mx-auto px-4 py-8">
-        {/* User info */}
-        <div className="mb-4 text-sm text-muted-foreground">
-          Signed in as <span className="font-medium text-foreground">{profile?.display_name || user?.email}</span>
+        {/* User info and streak */}
+        <div className="flex items-center justify-between mb-4">
+          <div className="text-sm text-muted-foreground">
+            Signed in as <span className="font-medium text-foreground">{profile?.display_name || user?.email}</span>
+          </div>
+          {currentStreak > 0 && (
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-orange-500/10 to-red-500/10 border border-orange-500/20">
+              <Zap className={`h-4 w-4 ${isStudiedToday ? 'text-orange-500 fill-orange-500' : 'text-orange-400'}`} />
+              <span className="font-bold text-orange-600">{currentStreak}</span>
+              <span className="text-sm text-muted-foreground">day streak</span>
+              {longestStreak > currentStreak && (
+                <span className="text-xs text-muted-foreground">(best: {longestStreak})</span>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Search */}

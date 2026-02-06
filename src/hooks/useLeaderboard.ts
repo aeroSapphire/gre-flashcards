@@ -11,6 +11,7 @@ export interface UserRanking {
     avg_percentage: number;
     best_score: number;
     avg_time: number;
+    words_learned?: number;
 }
 
 export interface PersonalBest {
@@ -30,6 +31,42 @@ export interface UserStats {
     total_correct: number;
     average_percentage: number;
     best_category: string;
+    words_learned?: number;
+}
+
+// Try to use server-side aggregation, fall back to client-side if not available
+async function fetchLeaderboardServerSide(): Promise<UserRanking[] | null> {
+    try {
+        const { data, error } = await supabase.rpc('get_leaderboard');
+        if (error) {
+            console.log('Server-side leaderboard not available, using client-side:', error.message);
+            return null;
+        }
+        return data as UserRanking[];
+    } catch (e) {
+        console.log('Server-side leaderboard error, using client-side fallback');
+        return null;
+    }
+}
+
+async function fetchPersonalBestsServerSide(userId: string): Promise<PersonalBest[] | null> {
+    try {
+        const { data, error } = await supabase.rpc('get_personal_bests', { p_user_id: userId });
+        if (error) return null;
+        return data as PersonalBest[];
+    } catch (e) {
+        return null;
+    }
+}
+
+async function fetchUserStatsServerSide(userId: string): Promise<UserStats | null> {
+    try {
+        const { data, error } = await supabase.rpc('get_user_stats', { p_user_id: userId });
+        if (error || !data || data.length === 0) return null;
+        return data[0] as UserStats;
+    } catch (e) {
+        return null;
+    }
 }
 
 export const useLeaderboard = () => {
@@ -38,6 +75,25 @@ export const useLeaderboard = () => {
     return useQuery({
         queryKey: ['leaderboard', user?.id],
         queryFn: async () => {
+            // Try server-side aggregation first (more efficient)
+            const serverRankings = await fetchLeaderboardServerSide();
+
+            if (serverRankings) {
+                // Server-side worked - also try to get user stats from server
+                let userStats: UserStats | null = null;
+                let personalBests: PersonalBest[] = [];
+
+                if (user) {
+                    userStats = await fetchUserStatsServerSide(user.id);
+                    personalBests = await fetchPersonalBestsServerSide(user.id) || [];
+                }
+
+                return { rankings: serverRankings, userStats, personalBests };
+            }
+
+            // Fall back to client-side aggregation
+            console.log('Using client-side leaderboard aggregation');
+
             // Fetch all test attempts
             const { data: attempts, error: attemptsError } = await supabase
                 .from('user_test_attempts')
@@ -174,6 +230,7 @@ export const useLeaderboard = () => {
             }
 
             return { rankings: rankingsArray, userStats, personalBests };
-        }
+        },
+        staleTime: 1000 * 60 * 5, // 5 minutes cache
     });
 };

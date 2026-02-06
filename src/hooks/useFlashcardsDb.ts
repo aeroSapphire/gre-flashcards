@@ -59,6 +59,7 @@ interface UserStats {
 }
 
 const WORDS_PER_LIST = 30;
+const PAGE_SIZE = 100;
 
 export function useFlashcardsDb() {
   const [cards, setCards] = useState<Flashcard[]>([]);
@@ -68,6 +69,9 @@ export function useFlashcardsDb() {
   const [allTestAttempts, setAllTestAttempts] = useState<any[]>([]);
   const [allProfiles, setAllProfiles] = useState<UserProfile[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [totalCardCount, setTotalCardCount] = useState<number | null>(null);
+  const [hasMoreCards, setHasMoreCards] = useState(false);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
   const { user } = useAuth();
   const { toast } = useToast();
   const {
@@ -82,8 +86,8 @@ export function useFlashcardsDb() {
     cacheUserProgress,
   } = useOfflineStorage();
 
-  // Fetch cards from database (with offline fallback)
-  const fetchCards = useCallback(async () => {
+  // Fetch cards from database (with offline fallback and pagination)
+  const fetchCards = useCallback(async (page = 0, append = false) => {
     // Check online status directly for real-time accuracy
     const currentlyOnline = navigator.onLine;
 
@@ -93,6 +97,8 @@ export function useFlashcardsDb() {
         const cachedCards = await getCachedFlashcards();
         if (cachedCards.length > 0) {
           setCards(cachedCards as Flashcard[]);
+          setTotalCardCount(cachedCards.length);
+          setHasMoreCards(false);
           toast({
             title: 'Offline mode',
             description: `Loaded ${cachedCards.length} cards from cache`,
@@ -111,16 +117,31 @@ export function useFlashcardsDb() {
     }
 
     try {
-      const { data, error } = await supabase
+      if (append) {
+        setIsLoadingMore(true);
+      }
+
+      const { data, error, count } = await supabase
         .from('flashcards')
-        .select('*')
-        .order('created_at', { ascending: false });
+        .select('*', { count: 'exact' })
+        .order('created_at', { ascending: false })
+        .range(page * PAGE_SIZE, (page + 1) * PAGE_SIZE - 1);
 
       if (error) throw error;
 
-      setCards(data as Flashcard[]);
-      // Cache for offline use
-      cacheFlashcards(data);
+      if (append) {
+        setCards(prev => [...prev, ...(data as Flashcard[])]);
+      } else {
+        setCards(data as Flashcard[]);
+      }
+
+      setTotalCardCount(count);
+      setHasMoreCards(count !== null && (page + 1) * PAGE_SIZE < count);
+
+      // Cache all fetched cards for offline use
+      if (!append) {
+        cacheFlashcards(data);
+      }
     } catch (error: any) {
       console.error('Fetch error, trying cache:', error);
       // Try cache on any error (network issues, etc.)
@@ -128,6 +149,8 @@ export function useFlashcardsDb() {
         const cachedCards = await getCachedFlashcards();
         if (cachedCards.length > 0) {
           setCards(cachedCards as Flashcard[]);
+          setTotalCardCount(cachedCards.length);
+          setHasMoreCards(false);
           toast({
             title: 'Using cached data',
             description: 'Could not connect to server',
@@ -142,8 +165,17 @@ export function useFlashcardsDb() {
         description: error.message || 'Network error',
         variant: 'destructive',
       });
+    } finally {
+      setIsLoadingMore(false);
     }
   }, [toast, getCachedFlashcards, cacheFlashcards]);
+
+  // Load more cards function
+  const loadMoreCards = useCallback(async () => {
+    if (isLoadingMore || !hasMoreCards) return;
+    const currentPage = Math.floor(cards.length / PAGE_SIZE);
+    await fetchCards(currentPage, true);
+  }, [isLoadingMore, hasMoreCards, cards.length, fetchCards]);
 
   // Fetch lists from database
   const fetchLists = useCallback(async () => {
@@ -314,43 +346,110 @@ export function useFlashcardsDb() {
     }
   }, [user, fetchCards, fetchLists, fetchMyProgress, fetchAllProgress, fetchAllProfiles, fetchAllTestAttempts]);
 
-  // Set up realtime subscription - only for external changes (other users)
+  // Set up realtime subscription - optimized to update only changed records
   useEffect(() => {
     if (!user) return;
+
+    // Debounce timeout refs
+    let flashcardsDebounceTimer: NodeJS.Timeout | null = null;
+    let listsDebounceTimer: NodeJS.Timeout | null = null;
+    const DEBOUNCE_MS = 500;
 
     const channel = supabase
       .channel('db-changes')
       .on(
         'postgres_changes',
         { event: '*', schema: 'public', table: 'flashcards' },
-        () => fetchCards()
+        (payload) => {
+          // Handle individual record changes instead of full refetch
+          if (payload.eventType === 'INSERT') {
+            setCards(prev => [payload.new as Flashcard, ...prev]);
+          } else if (payload.eventType === 'DELETE') {
+            setCards(prev => prev.filter(c => c.id !== (payload.old as any).id));
+          } else if (payload.eventType === 'UPDATE') {
+            setCards(prev => prev.map(c =>
+              c.id === (payload.new as any).id ? payload.new as Flashcard : c
+            ));
+          }
+          // Debounced full refetch as fallback for sync issues
+          if (flashcardsDebounceTimer) clearTimeout(flashcardsDebounceTimer);
+          flashcardsDebounceTimer = setTimeout(() => {
+            fetchCards();
+          }, DEBOUNCE_MS * 2);
+        }
       )
       .on(
         'postgres_changes',
         { event: '*', schema: 'public', table: 'flashcard_lists' },
-        () => fetchLists()
+        (payload) => {
+          // Handle individual list changes
+          if (payload.eventType === 'INSERT') {
+            setLists(prev => [...prev, payload.new as FlashcardList]);
+          } else if (payload.eventType === 'DELETE') {
+            setLists(prev => prev.filter(l => l.id !== (payload.old as any).id));
+          } else if (payload.eventType === 'UPDATE') {
+            setLists(prev => prev.map(l =>
+              l.id === (payload.new as any).id ? payload.new as FlashcardList : l
+            ));
+          }
+          // Debounced full refetch as fallback
+          if (listsDebounceTimer) clearTimeout(listsDebounceTimer);
+          listsDebounceTimer = setTimeout(() => {
+            fetchLists();
+          }, DEBOUNCE_MS * 2);
+        }
       )
       .on(
         'postgres_changes',
         { event: '*', schema: 'public', table: 'user_word_progress' },
         (payload) => {
-          // Only refetch if it's another user's change
-          if (payload.new && (payload.new as any).user_id !== user.id) {
-            fetchAllProgress();
+          // Only update local state for other users' changes
+          const newData = payload.new as UserProgress | undefined;
+          const oldData = payload.old as { user_id?: string; flashcard_id?: string } | undefined;
+
+          if (newData && newData.user_id !== user.id) {
+            if (payload.eventType === 'INSERT' && newData.status === 'learned') {
+              setAllProgress(prev => [...prev, newData]);
+            } else if (payload.eventType === 'DELETE' && oldData) {
+              setAllProgress(prev =>
+                prev.filter(p => !(p.user_id === oldData.user_id && p.flashcard_id === oldData.flashcard_id))
+              );
+            } else if (payload.eventType === 'UPDATE') {
+              if (newData.status === 'learned') {
+                setAllProgress(prev => {
+                  const exists = prev.find(p => p.user_id === newData.user_id && p.flashcard_id === newData.flashcard_id);
+                  if (exists) {
+                    return prev.map(p =>
+                      (p.user_id === newData.user_id && p.flashcard_id === newData.flashcard_id) ? newData : p
+                    );
+                  }
+                  return [...prev, newData];
+                });
+              } else {
+                setAllProgress(prev =>
+                  prev.filter(p => !(p.user_id === newData.user_id && p.flashcard_id === newData.flashcard_id))
+                );
+              }
+            }
           }
         }
       )
       .on(
         'postgres_changes',
         { event: 'INSERT', schema: 'public', table: 'profiles' },
-        () => fetchAllProfiles()
+        (payload) => {
+          // Add new profile instead of full refetch
+          setAllProfiles(prev => [...prev, payload.new as UserProfile]);
+        }
       )
       .subscribe();
 
     return () => {
+      if (flashcardsDebounceTimer) clearTimeout(flashcardsDebounceTimer);
+      if (listsDebounceTimer) clearTimeout(listsDebounceTimer);
       supabase.removeChannel(channel);
     };
-  }, [user, fetchCards, fetchLists, fetchAllProgress, fetchAllProfiles]);
+  }, [user, fetchCards, fetchLists]);
 
   // Sync pending updates when coming back online
   const syncPendingUpdates = useCallback(async () => {
@@ -872,5 +971,10 @@ export function useFlashcardsDb() {
     dueCards,
     allUserStats,
     renameList,
+    // Pagination
+    totalCardCount,
+    hasMoreCards,
+    isLoadingMore,
+    loadMoreCards,
   };
 }

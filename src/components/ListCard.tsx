@@ -6,6 +6,17 @@ import { FlashcardList } from '@/hooks/useFlashcardsDb';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
 
 interface ListCardProps {
   list: FlashcardList;
@@ -83,10 +94,10 @@ export function ListCard({ list, stats, onSelect, onRename, onDelete, isAutoList
                   if (e.key === 'Escape') handleCancelEdit();
                 }}
               />
-              <Button size="icon" variant="ghost" className="h-8 w-8" onClick={handleSaveEdit}>
+              <Button size="icon" variant="ghost" className="h-8 w-8" onClick={handleSaveEdit} aria-label="Save name">
                 <Check className="h-4 w-4 text-success" />
               </Button>
-              <Button size="icon" variant="ghost" className="h-8 w-8" onClick={handleCancelEdit}>
+              <Button size="icon" variant="ghost" className="h-8 w-8" onClick={handleCancelEdit} aria-label="Cancel editing">
                 <X className="h-4 w-4" />
               </Button>
             </div>
@@ -111,18 +122,40 @@ export function ListCard({ list, stats, onSelect, onRename, onDelete, isAutoList
               size="icon"
               className="h-8 w-8 text-muted-foreground hover:text-foreground"
               onClick={() => setIsEditing(true)}
+              aria-label={`Rename "${list.name}"`}
             >
               <Edit2 className="h-4 w-4" />
             </Button>
             {!isAutoList && onDelete && (
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-8 w-8 text-muted-foreground hover:text-destructive"
-                onClick={onDelete}
-              >
-                <Trash2 className="h-4 w-4" />
-              </Button>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-8 w-8 text-muted-foreground hover:text-destructive"
+                    aria-label={`Delete "${list.name}"`}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Delete "{list.name}"?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This action cannot be undone. This will permanently delete this list and all the flashcards it contains.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction
+                      onClick={onDelete}
+                      className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                    >
+                      Delete
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             )}
           </div>
         )}

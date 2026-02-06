@@ -1,14 +1,22 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { BookOpen, Check, ArrowLeft, Sparkles } from 'lucide-react';
+import { BookOpen, Check, ArrowLeft, Sparkles, RefreshCw, Shuffle } from 'lucide-react';
 import { FlashcardList } from '@/hooks/useFlashcardsDb';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
+export type StudyDirection = 'standard' | 'reverse' | 'mixed';
+
+const STUDY_MODES = [
+  { id: 'standard' as StudyDirection, name: 'Standard', desc: 'See word, recall definition', icon: BookOpen },
+  { id: 'reverse' as StudyDirection, name: 'Reverse', desc: 'See definition, recall word', icon: RefreshCw },
+  { id: 'mixed' as StudyDirection, name: 'Mixed', desc: 'Random mix of both', icon: Shuffle },
+];
+
 interface StudyModeSelectorProps {
   lists: FlashcardList[];
   getListStats: (listId: string) => { total: number; new: number; learning: number; learned: number };
-  onStart: (selectedListIds: string[] | 'all') => void;
+  onStart: (selectedListIds: string[] | 'all', direction?: StudyDirection) => void;
   onCancel: () => void;
   totalCards: number;
 }
@@ -22,6 +30,7 @@ export function StudyModeSelector({
 }: StudyModeSelectorProps) {
   const [selectedLists, setSelectedLists] = useState<Set<string>>(new Set());
   const [studyAll, setStudyAll] = useState(false);
+  const [studyDirection, setStudyDirection] = useState<StudyDirection>('standard');
 
   const toggleList = (listId: string) => {
     setStudyAll(false);
@@ -43,9 +52,9 @@ export function StudyModeSelector({
 
   const handleStart = () => {
     if (studyAll) {
-      onStart('all');
+      onStart('all', studyDirection);
     } else {
-      onStart(Array.from(selectedLists));
+      onStart(Array.from(selectedLists), studyDirection);
     }
   };
 
@@ -142,6 +151,48 @@ export function StudyModeSelector({
           );
         })}
       </div>
+
+      {/* Study Mode Selection */}
+      {canStart && (
+        <>
+          <div className="flex items-center gap-4">
+            <div className="flex-1 h-px bg-border" />
+            <span className="text-sm text-muted-foreground">study mode</span>
+            <div className="flex-1 h-px bg-border" />
+          </div>
+
+          <div className="grid grid-cols-3 gap-3">
+            {STUDY_MODES.map((mode) => {
+              const Icon = mode.icon;
+              const isSelected = studyDirection === mode.id;
+
+              return (
+                <motion.div
+                  key={mode.id}
+                  className={cn(
+                    'rounded-xl border-2 p-3 cursor-pointer transition-all text-center',
+                    isSelected
+                      ? 'border-primary bg-primary/5'
+                      : 'border-border hover:border-primary/30 bg-card'
+                  )}
+                  onClick={() => setStudyDirection(mode.id)}
+                >
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-2">
+                    <Icon className="h-5 w-5 text-primary" />
+                  </div>
+                  <h4 className="font-medium text-sm text-foreground">{mode.name}</h4>
+                  <p className="text-xs text-muted-foreground mt-1">{mode.desc}</p>
+                  {isSelected && (
+                    <div className="w-5 h-5 rounded-full bg-primary flex items-center justify-center mx-auto mt-2">
+                      <Check className="h-3 w-3 text-primary-foreground" />
+                    </div>
+                  )}
+                </motion.div>
+              );
+            })}
+          </div>
+        </>
+      )}
 
       {/* Start Button */}
       <Button

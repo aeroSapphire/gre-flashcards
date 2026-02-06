@@ -1,6 +1,6 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check, ArrowLeft, ArrowRight, RotateCcw, Sparkles, BookOpen, X, GitBranch } from 'lucide-react';
+import { Check, ArrowLeft, ArrowRight, RotateCcw, Sparkles, BookOpen, X, GitBranch, Keyboard, Trophy, Clock, Target } from 'lucide-react';
 import { FlashcardWithProgress } from '@/hooks/useFlashcardsDb';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
@@ -12,6 +12,8 @@ import { ConfusionClusterCard } from '@/components/ConfusionClusterCard';
 import { findClusterForWord } from '@/data/confusionClusters';
 import { StoredMnemonic } from '@/services/mnemonicService';
 
+export type StudyDirection = 'standard' | 'reverse' | 'mixed';
+
 interface StudyModeProps {
   cards: FlashcardWithProgress[];
   allCards: FlashcardWithProgress[];
@@ -20,6 +22,7 @@ interface StudyModeProps {
   onUpdateCard?: (id: string, updates: any) => void;
   onExit: () => void;
   listName?: string;
+  studyDirection?: StudyDirection;
   hardWordIds?: Set<string>;
   onToggleHard?: (id: string, isHard: boolean) => void;
   getMnemonic?: (id: string) => StoredMnemonic | null;
@@ -35,6 +38,7 @@ export function StudyMode({
   onUpdateCard,
   onExit,
   listName,
+  studyDirection = 'standard',
   hardWordIds,
   onToggleHard,
   getMnemonic,
@@ -44,7 +48,28 @@ export function StudyMode({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   const [completed, setCompleted] = useState<Set<string>>(new Set());
+  const [stillLearning, setStillLearning] = useState<Set<string>>(new Set());
   const [showEtymology, setShowEtymology] = useState(false);
+  const [showKeyboardHelp, setShowKeyboardHelp] = useState(false);
+  const [sessionComplete, setSessionComplete] = useState(false);
+  const [sessionStartTime] = useState(() => Date.now());
+
+  // For mixed mode: randomize whether to show word or definition first per card
+  const [cardDirections] = useState<Map<string, 'standard' | 'reverse'>>(() => {
+    const map = new Map();
+    cards.forEach(card => {
+      map.set(card.id, Math.random() > 0.5 ? 'standard' : 'reverse');
+    });
+    return map;
+  });
+
+  // Get the effective direction for the current card
+  const getCardDirection = useCallback((cardId: string): 'standard' | 'reverse' => {
+    if (studyDirection === 'mixed') {
+      return cardDirections.get(cardId) || 'standard';
+    }
+    return studyDirection === 'reverse' ? 'reverse' : 'standard';
+  }, [studyDirection, cardDirections]);
 
   const studyCards = useMemo(
     () => cards.filter((c) => c.status !== 'learned'),
@@ -96,15 +121,102 @@ export function StudyMode({
     if (currentCard) {
       onMarkLearned(currentCard.id);
       setCompleted(new Set([...completed, currentCard.id]));
-      handleNext();
+      // Check if this was the last card
+      if (currentIndex === studyCards.length - 1) {
+        setSessionComplete(true);
+      } else {
+        handleNext();
+      }
     }
   };
 
   const handleStillLearning = () => {
     if (currentCard) {
       onMarkLearning(currentCard.id);
-      handleNext();
+      setStillLearning(new Set([...stillLearning, currentCard.id]));
+      // Check if this was the last card
+      if (currentIndex === studyCards.length - 1) {
+        setSessionComplete(true);
+      } else {
+        handleNext();
+      }
     }
+  };
+
+  const handleToggleHard = useCallback(() => {
+    if (currentCard && onToggleHard) {
+      onToggleHard(currentCard.id, !hardWordIds?.has(currentCard.id));
+    }
+  }, [currentCard, onToggleHard, hardWordIds]);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Ignore if user is typing in an input field
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+        return;
+      }
+
+      switch (e.code) {
+        case 'Space':
+        case 'Enter':
+          e.preventDefault();
+          handleFlip();
+          break;
+        case 'ArrowRight':
+          e.preventDefault();
+          handleNext();
+          break;
+        case 'ArrowLeft':
+          e.preventDefault();
+          handlePrev();
+          break;
+        case 'KeyG':
+          if (isFlipped) {
+            e.preventDefault();
+            handleGotIt();
+          }
+          break;
+        case 'KeyS':
+          if (isFlipped) {
+            e.preventDefault();
+            handleStillLearning();
+          }
+          break;
+        case 'KeyH':
+          e.preventDefault();
+          handleToggleHard();
+          break;
+        case 'Slash':
+          if (e.shiftKey) { // ? key
+            e.preventDefault();
+            setShowKeyboardHelp(prev => !prev);
+          }
+          break;
+        case 'Escape':
+          if (showKeyboardHelp) {
+            e.preventDefault();
+            setShowKeyboardHelp(false);
+          } else if (showEtymology) {
+            e.preventDefault();
+            setShowEtymology(false);
+          }
+          break;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isFlipped, currentIndex, showEtymology, showKeyboardHelp, handleToggleHard]);
+
+  // Calculate session stats
+  const sessionDuration = Math.round((Date.now() - sessionStartTime) / 1000);
+  const totalReviewed = completed.size + stillLearning.size;
+  const accuracy = totalReviewed > 0 ? Math.round((completed.size / totalReviewed) * 100) : 0;
+  const formatDuration = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return mins > 0 ? `${mins}m ${secs}s` : `${secs}s`;
   };
 
   if (studyCards.length === 0) {
@@ -130,6 +242,72 @@ export function StudyMode({
     );
   }
 
+  // Session complete summary
+  if (sessionComplete) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4"
+      >
+        <div className="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center mb-6">
+          <Trophy className="h-10 w-10 text-primary" />
+        </div>
+        <h2 className="font-display text-3xl font-semibold text-foreground mb-3">
+          Session Complete!
+        </h2>
+        <p className="text-muted-foreground mb-8 max-w-md">
+          {listName ? `Great job studying "${listName}"!` : 'Great job on your study session!'}
+        </p>
+
+        {/* Stats Grid */}
+        <div className="grid grid-cols-3 gap-6 mb-8 w-full max-w-md">
+          <div className="bg-card border border-border rounded-xl p-4 text-center">
+            <div className="w-10 h-10 rounded-full bg-success/20 flex items-center justify-center mx-auto mb-2">
+              <Check className="h-5 w-5 text-success" />
+            </div>
+            <p className="text-2xl font-bold text-success">{completed.size}</p>
+            <p className="text-xs text-muted-foreground">Mastered</p>
+          </div>
+          <div className="bg-card border border-border rounded-xl p-4 text-center">
+            <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center mx-auto mb-2">
+              <RotateCcw className="h-5 w-5 text-accent" />
+            </div>
+            <p className="text-2xl font-bold text-accent">{stillLearning.size}</p>
+            <p className="text-xs text-muted-foreground">Still Learning</p>
+          </div>
+          <div className="bg-card border border-border rounded-xl p-4 text-center">
+            <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-2">
+              <Target className="h-5 w-5 text-primary" />
+            </div>
+            <p className="text-2xl font-bold text-primary">{accuracy}%</p>
+            <p className="text-xs text-muted-foreground">Accuracy</p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2 text-sm text-muted-foreground mb-8">
+          <Clock className="h-4 w-4" />
+          <span>Session duration: {formatDuration(sessionDuration)}</span>
+        </div>
+
+        <div className="flex gap-3">
+          <Button variant="outline" onClick={onExit}>
+            Back to Cards
+          </Button>
+          <Button onClick={() => {
+            setSessionComplete(false);
+            setCurrentIndex(0);
+            setCompleted(new Set());
+            setStillLearning(new Set());
+            setIsFlipped(false);
+          }}>
+            Study Again
+          </Button>
+        </div>
+      </motion.div>
+    );
+  }
+
   return (
     <div className="min-h-[80vh] flex flex-col">
       {/* Header */}
@@ -146,7 +324,16 @@ export function StudyMode({
             {currentIndex + 1} of {studyCards.length}
           </span>
         </div>
-        <div className="w-24 flex justify-end gap-1">
+        <div className="w-32 flex justify-end gap-1">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setShowKeyboardHelp(true)}
+            className="text-muted-foreground hover:text-foreground"
+            aria-label="Show keyboard shortcuts"
+          >
+            <Keyboard className="h-4 w-4" />
+          </Button>
           {onToggleHard && (
             <HardWordButton
               isHard={hardWordIds?.has(currentCard?.id || '') || false}
@@ -159,6 +346,7 @@ export function StudyMode({
               size="sm"
               onClick={() => setShowEtymology(!showEtymology)}
               className={showEtymology ? 'text-primary' : 'text-muted-foreground'}
+              aria-label={showEtymology ? "Hide etymology" : "Show etymology"}
             >
               <BookOpen className="h-4 w-4" />
             </Button>
@@ -192,47 +380,88 @@ export function StudyMode({
                 transition={{ duration: 0.6, type: 'spring', stiffness: 100 }}
                 style={{ transformStyle: 'preserve-3d' }}
               >
-                {/* Front */}
+                {/* Front - shows word (standard) or definition (reverse) */}
                 <div
                   className="absolute inset-0 rounded-3xl bg-card/95 border border-border/50 shadow-2xl p-8 flex flex-col items-center justify-center min-h-80 transition-all duration-300 hover:scale-[1.02]"
                   style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
                 >
-                  <h2 className="font-display text-4xl md:text-5xl font-semibold text-foreground text-center tracking-tight">
-                    {currentCard.word}
-                  </h2>
-                  {currentCard.part_of_speech && (
-                    <p className="text-lg italic text-primary/80 mt-3 uppercase tracking-widest text-sm">
-                      {currentCard.part_of_speech}
-                    </p>
-                  )}
-                  {currentCard.tags && currentCard.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-2 justify-center mt-4">
-                      {currentCard.tags.map((tag) => (
-                        <span key={tag} className="text-xs px-3 py-1 rounded-full bg-primary/20 text-primary border border-primary/30">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
+                  {getCardDirection(currentCard.id) === 'standard' ? (
+                    // Standard mode: show word
+                    <>
+                      <h2 className="font-display text-4xl md:text-5xl font-semibold text-foreground text-center tracking-tight">
+                        {currentCard.word}
+                      </h2>
+                      {currentCard.part_of_speech && (
+                        <p className="text-lg italic text-primary/80 mt-3 uppercase tracking-widest text-sm">
+                          {currentCard.part_of_speech}
+                        </p>
+                      )}
+                      {currentCard.tags && currentCard.tags.length > 0 && (
+                        <div className="flex flex-wrap gap-2 justify-center mt-4">
+                          {currentCard.tags.map((tag) => (
+                            <span key={tag} className="text-xs px-3 py-1 rounded-full bg-primary/20 text-primary border border-primary/30">
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    // Reverse mode: show definition
+                    <>
+                      <p className="text-xs text-muted-foreground mb-4 uppercase tracking-widest">What word means...</p>
+                      <p className="text-xl md:text-2xl text-foreground text-center leading-relaxed font-medium max-w-md">
+                        {currentCard.definition}
+                      </p>
+                      {currentCard.part_of_speech && (
+                        <p className="text-sm italic text-primary/80 mt-4 uppercase tracking-widest">
+                          ({currentCard.part_of_speech})
+                        </p>
+                      )}
+                    </>
                   )}
                   <p className="text-sm text-muted-foreground mt-8 animate-pulse">Tap to reveal</p>
                 </div>
 
-                {/* Back */}
+                {/* Back - shows definition (standard) or word (reverse) */}
                 <div
                   className="absolute inset-0 rounded-3xl bg-card/95 border border-border/50 shadow-2xl p-8 flex flex-col min-h-80"
                   style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
                 >
                   <div className="flex-1 overflow-y-auto -mx-2 px-2">
                     <div className="min-h-full flex flex-col items-center justify-center">
-                      {currentCard.part_of_speech && (
-                        <p className="text-primary/80 mb-3 uppercase tracking-widest text-sm font-medium">
-                          {currentCard.part_of_speech}
-                        </p>
+                      {getCardDirection(currentCard.id) === 'standard' ? (
+                        // Standard mode: show definition
+                        <>
+                          {currentCard.part_of_speech && (
+                            <p className="text-primary/80 mb-3 uppercase tracking-widest text-sm font-medium">
+                              {currentCard.part_of_speech}
+                            </p>
+                          )}
+                          <p className="text-xl md:text-2xl text-foreground text-center leading-relaxed font-medium">
+                            {currentCard.definition}
+                          </p>
+                        </>
+                      ) : (
+                        // Reverse mode: show word
+                        <>
+                          <p className="text-xs text-muted-foreground mb-4 uppercase tracking-widest">The word is...</p>
+                          <h2 className="font-display text-4xl md:text-5xl font-semibold text-foreground text-center tracking-tight">
+                            {currentCard.word}
+                          </h2>
+                          {currentCard.part_of_speech && (
+                            <p className="text-lg italic text-primary/80 mt-3 uppercase tracking-widest text-sm">
+                              {currentCard.part_of_speech}
+                            </p>
+                          )}
+                          <div className="mt-6 pt-6 border-t border-border/50 w-full">
+                            <p className="text-base text-foreground/80 text-center">
+                              {currentCard.definition}
+                            </p>
+                          </div>
+                        </>
                       )}
-                      <p className="text-xl md:text-2xl text-foreground text-center leading-relaxed font-medium">
-                        {currentCard.definition}
-                      </p>
-                      {currentCard.example && (
+                      {currentCard.example && getCardDirection(currentCard.id) === 'standard' && (
                         <div className="mt-6 pt-6 border-t border-white/10 w-full">
                           <p className="text-base text-muted-foreground text-center italic">
                             "{currentCard.example}"
@@ -362,6 +591,7 @@ export function StudyMode({
             size="icon"
             onClick={handlePrev}
             disabled={currentIndex === 0}
+            aria-label="Previous card"
           >
             <ArrowLeft className="h-5 w-5" />
           </Button>
@@ -370,6 +600,7 @@ export function StudyMode({
             size="icon"
             onClick={handleNext}
             disabled={currentIndex === studyCards.length - 1}
+            aria-label="Next card"
           >
             <ArrowRight className="h-5 w-5" />
           </Button>
@@ -413,6 +644,70 @@ export function StudyMode({
           className="fixed inset-0 bg-black/20 z-40 animate-in fade-in duration-200"
           onClick={() => setShowEtymology(false)}
         />
+      )}
+
+      {/* Keyboard Shortcuts Help Modal */}
+      {showKeyboardHelp && (
+        <>
+          <div
+            className="fixed inset-0 bg-black/50 z-50 animate-in fade-in duration-200"
+            onClick={() => setShowKeyboardHelp(false)}
+          />
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-card border border-border rounded-2xl shadow-2xl p-6 w-full max-w-md"
+          >
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                  <Keyboard className="h-5 w-5 text-primary" />
+                </div>
+                <h3 className="font-display text-xl font-semibold text-foreground">Keyboard Shortcuts</h3>
+              </div>
+              <Button variant="ghost" size="icon" onClick={() => setShowKeyboardHelp(false)} aria-label="Close">
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+            <div className="space-y-3">
+              <div className="flex items-center justify-between py-2 border-b border-border/50">
+                <span className="text-muted-foreground">Flip card</span>
+                <div className="flex gap-2">
+                  <kbd className="px-2 py-1 rounded bg-muted text-xs font-mono">Space</kbd>
+                  <kbd className="px-2 py-1 rounded bg-muted text-xs font-mono">Enter</kbd>
+                </div>
+              </div>
+              <div className="flex items-center justify-between py-2 border-b border-border/50">
+                <span className="text-muted-foreground">Previous card</span>
+                <kbd className="px-2 py-1 rounded bg-muted text-xs font-mono">&larr;</kbd>
+              </div>
+              <div className="flex items-center justify-between py-2 border-b border-border/50">
+                <span className="text-muted-foreground">Next card</span>
+                <kbd className="px-2 py-1 rounded bg-muted text-xs font-mono">&rarr;</kbd>
+              </div>
+              <div className="flex items-center justify-between py-2 border-b border-border/50">
+                <span className="text-muted-foreground">Got It (when flipped)</span>
+                <kbd className="px-2 py-1 rounded bg-muted text-xs font-mono">G</kbd>
+              </div>
+              <div className="flex items-center justify-between py-2 border-b border-border/50">
+                <span className="text-muted-foreground">Still Learning (when flipped)</span>
+                <kbd className="px-2 py-1 rounded bg-muted text-xs font-mono">S</kbd>
+              </div>
+              <div className="flex items-center justify-between py-2 border-b border-border/50">
+                <span className="text-muted-foreground">Toggle hard word</span>
+                <kbd className="px-2 py-1 rounded bg-muted text-xs font-mono">H</kbd>
+              </div>
+              <div className="flex items-center justify-between py-2">
+                <span className="text-muted-foreground">Show this help</span>
+                <kbd className="px-2 py-1 rounded bg-muted text-xs font-mono">?</kbd>
+              </div>
+            </div>
+            <p className="text-xs text-muted-foreground mt-4 text-center">
+              Press <kbd className="px-1.5 py-0.5 rounded bg-muted text-xs font-mono">Esc</kbd> to close
+            </p>
+          </motion.div>
+        </>
       )}
     </div>
   );

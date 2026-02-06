@@ -33,6 +33,7 @@ export function HardWordButton({ isHard, onToggle, size = 'sm', className }: Har
             e.stopPropagation();
             onToggle();
           }}
+          aria-label={isHard ? 'Remove from hard words' : 'Mark as hard word'}
         >
           <Flame
             className={cn(
