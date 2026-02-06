@@ -96,7 +96,6 @@ export function useFlashcardsDb() {
         if (cachedCards.length > 0) {
           setCards(cachedCards as Flashcard[]);
           setTotalCardCount(cachedCards.length);
-          setHasMoreCards(false);
           toast({
             title: 'Offline mode',
             description: `Loaded ${cachedCards.length} cards from cache`,
@@ -124,7 +123,6 @@ export function useFlashcardsDb() {
 
       setCards(data as Flashcard[]);
       setTotalCardCount(data?.length || 0);
-      setHasMoreCards(false);
 
       // Cache for offline use
       cacheFlashcards(data);
@@ -136,7 +134,6 @@ export function useFlashcardsDb() {
         if (cachedCards.length > 0) {
           setCards(cachedCards as Flashcard[]);
           setTotalCardCount(cachedCards.length);
-          setHasMoreCards(false);
           toast({
             title: 'Using cached data',
             description: 'Could not connect to server',
