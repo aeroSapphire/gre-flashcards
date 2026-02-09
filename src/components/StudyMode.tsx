@@ -261,26 +261,26 @@ export function StudyMode({
         </p>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-3 gap-6 mb-8 w-full max-w-md">
-          <div className="bg-card border border-border rounded-xl p-4 text-center">
-            <div className="w-10 h-10 rounded-full bg-success/20 flex items-center justify-center mx-auto mb-2">
-              <Check className="h-5 w-5 text-success" />
+        <div className="grid grid-cols-3 gap-3 sm:gap-6 mb-8 w-full max-w-md">
+          <div className="bg-card border border-border rounded-xl p-3 sm:p-4 text-center">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-success/20 flex items-center justify-center mx-auto mb-2">
+              <Check className="h-4 w-4 sm:h-5 sm:w-5 text-success" />
             </div>
-            <p className="text-2xl font-bold text-success">{completed.size}</p>
+            <p className="text-xl sm:text-2xl font-bold text-success">{completed.size}</p>
             <p className="text-xs text-muted-foreground">Mastered</p>
           </div>
-          <div className="bg-card border border-border rounded-xl p-4 text-center">
-            <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center mx-auto mb-2">
-              <RotateCcw className="h-5 w-5 text-accent" />
+          <div className="bg-card border border-border rounded-xl p-3 sm:p-4 text-center">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-accent/20 flex items-center justify-center mx-auto mb-2">
+              <RotateCcw className="h-4 w-4 sm:h-5 sm:w-5 text-accent" />
             </div>
-            <p className="text-2xl font-bold text-accent">{stillLearning.size}</p>
+            <p className="text-xl sm:text-2xl font-bold text-accent">{stillLearning.size}</p>
             <p className="text-xs text-muted-foreground">Still Learning</p>
           </div>
-          <div className="bg-card border border-border rounded-xl p-4 text-center">
-            <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-2">
-              <Target className="h-5 w-5 text-primary" />
+          <div className="bg-card border border-border rounded-xl p-3 sm:p-4 text-center">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-2">
+              <Target className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
             </div>
-            <p className="text-2xl font-bold text-primary">{accuracy}%</p>
+            <p className="text-xl sm:text-2xl font-bold text-primary">{accuracy}%</p>
             <p className="text-xs text-muted-foreground">Accuracy</p>
           </div>
         </div>
@@ -311,20 +311,20 @@ export function StudyMode({
   return (
     <div className="min-h-[80vh] flex flex-col">
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
-        <Button variant="ghost" onClick={onExit}>
-          <ArrowLeft className="h-4 w-4 mr-2" />
-          Exit Study
+      <div className="flex items-center justify-between mb-4 sm:mb-6">
+        <Button variant="ghost" onClick={onExit} size="sm">
+          <ArrowLeft className="h-4 w-4 sm:mr-2" />
+          <span className="hidden sm:inline">Exit Study</span>
         </Button>
         <div className="text-center">
           {listName && (
-            <p className="text-xs text-muted-foreground mb-1">{listName}</p>
+            <p className="text-xs text-muted-foreground mb-1 truncate max-w-[120px] sm:max-w-none">{listName}</p>
           )}
           <span className="text-sm text-muted-foreground">
             {currentIndex + 1} of {studyCards.length}
           </span>
         </div>
-        <div className="w-32 flex justify-end gap-1">
+        <div className="flex justify-end gap-1">
           <Button
             variant="ghost"
             size="sm"
@@ -382,24 +382,24 @@ export function StudyMode({
               >
                 {/* Front - shows word (standard) or definition (reverse) */}
                 <div
-                  className="absolute inset-0 rounded-3xl bg-card/95 border border-border/50 shadow-2xl p-8 flex flex-col items-center justify-center min-h-80 transition-all duration-300 hover:scale-[1.02]"
+                  className="absolute inset-0 rounded-3xl bg-card/95 border border-border/50 shadow-2xl p-4 sm:p-6 md:p-8 flex flex-col items-center justify-center min-h-80 transition-all duration-300 hover:scale-[1.02]"
                   style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
                 >
                   {getCardDirection(currentCard.id) === 'standard' ? (
                     // Standard mode: show word
                     <>
-                      <h2 className="font-display text-4xl md:text-5xl font-semibold text-foreground text-center tracking-tight">
+                      <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-semibold text-foreground text-center tracking-tight">
                         {currentCard.word}
                       </h2>
                       {currentCard.part_of_speech && (
-                        <p className="text-lg italic text-primary/80 mt-3 uppercase tracking-widest text-sm">
+                        <p className="text-sm italic text-primary/80 mt-2 sm:mt-3 uppercase tracking-widest">
                           {currentCard.part_of_speech}
                         </p>
                       )}
                       {currentCard.tags && currentCard.tags.length > 0 && (
-                        <div className="flex flex-wrap gap-2 justify-center mt-4">
+                        <div className="flex flex-wrap gap-1.5 sm:gap-2 justify-center mt-3 sm:mt-4">
                           {currentCard.tags.map((tag) => (
-                            <span key={tag} className="text-xs px-3 py-1 rounded-full bg-primary/20 text-primary border border-primary/30">
+                            <span key={tag} className="text-xs px-2.5 py-1 rounded-full bg-primary/20 text-primary border border-primary/30">
                               {tag}
                             </span>
                           ))}
@@ -409,8 +409,8 @@ export function StudyMode({
                   ) : (
                     // Reverse mode: show definition
                     <>
-                      <p className="text-xs text-muted-foreground mb-4 uppercase tracking-widest">What word means...</p>
-                      <p className="text-xl md:text-2xl text-foreground text-center leading-relaxed font-medium max-w-md">
+                      <p className="text-xs text-muted-foreground mb-3 sm:mb-4 uppercase tracking-widest">What word means...</p>
+                      <p className="text-lg sm:text-xl md:text-2xl text-foreground text-center leading-relaxed font-medium max-w-md">
                         {currentCard.definition}
                       </p>
                       {currentCard.part_of_speech && (
@@ -425,7 +425,7 @@ export function StudyMode({
 
                 {/* Back - shows definition (standard) or word (reverse) */}
                 <div
-                  className="absolute inset-0 rounded-3xl bg-card/95 border border-border/50 shadow-2xl p-8 flex flex-col min-h-80"
+                  className="absolute inset-0 rounded-3xl bg-card/95 border border-border/50 shadow-2xl p-4 sm:p-6 md:p-8 flex flex-col min-h-80"
                   style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
                 >
                   <div className="flex-1 overflow-y-auto -mx-2 px-2">
@@ -545,7 +545,7 @@ export function StudyMode({
       </AnimatePresence>
 
       {/* Controls */}
-      <div className="mt-8 flex flex-col gap-4">
+      <div className="mt-4 sm:mt-8 flex flex-col gap-3 sm:gap-4">
         {isFlipped && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -609,7 +609,7 @@ export function StudyMode({
 
       {/* Etymology Side Panel */}
       {showEtymology && currentCard?.etymology && (
-        <div className="fixed right-0 top-0 h-full w-80 md:w-96 bg-card border-l shadow-xl z-50 animate-in slide-in-from-right duration-300">
+        <div className="fixed right-0 top-0 h-full w-full sm:w-80 md:w-96 bg-card border-l shadow-xl z-50 animate-in slide-in-from-right duration-300">
           <div className="flex flex-col h-full">
             <div className="flex items-center justify-between p-4 border-b bg-primary/5">
               <div className="flex items-center gap-2">

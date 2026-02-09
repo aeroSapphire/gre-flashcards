@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, BookOpen, GraduationCap, Filter, ArrowLeft, LogOut, Settings, Trophy, Clock, FileText, Gamepad2, Search, X, Flame, Zap } from 'lucide-react';
+import { Plus, BookOpen, GraduationCap, Filter, ArrowLeft, LogOut, Settings, Trophy, Clock, FileText, Gamepad2, Search, X, Flame, Zap, Menu } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useFlashcardsDb, FlashcardWithProgress, FlashcardList } from '@/hooks/useFlashcardsDb';
 import { useAuth } from '@/contexts/AuthContext';
@@ -21,6 +21,13 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
 
 type FilterType = 'all' | 'new' | 'learning' | 'learned' | 'hard' | 'due';
 type ViewMode = 'lists' | 'list-detail' | 'study-selector' | 'study';
@@ -139,7 +146,7 @@ const Index = () => {
   if (viewMode === 'study') {
     return (
       <div className="min-h-screen">
-        <div className="container max-w-2xl mx-auto px-4 py-8">
+        <div className="container max-w-2xl mx-auto px-3 sm:px-4 py-4 sm:py-8">
           <StudyMode
             cards={studyCards}
             allCards={cards}
@@ -164,7 +171,7 @@ const Index = () => {
   if (viewMode === 'study-selector') {
     return (
       <div className="min-h-screen">
-        <div className="container max-w-2xl mx-auto px-4 py-8">
+        <div className="container max-w-2xl mx-auto px-3 sm:px-4 py-4 sm:py-8">
           <StudyModeSelector
             lists={lists}
             getListStats={getListStats}
@@ -184,26 +191,27 @@ const Index = () => {
     return (
       <div className="min-h-screen">
         <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-10">
-          <div className="container max-w-4xl mx-auto px-4 py-4">
+          <div className="container max-w-4xl mx-auto px-3 sm:px-4 py-3 sm:py-4">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <Button variant="ghost" size="icon" onClick={() => setViewMode('lists')}>
+              <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+                <Button variant="ghost" size="icon" onClick={() => setViewMode('lists')} className="shrink-0">
                   <ArrowLeft className="h-5 w-5" />
                 </Button>
-                <div>
-                  <h1 className="font-display text-xl font-semibold text-foreground">
+                <div className="min-w-0">
+                  <h1 className="font-display text-lg sm:text-xl font-semibold text-foreground truncate">
                     {selectedList.name}
                   </h1>
                   <p className="text-xs text-muted-foreground">{listStats.total} words</p>
                 </div>
               </div>
-              <div className="flex gap-2">
-                <Button variant="outline" size="sm" onClick={() => setIsAddDialogOpen(true)}>
-                  <Plus className="h-4 w-4 mr-1" />
-                  Add Word
+              <div className="flex gap-1.5 sm:gap-2 shrink-0">
+                <Button variant="outline" size="sm" onClick={() => setIsAddDialogOpen(true)} className="px-2.5 sm:px-3">
+                  <Plus className="h-4 w-4 sm:mr-1" />
+                  <span className="hidden sm:inline">Add Word</span>
                 </Button>
                 <Button
                   size="sm"
+                  className="px-2.5 sm:px-3"
                   onClick={() => {
                     setStudyCards(selectedListCards);
                     setStudyListName(selectedList.name);
@@ -211,15 +219,15 @@ const Index = () => {
                   }}
                   disabled={selectedListCards.length === 0}
                 >
-                  <BookOpen className="h-4 w-4 mr-1" />
-                  Study
+                  <BookOpen className="h-4 w-4 sm:mr-1" />
+                  <span className="hidden sm:inline">Study</span>
                 </Button>
               </div>
             </div>
           </div>
         </header>
 
-        <main className="container max-w-4xl mx-auto px-4 py-8">
+        <main className="container max-w-4xl mx-auto px-3 sm:px-4 py-4 sm:py-8">
           {/* Stats for this list */}
           <div className="mb-8">
             <StatsCard stats={listStats} />
@@ -335,20 +343,22 @@ const Index = () => {
     <div className="min-h-screen">
       {/* Header */}
       <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-10">
-        <div className="container max-w-4xl mx-auto px-4 py-4">
+        <div className="container max-w-4xl mx-auto px-4 py-3 sm:py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
-                <GraduationCap className="h-5 w-5 text-primary-foreground" />
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-primary flex items-center justify-center">
+                <GraduationCap className="h-4 w-4 sm:h-5 sm:w-5 text-primary-foreground" />
               </div>
               <div>
-                <h1 className="font-display text-xl font-semibold text-foreground">
+                <h1 className="font-display text-lg sm:text-xl font-semibold text-foreground">
                   GRE Vocab
                 </h1>
                 <p className="text-xs text-muted-foreground">{stats.total} words • {lists.length} lists</p>
               </div>
             </div>
-            <div className="flex gap-2">
+
+            {/* Desktop navigation */}
+            <div className="hidden md:flex gap-2">
               <Button variant="outline" size="sm" onClick={() => setIsAddDialogOpen(true)}>
                 <Plus className="h-4 w-4 mr-1" />
                 Add Word
@@ -380,18 +390,67 @@ const Index = () => {
                 <LogOut className="h-4 w-4" />
               </Button>
             </div>
+
+            {/* Mobile navigation */}
+            <div className="flex md:hidden gap-1.5">
+              <Button variant="outline" size="sm" onClick={() => setIsAddDialogOpen(true)} className="px-2.5">
+                <Plus className="h-4 w-4" />
+              </Button>
+              <Button size="sm" onClick={() => setViewMode('study-selector')} disabled={cards.length === 0} className="px-2.5">
+                <BookOpen className="h-4 w-4" />
+              </Button>
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <Menu className="h-5 w-5" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-72">
+                  <SheetHeader>
+                    <SheetTitle>Menu</SheetTitle>
+                  </SheetHeader>
+                  <nav className="flex flex-col gap-2 mt-6">
+                    <Button variant="ghost" className="justify-start" onClick={() => navigate('/tests')}>
+                      <Trophy className="h-4 w-4 mr-3" />
+                      Tests
+                    </Button>
+                    <Button variant="ghost" className="justify-start" onClick={() => navigate('/arcade')}>
+                      <Gamepad2 className="h-4 w-4 mr-3" />
+                      Arcade
+                    </Button>
+                    <Button variant="ghost" className="justify-start" onClick={() => navigate('/etymology')}>
+                      <GraduationCap className="h-4 w-4 mr-3" />
+                      Etymology
+                    </Button>
+                    <Button variant="ghost" className="justify-start" onClick={() => navigate('/verbal')}>
+                      <FileText className="h-4 w-4 mr-3" />
+                      Verbal
+                    </Button>
+                    <div className="h-px bg-border my-2" />
+                    <Button variant="ghost" className="justify-start" onClick={() => navigate('/settings')}>
+                      <Settings className="h-4 w-4 mr-3" />
+                      Settings
+                    </Button>
+                    <Button variant="ghost" className="justify-start text-destructive hover:text-destructive" onClick={signOut}>
+                      <LogOut className="h-4 w-4 mr-3" />
+                      Sign Out
+                    </Button>
+                  </nav>
+                </SheetContent>
+              </Sheet>
+            </div>
           </div>
         </div>
       </header>
 
-      <main className="container max-w-4xl mx-auto px-4 py-8">
+      <main className="container max-w-4xl mx-auto px-3 sm:px-4 py-4 sm:py-8">
         {/* User info and streak */}
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
           <div className="text-sm text-muted-foreground">
             Signed in as <span className="font-medium text-foreground">{profile?.display_name || user?.email}</span>
           </div>
           {currentStreak > 0 && (
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-orange-500/10 to-red-500/10 border border-orange-500/20">
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-orange-500/10 to-red-500/10 border border-orange-500/20 self-start sm:self-auto">
               <Zap className={`h-4 w-4 ${isStudiedToday ? 'text-orange-500 fill-orange-500' : 'text-orange-400'}`} />
               <span className="font-bold text-orange-600">{currentStreak}</span>
               <span className="text-sm text-muted-foreground">day streak</span>
@@ -492,15 +551,15 @@ const Index = () => {
 
             {/* Spaced Repetition Review */}
             {(dueCards.length > 0 || stats.learned > 0) && (
-          <div className="mb-8">
-            <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl border border-primary/20 p-6">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
-                    <Clock className="h-6 w-6 text-primary" />
+          <div className="mb-6 sm:mb-8">
+            <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl border border-primary/20 p-4 sm:p-6">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                <div className="flex items-center gap-3 sm:gap-4 flex-1">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
+                    <Clock className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-display text-lg font-semibold text-foreground">
+                    <h3 className="font-display text-base sm:text-lg font-semibold text-foreground">
                       Spaced Repetition Review
                     </h3>
                     <p className="text-sm text-muted-foreground">
@@ -511,6 +570,7 @@ const Index = () => {
                   </div>
                 </div>
                 <Button
+                  className="w-full sm:w-auto shrink-0"
                   onClick={() => navigate('/study')}
                   disabled={dueCards.length === 0}
                 >
@@ -523,15 +583,15 @@ const Index = () => {
         )}
 
         {/* Hard Words Banner */}
-        <div className="mb-8">
-          <div className="bg-gradient-to-r from-orange-500/10 to-red-500/10 rounded-xl border border-orange-500/20 p-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-orange-500/20 flex items-center justify-center">
-                  <Flame className="h-6 w-6 text-orange-500" />
+        <div className="mb-6 sm:mb-8">
+          <div className="bg-gradient-to-r from-orange-500/10 to-red-500/10 rounded-xl border border-orange-500/20 p-4 sm:p-6">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+              <div className="flex items-center gap-3 sm:gap-4 flex-1">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-orange-500/20 flex items-center justify-center shrink-0">
+                  <Flame className="h-5 w-5 sm:h-6 sm:w-6 text-orange-500" />
                 </div>
                 <div>
-                  <h3 className="font-display text-lg font-semibold text-foreground">
+                  <h3 className="font-display text-base sm:text-lg font-semibold text-foreground">
                     Hard Words Hub
                   </h3>
                   <p className="text-sm text-muted-foreground">
@@ -541,7 +601,7 @@ const Index = () => {
               </div>
               <Button
                 variant="outline"
-                className="border-orange-500/20 hover:bg-orange-500/10 hover:text-orange-600"
+                className="w-full sm:w-auto shrink-0 border-orange-500/20 hover:bg-orange-500/10 hover:text-orange-600"
                 onClick={() => navigate('/hard-words')}
               >
                 <Flame className="h-4 w-4 mr-2" />
@@ -552,15 +612,15 @@ const Index = () => {
         </div>
 
         {/* Arcade Banner */}
-        <div className="mb-8">
-          <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-xl border border-purple-500/20 p-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center">
-                  <Gamepad2 className="h-6 w-6 text-purple-600" />
+        <div className="mb-6 sm:mb-8">
+          <div className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-xl border border-purple-500/20 p-4 sm:p-6">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+              <div className="flex items-center gap-3 sm:gap-4 flex-1">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-purple-500/20 flex items-center justify-center shrink-0">
+                  <Gamepad2 className="h-5 w-5 sm:h-6 sm:w-6 text-purple-600" />
                 </div>
                 <div>
-                  <h3 className="font-display text-lg font-semibold text-foreground">
+                  <h3 className="font-display text-base sm:text-lg font-semibold text-foreground">
                     Word Arcade
                   </h3>
                   <p className="text-sm text-muted-foreground">
@@ -570,7 +630,7 @@ const Index = () => {
               </div>
               <Button
                 variant="outline"
-                className="border-purple-500/20 hover:bg-purple-500/10 hover:text-purple-600"
+                className="w-full sm:w-auto shrink-0 border-purple-500/20 hover:bg-purple-500/10 hover:text-purple-600"
                 onClick={() => navigate('/arcade')}
               >
                 <Gamepad2 className="h-4 w-4 mr-2" />

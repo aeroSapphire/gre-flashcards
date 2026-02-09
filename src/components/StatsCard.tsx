@@ -18,41 +18,41 @@ export function StatsCard({ stats }: StatsCardProps) {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-card border border-border rounded-2xl p-6 shadow-sm"
+      className="bg-card border border-border rounded-2xl p-4 sm:p-6 shadow-sm"
     >
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-4 sm:mb-6">
         <h3 className="font-semibold text-foreground">Your Progress</h3>
-        <span className="text-2xl font-display font-bold text-primary">{percentage}%</span>
+        <span className="text-xl sm:text-2xl font-display font-bold text-primary">{percentage}%</span>
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-3 gap-2 sm:gap-4">
         <div className="text-center">
-          <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center mx-auto mb-2">
-            <BookOpen className="h-5 w-5 text-muted-foreground" />
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-muted flex items-center justify-center mx-auto mb-2">
+            <BookOpen className="h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground" />
           </div>
-          <p className="text-2xl font-semibold text-foreground">{stats.new}</p>
+          <p className="text-xl sm:text-2xl font-semibold text-foreground">{stats.new}</p>
           <p className="text-xs text-muted-foreground">New</p>
         </div>
 
         <div className="text-center">
-          <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center mx-auto mb-2">
-            <Brain className="h-5 w-5 text-accent" />
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-accent/20 flex items-center justify-center mx-auto mb-2">
+            <Brain className="h-4 w-4 sm:h-5 sm:w-5 text-accent" />
           </div>
-          <p className="text-2xl font-semibold text-foreground">{stats.learning}</p>
+          <p className="text-xl sm:text-2xl font-semibold text-foreground">{stats.learning}</p>
           <p className="text-xs text-muted-foreground">Learning</p>
         </div>
 
         <div className="text-center">
-          <div className="w-12 h-12 rounded-full bg-success/20 flex items-center justify-center mx-auto mb-2">
-            <Trophy className="h-5 w-5 text-success" />
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-success/20 flex items-center justify-center mx-auto mb-2">
+            <Trophy className="h-4 w-4 sm:h-5 sm:w-5 text-success" />
           </div>
-          <p className="text-2xl font-semibold text-foreground">{stats.learned}</p>
+          <p className="text-xl sm:text-2xl font-semibold text-foreground">{stats.learned}</p>
           <p className="text-xs text-muted-foreground">Mastered</p>
         </div>
       </div>
 
       {/* Progress bar */}
-      <div className="mt-6">
+      <div className="mt-4 sm:mt-6">
         <div className="h-2 bg-muted rounded-full overflow-hidden flex">
           <motion.div
             className="h-full bg-success"
