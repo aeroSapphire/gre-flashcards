@@ -1,0 +1,972 @@
+[
+  {
+    "id": "TC-CON-001",
+    "type": "text_completion",
+    "skills": ["TC-CON"],
+    "difficulty": 1,
+    "stem": "Although the professor's lectures were often dense and challenging, her clear examples made even the most ___ concepts accessible to students.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "abstruse", "correct": true},
+      {"id": "B", "text": "transparent", "correct": false},
+      {"id": "C", "text": "elementary", "correct": false},
+      {"id": "D", "text": "familiar", "correct": false},
+      {"id": "E", "text": "mundane", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "The word 'Although' signals a contrast: the lectures were 'dense and challenging,' but the examples made concepts 'accessible.' We need a word that means difficult to understand, matching the contrast. 'Abstruse' means obscure or difficult to understand.",
+    "skillExplanation": {"TC-CON": "'Although' is a classic contrast signal. The blank must align with 'dense and challenging' since the sentence pivots to the positive outcome of accessibility."},
+    "trapAnalysis": {"B": "'Transparent' means easily understood, which contradicts the contrast—we need a word meaning difficult.", "E": "'Mundane' means boring, not difficult. The passage contrasts difficulty with accessibility, not boredom."},
+    "tags": ["TC-CON", "difficulty-1"]
+  },
+  {
+    "id": "TC-CON-002",
+    "type": "text_completion",
+    "skills": ["TC-CON"],
+    "difficulty": 2,
+    "stem": "Despite the critic's ___ review, the film went on to become one of the highest-grossing releases of the year.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "laudatory", "correct": false},
+      {"id": "B", "text": "scathing", "correct": true},
+      {"id": "C", "text": "balanced", "correct": false},
+      {"id": "D", "text": "enthusiastic", "correct": false},
+      {"id": "E", "text": "nuanced", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "'Despite' signals a contrast between the review and the film's commercial success. Since the film succeeded greatly, the review must have been negative. 'Scathing' means severely critical.",
+    "skillExplanation": {"TC-CON": "'Despite' creates an opposition. The positive outcome (highest-grossing) tells us the blank must be negative."},
+    "trapAnalysis": {"A": "'Laudatory' means praising—this would create no contrast with commercial success.", "C": "'Balanced' is neutral and doesn't create the strong contrast 'despite' demands."},
+    "tags": ["TC-CON", "difficulty-2"]
+  },
+  {
+    "id": "TC-CON-003",
+    "type": "text_completion",
+    "skills": ["TC-CON"],
+    "difficulty": 3,
+    "stem": "The diplomat was known for her ___ demeanor in public, yet those who worked closely with her described a fiercely competitive personality behind closed doors.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "combative", "correct": false},
+      {"id": "B", "text": "placid", "correct": true},
+      {"id": "C", "text": "ambitious", "correct": false},
+      {"id": "D", "text": "volatile", "correct": false},
+      {"id": "E", "text": "ruthless", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "'Yet' signals a contrast between her public demeanor and her private personality. Since she is 'fiercely competitive' in private, her public demeanor must be the opposite—calm and composed. 'Placid' means calm and peaceful.",
+    "skillExplanation": {"TC-CON": "'Yet' is the pivot. The second half describes fierce competitiveness, so the blank (public demeanor) must contrast with that intensity."},
+    "trapAnalysis": {"C": "'Ambitious' might seem related to competitiveness but doesn't contrast with it—it would be consistent, not contrasting.", "A": "'Combative' aligns with 'fiercely competitive' rather than contrasting with it."},
+    "tags": ["TC-CON", "difficulty-3"]
+  },
+  {
+    "id": "TC-CON-004",
+    "type": "text_completion",
+    "skills": ["TC-CON"],
+    "difficulty": 4,
+    "stem": "While many of his contemporaries embraced the new empirical methods, Whitfield remained ___, preferring the traditional philosophical frameworks that had guided scholarship for centuries.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "iconoclastic", "correct": false},
+      {"id": "B", "text": "progressive", "correct": false},
+      {"id": "C", "text": "hidebound", "correct": true},
+      {"id": "D", "text": "eclectic", "correct": false},
+      {"id": "E", "text": "pragmatic", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "'While' contrasts Whitfield with contemporaries who embraced new methods. Whitfield preferred traditional frameworks, so he was resistant to change. 'Hidebound' means unwilling to change because of tradition.",
+    "skillExplanation": {"TC-CON": "'While' sets up a contrast between the group (embracing new methods) and the individual (preferring tradition). The blank must express adherence to tradition."},
+    "trapAnalysis": {"A": "'Iconoclastic' means attacking cherished beliefs—the opposite of someone who clings to tradition.", "E": "'Pragmatic' means practical, which doesn't capture the traditionalist stance the contrast requires."},
+    "tags": ["TC-CON", "difficulty-4"]
+  },
+  {
+    "id": "TC-CON-005",
+    "type": "text_completion",
+    "skills": ["TC-CON"],
+    "difficulty": 5,
+    "stem": "The author's reputation for ___ was belied by the meticulous archival research underpinning even her most seemingly spontaneous prose.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "erudition", "correct": false},
+      {"id": "B", "text": "improvisation", "correct": true},
+      {"id": "C", "text": "discipline", "correct": false},
+      {"id": "D", "text": "thoroughness", "correct": false},
+      {"id": "E", "text": "meticulousness", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "'Belied' means contradicted. Her reputation was contradicted by meticulous research. So her reputation must be for something opposite to careful research—namely, improvisation or spontaneity.",
+    "skillExplanation": {"TC-CON": "'Belied' is a sophisticated contrast signal meaning 'contradicted.' The blank is the reputation that is disproven by her actual meticulous methods."},
+    "trapAnalysis": {"A": "'Erudition' (deep learning) wouldn't be contradicted by archival research—it would be supported by it.", "D": "'Thoroughness' is consistent with meticulous research, not contradicted by it."},
+    "tags": ["TC-CON", "difficulty-5"]
+  },
+  {
+    "id": "TC-CON-006",
+    "type": "text_completion",
+    "skills": ["TC-CON"],
+    "difficulty": 2,
+    "stem": "The region's climate is ___, with long dry summers followed by months of nearly continuous rainfall.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "variable", "correct": true},
+      {"id": "B", "text": "temperate", "correct": false},
+      {"id": "C", "text": "arid", "correct": false},
+      {"id": "D", "text": "tropical", "correct": false},
+      {"id": "E", "text": "consistent", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "The description mentions both dry summers and continuous rainfall—extremes that contrast with each other. 'Variable' captures this range of conditions.",
+    "skillExplanation": {"TC-CON": "The internal contrast between 'dry summers' and 'continuous rainfall' tells us the climate shifts dramatically, requiring a word that captures change."},
+    "trapAnalysis": {"C": "'Arid' only captures the dry aspect, ignoring the rainfall.", "E": "'Consistent' contradicts the described variation between dry and wet seasons."},
+    "tags": ["TC-CON", "difficulty-2"]
+  },
+  {
+    "id": "TC-CONT-001",
+    "type": "text_completion",
+    "skills": ["TC-CONT"],
+    "difficulty": 1,
+    "stem": "The experiment confirmed the researcher's hypothesis; indeed, the results were even more ___ than she had predicted.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "ambiguous", "correct": false},
+      {"id": "B", "text": "conclusive", "correct": true},
+      {"id": "C", "text": "disappointing", "correct": false},
+      {"id": "D", "text": "negligible", "correct": false},
+      {"id": "E", "text": "contradictory", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "'Indeed' signals continuation and intensification. The results confirmed the hypothesis and were 'even more' positive than predicted. 'Conclusive' means definitive and decisive.",
+    "skillExplanation": {"TC-CONT": "'Indeed' is a continuation signal that intensifies the first clause. Since the hypothesis was confirmed, the results were even more strongly confirmatory."},
+    "trapAnalysis": {"A": "'Ambiguous' contradicts confirmation—confirmed results are clear, not ambiguous.", "E": "'Contradictory' opposes the continuation signal 'indeed' which reinforces the positive outcome."},
+    "tags": ["TC-CONT", "difficulty-1"]
+  },
+  {
+    "id": "TC-CONT-002",
+    "type": "text_completion",
+    "skills": ["TC-CONT"],
+    "difficulty": 2,
+    "stem": "The company's financial troubles were well documented; moreover, internal audits revealed that the problems were far more ___ than public reports suggested.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "trivial", "correct": false},
+      {"id": "B", "text": "pervasive", "correct": true},
+      {"id": "C", "text": "contained", "correct": false},
+      {"id": "D", "text": "manageable", "correct": false},
+      {"id": "E", "text": "superficial", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "'Moreover' signals that additional information reinforces and extends the first point. The financial troubles were already documented, and internal audits showed they were even worse. 'Pervasive' means widespread.",
+    "skillExplanation": {"TC-CONT": "'Moreover' adds to and intensifies the previous statement. Since troubles were already known, the blank must amplify the severity."},
+    "trapAnalysis": {"C": "'Contained' would minimize the problems, contradicting the intensifying signal 'moreover.'", "A": "'Trivial' contradicts the escalation that 'moreover' and 'far more' both signal."},
+    "tags": ["TC-CONT", "difficulty-2"]
+  },
+  {
+    "id": "TC-CONT-003",
+    "type": "text_completion",
+    "skills": ["TC-CONT"],
+    "difficulty": 3,
+    "stem": "The novelist's prose was already celebrated for its precision; furthermore, her latest work demonstrated a newfound ___ that elevated her writing to an entirely different level.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "lyricism", "correct": true},
+      {"id": "B", "text": "verbosity", "correct": false},
+      {"id": "C", "text": "obscurity", "correct": false},
+      {"id": "D", "text": "rigidity", "correct": false},
+      {"id": "E", "text": "predictability", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "'Furthermore' continues and builds on the initial praise. Her precision was already celebrated, and her latest work added a new positive quality that elevated her writing. 'Lyricism' (musical, poetic quality) adds a new dimension to precision.",
+    "skillExplanation": {"TC-CONT": "'Furthermore' signals addition of a complementary positive quality. The blank must be a new positive attribute that builds on existing precision."},
+    "trapAnalysis": {"B": "'Verbosity' (wordiness) is negative and contradicts precision.", "D": "'Rigidity' is not a quality that 'elevates' writing—it constrains it."},
+    "tags": ["TC-CONT", "difficulty-3"]
+  },
+  {
+    "id": "TC-CONT-004",
+    "type": "text_completion",
+    "skills": ["TC-CONT"],
+    "difficulty": 4,
+    "stem": "The archaeological site had already yielded significant artifacts; in fact, recent excavations uncovered evidence so ___ that scholars were forced to fundamentally revise their chronology of the region.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "corroborative", "correct": false},
+      {"id": "B", "text": "anomalous", "correct": true},
+      {"id": "C", "text": "fragmentary", "correct": false},
+      {"id": "D", "text": "redundant", "correct": false},
+      {"id": "E", "text": "anticipated", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "'In fact' intensifies: the new evidence was so significant that scholars had to revise their understanding. 'Anomalous' (deviating from what is expected) explains why revision was necessary—the evidence didn't fit existing models.",
+    "skillExplanation": {"TC-CONT": "'In fact' escalates the significance. The evidence must be something that forced revision, meaning it challenged existing understanding."},
+    "trapAnalysis": {"A": "'Corroborative' (confirming) wouldn't force scholars to revise—it would support existing views.", "E": "'Anticipated' means expected, which wouldn't cause fundamental revision."},
+    "tags": ["TC-CONT", "difficulty-4"]
+  },
+  {
+    "id": "TC-CONT-005",
+    "type": "text_completion",
+    "skills": ["TC-CONT"],
+    "difficulty": 5,
+    "stem": "The philosopher's skepticism extended beyond mere intellectual exercise; it was, in the final analysis, a deeply ___ stance rooted in her conviction that certainty itself was an impediment to genuine inquiry.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "provisional", "correct": false},
+      {"id": "B", "text": "dogmatic", "correct": false},
+      {"id": "C", "text": "principled", "correct": true},
+      {"id": "D", "text": "capricious", "correct": false},
+      {"id": "E", "text": "detached", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "The sentence escalates from 'mere intellectual exercise' to something deeper. Her skepticism was 'rooted in conviction'—it was a moral/philosophical commitment. 'Principled' means based on firm beliefs.",
+    "skillExplanation": {"TC-CONT": "The structure escalates: 'beyond mere X; it was Y.' The blank must be stronger and more grounded than intellectual exercise, especially given 'rooted in conviction.'"},
+    "trapAnalysis": {"B": "'Dogmatic' (rigidly adhering to doctrine) contradicts skepticism, which questions certainty.", "D": "'Capricious' (unpredictable) contradicts 'rooted in conviction,' which implies stability."},
+    "tags": ["TC-CONT", "difficulty-5"]
+  },
+  {
+    "id": "TC-CE-001",
+    "type": "text_completion",
+    "skills": ["TC-CE"],
+    "difficulty": 1,
+    "stem": "Because the soil was extremely fertile, the crops grew with remarkable ___.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "difficulty", "correct": false},
+      {"id": "B", "text": "vigor", "correct": true},
+      {"id": "C", "text": "reluctance", "correct": false},
+      {"id": "D", "text": "scarcity", "correct": false},
+      {"id": "E", "text": "uniformity", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "'Because' establishes cause-effect: fertile soil causes strong growth. 'Vigor' means healthy, strong growth.",
+    "skillExplanation": {"TC-CE": "'Because' directly links cause (fertile soil) to effect (how crops grew). The effect must logically follow from the cause."},
+    "trapAnalysis": {"A": "'Difficulty' contradicts the cause—fertile soil would make growth easier, not harder.", "E": "'Uniformity' describes consistency but doesn't logically follow from fertility."},
+    "tags": ["TC-CE", "difficulty-1"]
+  },
+  {
+    "id": "TC-CE-002",
+    "type": "text_completion",
+    "skills": ["TC-CE"],
+    "difficulty": 2,
+    "stem": "Since the new regulations imposed strict limits on emissions, many older factories were forced to either ___ their equipment or shut down entirely.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "maintain", "correct": false},
+      {"id": "B", "text": "upgrade", "correct": true},
+      {"id": "C", "text": "display", "correct": false},
+      {"id": "D", "text": "duplicate", "correct": false},
+      {"id": "E", "text": "discard", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "'Since' establishes cause: strict emission limits force factories to comply. The alternative to shutting down is improving equipment to meet standards. 'Upgrade' means improve to a higher standard.",
+    "skillExplanation": {"TC-CE": "'Since' connects cause (regulations) to consequence (factories must act). The blank must describe a response that addresses the cause."},
+    "trapAnalysis": {"A": "'Maintain' means keep the same, which wouldn't address new stricter limits.", "E": "'Discard' implies throwing away equipment entirely, which would be closer to shutting down—not an alternative to it."},
+    "tags": ["TC-CE", "difficulty-2"]
+  },
+  {
+    "id": "TC-CE-003",
+    "type": "text_completion",
+    "skills": ["TC-CE"],
+    "difficulty": 3,
+    "stem": "The unprecedented drought led to such ___ water shortages that the government was compelled to impose rationing for the first time in the nation's history.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "sporadic", "correct": false},
+      {"id": "B", "text": "negligible", "correct": false},
+      {"id": "C", "text": "acute", "correct": true},
+      {"id": "D", "text": "periodic", "correct": false},
+      {"id": "E", "text": "anticipated", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "The cause (unprecedented drought) led to water shortages severe enough to compel first-ever rationing. 'Acute' means severe or critical.",
+    "skillExplanation": {"TC-CE": "'Led to' is the cause-effect link. 'Such ___ that' intensifies: the shortages must be extreme enough to justify the unprecedented government response."},
+    "trapAnalysis": {"A": "'Sporadic' means irregular, not severe—it wouldn't compel nationwide rationing.", "B": "'Negligible' means insignificant, the opposite of what would trigger emergency rationing."},
+    "tags": ["TC-CE", "difficulty-3"]
+  },
+  {
+    "id": "TC-CE-004",
+    "type": "text_completion",
+    "skills": ["TC-CE"],
+    "difficulty": 4,
+    "stem": "The artist's prolonged isolation, far from diminishing her creative output, paradoxically served as a catalyst for her most ___ period, during which she produced works of staggering ambition.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "fallow", "correct": false},
+      {"id": "B", "text": "derivative", "correct": false},
+      {"id": "C", "text": "prolific", "correct": true},
+      {"id": "D", "text": "conventional", "correct": false},
+      {"id": "E", "text": "restrained", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "'Catalyst' means something that triggers an increase. The sentence says isolation didn't diminish output but instead fueled her most productive time. 'Prolific' means producing abundant work.",
+    "skillExplanation": {"TC-CE": "The cause (isolation as catalyst) led to an effect (her most ___ period). 'Staggering ambition' further clarifies this was an exceptionally productive period."},
+    "trapAnalysis": {"A": "'Fallow' means inactive/unproductive, contradicting 'catalyst' and 'staggering ambition.'", "E": "'Restrained' contradicts 'staggering ambition'—her work was bold, not held back."},
+    "tags": ["TC-CE", "difficulty-4"]
+  },
+  {
+    "id": "TC-CE-005",
+    "type": "text_completion",
+    "skills": ["TC-CE"],
+    "difficulty": 5,
+    "stem": "The discovery that the protein operates through an entirely novel mechanism consequently rendered decades of pharmacological models ___, forcing researchers to reconstruct their theoretical framework from first principles.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "vindicated", "correct": false},
+      {"id": "B", "text": "obsolete", "correct": true},
+      {"id": "C", "text": "comprehensive", "correct": false},
+      {"id": "D", "text": "refined", "correct": false},
+      {"id": "E", "text": "augmented", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "'Consequently' links the novel mechanism discovery to its effect on existing models. Since the mechanism was entirely new, old models based on different assumptions became outdated. 'Obsolete' means no longer valid.",
+    "skillExplanation": {"TC-CE": "'Consequently' is the causal link. An entirely novel mechanism would invalidate models built on old assumptions, and 'reconstruct from first principles' confirms the old models are useless."},
+    "trapAnalysis": {"A": "'Vindicated' means proven correct, the opposite—old models were disproven, not confirmed.", "D": "'Refined' suggests improvement, but models were abandoned entirely ('from first principles'), not merely adjusted."},
+    "tags": ["TC-CE", "difficulty-5"]
+  },
+  {
+    "id": "TC-ELAB-001",
+    "type": "text_completion",
+    "skills": ["TC-ELAB"],
+    "difficulty": 1,
+    "stem": "The professor was known for her candor—she always spoke with complete ___.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "honesty", "correct": true},
+      {"id": "B", "text": "ambiguity", "correct": false},
+      {"id": "C", "text": "restraint", "correct": false},
+      {"id": "D", "text": "formality", "correct": false},
+      {"id": "E", "text": "reluctance", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "The dash introduces an elaboration of 'candor.' Candor means openness and honesty, so the blank must restate or elaborate on that. 'Honesty' directly restates candor.",
+    "skillExplanation": {"TC-ELAB": "The dash (—) signals elaboration: what follows defines or restates what came before. 'Candor' is being defined by 'complete ___.'"},
+    "trapAnalysis": {"C": "'Restraint' means holding back, which contradicts candor (speaking openly).", "B": "'Ambiguity' means vagueness, opposite of the directness candor implies."},
+    "tags": ["TC-ELAB", "difficulty-1"]
+  },
+  {
+    "id": "TC-ELAB-002",
+    "type": "text_completion",
+    "skills": ["TC-ELAB"],
+    "difficulty": 2,
+    "stem": "The city's architecture reflects its eclectic history: buildings from a dozen different eras and styles ___ along a single boulevard.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "coexist", "correct": true},
+      {"id": "B", "text": "collapse", "correct": false},
+      {"id": "C", "text": "compete", "correct": false},
+      {"id": "D", "text": "disappear", "correct": false},
+      {"id": "E", "text": "conflict", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "The colon elaborates on 'eclectic history.' Eclectic means combining diverse elements. Buildings from different eras and styles standing together is an elaboration of eclecticism. 'Coexist' means exist together.",
+    "skillExplanation": {"TC-ELAB": "The colon (:) introduces a concrete illustration of the abstract claim 'eclectic history.' The blank describes how diverse buildings relate to each other on the boulevard."},
+    "trapAnalysis": {"C": "'Compete' implies negative tension, which goes beyond the neutral meaning of 'eclectic.'", "E": "'Conflict' similarly implies hostility, not the diverse-but-harmonious coexistence 'eclectic' suggests."},
+    "tags": ["TC-ELAB", "difficulty-2"]
+  },
+  {
+    "id": "TC-ELAB-003",
+    "type": "text_completion",
+    "skills": ["TC-ELAB"],
+    "difficulty": 3,
+    "stem": "The committee described the proposal as quixotic—a plan so ___ impractical that it seemed drawn from fantasy rather than policy analysis.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "marginally", "correct": false},
+      {"id": "B", "text": "wildly", "correct": true},
+      {"id": "C", "text": "slightly", "correct": false},
+      {"id": "D", "text": "subtly", "correct": false},
+      {"id": "E", "text": "cautiously", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "The dash elaborates on 'quixotic' (unrealistically idealistic). The elaboration says it 'seemed drawn from fantasy,' so the degree of impracticality must be extreme. 'Wildly' captures this extreme degree.",
+    "skillExplanation": {"TC-ELAB": "The dash elaborates 'quixotic' with a definition. 'So ___ impractical that it seemed drawn from fantasy' is an amplified restatement, requiring an intensifier."},
+    "trapAnalysis": {"A": "'Marginally' means slightly, which contradicts the extreme language 'drawn from fantasy.'", "D": "'Subtly' implies the impracticality is hidden, but the passage describes it as obvious and extreme."},
+    "tags": ["TC-ELAB", "difficulty-3"]
+  },
+  {
+    "id": "TC-ELAB-004",
+    "type": "text_completion",
+    "skills": ["TC-ELAB"],
+    "difficulty": 4,
+    "stem": "The author cultivated a persona of studied nonchalance: every seemingly ___ remark was, in reality, the product of careful deliberation.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "offhand", "correct": true},
+      {"id": "B", "text": "offensive", "correct": false},
+      {"id": "C", "text": "profound", "correct": false},
+      {"id": "D", "text": "calculated", "correct": false},
+      {"id": "E", "text": "eloquent", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "The colon elaborates on 'studied nonchalance' (practiced casualness). Each remark that seemed casual was actually deliberate. 'Offhand' means casual or unconsidered—matching the appearance of nonchalance.",
+    "skillExplanation": {"TC-ELAB": "The colon explains how 'studied nonchalance' works in practice. 'Seemingly ___' is the appearance, contrasted with 'in reality, careful deliberation.' The blank must describe apparent casualness."},
+    "trapAnalysis": {"D": "'Calculated' describes what the remarks actually were, not what they seemed to be. The sentence distinguishes appearance from reality.", "C": "'Profound' doesn't match 'nonchalance'—profound remarks would be the opposite of casual."},
+    "tags": ["TC-ELAB", "difficulty-4"]
+  },
+  {
+    "id": "TC-ELAB-005",
+    "type": "text_completion",
+    "skills": ["TC-ELAB"],
+    "difficulty": 5,
+    "stem": "The historian's magnum opus was a work of prodigious ___: spanning six volumes, drawing on archives in fourteen countries, and synthesizing three centuries of disparate primary sources into a single coherent narrative.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "brevity", "correct": false},
+      {"id": "B", "text": "scope", "correct": true},
+      {"id": "C", "text": "controversy", "correct": false},
+      {"id": "D", "text": "simplicity", "correct": false},
+      {"id": "E", "text": "nostalgia", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "The colon introduces three elaborating details: six volumes, fourteen countries, three centuries. All emphasize the enormous scale and range of the work. 'Scope' means the extent or range.",
+    "skillExplanation": {"TC-ELAB": "The colon begins an extended elaboration. Each detail (volumes, countries, centuries) illustrates the vastness described by 'prodigious ___.'"},
+    "trapAnalysis": {"A": "'Brevity' means conciseness, contradicted by six volumes and centuries of sources.", "D": "'Simplicity' contradicts 'synthesizing disparate primary sources,' which implies complexity."},
+    "tags": ["TC-ELAB", "difficulty-5"]
+  },
+  {
+    "id": "TC-IRO-001",
+    "type": "text_completion",
+    "skills": ["TC-IRO"],
+    "difficulty": 2,
+    "stem": "Ironically, the fire safety manual was destroyed in the blaze, leaving the building's occupants without the very ___ that might have saved them.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "hazard", "correct": false},
+      {"id": "B", "text": "guidance", "correct": true},
+      {"id": "C", "text": "accelerant", "correct": false},
+      {"id": "D", "text": "obstruction", "correct": false},
+      {"id": "E", "text": "insurance", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "'Ironically' signals a paradox: the safety manual (meant to help during fires) was itself destroyed by fire. The manual provides guidance, so 'guidance' is what they lost.",
+    "skillExplanation": {"TC-IRO": "'Ironically' flags the paradox—the tool meant to prevent harm from fire was destroyed by fire. The blank restates what the manual provides."},
+    "trapAnalysis": {"E": "'Insurance' relates to financial protection, not the practical advice a safety manual provides.", "A": "'Hazard' is what the manual was meant to protect against, not what it provides."},
+    "tags": ["TC-IRO", "difficulty-2"]
+  },
+  {
+    "id": "TC-IRO-002",
+    "type": "text_completion",
+    "skills": ["TC-IRO"],
+    "difficulty": 3,
+    "stem": "Paradoxically, the committee established to reduce bureaucratic complexity ended up creating an additional layer of ___ that further entangled the very processes it was meant to streamline.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "transparency", "correct": false},
+      {"id": "B", "text": "efficiency", "correct": false},
+      {"id": "C", "text": "red tape", "correct": true},
+      {"id": "D", "text": "innovation", "correct": false},
+      {"id": "E", "text": "accountability", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "'Paradoxically' signals that the committee achieved the opposite of its goal. Meant to reduce complexity, it added more. 'Red tape' means excessive bureaucracy.",
+    "skillExplanation": {"TC-IRO": "'Paradoxically' announces an outcome opposite to intention. The committee meant to reduce bureaucracy but created more—the blank must name what they accidentally added."},
+    "trapAnalysis": {"B": "'Efficiency' is what the committee was supposed to create, not what it accidentally added.", "A": "'Transparency' is positive—it wouldn't 'further entangle' processes."},
+    "tags": ["TC-IRO", "difficulty-3"]
+  },
+  {
+    "id": "TC-IRO-003",
+    "type": "text_completion",
+    "skills": ["TC-IRO"],
+    "difficulty": 4,
+    "stem": "Surprisingly, the most ___ members of the research team were the junior associates, whose fresh perspectives allowed them to identify patterns that veterans, blinded by expertise, had overlooked for decades.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "experienced", "correct": false},
+      {"id": "B", "text": "insightful", "correct": true},
+      {"id": "C", "text": "tentative", "correct": false},
+      {"id": "D", "text": "established", "correct": false},
+      {"id": "E", "text": "cautious", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "'Surprisingly' signals an unexpected outcome. Junior associates—not veterans—showed the most analytical insight. 'Insightful' means perceptive, which is surprising for the least experienced members.",
+    "skillExplanation": {"TC-IRO": "'Surprisingly' flags the paradox that juniors outperformed experts. 'Blinded by expertise' explains the mechanism—experience created blind spots."},
+    "trapAnalysis": {"A": "'Experienced' would describe veterans, not juniors—and wouldn't be surprising for them.", "D": "'Established' describes seniority, not analytical ability, and wouldn't apply to juniors."},
+    "tags": ["TC-IRO", "difficulty-4"]
+  },
+  {
+    "id": "TC-IRO-004",
+    "type": "text_completion",
+    "skills": ["TC-IRO"],
+    "difficulty": 5,
+    "stem": "Counterintuitively, the policy designed to incentivize charitable giving actually ___ donations, as potential donors, suspecting governmental manipulation, became reluctant to participate in what they now viewed as a coercive scheme.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "supplemented", "correct": false},
+      {"id": "B", "text": "curtailed", "correct": true},
+      {"id": "C", "text": "diversified", "correct": false},
+      {"id": "D", "text": "legitimized", "correct": false},
+      {"id": "E", "text": "amplified", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "'Counterintuitively' signals the opposite outcome. A policy to increase giving actually decreased it because donors saw it as coercive. 'Curtailed' means reduced or restricted.",
+    "skillExplanation": {"TC-IRO": "'Counterintuitively' is the strongest paradox marker. The policy achieved the exact opposite of its intent—incentives reduced participation rather than increasing it."},
+    "trapAnalysis": {"E": "'Amplified' is the expected outcome, not the counterintuitive one. The whole point is that the policy backfired.", "A": "'Supplemented' means added to, which would be the intended effect, not the paradoxical one."},
+    "tags": ["TC-IRO", "difficulty-5"]
+  },
+  {
+    "id": "TC-DEG-001",
+    "type": "text_completion",
+    "skills": ["TC-DEG"],
+    "difficulty": 2,
+    "stem": "The manager was not merely competent but truly ___; her strategic vision transformed the struggling department into the company's most profitable division.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "adequate", "correct": false},
+      {"id": "B", "text": "exceptional", "correct": true},
+      {"id": "C", "text": "mediocre", "correct": false},
+      {"id": "D", "text": "dependable", "correct": false},
+      {"id": "E", "text": "cautious", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "'Not merely X but Y' is a degree shift—Y is a stronger version of X. Since she's described as beyond 'competent,' the blank must be a higher-degree version of competence. 'Exceptional' intensifies beyond competent.",
+    "skillExplanation": {"TC-DEG": "'Not merely X but Y' signals that Y is an escalation of X. The blank must be a step above 'competent.'"},
+    "trapAnalysis": {"A": "'Adequate' is a synonym for competent, not an escalation. 'Not merely competent but adequate' would be redundant.", "D": "'Dependable' is a lateral quality, not an intensification of competence."},
+    "tags": ["TC-DEG", "difficulty-2"]
+  },
+  {
+    "id": "TC-DEG-002",
+    "type": "text_completion",
+    "skills": ["TC-DEG"],
+    "difficulty": 3,
+    "stem": "The evidence was so ___ as to leave absolutely no room for alternative interpretations; even the most skeptical jurors acknowledged its conclusiveness.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "equivocal", "correct": false},
+      {"id": "B", "text": "circumstantial", "correct": false},
+      {"id": "C", "text": "compelling", "correct": true},
+      {"id": "D", "text": "tangential", "correct": false},
+      {"id": "E", "text": "speculative", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "'So ___ as to' is a degree construction: the evidence was [word] to such a degree that no alternatives remained. Even skeptics accepted it. 'Compelling' means convincing and decisive.",
+    "skillExplanation": {"TC-DEG": "'So ___ as to X' establishes a threshold—the quality was strong enough to produce the stated result. The result (no alternative interpretations) demands an extremely strong quality."},
+    "trapAnalysis": {"A": "'Equivocal' means ambiguous, which would leave room for alternatives, not eliminate them.", "B": "'Circumstantial' evidence is indirect, unlikely to leave 'no room for alternative interpretations.'"},
+    "tags": ["TC-DEG", "difficulty-3"]
+  },
+  {
+    "id": "TC-DEG-003",
+    "type": "text_completion",
+    "skills": ["TC-DEG"],
+    "difficulty": 4,
+    "stem": "The film was not just entertaining but genuinely ___; audiences left theaters not merely amused but deeply moved, many in tears.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "cathartic", "correct": true},
+      {"id": "B", "text": "diverting", "correct": false},
+      {"id": "C", "text": "lengthy", "correct": false},
+      {"id": "D", "text": "formulaic", "correct": false},
+      {"id": "E", "text": "profitable", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "'Not just X but Y' escalates from entertaining to something deeper. 'Not merely amused but deeply moved, many in tears' shows the intensification. 'Cathartic' means providing emotional release through purging of emotions.",
+    "skillExplanation": {"TC-DEG": "Two parallel 'not just/merely' structures reinforce the degree shift. Entertainment → something deeper that produces tears = catharsis."},
+    "trapAnalysis": {"B": "'Diverting' is a synonym for entertaining, not an escalation—it doesn't account for tears.", "E": "'Profitable' describes box office success, not the emotional impact described."},
+    "tags": ["TC-DEG", "difficulty-4"]
+  },
+  {
+    "id": "TC-DEG-004",
+    "type": "text_completion",
+    "skills": ["TC-DEG"],
+    "difficulty": 5,
+    "stem": "The conductor's interpretation was so ___ that it seemed less a performance of the symphony than a complete reimagining, as though the composer's original intentions had been subsumed by an entirely new artistic vision.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "faithful", "correct": false},
+      {"id": "B", "text": "radical", "correct": true},
+      {"id": "C", "text": "conventional", "correct": false},
+      {"id": "D", "text": "restrained", "correct": false},
+      {"id": "E", "text": "reverent", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "'So ___ that' signals extreme degree: the interpretation went beyond performance into reimagining, subsuming original intentions. 'Radical' means fundamentally different or revolutionary.",
+    "skillExplanation": {"TC-DEG": "'So ___ that it seemed less X than Y' establishes the degree. The blank must be extreme enough to justify calling it a 'complete reimagining' rather than a standard performance."},
+    "trapAnalysis": {"A": "'Faithful' means true to the original, directly contradicting 'reimagining' and 'subsumed original intentions.'", "E": "'Reverent' means deeply respectful of tradition, incompatible with subsuming the composer's intentions."},
+    "tags": ["TC-DEG", "difficulty-5"]
+  },
+  {
+    "id": "TC-DN-001",
+    "type": "text_completion",
+    "skills": ["TC-DN"],
+    "difficulty": 3,
+    "stem": "The committee's report was not without its ___; several reviewers noted factual errors and logical inconsistencies that undermined its central argument.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "merits", "correct": false},
+      {"id": "B", "text": "flaws", "correct": true},
+      {"id": "C", "text": "supporters", "correct": false},
+      {"id": "D", "text": "innovations", "correct": false},
+      {"id": "E", "text": "precedents", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "'Not without its ___' is a double negative (litotes) meaning 'it definitely had ___.' The second sentence mentions errors and inconsistencies, confirming the report had problems. 'Flaws' matches.",
+    "skillExplanation": {"TC-DN": "'Not without' is a classic litotes. Unpack the double negative: 'not without flaws' = 'had flaws.' The rest of the sentence confirms this interpretation."},
+    "trapAnalysis": {"A": "'Merits' would make 'not without its merits' mean 'it had some good points,' but the sentence goes on to discuss problems, not positives.", "D": "'Innovations' is positive, contradicted by the errors and inconsistencies described."},
+    "tags": ["TC-DN", "difficulty-3"]
+  },
+  {
+    "id": "TC-DN-002",
+    "type": "text_completion",
+    "skills": ["TC-DN"],
+    "difficulty": 4,
+    "stem": "It would be hardly ___ to claim that the author's influence was limited, given that her theoretical framework has been adopted by virtually every major research institution in the field.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "accurate", "correct": true},
+      {"id": "B", "text": "controversial", "correct": false},
+      {"id": "C", "text": "surprising", "correct": false},
+      {"id": "D", "text": "generous", "correct": false},
+      {"id": "E", "text": "unusual", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "'Hardly ___' is a soft negative. 'Hardly accurate' = not accurate = false. The claim that her influence was limited would be false because every major institution adopted her framework.",
+    "skillExplanation": {"TC-DN": "'Hardly' negates the blank. 'Hardly accurate to claim X' means 'it would be inaccurate to claim X.' Given the evidence of widespread adoption, calling her influence limited would be wrong."},
+    "trapAnalysis": {"C": "'Hardly surprising' would mean 'not surprising,' but the sentence is about truth/accuracy of the claim, not whether it's surprising.", "B": "'Hardly controversial' would mean 'not controversial,' which doesn't address whether the claim is true or false."},
+    "tags": ["TC-DN", "difficulty-4"]
+  },
+  {
+    "id": "TC-DN-003",
+    "type": "text_completion",
+    "skills": ["TC-DN"],
+    "difficulty": 5,
+    "stem": "To say that the negotiations were not lacking in ___ would be an understatement; every session devolved into accusations and recriminations that made progress virtually impossible.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "civility", "correct": false},
+      {"id": "B", "text": "acrimony", "correct": true},
+      {"id": "C", "text": "compromise", "correct": false},
+      {"id": "D", "text": "transparency", "correct": false},
+      {"id": "E", "text": "resolution", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "'Not lacking in ___' means 'had plenty of ___.' Combined with 'would be an understatement,' it means there was an extreme amount. Accusations and recriminations = extreme conflict. 'Acrimony' means bitterness and hostility.",
+    "skillExplanation": {"TC-DN": "'Not lacking in X' = 'had X.' 'Would be an understatement' intensifies: not only did they have X, they had it in extreme abundance. The descriptions of accusations confirm X must be negative."},
+    "trapAnalysis": {"A": "'Not lacking in civility' would mean the negotiations were polite, contradicted by 'accusations and recriminations.'", "C": "'Not lacking in compromise' would mean progress was made, contradicted by 'progress virtually impossible.'"},
+    "tags": ["TC-DN", "difficulty-5"]
+  },
+  {
+    "id": "TC-MB-001",
+    "type": "text_completion",
+    "skills": ["TC-MB"],
+    "difficulty": 3,
+    "stem": "The professor's lectures were (i)___ in content but (ii)___ in delivery, which explained why students found the material fascinating on the page but soporific in the classroom.",
+    "blanks": 2,
+    "options": [
+      {"id": "1A", "text": "stimulating", "correct": true},
+      {"id": "1B", "text": "pedestrian", "correct": false},
+      {"id": "1C", "text": "impenetrable", "correct": false},
+      {"id": "2A", "text": "dynamic", "correct": false},
+      {"id": "2B", "text": "tedious", "correct": true},
+      {"id": "2C", "text": "concise", "correct": false}
+    ],
+    "correctCount": 2,
+    "explanation": "Two contrasting dimensions: content vs. delivery. Students found material 'fascinating on the page' (content is good = stimulating) but 'soporific in the classroom' (delivery is boring = tedious).",
+    "skillExplanation": {"TC-MB": "The sentence sets up a parallel contrast with 'but.' Each blank maps to a different evidence clause: Blank 1 → 'fascinating on the page'; Blank 2 → 'soporific in the classroom.'"},
+    "trapAnalysis": {"1B": "'Pedestrian' (dull) content contradicts students finding the material 'fascinating on the page.'", "2A": "'Dynamic' delivery contradicts 'soporific in the classroom'—dynamic would keep students awake."},
+    "tags": ["TC-MB", "difficulty-3"]
+  },
+  {
+    "id": "TC-MB-002",
+    "type": "text_completion",
+    "skills": ["TC-MB"],
+    "difficulty": 4,
+    "stem": "The diplomat's approach was (i)___ in its goals but (ii)___ in its execution; while she pursued outcomes that no one could fault, her methods frequently provoked outrage among allies who felt they had been (iii)___.",
+    "blanks": 3,
+    "options": [
+      {"id": "1A", "text": "noble", "correct": true},
+      {"id": "1B", "text": "opaque", "correct": false},
+      {"id": "1C", "text": "modest", "correct": false},
+      {"id": "2A", "text": "transparent", "correct": false},
+      {"id": "2B", "text": "ruthless", "correct": true},
+      {"id": "2C", "text": "meticulous", "correct": false},
+      {"id": "3A", "text": "vindicated", "correct": false},
+      {"id": "3B", "text": "manipulated", "correct": true},
+      {"id": "3C", "text": "consulted", "correct": false}
+    ],
+    "correctCount": 3,
+    "explanation": "Three-blank sentence with parallel evidence: Goals = 'no one could fault' → noble. Execution = 'provoked outrage' → ruthless. Allies felt they had been → manipulated (explaining their outrage).",
+    "skillExplanation": {"TC-MB": "Each blank has its own evidence clause. Work sequentially: 'no one could fault' → positive goals. 'Provoked outrage' → harsh methods. 'Outrage among allies' → they felt wronged."},
+    "trapAnalysis": {"1B": "'Opaque' goals would be ones people can't understand—but 'no one could fault' implies the goals were clear and admirable.", "2A": "'Transparent' execution wouldn't provoke outrage—openness is generally valued by allies."},
+    "tags": ["TC-MB", "difficulty-4"]
+  },
+  {
+    "id": "TC-MB-003",
+    "type": "text_completion",
+    "skills": ["TC-MB"],
+    "difficulty": 5,
+    "stem": "What critics dismissed as (i)___ was in fact a deliberate artistic strategy: by (ii)___ conventional narrative structures, the filmmaker forced audiences to engage with the material on a more (iii)___ level than passive entertainment typically demands.",
+    "blanks": 3,
+    "options": [
+      {"id": "1A", "text": "innovation", "correct": false},
+      {"id": "1B", "text": "incompetence", "correct": true},
+      {"id": "1C", "text": "brilliance", "correct": false},
+      {"id": "2A", "text": "embracing", "correct": false},
+      {"id": "2B", "text": "subverting", "correct": true},
+      {"id": "2C", "text": "perfecting", "correct": false},
+      {"id": "3A", "text": "visceral", "correct": true},
+      {"id": "3B", "text": "superficial", "correct": false},
+      {"id": "3C", "text": "commercial", "correct": false}
+    ],
+    "correctCount": 3,
+    "explanation": "Critics saw something negative (incompetence), but it was deliberate strategy. The filmmaker broke conventional structures (subverting) to force deeper engagement (visceral—instinctive/emotional).",
+    "skillExplanation": {"TC-MB": "The 'what X dismissed as ___ was in fact Y' structure sets up a contrast between perception and reality. Blank 1 is the negative misperception, Blanks 2-3 explain the actual strategy."},
+    "trapAnalysis": {"1A": "'Innovation' is positive—critics wouldn't 'dismiss' something as innovative. They dismissed it as something negative.", "2A": "'Embracing' conventional structures wouldn't be a radical strategy that forces new kinds of engagement."},
+    "tags": ["TC-MB", "difficulty-5"]
+  },
+  {
+    "id": "TC-MB-004",
+    "type": "text_completion",
+    "skills": ["TC-MB"],
+    "difficulty": 4,
+    "stem": "The economist's predictions proved (i)___ in the short term but remarkably (ii)___ over longer periods, suggesting that her models captured fundamental trends even when they missed immediate fluctuations.",
+    "blanks": 2,
+    "options": [
+      {"id": "1A", "text": "prescient", "correct": false},
+      {"id": "1B", "text": "unreliable", "correct": true},
+      {"id": "1C", "text": "detailed", "correct": false},
+      {"id": "2A", "text": "inaccurate", "correct": false},
+      {"id": "2B", "text": "prescient", "correct": true},
+      {"id": "2C", "text": "controversial", "correct": false}
+    ],
+    "correctCount": 2,
+    "explanation": "'But' contrasts short-term vs. long-term performance. She 'missed immediate fluctuations' (unreliable short-term) but 'captured fundamental trends' (prescient long-term). 'Prescient' means showing foresight.",
+    "skillExplanation": {"TC-MB": "The 'X in context A but Y in context B' structure requires two contrasting blanks. The final clause provides evidence for both: 'missed immediate fluctuations' → Blank 1; 'captured fundamental trends' → Blank 2."},
+    "trapAnalysis": {"1A": "'Prescient' for short-term contradicts 'missed immediate fluctuations.'", "2A": "'Inaccurate' for long-term contradicts 'captured fundamental trends.'"},
+    "tags": ["TC-MB", "difficulty-4"]
+  },
+  {
+    "id": "TC-CE-006",
+    "type": "text_completion",
+    "skills": ["TC-CE"],
+    "difficulty": 1,
+    "stem": "The road was closed due to heavy flooding; consequently, commuters were forced to find ___ routes to work.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "alternative", "correct": true},
+      {"id": "B", "text": "familiar", "correct": false},
+      {"id": "C", "text": "shorter", "correct": false},
+      {"id": "D", "text": "scenic", "correct": false},
+      {"id": "E", "text": "identical", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "'Consequently' links cause (road closed from flooding) to effect (commuters had to find other ways). Since their usual road was unavailable, they needed different routes. 'Alternative' means other or different.",
+    "skillExplanation": {"TC-CE": "'Consequently' is a direct cause-effect connector. The closure of the road is the cause, and finding different routes is the effect."},
+    "trapAnalysis": {"E": "'Identical' routes would mean the same road, which contradicts the road being closed.", "B": "'Familiar' routes would be their usual ones, but those include the closed road."},
+    "tags": ["TC-CE", "difficulty-1"]
+  },
+  {
+    "id": "TC-CON-007",
+    "type": "text_completion",
+    "skills": ["TC-CON"],
+    "difficulty": 3,
+    "stem": "Far from being the ___ figure that popular mythology suggests, the historical record reveals a leader who was cautious, deliberative, and deeply averse to risk.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "prudent", "correct": false},
+      {"id": "B", "text": "audacious", "correct": true},
+      {"id": "C", "text": "methodical", "correct": false},
+      {"id": "D", "text": "reluctant", "correct": false},
+      {"id": "E", "text": "judicious", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "'Far from being' signals a contrast between myth and reality. The reality is cautious, deliberative, risk-averse. So the myth must be the opposite: bold and daring. 'Audacious' means showing a willingness to take bold risks.",
+    "skillExplanation": {"TC-CON": "'Far from being X' means X is false. X must contrast with the actual description (cautious, risk-averse). The blank must describe boldness or recklessness."},
+    "trapAnalysis": {"A": "'Prudent' means cautious—the same as reality, so there would be no contrast.", "C": "'Methodical' is consistent with 'deliberative,' not contrasting with it."},
+    "tags": ["TC-CON", "difficulty-3"]
+  },
+  {
+    "id": "TC-CONT-006",
+    "type": "text_completion",
+    "skills": ["TC-CONT"],
+    "difficulty": 1,
+    "stem": "The restaurant's food was delicious; in addition, the service was ___ and attentive.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "prompt", "correct": true},
+      {"id": "B", "text": "indifferent", "correct": false},
+      {"id": "C", "text": "absent", "correct": false},
+      {"id": "D", "text": "hostile", "correct": false},
+      {"id": "E", "text": "erratic", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "'In addition' signals continuation—another positive quality. The food was delicious (positive), so the service must also be positive. 'Prompt' (quick and efficient) pairs well with 'attentive.'",
+    "skillExplanation": {"TC-CONT": "'In addition' signals that the new information matches the tone of what came before. Positive food description → positive service description."},
+    "trapAnalysis": {"B": "'Indifferent' means uncaring, contradicting the positive continuation signal.", "E": "'Erratic' means inconsistent, which contradicts the implied quality alongside 'attentive.'"},
+    "tags": ["TC-CONT", "difficulty-1"]
+  },
+  {
+    "id": "TC-ELAB-006",
+    "type": "text_completion",
+    "skills": ["TC-ELAB"],
+    "difficulty": 3,
+    "stem": "The artist was a consummate perfectionist—she would rework a single canvas for months, never satisfied, always finding some new ___ that demanded correction.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "imperfection", "correct": true},
+      {"id": "B", "text": "masterpiece", "correct": false},
+      {"id": "C", "text": "admirer", "correct": false},
+      {"id": "D", "text": "inspiration", "correct": false},
+      {"id": "E", "text": "patron", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "The dash elaborates on 'perfectionist.' Reworking for months and never being satisfied means she kept finding things wrong. 'Imperfection' is what a perfectionist would constantly discover.",
+    "skillExplanation": {"TC-ELAB": "The dash introduces a concrete illustration of being a perfectionist. 'Never satisfied' and 'demanded correction' point to finding flaws."},
+    "trapAnalysis": {"D": "'Inspiration' is positive—finding inspiration wouldn't 'demand correction.'", "B": "'Masterpiece' is the opposite of something needing correction."},
+    "tags": ["TC-ELAB", "difficulty-3"]
+  },
+  {
+    "id": "TC-IRO-005",
+    "type": "text_completion",
+    "skills": ["TC-IRO"],
+    "difficulty": 3,
+    "stem": "In a surprising twist, the bestselling book on minimalism came in an extravagantly ___ edition, complete with gold leaf detailing and a silk-bound cover.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "austere", "correct": false},
+      {"id": "B", "text": "lavish", "correct": true},
+      {"id": "C", "text": "modest", "correct": false},
+      {"id": "D", "text": "compact", "correct": false},
+      {"id": "E", "text": "digital", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "'Surprising twist' signals irony: a book about minimalism (simplicity) was produced in an ornate, excessive manner. Gold leaf and silk-bound confirm extravagance. 'Lavish' means sumptuously rich.",
+    "skillExplanation": {"TC-IRO": "The irony is that a book preaching less is packaged with more. 'Surprising twist' flags this contradiction."},
+    "trapAnalysis": {"A": "'Austere' means bare and simple, which would be expected for a minimalism book—not surprising.", "C": "'Modest' would be consistent with minimalism, eliminating the ironic twist."},
+    "tags": ["TC-IRO", "difficulty-3"]
+  },
+  {
+    "id": "TC-DEG-005",
+    "type": "text_completion",
+    "skills": ["TC-DEG"],
+    "difficulty": 1,
+    "stem": "The view from the mountaintop was so ___ that several hikers simply stood in silence, unable to find words adequate to describe it.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "obscured", "correct": false},
+      {"id": "B", "text": "breathtaking", "correct": true},
+      {"id": "C", "text": "disappointing", "correct": false},
+      {"id": "D", "text": "ordinary", "correct": false},
+      {"id": "E", "text": "hazy", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "'So ___ that' signals degree: the view's quality caused speechlessness. Being struck speechless by beauty is a strong positive reaction. 'Breathtaking' means astonishingly beautiful.",
+    "skillExplanation": {"TC-DEG": "'So X that Y' connects degree to result. The result (speechless, unable to find words) tells us the blank must describe something overwhelmingly positive."},
+    "trapAnalysis": {"A": "'Obscured' means hidden—a hidden view wouldn't cause speechless admiration.", "D": "'Ordinary' wouldn't render hikers speechless."},
+    "tags": ["TC-DEG", "difficulty-1"]
+  },
+  {
+    "id": "TC-CE-007",
+    "type": "text_completion",
+    "skills": ["TC-CE"],
+    "difficulty": 3,
+    "stem": "The treaty's failure to address territorial disputes directly resulted in decades of ___ between the two nations, with periodic outbreaks of violence along the contested border.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "cooperation", "correct": false},
+      {"id": "B", "text": "animosity", "correct": true},
+      {"id": "C", "text": "indifference", "correct": false},
+      {"id": "D", "text": "commerce", "correct": false},
+      {"id": "E", "text": "diplomacy", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "'Directly resulted in' is explicit cause-effect. Unresolved territorial disputes caused decades of conflict. 'Periodic outbreaks of violence' confirms hostility. 'Animosity' means strong hostility.",
+    "skillExplanation": {"TC-CE": "'Directly resulted in' is among the strongest cause-effect signals. The blank describes the consequence of the failure, confirmed by 'outbreaks of violence.'"},
+    "trapAnalysis": {"A": "'Cooperation' contradicts 'outbreaks of violence along the contested border.'", "E": "'Diplomacy' is generally positive and doesn't align with periodic violence."},
+    "tags": ["TC-CE", "difficulty-3"]
+  },
+  {
+    "id": "TC-DN-004",
+    "type": "text_completion",
+    "skills": ["TC-DN"],
+    "difficulty": 3,
+    "stem": "The novelist's latest work is hardly ___; on the contrary, it demonstrates a complexity of thought and sophistication of style that rivals her finest achievements.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "ambitious", "correct": false},
+      {"id": "B", "text": "negligible", "correct": true},
+      {"id": "C", "text": "impressive", "correct": false},
+      {"id": "D", "text": "groundbreaking", "correct": false},
+      {"id": "E", "text": "sophisticated", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "'Hardly ___' negates the blank. 'On the contrary' introduces what it actually is: complex and sophisticated. So the blank must be something the work is NOT: it's not dismissable. 'Negligible' means so small as to be unimportant.",
+    "skillExplanation": {"TC-DN": "'Hardly X; on the contrary, Y' means 'not X, but rather Y.' The blank is what the work is falsely perceived as, and Y corrects that. Since Y is very positive, X must be dismissive."},
+    "trapAnalysis": {"C": "'Hardly impressive' would be negated by 'on the contrary' to mean 'it IS impressive,' but the blank should be something being denied, and 'negligible' better captures dismissiveness.", "E": "'Hardly sophisticated' contradicts 'sophistication of style' in the second clause, which confirms the work IS sophisticated—the blank must be a negative quality being denied."},
+    "tags": ["TC-DN", "difficulty-3"]
+  },
+  {
+    "id": "TC-CONT-007",
+    "type": "text_completion",
+    "skills": ["TC-CONT"],
+    "difficulty": 4,
+    "stem": "The investigation not only confirmed the initial suspicions but also revealed a far more ___ scheme than anyone had anticipated, one that implicated officials at the highest levels of government.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "modest", "correct": false},
+      {"id": "B", "text": "elaborate", "correct": true},
+      {"id": "C", "text": "transparent", "correct": false},
+      {"id": "D", "text": "benign", "correct": false},
+      {"id": "E", "text": "isolated", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "'Not only X but also Y' is a continuation that escalates. The investigation confirmed suspicions AND found something bigger. Officials at the highest levels indicates a wide-reaching conspiracy. 'Elaborate' means intricate and complex.",
+    "skillExplanation": {"TC-CONT": "'Not only...but also' is an additive continuation that intensifies. 'Far more ___ than anticipated' and 'highest levels of government' require a word describing extensive complexity."},
+    "trapAnalysis": {"A": "'Modest' means small, contradicting 'far more' and 'highest levels of government.'", "E": "'Isolated' means limited in scope, contradicted by involvement reaching the highest levels."},
+    "tags": ["TC-CONT", "difficulty-4"]
+  },
+  {
+    "id": "TC-IRO-006",
+    "type": "text_completion",
+    "skills": ["TC-IRO"],
+    "difficulty": 2,
+    "stem": "It is paradoxical that the very technology designed to bring people closer together has, according to numerous studies, actually increased feelings of ___ among its heaviest users.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "connection", "correct": false},
+      {"id": "B", "text": "isolation", "correct": true},
+      {"id": "C", "text": "productivity", "correct": false},
+      {"id": "D", "text": "confidence", "correct": false},
+      {"id": "E", "text": "satisfaction", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "'Paradoxical' signals an ironic reversal. Technology meant to connect people actually caused the opposite feeling. 'Isolation' is the opposite of connection.",
+    "skillExplanation": {"TC-IRO": "'Paradoxical' is the signal. The technology's purpose (bring people closer) contrasts with its actual effect. The blank must be the opposite of closeness."},
+    "trapAnalysis": {"A": "'Connection' is what the technology was designed to increase—it wouldn't be paradoxical if it achieved its purpose.", "D": "'Confidence' is unrelated to the specific purpose of connecting people."},
+    "tags": ["TC-IRO", "difficulty-2"]
+  },
+  {
+    "id": "TC-ELAB-007",
+    "type": "text_completion",
+    "skills": ["TC-ELAB"],
+    "difficulty": 2,
+    "stem": "The CEO described the company's growth as organic: expansion driven not by acquisitions but by the ___ development of new products and markets.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "internal", "correct": true},
+      {"id": "B", "text": "external", "correct": false},
+      {"id": "C", "text": "accidental", "correct": false},
+      {"id": "D", "text": "rapid", "correct": false},
+      {"id": "E", "text": "forced", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "The colon elaborates 'organic.' The definition says expansion was 'not by acquisitions' (external) but by developing new products (from within). 'Internal' contrasts with external acquisitions.",
+    "skillExplanation": {"TC-ELAB": "The colon defines 'organic growth': not acquisitions (buying from outside) but developing new products (growing from within). 'Internal' captures this self-generated growth."},
+    "trapAnalysis": {"B": "'External' would align with acquisitions, which is explicitly what organic growth is NOT.", "E": "'Forced' implies coercion, contradicting the natural connotation of 'organic.'"},
+    "tags": ["TC-ELAB", "difficulty-2"]
+  },
+  {
+    "id": "TC-DEG-006",
+    "type": "text_completion",
+    "skills": ["TC-DEG"],
+    "difficulty": 3,
+    "stem": "The scandal was not merely embarrassing but potentially ___; if the details became public, the entire administration could face criminal prosecution.",
+    "blanks": 1,
+    "options": [
+      {"id": "A", "text": "inconvenient", "correct": false},
+      {"id": "B", "text": "ruinous", "correct": true},
+      {"id": "C", "text": "amusing", "correct": false},
+      {"id": "D", "text": "educational", "correct": false},
+      {"id": "E", "text": "temporary", "correct": false}
+    ],
+    "correctCount": 1,
+    "explanation": "'Not merely X but Y' intensifies from embarrassing to something worse. Criminal prosecution is catastrophic. 'Ruinous' means devastating or destructive.",
+    "skillExplanation": {"TC-DEG": "The escalation from 'embarrassing' must go to something significantly worse. 'Criminal prosecution' for the entire administration indicates devastating consequences."},
+    "trapAnalysis": {"A": "'Inconvenient' is weaker than 'embarrassing,' not stronger—the pattern requires escalation.", "E": "'Temporary' describes duration, not severity, and doesn't escalate beyond embarrassment."},
+    "tags": ["TC-DEG", "difficulty-3"]
+  }
+]

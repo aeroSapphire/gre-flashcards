@@ -1,0 +1,1453 @@
+[
+  {
+    "id": "SE-SYN-001",
+    "type": "sentence_equivalence",
+    "skills": ["SE-SYN"],
+    "difficulty": 1,
+    "passage": null,
+    "stem": "The professor's lectures were so ________ that students from across the university enrolled in her courses regardless of their major.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "captivating", "correct": true },
+      { "id": "B", "text": "tedious", "correct": false },
+      { "id": "C", "text": "engrossing", "correct": true },
+      { "id": "D", "text": "perfunctory", "correct": false },
+      { "id": "E", "text": "controversial", "correct": false },
+      { "id": "F", "text": "esoteric", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "The sentence indicates that students flocked to the professor's courses, implying her lectures were highly engaging. 'Captivating' and 'engrossing' both mean deeply interesting and absorbing, producing the same meaning when inserted into the sentence.",
+    "skillExplanation": {
+      "SE-SYN": "This question tests recognition of the synonym pair captivating/engrossing. Both words convey the idea of holding attention completely, and the context of widespread enrollment confirms the positive connotation."
+    },
+    "trapAnalysis": {
+      "B": "Tedious (boring) is the opposite of what the context requires; students would not flock to boring lectures.",
+      "D": "Perfunctory (done without care) does not fit the positive context of attracting many students.",
+      "E": "Controversial might attract some students out of curiosity, but it does not pair with another option to produce equivalent meanings.",
+      "F": "Esoteric (understood by few) contradicts the idea that students from all majors enrolled."
+    },
+    "tags": ["sentence-equivalence", "arts-humanities"]
+  },
+  {
+    "id": "SE-SYN-002",
+    "type": "sentence_equivalence",
+    "skills": ["SE-SYN"],
+    "difficulty": 1,
+    "passage": null,
+    "stem": "Despite the gaps in the fossil record, the evidence for evolutionary theory is so ________ that virtually no credible scientist disputes its fundamental tenets.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "ubiquitous", "correct": true },
+      { "id": "B", "text": "negligible", "correct": false },
+      { "id": "C", "text": "ambiguous", "correct": false },
+      { "id": "D", "text": "universal", "correct": true },
+      { "id": "E", "text": "contentious", "correct": false },
+      { "id": "F", "text": "nascent", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "The sentence states that virtually no scientist disputes evolutionary theory, indicating that supporting evidence is found everywhere. 'Ubiquitous' and 'universal' both convey the sense of being present or accepted everywhere, producing equivalent sentence meanings.",
+    "skillExplanation": {
+      "SE-SYN": "This tests the classic GRE synonym pair ubiquitous/universal. Both words mean existing or found everywhere, and the context of near-unanimous scientific acceptance confirms the need for a word conveying pervasiveness."
+    },
+    "trapAnalysis": {
+      "B": "Negligible (insignificant) is the opposite of what is required; negligible evidence would not compel universal acceptance.",
+      "C": "Ambiguous (unclear) contradicts the idea that no credible scientist disputes the theory.",
+      "E": "Contentious (causing disagreement) opposes the sentence's assertion of broad acceptance.",
+      "F": "Nascent (just beginning) does not fit; evolutionary theory has a long and well-established evidence base."
+    },
+    "tags": ["sentence-equivalence", "science"]
+  },
+  {
+    "id": "SE-SYN-003",
+    "type": "sentence_equivalence",
+    "skills": ["SE-SYN"],
+    "difficulty": 1,
+    "passage": null,
+    "stem": "The politician was known for being ________, rarely speaking in public unless absolutely compelled to address the press.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "loquacious", "correct": false },
+      { "id": "B", "text": "reticent", "correct": true },
+      { "id": "C", "text": "belligerent", "correct": false },
+      { "id": "D", "text": "taciturn", "correct": true },
+      { "id": "E", "text": "affable", "correct": false },
+      { "id": "F", "text": "dogmatic", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "The sentence describes someone who rarely speaks in public, indicating a reserved, uncommunicative nature. 'Reticent' and 'taciturn' both describe someone who is not inclined to speak, producing equivalent meanings.",
+    "skillExplanation": {
+      "SE-SYN": "This tests the synonym pair reticent/taciturn. Both words describe a person who speaks very little, and the clue 'rarely speaking in public' directly supports this meaning."
+    },
+    "trapAnalysis": {
+      "A": "Loquacious (very talkative) is the opposite of the described behavior.",
+      "C": "Belligerent (hostile, aggressive) is unrelated to the concept of speaking infrequently.",
+      "E": "Affable (friendly) does not address speech frequency; one can be friendly yet quiet.",
+      "F": "Dogmatic (stubbornly opinionated) does not mean reluctant to speak."
+    },
+    "tags": ["sentence-equivalence", "social-science"]
+  },
+  {
+    "id": "SE-SYN-004",
+    "type": "sentence_equivalence",
+    "skills": ["SE-SYN"],
+    "difficulty": 1,
+    "passage": null,
+    "stem": "The researcher's ________ attention to experimental protocols ensured that her results were consistently reproducible across multiple trials.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "meticulous", "correct": true },
+      { "id": "B", "text": "sporadic", "correct": false },
+      { "id": "C", "text": "scrupulous", "correct": true },
+      { "id": "D", "text": "cursory", "correct": false },
+      { "id": "E", "text": "grudging", "correct": false },
+      { "id": "F", "text": "intermittent", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "Consistently reproducible results imply extremely careful work. 'Meticulous' and 'scrupulous' both mean showing great attention to detail and care, yielding equivalent sentence meanings.",
+    "skillExplanation": {
+      "SE-SYN": "This tests the synonym pair meticulous/scrupulous. Both convey painstaking care and thoroughness, and the context of reproducible results confirms the need for a word describing careful attention."
+    },
+    "trapAnalysis": {
+      "B": "Sporadic (occurring irregularly) would undermine reproducibility, not support it.",
+      "D": "Cursory (hasty, superficial) is the opposite of careful attention.",
+      "E": "Grudging (reluctant) describes attitude, not carefulness, and does not explain reproducibility.",
+      "F": "Intermittent (starting and stopping) would not produce consistent results."
+    },
+    "tags": ["sentence-equivalence", "science"]
+  },
+  {
+    "id": "SE-SYN-005",
+    "type": "sentence_equivalence",
+    "skills": ["SE-SYN"],
+    "difficulty": 2,
+    "passage": null,
+    "stem": "The diplomat's ________ remarks about the treaty's shortcomings were delivered so tactfully that few delegates took offense.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "laudatory", "correct": false },
+      { "id": "B", "text": "candid", "correct": true },
+      { "id": "C", "text": "forthright", "correct": true },
+      { "id": "D", "text": "evasive", "correct": false },
+      { "id": "E", "text": "bellicose", "correct": false },
+      { "id": "F", "text": "obsequious", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "The diplomat addressed shortcomings but did so tactfully, meaning the remarks were honest and direct. 'Candid' and 'forthright' both mean open and honest in expression, producing the same sentence meaning.",
+    "skillExplanation": {
+      "SE-SYN": "This tests recognition of the synonym pair candid/forthright. Both convey honesty and directness, and the sentence's structure (pointing out shortcomings yet tactfully) confirms the need for a word meaning frank."
+    },
+    "trapAnalysis": {
+      "A": "Laudatory (praising) contradicts 'shortcomings'; praising would not require tact to avoid offense.",
+      "D": "Evasive (avoiding directness) is the opposite of addressing shortcomings openly.",
+      "E": "Bellicose (warlike, aggressive) contradicts the tactful delivery described.",
+      "F": "Obsequious (excessively compliant) does not fit someone who is pointing out flaws."
+    },
+    "tags": ["sentence-equivalence", "social-science"]
+  },
+  {
+    "id": "SE-SYN-006",
+    "type": "sentence_equivalence",
+    "skills": ["SE-SYN"],
+    "difficulty": 2,
+    "passage": null,
+    "stem": "Critics dismissed the artist's early work as derivative, but her later paintings were ________, defying easy classification within any established school.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "singular", "correct": true },
+      { "id": "B", "text": "pedestrian", "correct": false },
+      { "id": "C", "text": "conventional", "correct": false },
+      { "id": "D", "text": "unique", "correct": true },
+      { "id": "E", "text": "reminiscent", "correct": false },
+      { "id": "F", "text": "prolific", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "The contrast with 'derivative' and the clue 'defying easy classification' indicate that the later work was one-of-a-kind. 'Singular' and 'unique' both mean distinctively individual, producing equivalent sentence meanings.",
+    "skillExplanation": {
+      "SE-SYN": "This tests the synonym pair singular/unique. Both describe something without equal or parallel. The contrast signal 'but' and the explanatory phrase about classification confirm the answer."
+    },
+    "trapAnalysis": {
+      "B": "Pedestrian (dull, uninspired) would be closer to 'derivative,' not its opposite.",
+      "C": "Conventional (following tradition) contradicts 'defying easy classification.'",
+      "E": "Reminiscent (suggestive of something else) is closer to 'derivative' than to original.",
+      "F": "Prolific (producing much work) describes quantity, not originality."
+    },
+    "tags": ["sentence-equivalence", "arts-humanities"]
+  },
+  {
+    "id": "SE-SYN-007",
+    "type": "sentence_equivalence",
+    "skills": ["SE-SYN"],
+    "difficulty": 2,
+    "passage": null,
+    "stem": "The charity's director was known for her ________ management of funds, stretching every donated dollar to its maximum impact.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "parsimonious", "correct": true },
+      { "id": "B", "text": "frugal", "correct": true },
+      { "id": "C", "text": "lavish", "correct": false },
+      { "id": "D", "text": "haphazard", "correct": false },
+      { "id": "E", "text": "indifferent", "correct": false },
+      { "id": "F", "text": "transparent", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "Stretching every dollar to maximum impact indicates extremely careful, thrifty management. 'Parsimonious' and 'frugal' both describe extreme care in spending, producing equivalent meanings in context.",
+    "skillExplanation": {
+      "SE-SYN": "This tests the synonym pair parsimonious/frugal. Both words describe someone who is very economical with money, and the clue about stretching donations confirms this meaning."
+    },
+    "trapAnalysis": {
+      "C": "Lavish (extravagant) is the opposite of careful spending.",
+      "D": "Haphazard (random, disorganized) contradicts the intentional stretching of every dollar.",
+      "E": "Indifferent (uncaring) contradicts active management to maximize impact.",
+      "F": "Transparent (open to scrutiny) describes accountability, not spending habits."
+    },
+    "tags": ["sentence-equivalence", "social-science"]
+  },
+  {
+    "id": "SE-SYN-008",
+    "type": "sentence_equivalence",
+    "skills": ["SE-SYN"],
+    "difficulty": 2,
+    "passage": null,
+    "stem": "The author's ________ optimism about the future of renewable energy was evident throughout the book, coloring even the chapters devoted to current obstacles.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "sanguine", "correct": true },
+      { "id": "B", "text": "pessimistic", "correct": false },
+      { "id": "C", "text": "qualified", "correct": false },
+      { "id": "D", "text": "buoyant", "correct": true },
+      { "id": "E", "text": "feigned", "correct": false },
+      { "id": "F", "text": "waning", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "The optimism pervades even chapters on obstacles, meaning it is cheerful and unwavering. 'Sanguine' and 'buoyant' both describe a hopeful, cheerfully positive outlook, producing equivalent meanings.",
+    "skillExplanation": {
+      "SE-SYN": "This tests recognition of words that reinforce 'optimism.' Sanguine (from the GRE synonym pair sanguine/optimistic) and buoyant both amplify the sense of hopefulness that persists despite challenges."
+    },
+    "trapAnalysis": {
+      "B": "Pessimistic directly contradicts 'optimism.'",
+      "C": "Qualified (limited, conditional) would mean the optimism was tempered, but the sentence says it colored even the obstacle chapters.",
+      "E": "Feigned (fake) would undermine the sincerity implied by the optimism being 'evident throughout.'",
+      "F": "Waning (diminishing) contradicts an optimism that persists even in chapters about obstacles."
+    },
+    "tags": ["sentence-equivalence", "science"]
+  },
+  {
+    "id": "SE-SYN-009",
+    "type": "sentence_equivalence",
+    "skills": ["SE-SYN"],
+    "difficulty": 3,
+    "passage": null,
+    "stem": "The philosopher's arguments, though internally consistent, remained ________ to most readers, who found themselves unable to penetrate the dense layers of abstraction.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "inscrutable", "correct": true },
+      { "id": "B", "text": "provocative", "correct": false },
+      { "id": "C", "text": "enigmatic", "correct": true },
+      { "id": "D", "text": "pedestrian", "correct": false },
+      { "id": "E", "text": "compelling", "correct": false },
+      { "id": "F", "text": "rudimentary", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "Readers could not penetrate the abstraction, meaning the arguments were impossible to understand. 'Inscrutable' and 'enigmatic' both mean impossible to understand or interpret, producing equivalent sentence meanings.",
+    "skillExplanation": {
+      "SE-SYN": "This tests the GRE synonym pair inscrutable/enigmatic. Both convey impenetrability of meaning. The clue 'unable to penetrate the dense layers' directly supports choosing words that mean mysterious or incomprehensible."
+    },
+    "trapAnalysis": {
+      "B": "Provocative (stimulating thought or controversy) is tempting because philosophy is often provocative, but it does not mean 'impossible to understand.'",
+      "D": "Pedestrian (dull, ordinary) contradicts 'dense layers of abstraction.'",
+      "E": "Compelling (forcefully convincing) contradicts the readers' inability to engage with the arguments.",
+      "F": "Rudimentary (basic) is the opposite of densely abstract."
+    },
+    "tags": ["sentence-equivalence", "arts-humanities"]
+  },
+  {
+    "id": "SE-SYN-010",
+    "type": "sentence_equivalence",
+    "skills": ["SE-SYN"],
+    "difficulty": 3,
+    "passage": null,
+    "stem": "The fame that the young musician enjoyed proved ________, lasting only through one season before the public's attention shifted to newer artists.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "enduring", "correct": false },
+      { "id": "B", "text": "ephemeral", "correct": true },
+      { "id": "C", "text": "unprecedented", "correct": false },
+      { "id": "D", "text": "transient", "correct": true },
+      { "id": "E", "text": "illusory", "correct": false },
+      { "id": "F", "text": "deserved", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "The fame lasted only one season, indicating it was short-lived. 'Ephemeral' and 'transient' both mean lasting only a brief time, producing the same sentence meaning.",
+    "skillExplanation": {
+      "SE-SYN": "This tests the GRE synonym pair ephemeral/transient. Both describe something that lasts a very short time. The clue 'lasting only through one season' provides clear evidence."
+    },
+    "trapAnalysis": {
+      "A": "Enduring (long-lasting) directly contradicts the brevity described in the sentence.",
+      "C": "Unprecedented (never done before) describes novelty, not duration.",
+      "E": "Illusory (based on illusion) is tempting because fame that vanishes might seem illusory, but the sentence describes real fame that simply did not last.",
+      "F": "Deserved describes merit, not duration."
+    },
+    "tags": ["sentence-equivalence", "arts-humanities"]
+  },
+  {
+    "id": "SE-SYN-011",
+    "type": "sentence_equivalence",
+    "skills": ["SE-SYN"],
+    "difficulty": 3,
+    "passage": null,
+    "stem": "The new evidence did not ________ the original theory but rather strengthened it, providing additional support for the researchers' initial hypothesis.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "undermine", "correct": true },
+      { "id": "B", "text": "corroborate", "correct": false },
+      { "id": "C", "text": "subvert", "correct": true },
+      { "id": "D", "text": "validate", "correct": false },
+      { "id": "E", "text": "obscure", "correct": false },
+      { "id": "F", "text": "reformulate", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "The sentence structure 'did not _____ but rather strengthened' requires a word meaning the opposite of strengthen. 'Undermine' and 'subvert' both mean to weaken or destabilize, producing equivalent meanings.",
+    "skillExplanation": {
+      "SE-SYN": "This tests the GRE synonym pair undermine/subvert. Both mean to weaken the foundation of something. The contrast structure 'did not X but rather strengthened' demands a word opposite to strengthen."
+    },
+    "trapAnalysis": {
+      "B": "Corroborate (confirm) would create a contradiction: 'did not confirm but rather strengthened' is logically incoherent.",
+      "D": "Validate (prove valid) has the same problem as corroborate; it is a near-synonym of 'strengthened.'",
+      "E": "Obscure (make unclear) is tempting but does not pair with another option to produce equivalent meanings.",
+      "F": "Reformulate (revise) does not mean weaken and lacks a synonym pair among the options."
+    },
+    "tags": ["sentence-equivalence", "science"]
+  },
+  {
+    "id": "SE-SYN-012",
+    "type": "sentence_equivalence",
+    "skills": ["SE-SYN"],
+    "difficulty": 3,
+    "passage": null,
+    "stem": "The investor's ________ attitude toward the stock market meant that her portfolio shifted dramatically from week to week, as she oscillated between enthusiasm and caution.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "capricious", "correct": true },
+      { "id": "B", "text": "methodical", "correct": false },
+      { "id": "C", "text": "mercurial", "correct": true },
+      { "id": "D", "text": "prudent", "correct": false },
+      { "id": "E", "text": "apathetic", "correct": false },
+      { "id": "F", "text": "resolute", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "The portfolio shifted dramatically and the investor oscillated between extremes, indicating changeable, unpredictable behavior. 'Capricious' and 'mercurial' both mean subject to sudden, unpredictable changes, producing equivalent meanings.",
+    "skillExplanation": {
+      "SE-SYN": "This tests the GRE synonym pair capricious/mercurial. Both describe erratic, unpredictable changeability. The clues 'shifted dramatically' and 'oscillated' confirm the answer."
+    },
+    "trapAnalysis": {
+      "B": "Methodical (systematic) is the opposite of the erratic behavior described.",
+      "D": "Prudent (careful, wise) contradicts dramatic portfolio shifts.",
+      "E": "Apathetic (indifferent) contradicts the oscillation between enthusiasm and caution.",
+      "F": "Resolute (firmly determined) contradicts the constant shifting."
+    },
+    "tags": ["sentence-equivalence", "social-science"]
+  },
+  {
+    "id": "SE-SYN-013",
+    "type": "sentence_equivalence",
+    "skills": ["SE-SYN"],
+    "difficulty": 3,
+    "passage": null,
+    "stem": "The visiting lecturer's ________ style, characterized by lengthy anecdotes and elaborate digressions, tested the patience of the audience accustomed to concise presentations.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "loquacious", "correct": true },
+      { "id": "B", "text": "garrulous", "correct": true },
+      { "id": "C", "text": "laconic", "correct": false },
+      { "id": "D", "text": "erudite", "correct": false },
+      { "id": "E", "text": "incisive", "correct": false },
+      { "id": "F", "text": "polemical", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "Lengthy anecdotes and elaborate digressions describe someone excessively talkative. 'Loquacious' and 'garrulous' both mean excessively talkative, producing equivalent meanings in the sentence.",
+    "skillExplanation": {
+      "SE-SYN": "This tests the GRE synonym pair loquacious/garrulous. Both describe excessive talkativeness. The clues 'lengthy anecdotes' and 'elaborate digressions' confirm the need for this meaning."
+    },
+    "trapAnalysis": {
+      "C": "Laconic (using few words) is the opposite of the behavior described.",
+      "D": "Erudite (learned, scholarly) is tempting for a lecturer but does not mean talkative.",
+      "E": "Incisive (clear, direct) contradicts 'lengthy anecdotes and elaborate digressions.'",
+      "F": "Polemical (strongly argumentative) describes tone, not verbosity."
+    },
+    "tags": ["sentence-equivalence", "arts-humanities"]
+  },
+  {
+    "id": "SE-SYN-014",
+    "type": "sentence_equivalence",
+    "skills": ["SE-SYN"],
+    "difficulty": 3,
+    "passage": null,
+    "stem": "The administration's plan to ________ the failing school district included increased funding, new leadership, and revised curricula designed to raise achievement levels.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "bolster", "correct": true },
+      { "id": "B", "text": "dismantle", "correct": false },
+      { "id": "C", "text": "buttress", "correct": true },
+      { "id": "D", "text": "scrutinize", "correct": false },
+      { "id": "E", "text": "consolidate", "correct": false },
+      { "id": "F", "text": "circumvent", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "Increased funding, new leadership, and revised curricula are all supportive measures designed to strengthen the failing district. 'Bolster' and 'buttress' both mean to strengthen or support, producing equivalent meanings.",
+    "skillExplanation": {
+      "SE-SYN": "This tests the GRE synonym pair bolster/buttress. Both mean to reinforce or prop up something that is weak. The listed measures (funding, leadership, curricula) are all forms of support."
+    },
+    "trapAnalysis": {
+      "B": "Dismantle (take apart) is the opposite of strengthening a failing system.",
+      "D": "Scrutinize (examine closely) describes evaluation, not the active support measures listed.",
+      "E": "Consolidate (combine, merge) is tempting in an education context but does not mean to strengthen through support.",
+      "F": "Circumvent (find a way around) does not match the direct support described."
+    },
+    "tags": ["sentence-equivalence", "social-science"]
+  },
+  {
+    "id": "SE-SYN-015",
+    "type": "sentence_equivalence",
+    "skills": ["SE-SYN"],
+    "difficulty": 4,
+    "passage": null,
+    "stem": "The senator's ________ stance on the proposed legislation frustrated both supporters and opponents, as neither side could determine whether she would ultimately vote for or against the bill.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "ambivalent", "correct": true },
+      { "id": "B", "text": "equivocal", "correct": true },
+      { "id": "C", "text": "implacable", "correct": false },
+      { "id": "D", "text": "partisan", "correct": false },
+      { "id": "E", "text": "vociferous", "correct": false },
+      { "id": "F", "text": "indolent", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "Neither side could predict the senator's vote, indicating uncertainty or mixed feelings. 'Ambivalent' and 'equivocal' both describe having or showing mixed, uncertain feelings, producing equivalent sentence meanings.",
+    "skillExplanation": {
+      "SE-SYN": "This tests the GRE synonym pair ambivalent/equivocal. Both convey uncertainty and indecision. The clue 'neither side could determine' her vote confirms the need for a word meaning uncommitted or unclear."
+    },
+    "trapAnalysis": {
+      "C": "Implacable (impossible to appease) suggests rigid determination, the opposite of uncertainty.",
+      "D": "Partisan (strongly supporting one side) directly contradicts the inability of either side to predict her vote.",
+      "E": "Vociferous (loud, outspoken) describes manner of expression, not indecision.",
+      "F": "Indolent (lazy) does not explain why both sides were unable to predict her position."
+    },
+    "tags": ["sentence-equivalence", "social-science"]
+  },
+  {
+    "id": "SE-SYN-016",
+    "type": "sentence_equivalence",
+    "skills": ["SE-SYN"],
+    "difficulty": 4,
+    "passage": null,
+    "stem": "Although the novel's plot was straightforward, its thematic concerns were far more ________, requiring readers to grapple with layers of meaning that resisted easy interpretation.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "recondite", "correct": true },
+      { "id": "B", "text": "abstruse", "correct": true },
+      { "id": "C", "text": "trite", "correct": false },
+      { "id": "D", "text": "accessible", "correct": false },
+      { "id": "E", "text": "poignant", "correct": false },
+      { "id": "F", "text": "didactic", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "The themes 'resisted easy interpretation' and required grappling with layers of meaning, indicating they were deeply obscure. 'Recondite' and 'abstruse' both mean difficult to understand, producing equivalent meanings.",
+    "skillExplanation": {
+      "SE-SYN": "This tests recognition of the synonym pair recondite/abstruse. Both describe knowledge or ideas that are difficult to penetrate intellectually. The contrast with 'straightforward' plot and the clue about resisting interpretation confirm the answer."
+    },
+    "trapAnalysis": {
+      "C": "Trite (lacking originality) is the opposite of complex themes requiring deep engagement.",
+      "D": "Accessible (easy to understand) directly contradicts 'resisted easy interpretation.'",
+      "E": "Poignant (emotionally moving) describes emotional impact, not intellectual difficulty.",
+      "F": "Didactic (intended to teach) describes purpose, not complexity."
+    },
+    "tags": ["sentence-equivalence", "arts-humanities"]
+  },
+  {
+    "id": "SE-SYN-017",
+    "type": "sentence_equivalence",
+    "skills": ["SE-SYN"],
+    "difficulty": 4,
+    "passage": null,
+    "stem": "The anthropologist argued that the community's ________ resistance to outside influence had paradoxically preserved cultural practices that might otherwise have been lost to globalization.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "intransigent", "correct": true },
+      { "id": "B", "text": "amenable", "correct": false },
+      { "id": "C", "text": "obdurate", "correct": true },
+      { "id": "D", "text": "perfunctory", "correct": false },
+      { "id": "E", "text": "sporadic", "correct": false },
+      { "id": "F", "text": "pragmatic", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "The resistance preserved cultural practices against globalization, suggesting it was stubbornly unyielding. 'Intransigent' and 'obdurate' both mean stubbornly refusing to change, producing equivalent meanings.",
+    "skillExplanation": {
+      "SE-SYN": "This tests the synonym pair intransigent/obdurate. Both describe inflexible stubbornness. The word 'resistance' combined with the paradoxical preservation of culture indicates an unwavering refusal to yield."
+    },
+    "trapAnalysis": {
+      "B": "Amenable (open to suggestion) is the opposite of resistance to outside influence.",
+      "D": "Perfunctory (done without care) would describe weak, not strong, resistance.",
+      "E": "Sporadic (occurring irregularly) would not describe the consistent resistance needed to preserve cultural practices.",
+      "F": "Pragmatic (practical) might describe calculated resistance but does not pair with another option for equivalent meaning."
+    },
+    "tags": ["sentence-equivalence", "social-science"]
+  },
+  {
+    "id": "SE-SYN-018",
+    "type": "sentence_equivalence",
+    "skills": ["SE-SYN"],
+    "difficulty": 4,
+    "passage": null,
+    "stem": "The biographer portrayed the industrialist not as a rapacious tycoon but as a ________ philanthropist who donated the majority of his fortune to educational institutions.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "munificent", "correct": true },
+      { "id": "B", "text": "magnanimous", "correct": false },
+      { "id": "C", "text": "penurious", "correct": false },
+      { "id": "D", "text": "lavish", "correct": true },
+      { "id": "E", "text": "austere", "correct": false },
+      { "id": "F", "text": "ostentatious", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "The contrast with 'rapacious' (greedy) and the detail of donating a fortune indicate extraordinary generosity. 'Munificent' and 'lavish' both describe extremely generous giving, producing equivalent meanings.",
+    "skillExplanation": {
+      "SE-SYN": "This tests the synonym pair munificent/lavish in the context of generosity. Both describe giving on a grand scale, contrasting with the 'rapacious tycoon' characterization."
+    },
+    "trapAnalysis": {
+      "B": "Magnanimous (generous in forgiving) is tempting but refers to generosity of spirit in overlooking offenses, not financial generosity. It does not pair with another word here for the same meaning.",
+      "C": "Penurious (extremely poor or stingy) contradicts donating a fortune.",
+      "E": "Austere (severely simple) contradicts the lavish philanthropic giving described.",
+      "F": "Ostentatious (showy) describes the manner of giving, not the generosity itself, and carries a negative connotation inconsistent with the positive portrayal."
+    },
+    "tags": ["sentence-equivalence", "arts-humanities"]
+  },
+  {
+    "id": "SE-SYN-019",
+    "type": "sentence_equivalence",
+    "skills": ["SE-SYN"],
+    "difficulty": 5,
+    "passage": null,
+    "stem": "The critic's review was ________, weaving together praise and censure so seamlessly that the reader could not easily discern whether the overall assessment was favorable or damning.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "tendentious", "correct": false },
+      { "id": "B", "text": "equivocal", "correct": true },
+      { "id": "C", "text": "trenchant", "correct": false },
+      { "id": "D", "text": "anodyne", "correct": false },
+      { "id": "E", "text": "ambiguous", "correct": true },
+      { "id": "F", "text": "acerbic", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "The reader could not discern whether the assessment was favorable or damning because praise and censure were intertwined. 'Equivocal' and 'ambiguous' both mean open to more than one interpretation, producing equivalent meanings.",
+    "skillExplanation": {
+      "SE-SYN": "This tests the synonym pair equivocal/ambiguous at a high difficulty level. The interweaving of praise and censure creates genuine uncertainty, and both words capture this interpretive indeterminacy."
+    },
+    "trapAnalysis": {
+      "A": "Tendentious (biased toward a particular view) is tempting for a review but contradicts the indeterminacy described.",
+      "C": "Trenchant (sharp, incisive) describes clarity and force of expression, the opposite of ambiguity.",
+      "D": "Anodyne (inoffensive, bland) might describe a review that avoids controversy but does not capture the interweaving of praise and censure.",
+      "F": "Acerbic (sharply critical) contradicts the balanced mixture of praise and censure."
+    },
+    "tags": ["sentence-equivalence", "arts-humanities"]
+  },
+  {
+    "id": "SE-SYN-020",
+    "type": "sentence_equivalence",
+    "skills": ["SE-SYN"],
+    "difficulty": 5,
+    "passage": null,
+    "stem": "Far from being the ________ figure that hagiographic accounts suggest, the general was plagued by indecision during critical engagements, often deferring to subordinates when bold action was required.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "irresolute", "correct": false },
+      { "id": "B", "text": "dauntless", "correct": true },
+      { "id": "C", "text": "intrepid", "correct": true },
+      { "id": "D", "text": "mercenary", "correct": false },
+      { "id": "E", "text": "diffident", "correct": false },
+      { "id": "F", "text": "imperious", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "The sentence contrasts the hagiographic (hero-worshipping) portrayal with the reality of indecision. The blank must describe a fearlessly decisive figure. 'Dauntless' and 'intrepid' both mean fearlessly bold, producing the same meaning in the sentence.",
+    "skillExplanation": {
+      "SE-SYN": "This tests the synonym pair dauntless/intrepid at high difficulty. The 'far from being' structure creates a negation that requires careful reading: the blank describes what the general was NOT, contrasting with his actual indecision."
+    },
+    "trapAnalysis": {
+      "A": "Irresolute (indecisive) describes what the general actually was, not the hagiographic portrayal. The 'far from being' structure means the blank must be the opposite of his real behavior.",
+      "D": "Mercenary (motivated by money) is unrelated to the indecision contrast.",
+      "E": "Diffident (modest, shy) describes what the general actually resembled, not the heroic figure of hagiography.",
+      "F": "Imperious (domineering) is tempting for a general but does not specifically contrast with indecision the way fearless boldness does."
+    },
+    "tags": ["sentence-equivalence", "arts-humanities"]
+  },
+  {
+    "id": "SE-CTX-001",
+    "type": "sentence_equivalence",
+    "skills": ["SE-CTX"],
+    "difficulty": 1,
+    "passage": null,
+    "stem": "The medication's side effects were so ________ that most patients discontinued treatment within the first week.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "severe", "correct": true },
+      { "id": "B", "text": "negligible", "correct": false },
+      { "id": "C", "text": "debilitating", "correct": true },
+      { "id": "D", "text": "intermittent", "correct": false },
+      { "id": "E", "text": "beneficial", "correct": false },
+      { "id": "F", "text": "predictable", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "Patients discontinuing treatment within a week indicates extremely bad side effects. 'Severe' and 'debilitating' both describe effects that are intensely harmful, producing equivalent sentence meanings.",
+    "skillExplanation": {
+      "SE-CTX": "This tests the ability to use context clues to select the correct answer. The key contextual evidence is 'discontinued treatment within the first week,' which signals that the side effects were extremely negative."
+    },
+    "trapAnalysis": {
+      "B": "Negligible (trivially small) would not cause patients to stop treatment.",
+      "D": "Intermittent (occurring at intervals) describes frequency, not severity, and would not necessarily cause discontinuation.",
+      "E": "Beneficial (helpful) is the opposite of a reason to stop treatment.",
+      "F": "Predictable describes foreseeability, not severity."
+    },
+    "tags": ["sentence-equivalence", "science"]
+  },
+  {
+    "id": "SE-CTX-002",
+    "type": "sentence_equivalence",
+    "skills": ["SE-CTX"],
+    "difficulty": 1,
+    "passage": null,
+    "stem": "The documentary presented a ________ account of the disaster, allowing survivors to share their stories without editorial commentary or dramatic embellishment.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "sensational", "correct": false },
+      { "id": "B", "text": "straightforward", "correct": true },
+      { "id": "C", "text": "biased", "correct": false },
+      { "id": "D", "text": "unembellished", "correct": true },
+      { "id": "E", "text": "provocative", "correct": false },
+      { "id": "F", "text": "cursory", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "The absence of editorial commentary and dramatic embellishment indicates a plain, factual account. 'Straightforward' and 'unembellished' both describe a presentation without added interpretation or decoration, producing equivalent meanings.",
+    "skillExplanation": {
+      "SE-CTX": "This tests context-driven selection. The phrase 'without editorial commentary or dramatic embellishment' is the key contextual clue, pointing directly to words meaning plain and unadorned."
+    },
+    "trapAnalysis": {
+      "A": "Sensational (designed to provoke excitement) directly contradicts the absence of dramatic embellishment.",
+      "C": "Biased (prejudiced) contradicts the neutral presentation implied by no editorial commentary.",
+      "E": "Provocative (intended to stimulate reaction) contradicts the restrained approach described.",
+      "F": "Cursory (hasty, superficial) does not fit allowing survivors to share their full stories."
+    },
+    "tags": ["sentence-equivalence", "social-science"]
+  },
+  {
+    "id": "SE-CTX-003",
+    "type": "sentence_equivalence",
+    "skills": ["SE-CTX"],
+    "difficulty": 1,
+    "passage": null,
+    "stem": "After decades of neglect, the historic theater was in a ________ state, with crumbling plaster, broken seats, and a roof that leaked during every rainstorm.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "dilapidated", "correct": true },
+      { "id": "B", "text": "pristine", "correct": false },
+      { "id": "C", "text": "decrepit", "correct": true },
+      { "id": "D", "text": "venerable", "correct": false },
+      { "id": "E", "text": "renowned", "correct": false },
+      { "id": "F", "text": "modest", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "Crumbling plaster, broken seats, and a leaking roof all describe a building in severe disrepair. 'Dilapidated' and 'decrepit' both describe something in a state of ruin or decay, producing equivalent meanings.",
+    "skillExplanation": {
+      "SE-CTX": "This tests the ability to use physical descriptions as context clues. The listed details (crumbling, broken, leaking) all point to severe physical deterioration."
+    },
+    "trapAnalysis": {
+      "B": "Pristine (in perfect condition) is the opposite of the physical state described.",
+      "D": "Venerable (respected due to age) describes reputation, not physical condition.",
+      "E": "Renowned (widely known) describes fame, not physical state.",
+      "F": "Modest (unassuming) does not capture the severity of the decay described."
+    },
+    "tags": ["sentence-equivalence", "arts-humanities"]
+  },
+  {
+    "id": "SE-CTX-004",
+    "type": "sentence_equivalence",
+    "skills": ["SE-CTX"],
+    "difficulty": 2,
+    "passage": null,
+    "stem": "The novelist's ________ depiction of rural poverty drew on her own childhood experiences, lending the narrative an authenticity that purely imaginative accounts rarely achieve.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "vivid", "correct": true },
+      { "id": "B", "text": "detached", "correct": false },
+      { "id": "C", "text": "evocative", "correct": true },
+      { "id": "D", "text": "superficial", "correct": false },
+      { "id": "E", "text": "melodramatic", "correct": false },
+      { "id": "F", "text": "formulaic", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "The depiction drew on personal experience and achieved remarkable authenticity, suggesting a powerfully realistic portrayal. 'Vivid' and 'evocative' both describe something that produces strong, clear images or feelings, producing equivalent meanings.",
+    "skillExplanation": {
+      "SE-CTX": "This tests context-driven selection using multiple contextual clues: personal childhood experiences, lending authenticity, and surpassing imaginative accounts. These clues collectively point to a powerfully realistic depiction."
+    },
+    "trapAnalysis": {
+      "B": "Detached (emotionally distant) contradicts drawing on personal childhood experiences.",
+      "D": "Superficial (shallow) contradicts the authenticity that purely imaginative accounts cannot achieve.",
+      "E": "Melodramatic (excessively emotional) would undermine the authenticity praised in the sentence.",
+      "F": "Formulaic (following a formula) contradicts the personal, authentic quality described."
+    },
+    "tags": ["sentence-equivalence", "arts-humanities"]
+  },
+  {
+    "id": "SE-CTX-005",
+    "type": "sentence_equivalence",
+    "skills": ["SE-CTX"],
+    "difficulty": 2,
+    "passage": null,
+    "stem": "The committee's report was deliberately ________, presenting only the data that supported the chair's preferred policy while omitting contrary evidence.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "comprehensive", "correct": false },
+      { "id": "B", "text": "misleading", "correct": true },
+      { "id": "C", "text": "impartial", "correct": false },
+      { "id": "D", "text": "deceptive", "correct": true },
+      { "id": "E", "text": "meticulous", "correct": false },
+      { "id": "F", "text": "inconclusive", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "Selectively presenting data while omitting contrary evidence is intentionally dishonest. 'Misleading' and 'deceptive' both describe something designed to create a false impression, producing equivalent meanings.",
+    "skillExplanation": {
+      "SE-CTX": "This tests the ability to interpret the contextual implication of 'deliberately' combined with selective data presentation and omission of contrary evidence. The context makes clear this is intentional dishonesty."
+    },
+    "trapAnalysis": {
+      "A": "Comprehensive (thorough, covering all aspects) contradicts the omission of contrary evidence.",
+      "C": "Impartial (unbiased) contradicts supporting the chair's preferred policy.",
+      "E": "Meticulous (very careful) could describe the execution but not the dishonest intent; the report was carefully crafted to deceive.",
+      "F": "Inconclusive (not leading to a firm conclusion) contradicts the report's clear support for a preferred policy."
+    },
+    "tags": ["sentence-equivalence", "social-science"]
+  },
+  {
+    "id": "SE-CTX-006",
+    "type": "sentence_equivalence",
+    "skills": ["SE-CTX"],
+    "difficulty": 2,
+    "passage": null,
+    "stem": "The professor's ________ feedback, though sometimes difficult for students to hear, ultimately helped them produce significantly stronger research papers.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "candid", "correct": true },
+      { "id": "B", "text": "perfunctory", "correct": false },
+      { "id": "C", "text": "unsparing", "correct": true },
+      { "id": "D", "text": "laudatory", "correct": false },
+      { "id": "E", "text": "inconsistent", "correct": false },
+      { "id": "F", "text": "cryptic", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "Feedback that is difficult to hear but ultimately improves work is honest and rigorous. 'Candid' and 'unsparing' both describe feedback given without holding back, producing equivalent meanings.",
+    "skillExplanation": {
+      "SE-CTX": "This tests the ability to reconcile two contextual signals: the feedback was 'difficult to hear' (suggesting harshness) but produced 'stronger research papers' (suggesting usefulness). This combination points to honest, thorough criticism."
+    },
+    "trapAnalysis": {
+      "B": "Perfunctory (done with minimal effort) would not produce the improvement described.",
+      "D": "Laudatory (expressing praise) would not be 'difficult for students to hear.'",
+      "E": "Inconsistent feedback would not reliably produce stronger papers.",
+      "F": "Cryptic (mysterious) feedback would confuse students, not help them improve."
+    },
+    "tags": ["sentence-equivalence", "arts-humanities"]
+  },
+  {
+    "id": "SE-CTX-007",
+    "type": "sentence_equivalence",
+    "skills": ["SE-CTX"],
+    "difficulty": 2,
+    "passage": null,
+    "stem": "The archaeological evidence ________ the historian's claim that the settlement predated the Roman conquest, providing physical proof consistent with her proposed timeline.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "corroborated", "correct": true },
+      { "id": "B", "text": "contradicted", "correct": false },
+      { "id": "C", "text": "substantiated", "correct": true },
+      { "id": "D", "text": "complicated", "correct": false },
+      { "id": "E", "text": "preceded", "correct": false },
+      { "id": "F", "text": "anticipated", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "Physical proof consistent with the proposed timeline confirms the historian's claim. 'Corroborated' and 'substantiated' both mean to provide evidence that confirms or supports, producing equivalent meanings.",
+    "skillExplanation": {
+      "SE-CTX": "This tests the ability to use the phrase 'providing physical proof consistent with her proposed timeline' as a contextual gloss that defines the blank. The evidence supported the claim."
+    },
+    "trapAnalysis": {
+      "B": "Contradicted (went against) is the opposite of providing consistent proof.",
+      "D": "Complicated (made more complex) does not match the straightforward confirmation described.",
+      "E": "Preceded (came before) describes temporal sequence, not evidentiary support.",
+      "F": "Anticipated (expected beforehand) does not mean confirmed."
+    },
+    "tags": ["sentence-equivalence", "arts-humanities"]
+  },
+  {
+    "id": "SE-CTX-008",
+    "type": "sentence_equivalence",
+    "skills": ["SE-CTX"],
+    "difficulty": 3,
+    "passage": null,
+    "stem": "The CEO's speech was meant to reassure investors, but its ________ tone only deepened their anxiety about the company's financial health.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "sanguine", "correct": false },
+      { "id": "B", "text": "halting", "correct": true },
+      { "id": "C", "text": "mellifluous", "correct": false },
+      { "id": "D", "text": "tentative", "correct": true },
+      { "id": "E", "text": "strident", "correct": false },
+      { "id": "F", "text": "soporific", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "The speech was meant to reassure but deepened anxiety instead, indicating the tone conveyed uncertainty. 'Halting' and 'tentative' both describe an uncertain, hesitant quality that would undermine reassurance.",
+    "skillExplanation": {
+      "SE-CTX": "This tests the ability to identify a cause-and-effect reversal in context. The intended effect (reassurance) failed, producing the opposite (deepened anxiety), so the tone must have conveyed the opposite of confidence."
+    },
+    "trapAnalysis": {
+      "A": "Sanguine (optimistic) would have reassured investors, not deepened their anxiety.",
+      "C": "Mellifluous (sweet-sounding) describes pleasantness of voice, which would not deepen anxiety.",
+      "E": "Strident (harsh, grating) might irritate but does not specifically convey the uncertainty that would worry investors about financial health.",
+      "F": "Soporific (inducing sleep) might bore investors but would not specifically deepen financial anxiety."
+    },
+    "tags": ["sentence-equivalence", "social-science"]
+  },
+  {
+    "id": "SE-CTX-009",
+    "type": "sentence_equivalence",
+    "skills": ["SE-CTX"],
+    "difficulty": 3,
+    "passage": null,
+    "stem": "The governor's proposal, initially dismissed as ________, gained traction once economists demonstrated that it could actually reduce the deficit while maintaining essential services.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "quixotic", "correct": true },
+      { "id": "B", "text": "pragmatic", "correct": false },
+      { "id": "C", "text": "fanciful", "correct": true },
+      { "id": "D", "text": "orthodox", "correct": false },
+      { "id": "E", "text": "pernicious", "correct": false },
+      { "id": "F", "text": "incremental", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "The proposal was initially dismissed but later proved viable, meaning it was first considered unrealistically idealistic. 'Quixotic' and 'fanciful' both describe something regarded as impractically idealistic or imaginary, producing equivalent meanings.",
+    "skillExplanation": {
+      "SE-CTX": "This tests the ability to interpret a temporal shift in context: 'initially dismissed' followed by later proof of viability. The blank must capture why it was dismissed before its feasibility was demonstrated."
+    },
+    "trapAnalysis": {
+      "B": "Pragmatic (practical) would not be a reason for dismissal; practical proposals are taken seriously.",
+      "D": "Orthodox (conventional) would not typically lead to dismissal.",
+      "E": "Pernicious (harmful) describes danger, not impracticality, and the proposal was shown to be beneficial.",
+      "F": "Incremental (gradual, step-by-step) does not explain why a proposal would be dismissed."
+    },
+    "tags": ["sentence-equivalence", "social-science"]
+  },
+  {
+    "id": "SE-CTX-010",
+    "type": "sentence_equivalence",
+    "skills": ["SE-CTX"],
+    "difficulty": 3,
+    "passage": null,
+    "stem": "What made the composer's late works so remarkable was their ________ quality: though composed during a period of personal anguish, they radiated an almost transcendent serenity.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "paradoxical", "correct": true },
+      { "id": "B", "text": "somber", "correct": false },
+      { "id": "C", "text": "incongruous", "correct": true },
+      { "id": "D", "text": "derivative", "correct": false },
+      { "id": "E", "text": "predictable", "correct": false },
+      { "id": "F", "text": "austere", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "The contradiction between personal anguish and transcendent serenity makes these works notable for their seemingly contradictory nature. 'Paradoxical' and 'incongruous' both describe something that is self-contradictory or seemingly incompatible, producing equivalent meanings.",
+    "skillExplanation": {
+      "SE-CTX": "This tests the ability to recognize a contextual contradiction as the key clue. The colon introduces an explanation: anguish during composition versus serenity in the music. This contradiction defines the blank."
+    },
+    "trapAnalysis": {
+      "B": "Somber (dark, gloomy) would match the personal anguish but contradicts the 'transcendent serenity.'",
+      "D": "Derivative (unoriginal) contradicts the description of these works as 'remarkable.'",
+      "E": "Predictable contradicts the surprising contrast between anguish and serenity.",
+      "F": "Austere (severely simple) does not capture the central contradiction."
+    },
+    "tags": ["sentence-equivalence", "arts-humanities"]
+  },
+  {
+    "id": "SE-CTX-011",
+    "type": "sentence_equivalence",
+    "skills": ["SE-CTX"],
+    "difficulty": 3,
+    "passage": null,
+    "stem": "The study's conclusions were ________ at best, resting on a sample size too small to yield statistically significant results and relying on self-reported data of questionable accuracy.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "definitive", "correct": false },
+      { "id": "B", "text": "tenuous", "correct": true },
+      { "id": "C", "text": "robust", "correct": false },
+      { "id": "D", "text": "dubious", "correct": true },
+      { "id": "E", "text": "groundbreaking", "correct": false },
+      { "id": "F", "text": "nuanced", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "A small sample size and questionable data make the conclusions weak and uncertain. 'Tenuous' and 'dubious' both describe something lacking in strength or reliability, producing equivalent meanings.",
+    "skillExplanation": {
+      "SE-CTX": "This tests context-driven selection using two methodological critiques (small sample, questionable self-reports) as converging evidence. The phrase 'at best' further signals that even the most generous interpretation is unfavorable."
+    },
+    "trapAnalysis": {
+      "A": "Definitive (conclusive, final) directly contradicts the methodological weaknesses described.",
+      "C": "Robust (strong, sturdy) is the opposite of conclusions based on weak evidence.",
+      "E": "Groundbreaking (innovative) is unrelated to the question of evidential reliability.",
+      "F": "Nuanced (subtle, detailed) does not address the fundamental weakness of the evidence."
+    },
+    "tags": ["sentence-equivalence", "science"]
+  },
+  {
+    "id": "SE-CTX-012",
+    "type": "sentence_equivalence",
+    "skills": ["SE-CTX"],
+    "difficulty": 3,
+    "passage": null,
+    "stem": "Rather than offering a ________ analysis of the economic crisis, the pundit's commentary merely recycled familiar talking points without engaging with the underlying structural causes.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "trenchant", "correct": true },
+      { "id": "B", "text": "superficial", "correct": false },
+      { "id": "C", "text": "incisive", "correct": true },
+      { "id": "D", "text": "partisan", "correct": false },
+      { "id": "E", "text": "dispassionate", "correct": false },
+      { "id": "F", "text": "verbose", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "The pundit merely recycled talking points without engaging with structural causes, meaning the commentary lacked depth. The blank, following 'rather than,' must describe the opposite: a sharp, penetrating analysis. 'Trenchant' and 'incisive' both mean sharp and effective in analysis, producing equivalent meanings.",
+    "skillExplanation": {
+      "SE-CTX": "This tests the ability to interpret a 'rather than' contrast structure. What followed ('recycled talking points') was shallow, so the blank must describe the deep analysis that was absent."
+    },
+    "trapAnalysis": {
+      "B": "Superficial (shallow) describes what the commentary actually was, not what it failed to be.",
+      "D": "Partisan (biased toward one side) describes political leaning, not analytical depth.",
+      "E": "Dispassionate (impartial) describes emotional tone, not sharpness of analysis.",
+      "F": "Verbose (wordy) describes length, not quality of analysis."
+    },
+    "tags": ["sentence-equivalence", "social-science"]
+  },
+  {
+    "id": "SE-CTX-013",
+    "type": "sentence_equivalence",
+    "skills": ["SE-CTX"],
+    "difficulty": 4,
+    "passage": null,
+    "stem": "The novelist's reputation rests on her ability to render the ________ details of domestic life with such precision that the mundane becomes luminous, revealing depths of meaning in everyday routines.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "prosaic", "correct": true },
+      { "id": "B", "text": "exotic", "correct": false },
+      { "id": "C", "text": "quotidian", "correct": true },
+      { "id": "D", "text": "harrowing", "correct": false },
+      { "id": "E", "text": "arcane", "correct": false },
+      { "id": "F", "text": "ephemeral", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "The sentence describes transforming the mundane into the luminous, indicating the details are ordinary, everyday ones. 'Prosaic' and 'quotidian' both mean ordinary or everyday, producing equivalent meanings.",
+    "skillExplanation": {
+      "SE-CTX": "This tests context-driven selection at a higher difficulty level. The key clue is 'the mundane becomes luminous,' which glosses the blank as describing ordinariness. The vocabulary level (prosaic, quotidian) elevates the difficulty."
+    },
+    "trapAnalysis": {
+      "B": "Exotic (unusual, foreign) contradicts the emphasis on domestic life and everyday routines.",
+      "D": "Harrowing (extremely distressing) contradicts the gentle transformation of the mundane described.",
+      "E": "Arcane (mysterious, esoteric) contradicts the accessibility of domestic, everyday details.",
+      "F": "Ephemeral (short-lived) describes duration, not ordinariness."
+    },
+    "tags": ["sentence-equivalence", "arts-humanities"]
+  },
+  {
+    "id": "SE-CTX-014",
+    "type": "sentence_equivalence",
+    "skills": ["SE-CTX"],
+    "difficulty": 4,
+    "passage": null,
+    "stem": "The diplomat's speech, though ostensibly conciliatory, contained enough ________ references to past grievances that the opposing delegation recognized it as a veiled rebuke.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "oblique", "correct": true },
+      { "id": "B", "text": "explicit", "correct": false },
+      { "id": "C", "text": "effusive", "correct": false },
+      { "id": "D", "text": "indirect", "correct": true },
+      { "id": "E", "text": "magnanimous", "correct": false },
+      { "id": "F", "text": "forthright", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "The speech was 'ostensibly conciliatory' but recognized as a 'veiled rebuke,' meaning the references to grievances were not direct. 'Oblique' and 'indirect' both mean not straightforward, producing equivalent meanings.",
+    "skillExplanation": {
+      "SE-CTX": "This tests the ability to interpret multiple contextual signals: 'ostensibly' (suggesting a surface versus reality), 'veiled' (suggesting concealment), and the contrast between conciliatory appearance and rebuke reality."
+    },
+    "trapAnalysis": {
+      "B": "Explicit (direct, clear) contradicts 'veiled'; explicit references would not require interpretation to recognize as a rebuke.",
+      "C": "Effusive (expressing gratitude or approval freely) contradicts the rebuke described.",
+      "E": "Magnanimous (generous, forgiving) contradicts references to past grievances.",
+      "F": "Forthright (direct, honest) contradicts the veiled, indirect nature of the rebuke."
+    },
+    "tags": ["sentence-equivalence", "social-science"]
+  },
+  {
+    "id": "SE-CTX-015",
+    "type": "sentence_equivalence",
+    "skills": ["SE-CTX"],
+    "difficulty": 4,
+    "passage": null,
+    "stem": "The physicist's conjecture, though mathematically elegant, remained ________ because the experimental apparatus required to test it exceeded the capabilities of any existing laboratory.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "unverifiable", "correct": true },
+      { "id": "B", "text": "incontrovertible", "correct": false },
+      { "id": "C", "text": "unfalsifiable", "correct": true },
+      { "id": "D", "text": "inconsequential", "correct": false },
+      { "id": "E", "text": "self-evident", "correct": false },
+      { "id": "F", "text": "counterintuitive", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "If no lab can build the apparatus to test the conjecture, it cannot be proved or disproved. 'Unverifiable' and 'unfalsifiable' both describe claims that cannot be tested, producing equivalent meanings in this scientific context.",
+    "skillExplanation": {
+      "SE-CTX": "This tests context-driven selection in a scientific register. The key context is the impossibility of building the required apparatus, which makes the conjecture impossible to test experimentally."
+    },
+    "trapAnalysis": {
+      "B": "Incontrovertible (indisputable) is the opposite; an untestable conjecture is maximally disputable.",
+      "D": "Inconsequential (unimportant) does not follow from being untestable; the conjecture may be profoundly important.",
+      "E": "Self-evident (obviously true) contradicts the need for experimental testing.",
+      "F": "Counterintuitive (against expectations) describes the nature of the idea, not its testability."
+    },
+    "tags": ["sentence-equivalence", "science"]
+  },
+  {
+    "id": "SE-CTX-016",
+    "type": "sentence_equivalence",
+    "skills": ["SE-CTX"],
+    "difficulty": 4,
+    "passage": null,
+    "stem": "The historian cautioned against interpreting the treaty as a ________ agreement, noting that both nations had signed under economic duress and harbored reservations about key provisions.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "coerced", "correct": false },
+      { "id": "B", "text": "voluntary", "correct": true },
+      { "id": "C", "text": "provisional", "correct": false },
+      { "id": "D", "text": "consensual", "correct": true },
+      { "id": "E", "text": "bilateral", "correct": false },
+      { "id": "F", "text": "unprecedented", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "Signing under economic duress with reservations means the treaty was not freely chosen. The historian warns against seeing it as freely agreed upon. 'Voluntary' and 'consensual' both describe an action undertaken freely, producing equivalent meanings.",
+    "skillExplanation": {
+      "SE-CTX": "This tests context-driven selection with a negation structure ('cautioned against interpreting as'). The context clues of 'economic duress' and 'harbored reservations' indicate forced compliance, so the blank must describe what the treaty was NOT."
+    },
+    "trapAnalysis": {
+      "A": "Coerced (forced) describes what the treaty actually was, not the mistaken interpretation being cautioned against.",
+      "C": "Provisional (temporary) is unrelated to the duress and reservations mentioned.",
+      "E": "Bilateral (involving two parties) is factually accurate (two nations) but does not address the voluntariness issue.",
+      "F": "Unprecedented (never before seen) is unrelated to the duress context."
+    },
+    "tags": ["sentence-equivalence", "arts-humanities"]
+  },
+  {
+    "id": "SE-CTX-017",
+    "type": "sentence_equivalence",
+    "skills": ["SE-CTX"],
+    "difficulty": 5,
+    "passage": null,
+    "stem": "The philosopher's attempt to ________ the seemingly irreconcilable demands of individual liberty and collective welfare produced a framework that, while intellectually ambitious, satisfied adherents of neither tradition fully.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "reconcile", "correct": true },
+      { "id": "B", "text": "exacerbate", "correct": false },
+      { "id": "C", "text": "harmonize", "correct": true },
+      { "id": "D", "text": "subordinate", "correct": false },
+      { "id": "E", "text": "delineate", "correct": false },
+      { "id": "F", "text": "circumscribe", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "The philosopher tried to bring together two seemingly incompatible demands. 'Reconcile' and 'harmonize' both mean to bring into agreement or compatibility, producing equivalent meanings. The attempt produced a framework bridging both traditions.",
+    "skillExplanation": {
+      "SE-CTX": "This tests context-driven selection at the highest difficulty. The key phrase 'seemingly irreconcilable demands' combined with 'produced a framework' indicates an attempt to bring two opposing principles into agreement."
+    },
+    "trapAnalysis": {
+      "B": "Exacerbate (make worse) would increase the tension between the demands, not resolve it.",
+      "D": "Subordinate (make secondary) would mean prioritizing one over the other, which would satisfy one tradition at the expense of the other.",
+      "E": "Delineate (describe precisely) means to outline, not to bring into agreement.",
+      "F": "Circumscribe (restrict) does not mean to bring into harmony."
+    },
+    "tags": ["sentence-equivalence", "social-science"]
+  },
+  {
+    "id": "SE-CTX-018",
+    "type": "sentence_equivalence",
+    "skills": ["SE-CTX"],
+    "difficulty": 5,
+    "passage": null,
+    "stem": "The author's prose style, at once lapidary and allusive, demands a reader willing to ________ meaning from sentences that yield their significance only upon sustained contemplation.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "extract", "correct": true },
+      { "id": "B", "text": "impose", "correct": false },
+      { "id": "C", "text": "tease out", "correct": true },
+      { "id": "D", "text": "fabricate", "correct": false },
+      { "id": "E", "text": "dismiss", "correct": false },
+      { "id": "F", "text": "approximate", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "Sentences that 'yield their significance only upon sustained contemplation' require careful, patient work to uncover meaning. 'Extract' and 'tease out' both describe the painstaking process of drawing out something hidden, producing equivalent meanings.",
+    "skillExplanation": {
+      "SE-CTX": "This tests context-driven selection at the highest level. The complex literary context ('lapidary and allusive,' 'sustained contemplation') demands understanding of how dense prose works. The answer must describe the active effort needed to uncover embedded meaning."
+    },
+    "trapAnalysis": {
+      "B": "Impose (force onto) suggests projecting meaning that is not there, rather than uncovering meaning that is.",
+      "D": "Fabricate (invent) implies creating meaning rather than discovering it.",
+      "E": "Dismiss (reject) is the opposite of the engaged reading described.",
+      "F": "Approximate (come close to) suggests imprecision, while the sentence describes achieving full significance through effort."
+    },
+    "tags": ["sentence-equivalence", "arts-humanities"]
+  },
+  {
+    "id": "SE-TRAP-001",
+    "type": "sentence_equivalence",
+    "skills": ["SE-TRAP"],
+    "difficulty": 1,
+    "passage": null,
+    "stem": "The new employee's ________ demeanor put her colleagues at ease during her first week, as she readily sought advice and expressed appreciation for their guidance.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "humble", "correct": true },
+      { "id": "B", "text": "arrogant", "correct": false },
+      { "id": "C", "text": "servile", "correct": false },
+      { "id": "D", "text": "modest", "correct": true },
+      { "id": "E", "text": "obsequious", "correct": false },
+      { "id": "F", "text": "timid", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "Seeking advice and expressing appreciation in a way that puts colleagues at ease indicates a genuinely unpretentious attitude. 'Humble' and 'modest' both describe an unassuming nature, producing equivalent meanings.",
+    "skillExplanation": {
+      "SE-TRAP": "This tests trap avoidance. The distractor pair servile/obsequious are near-synonyms (both mean excessively submissive), but neither fits the positive context of putting colleagues 'at ease.' Servility would make colleagues uncomfortable, not comfortable."
+    },
+    "trapAnalysis": {
+      "B": "Arrogant (haughty) would not put colleagues at ease.",
+      "C": "Servile (excessively submissive) forms a trap pair with obsequious. While both involve deference, the sentence describes a healthy, appreciated humility, not excessive groveling.",
+      "E": "Obsequious (sycophantic) forms a trap pair with servile. Both are too extreme for the positive context described.",
+      "F": "Timid (lacking courage) might make someone seek advice but would not necessarily put others at ease or involve expressing appreciation."
+    },
+    "tags": ["sentence-equivalence", "social-science"]
+  },
+  {
+    "id": "SE-TRAP-002",
+    "type": "sentence_equivalence",
+    "skills": ["SE-TRAP"],
+    "difficulty": 1,
+    "passage": null,
+    "stem": "The teacher's ________ approach to discipline created a productive classroom environment where students understood expectations but did not feel oppressed.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "firm", "correct": true },
+      { "id": "B", "text": "draconian", "correct": false },
+      { "id": "C", "text": "punitive", "correct": false },
+      { "id": "D", "text": "steady", "correct": true },
+      { "id": "E", "text": "lenient", "correct": false },
+      { "id": "F", "text": "arbitrary", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "Students understood expectations but did not feel oppressed, indicating a balanced, consistent approach. 'Firm' and 'steady' both describe a consistent, reliable approach that is neither harsh nor lax.",
+    "skillExplanation": {
+      "SE-TRAP": "This tests trap avoidance. The distractor pair draconian/punitive are related (both involve harsh discipline), but the sentence specifically states students 'did not feel oppressed,' ruling out both harsh options."
+    },
+    "trapAnalysis": {
+      "B": "Draconian (excessively harsh) contradicts 'did not feel oppressed.' This forms a trap pair with punitive.",
+      "C": "Punitive (intended to punish) contradicts the productive, non-oppressive environment. This forms a trap pair with draconian.",
+      "E": "Lenient (not strict enough) contradicts 'understood expectations,' which implies clear standards.",
+      "F": "Arbitrary (based on whim) would not help students 'understand expectations.'"
+    },
+    "tags": ["sentence-equivalence", "social-science"]
+  },
+  {
+    "id": "SE-TRAP-003",
+    "type": "sentence_equivalence",
+    "skills": ["SE-TRAP"],
+    "difficulty": 2,
+    "passage": null,
+    "stem": "The critic praised the novel for its ________ portrayal of working-class life, noting that the author avoided both romanticizing poverty and descending into bleak despair.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "sentimental", "correct": false },
+      { "id": "B", "text": "balanced", "correct": true },
+      { "id": "C", "text": "nuanced", "correct": true },
+      { "id": "D", "text": "maudlin", "correct": false },
+      { "id": "E", "text": "grim", "correct": false },
+      { "id": "F", "text": "idealized", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "The author avoided both romanticizing and despairing, striking a middle ground. 'Balanced' and 'nuanced' both describe a portrayal that captures complexity without extremes, producing equivalent meanings.",
+    "skillExplanation": {
+      "SE-TRAP": "This tests trap avoidance with the pair sentimental/maudlin. Both describe excessive emotion, and test-takers might be drawn to them because the topic is working-class life. But the sentence explicitly rejects both romanticizing and bleakness."
+    },
+    "trapAnalysis": {
+      "A": "Sentimental (excessively emotional) forms a trap pair with maudlin. The sentence explicitly says the author avoided romanticizing, which is what sentimentality would do.",
+      "D": "Maudlin (weakly sentimental) forms a trap pair with sentimental. Both involve the emotional excess that the sentence says was avoided.",
+      "E": "Grim contradicts the explicit statement that the author avoided 'bleak despair.'",
+      "F": "Idealized (presented as perfect) contradicts 'avoided romanticizing poverty.'"
+    },
+    "tags": ["sentence-equivalence", "arts-humanities"]
+  },
+  {
+    "id": "SE-TRAP-004",
+    "type": "sentence_equivalence",
+    "skills": ["SE-TRAP"],
+    "difficulty": 2,
+    "passage": null,
+    "stem": "The scientist's ________ hypothesis, while creative, was grounded in decades of empirical research and could be tested using existing experimental methods.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "novel", "correct": true },
+      { "id": "B", "text": "speculative", "correct": false },
+      { "id": "C", "text": "conjectural", "correct": false },
+      { "id": "D", "text": "innovative", "correct": true },
+      { "id": "E", "text": "derivative", "correct": false },
+      { "id": "F", "text": "orthodox", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "The hypothesis was creative yet grounded in research and testable, indicating genuine originality within a rigorous framework. 'Novel' and 'innovative' both describe something new and original, producing equivalent meanings.",
+    "skillExplanation": {
+      "SE-TRAP": "This tests trap avoidance with the pair speculative/conjectural. Both describe unproven guesswork, and test-takers might choose them for a hypothesis. But the sentence emphasizes empirical grounding and testability, ruling out mere speculation."
+    },
+    "trapAnalysis": {
+      "B": "Speculative (based on conjecture) forms a trap pair with conjectural. The sentence emphasizes the hypothesis was 'grounded in decades of empirical research,' contradicting speculation.",
+      "C": "Conjectural (based on guesswork) forms a trap pair with speculative. Both contradict the empirical grounding described.",
+      "E": "Derivative (unoriginal) contradicts 'creative.'",
+      "F": "Orthodox (conventional) contradicts 'creative' and the implication of newness."
+    },
+    "tags": ["sentence-equivalence", "science"]
+  },
+  {
+    "id": "SE-TRAP-005",
+    "type": "sentence_equivalence",
+    "skills": ["SE-TRAP"],
+    "difficulty": 3,
+    "passage": null,
+    "stem": "The editorial argued that the mayor's infrastructure plan was ________, combining ambitious long-term goals with realistic short-term benchmarks that could demonstrate progress to skeptical voters.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "visionary", "correct": false },
+      { "id": "B", "text": "pragmatic", "correct": true },
+      { "id": "C", "text": "utopian", "correct": false },
+      { "id": "D", "text": "judicious", "correct": true },
+      { "id": "E", "text": "reckless", "correct": false },
+      { "id": "F", "text": "pedestrian", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "The plan combines ambition with realism and includes benchmarks for skeptics, indicating wise, practical planning. 'Pragmatic' and 'judicious' both describe a sensible, well-reasoned approach, producing equivalent meanings.",
+    "skillExplanation": {
+      "SE-TRAP": "This tests trap avoidance with the pair visionary/utopian. Both describe grand, idealistic thinking, and test-takers might be drawn to 'visionary' because of 'ambitious long-term goals.' But the emphasis on 'realistic short-term benchmarks' and 'skeptical voters' stresses practicality over vision."
+    },
+    "trapAnalysis": {
+      "A": "Visionary (imaginatively forward-thinking) forms a trap pair with utopian. While the plan has ambitious goals, the sentence emphasizes its realistic, practical elements for skeptics.",
+      "C": "Utopian (idealistic to the point of impracticality) forms a trap pair with visionary. The sentence stresses realism and practical benchmarks.",
+      "E": "Reckless (without thought for consequences) contradicts the careful, benchmark-driven approach.",
+      "F": "Pedestrian (dull, uninspired) contradicts 'ambitious long-term goals.'"
+    },
+    "tags": ["sentence-equivalence", "social-science"]
+  },
+  {
+    "id": "SE-TRAP-006",
+    "type": "sentence_equivalence",
+    "skills": ["SE-TRAP"],
+    "difficulty": 3,
+    "passage": null,
+    "stem": "The curator selected works that were ________, challenging viewers with unfamiliar forms while still maintaining enough connection to recognizable traditions to remain accessible.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "avant-garde", "correct": false },
+      { "id": "B", "text": "provocative", "correct": true },
+      { "id": "C", "text": "radical", "correct": false },
+      { "id": "D", "text": "stimulating", "correct": true },
+      { "id": "E", "text": "conventional", "correct": false },
+      { "id": "F", "text": "banal", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "The works challenged viewers with unfamiliar forms but remained accessible through traditional connections. 'Provocative' and 'stimulating' both describe works that engage and challenge the mind without being extreme, producing equivalent meanings.",
+    "skillExplanation": {
+      "SE-TRAP": "This tests trap avoidance with the pair avant-garde/radical. Both suggest extreme artistic innovation, and test-takers might choose them because the works have 'unfamiliar forms.' But the sentence stresses that the works also maintain connections to tradition and accessibility, ruling out purely radical works."
+    },
+    "trapAnalysis": {
+      "A": "Avant-garde (experimental, pushing boundaries) forms a trap pair with radical. The emphasis on maintaining traditional connections and accessibility contradicts purely experimental work.",
+      "C": "Radical (departing markedly from the usual) forms a trap pair with avant-garde. Both are too extreme for works that deliberately maintain accessibility.",
+      "E": "Conventional (following tradition) contradicts 'challenging viewers with unfamiliar forms.'",
+      "F": "Banal (unoriginal, boring) contradicts the challenging nature described."
+    },
+    "tags": ["sentence-equivalence", "arts-humanities"]
+  },
+  {
+    "id": "SE-TRAP-007",
+    "type": "sentence_equivalence",
+    "skills": ["SE-TRAP"],
+    "difficulty": 3,
+    "passage": null,
+    "stem": "The memoir's account of the author's childhood was ________, presenting events with an honesty that acknowledged complexity without descending into self-pity or recrimination.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "candid", "correct": true },
+      { "id": "B", "text": "mawkish", "correct": false },
+      { "id": "C", "text": "forthcoming", "correct": true },
+      { "id": "D", "text": "lachrymose", "correct": false },
+      { "id": "E", "text": "reticent", "correct": false },
+      { "id": "F", "text": "embellished", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "The account was honest and acknowledged complexity without self-pity. 'Candid' and 'forthcoming' both describe open, honest disclosure, producing equivalent meanings.",
+    "skillExplanation": {
+      "SE-TRAP": "This tests trap avoidance with the pair mawkish/lachrymose. Both describe tearful sentimentality, and a memoir about childhood might tempt test-takers to choose emotional words. But the sentence explicitly rejects 'self-pity,' ruling out both options."
+    },
+    "trapAnalysis": {
+      "B": "Mawkish (excessively sentimental) forms a trap pair with lachrymose. The sentence explicitly says the account avoided self-pity.",
+      "D": "Lachrymose (tearful) forms a trap pair with mawkish. Both describe the emotional excess the sentence rejects.",
+      "E": "Reticent (reluctant to speak) contradicts the openness implied by acknowledging complexity honestly.",
+      "F": "Embellished (exaggerated, decorated) contradicts 'honesty.'"
+    },
+    "tags": ["sentence-equivalence", "arts-humanities"]
+  },
+  {
+    "id": "SE-TRAP-008",
+    "type": "sentence_equivalence",
+    "skills": ["SE-TRAP"],
+    "difficulty": 3,
+    "passage": null,
+    "stem": "The executive's ________ response to the crisis impressed the board, as she acted decisively to contain the damage while communicating transparently with all stakeholders.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "impetuous", "correct": false },
+      { "id": "B", "text": "measured", "correct": true },
+      { "id": "C", "text": "rash", "correct": false },
+      { "id": "D", "text": "deliberate", "correct": true },
+      { "id": "E", "text": "dilatory", "correct": false },
+      { "id": "F", "text": "perfunctory", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "Acting decisively while communicating transparently indicates a response that was both swift and carefully considered. 'Measured' and 'deliberate' both describe actions taken with careful thought, producing equivalent meanings.",
+    "skillExplanation": {
+      "SE-TRAP": "This tests trap avoidance with the pair impetuous/rash. Both mean acting without careful thought, and test-takers might confuse 'decisive' action with impulsive action. But the sentence emphasizes transparent communication, indicating thoughtfulness, not recklessness."
+    },
+    "trapAnalysis": {
+      "A": "Impetuous (acting without thought) forms a trap pair with rash. Decisive action is not the same as impulsive action; the transparent communication signals thoughtfulness.",
+      "C": "Rash (acting without careful consideration) forms a trap pair with impetuous. Both contradict the careful, transparent approach described.",
+      "E": "Dilatory (slow, delaying) contradicts the decisive action described.",
+      "F": "Perfunctory (done without care) contradicts the transparent, thorough communication with stakeholders."
+    },
+    "tags": ["sentence-equivalence", "social-science"]
+  },
+  {
+    "id": "SE-TRAP-009",
+    "type": "sentence_equivalence",
+    "skills": ["SE-TRAP"],
+    "difficulty": 4,
+    "passage": null,
+    "stem": "The scholar's interpretation of the ancient text was ________, offering a reading that, while departing from consensus, was supported by careful philological analysis and newly discovered manuscript evidence.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "heterodox", "correct": false },
+      { "id": "B", "text": "compelling", "correct": true },
+      { "id": "C", "text": "heretical", "correct": false },
+      { "id": "D", "text": "persuasive", "correct": true },
+      { "id": "E", "text": "orthodox", "correct": false },
+      { "id": "F", "text": "tentative", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "Though the interpretation departed from consensus, it was supported by rigorous analysis and new evidence. 'Compelling' and 'persuasive' both describe something that convinces through the strength of its evidence, producing equivalent meanings.",
+    "skillExplanation": {
+      "SE-TRAP": "This tests trap avoidance with the pair heterodox/heretical. Both mean departing from established belief, and since the interpretation 'departs from consensus,' these words seem fitting. But the sentence emphasizes the strength of the evidence supporting the reading, making the overall assessment positive (convincing) rather than merely descriptive of its nonconformity."
+    },
+    "trapAnalysis": {
+      "A": "Heterodox (not conforming to accepted beliefs) forms a trap pair with heretical. While accurate in describing the interpretation's relationship to consensus, it does not capture the sentence's emphasis on evidentiary support.",
+      "C": "Heretical (contrary to orthodox belief) forms a trap pair with heterodox. Both describe the departure from consensus but miss the sentence's positive evaluation of the interpretation's quality.",
+      "E": "Orthodox (conforming to accepted beliefs) directly contradicts 'departing from consensus.'",
+      "F": "Tentative (uncertain, hesitant) contradicts the 'careful philological analysis' and strong manuscript evidence."
+    },
+    "tags": ["sentence-equivalence", "arts-humanities"]
+  },
+  {
+    "id": "SE-TRAP-010",
+    "type": "sentence_equivalence",
+    "skills": ["SE-TRAP"],
+    "difficulty": 4,
+    "passage": null,
+    "stem": "The architect's design for the memorial was ________, evoking solemnity and reverence through its austere geometry rather than through figurative sculpture or ornamental detail.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "understated", "correct": true },
+      { "id": "B", "text": "spartan", "correct": false },
+      { "id": "C", "text": "ascetic", "correct": false },
+      { "id": "D", "text": "restrained", "correct": true },
+      { "id": "E", "text": "grandiose", "correct": false },
+      { "id": "F", "text": "ornate", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "The design uses austere geometry rather than ornament to evoke solemnity, indicating controlled simplicity. 'Understated' and 'restrained' both describe an approach that achieves its effect through deliberate simplicity, producing equivalent meanings.",
+    "skillExplanation": {
+      "SE-TRAP": "This tests trap avoidance with the pair spartan/ascetic. Both suggest extreme austerity to the point of deprivation, and the word 'austere' in the sentence might attract test-takers to these options. But the design successfully evokes 'solemnity and reverence,' indicating purposeful restraint, not mere bareness."
+    },
+    "trapAnalysis": {
+      "B": "Spartan (severely bare) forms a trap pair with ascetic. While the design is austere, the sentence emphasizes its emotional power, not its bareness. Spartan carries a connotation of uncomfortable minimalism.",
+      "C": "Ascetic (characterized by self-denial) forms a trap pair with spartan. Both suggest deprivation rather than the elegant restraint that achieves emotional depth.",
+      "E": "Grandiose (impressive, imposing) contradicts the 'austere geometry' and absence of figurative elements.",
+      "F": "Ornate (elaborately decorated) directly contradicts 'rather than ornamental detail.'"
+    },
+    "tags": ["sentence-equivalence", "arts-humanities"]
+  },
+  {
+    "id": "SE-TRAP-011",
+    "type": "sentence_equivalence",
+    "skills": ["SE-TRAP"],
+    "difficulty": 4,
+    "passage": null,
+    "stem": "Though the journalist's exposé revealed genuine institutional failings, its ________ tone undermined its credibility, leading readers to question whether the reporting was motivated more by righteous indignation than by a commitment to truth.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "objective", "correct": false },
+      { "id": "B", "text": "polemical", "correct": true },
+      { "id": "C", "text": "dispassionate", "correct": false },
+      { "id": "D", "text": "inflammatory", "correct": true },
+      { "id": "E", "text": "investigative", "correct": false },
+      { "id": "F", "text": "methodical", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "The tone undermined credibility and suggested righteous indignation over truth-seeking, indicating an aggressively argumentative quality. 'Polemical' and 'inflammatory' both describe a tone designed to provoke strong reactions, producing equivalent meanings.",
+    "skillExplanation": {
+      "SE-TRAP": "This tests trap avoidance with the pair objective/dispassionate. Both describe neutral, unbiased approaches, and test-takers might think an exposé should be objective. But the sentence says the tone UNDERMINED credibility, so the blank must describe a negative quality, not a positive one."
+    },
+    "trapAnalysis": {
+      "A": "Objective (unbiased) would enhance credibility, not undermine it. This forms a trap pair with dispassionate.",
+      "C": "Dispassionate (calm, impartial) would enhance credibility. This forms a trap pair with objective.",
+      "E": "Investigative describes the type of journalism, not the tone that undermined credibility.",
+      "F": "Methodical (systematic) describes process, not tone, and would enhance rather than undermine credibility."
+    },
+    "tags": ["sentence-equivalence", "social-science"]
+  },
+  {
+    "id": "SE-TRAP-012",
+    "type": "sentence_equivalence",
+    "skills": ["SE-TRAP"],
+    "difficulty": 5,
+    "passage": null,
+    "stem": "The theorist's framework was ________ in its explanatory scope, accounting for phenomena across multiple domains with a coherence that more specialized models could not achieve, yet this very breadth made some critics suspicious of its empirical foundations.",
+    "blanks": 1,
+    "options": [
+      { "id": "A", "text": "sweeping", "correct": true },
+      { "id": "B", "text": "grandiose", "correct": false },
+      { "id": "C", "text": "pretentious", "correct": false },
+      { "id": "D", "text": "comprehensive", "correct": true },
+      { "id": "E", "text": "reductive", "correct": false },
+      { "id": "F", "text": "provisional", "correct": false }
+    ],
+    "correctCount": 2,
+    "explanation": "The framework accounts for phenomena across multiple domains with coherence, indicating vast scope. 'Sweeping' and 'comprehensive' both describe something broad and far-reaching in scope, producing equivalent meanings.",
+    "skillExplanation": {
+      "SE-TRAP": "This tests trap avoidance at the highest difficulty with the pair grandiose/pretentious. Both carry negative connotations of unjustified ambition, and the critics' suspicion might tempt test-takers toward these options. But the sentence first establishes the framework's genuine achievement (coherence across domains), meaning the blank must be descriptively neutral about breadth, not dismissive."
+    },
+    "trapAnalysis": {
+      "A": "This is correct. Sweeping describes broad scope without inherent negative judgment.",
+      "B": "Grandiose (pretentiously impressive) forms a trap pair with pretentious. The sentence's structure first praises the framework's genuine coherence before mentioning critics, so the blank describes the praised quality, not the criticism.",
+      "C": "Pretentious (attempting to impress beyond one's ability) forms a trap pair with grandiose. Both carry the negative judgment that belongs to the critics' view, not the sentence's primary characterization.",
+      "E": "Reductive (oversimplifying) contradicts the 'coherence that more specialized models could not achieve.'",
+      "F": "Provisional (temporary) does not describe scope."
+    },
+    "tags": ["sentence-equivalence", "science"]
+  }
+]
