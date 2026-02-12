@@ -28,12 +28,15 @@ const WordWeb = () => {
   const [viewMode, setViewMode] = useState<ViewMode>('overview');
   const [selectedClusterId, setSelectedClusterId] = useState<string | null>(null);
 
-  // Build learned words set from flashcards progress
+  // Build learned words set and word→definition map from flashcards
   const learnedWords = new Set<string>();
+  const wordDefinitions = new Map<string, string>();
   if (flashcards) {
     for (const fc of flashcards) {
+      const lower = fc.word.toLowerCase();
+      wordDefinitions.set(lower, fc.definition);
       if (fc.status === 'learned') {
-        learnedWords.add(fc.word.toLowerCase());
+        learnedWords.add(lower);
       }
     }
   }
@@ -136,6 +139,7 @@ const WordWeb = () => {
             clusterId={selectedClusterId}
             clusterMastery={state?.clusterMastery[selectedClusterId] ?? 0}
             learnedWords={learnedWords}
+            wordDefinitions={wordDefinitions}
             onBack={() => {
               setViewMode('overview');
               setSelectedClusterId(null);

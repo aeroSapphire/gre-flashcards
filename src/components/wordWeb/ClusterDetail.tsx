@@ -4,7 +4,6 @@ import { ArrowLeft, Play, AlertTriangle, Zap, ChevronDown, ChevronUp } from 'luc
 import { Button } from '@/components/ui/button';
 import { getClusterById } from '@/data/wordRelationships/index';
 import { getMasteryLevel } from '@/utils/clusterMastery';
-import { NetworkGraph } from './NetworkGraph';
 import { IntensityScale } from './IntensityScale';
 import { WordDetailCard } from './WordDetailCard';
 import type { WordCluster } from '@/data/wordRelationships/types';
@@ -13,17 +12,17 @@ interface ClusterDetailProps {
   clusterId: string;
   clusterMastery: number;
   learnedWords: Set<string>;
+  wordDefinitions: Map<string, string>;
   onBack: () => void;
   onStartDrill: (clusterId: string) => void;
   onDrillConfusion: (wordA: string, wordB: string, clusterId: string) => void;
 }
 
-type TabId = 'summary' | 'scale' | 'network' | 'confusions';
+type TabId = 'summary' | 'scale' | 'confusions';
 
 const TABS: { id: TabId; label: string }[] = [
   { id: 'summary', label: 'Summary' },
-  { id: 'scale', label: 'Intensity Scale' },
-  { id: 'network', label: 'Network' },
+  { id: 'scale', label: 'Word Cards' },
   { id: 'confusions', label: 'Confusions' },
 ];
 
@@ -31,6 +30,7 @@ export function ClusterDetail({
   clusterId,
   clusterMastery,
   learnedWords,
+  wordDefinitions,
   onBack,
   onStartDrill,
   onDrillConfusion,
@@ -115,7 +115,7 @@ export function ClusterDetail({
               className="flex-1"
               onClick={() => { setDismissedIntro(true); setActiveTab('scale'); }}
             >
-              Explore the Scale
+              Explore Words
             </Button>
             <Button
               className="flex-1"
@@ -327,19 +327,7 @@ export function ClusterDetail({
                 <IntensityScale
                   scale={cluster.intensityScale}
                   learnedWords={learnedWords}
-                  onWordClick={handleWordClick}
-                />
-              </div>
-            )}
-
-            {/* Network tab */}
-            {activeTab === 'network' && (
-              <div className="bg-card border border-border rounded-xl p-3">
-                <NetworkGraph
-                  words={cluster.words}
-                  relationships={cluster.relationships}
-                  learnedWords={learnedWords}
-                  highlightWord={selectedWord ?? undefined}
+                  wordDefinitions={wordDefinitions}
                   onWordClick={handleWordClick}
                 />
               </div>
