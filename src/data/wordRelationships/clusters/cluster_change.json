@@ -1,0 +1,302 @@
+{
+  "id": "cluster_change",
+  "name": "Change & Permanence",
+  "concept": "Words describing how readily something changes or remains fixed — from absolute rigidity to wild unpredictability",
+  "words": [
+    "mutable", "protean", "mercurial", "capricious", "volatile",
+    "immutable", "entrenched", "inveterate", "static", "ossified",
+    "ephemeral", "transient"
+  ],
+  "relationships": [
+    {
+      "wordA": "mutable",
+      "wordB": "immutable",
+      "type": "antonym",
+      "shadeNote": "Direct antonym pair: mutable can be changed, immutable cannot",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "protean",
+      "wordB": "mercurial",
+      "type": "near_synonym",
+      "shadeNote": "Both shift constantly, but protean implies versatile adaptation; mercurial implies emotional unpredictability",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "capricious",
+      "wordB": "mercurial",
+      "type": "commonly_confused",
+      "shadeNote": "Both mean changeable; capricious stresses whimsy and lack of reason, mercurial stresses speed of mood shifts",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "volatile",
+      "wordB": "mercurial",
+      "type": "near_synonym",
+      "shadeNote": "Volatile implies dangerous instability; mercurial implies rapid but not necessarily threatening shifts",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "capricious",
+      "wordB": "volatile",
+      "type": "near_synonym",
+      "shadeNote": "Capricious is whimsical and unmotivated; volatile carries a sense of explosive, potentially dangerous change",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "entrenched",
+      "wordB": "ossified",
+      "type": "near_synonym",
+      "shadeNote": "Entrenched means deeply established; ossified adds the negative sense of having become rigid and outdated",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "entrenched",
+      "wordB": "inveterate",
+      "type": "near_synonym",
+      "shadeNote": "Entrenched describes positions or systems; inveterate describes long-standing habits or personal qualities",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "static",
+      "wordB": "ossified",
+      "type": "near_synonym",
+      "shadeNote": "Static means unchanging and neutral; ossified means rigidly unchanging with a negative, petrified connotation",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "ephemeral",
+      "wordB": "transient",
+      "type": "commonly_confused",
+      "shadeNote": "Ephemeral stresses extreme brevity (hours/days); transient implies passing through, lasting slightly longer",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "ephemeral",
+      "wordB": "immutable",
+      "type": "antonym",
+      "shadeNote": "Ephemeral things vanish quickly; immutable things endure forever — opposite in temporal persistence",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "protean",
+      "wordB": "static",
+      "type": "antonym",
+      "shadeNote": "Protean means constantly shifting forms; static means completely unmoving",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "ossified",
+      "wordB": "mutable",
+      "type": "antonym",
+      "shadeNote": "Ossified means hardened into rigidity; mutable means open to change",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "inveterate",
+      "wordB": "ossified",
+      "type": "category_sibling",
+      "shadeNote": "Both describe deep-rooted fixedness: inveterate for habits/attitudes, ossified for systems/institutions",
+      "greRelevance": "medium",
+      "bidirectional": true
+    }
+  ],
+  "intensityScale": {
+    "dimension": "changeability",
+    "poles": ["completely fixed", "extremely changeable"],
+    "words": [
+      { "word": "immutable", "position": 0.0, "connotation": "neutral" },
+      { "word": "ossified", "position": 0.05, "connotation": "negative" },
+      { "word": "entrenched", "position": 0.1, "connotation": "negative" },
+      { "word": "inveterate", "position": 0.15, "connotation": "negative" },
+      { "word": "static", "position": 0.2, "connotation": "neutral" },
+      { "word": "mutable", "position": 0.5, "connotation": "neutral" },
+      { "word": "transient", "position": 0.6, "connotation": "neutral" },
+      { "word": "ephemeral", "position": 0.65, "connotation": "neutral" },
+      { "word": "capricious", "position": 0.75, "connotation": "negative" },
+      { "word": "volatile", "position": 0.85, "connotation": "negative" },
+      { "word": "mercurial", "position": 0.9, "connotation": "negative" },
+      { "word": "protean", "position": 0.95, "connotation": "neutral" }
+    ]
+  },
+  "commonConfusions": [
+    {
+      "words": ["capricious", "mercurial"],
+      "whyConfused": "Both describe changeability, but capricious emphasizes motiveless whimsy while mercurial emphasizes rapid emotional swings.",
+      "mnemonic": "CAPricious = random CAPrice; MERCurial = mercury in a thermometer, shooting up and down",
+      "exampleSentences": [
+        "The capricious monarch issued contradictory decrees based on nothing more than passing fancy.",
+        "Her mercurial temperament meant she could shift from laughter to rage in seconds."
+      ]
+    },
+    {
+      "words": ["ephemeral", "transient"],
+      "whyConfused": "Both mean short-lived, but ephemeral implies extreme brevity (like a mayfly) while transient implies passing through over a longer period.",
+      "mnemonic": "EPHemeral = like an EPH-emera (mayfly, lives one day); TRANSient = in TRANSit (passing through)",
+      "exampleSentences": [
+        "The ephemeral beauty of cherry blossoms lasts only a few days before the petals scatter.",
+        "The transient workers stayed in town for several months before moving on to the next job site."
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "id": "change_drill_01",
+      "type": "intensity_ordering",
+      "clusterId": "cluster_change",
+      "difficulty": 2,
+      "prompt": "Rank these words from MOST fixed/unchanging to MOST changeable:",
+      "options": [
+        { "id": "a", "text": "mutable" },
+        { "id": "b", "text": "immutable" },
+        { "id": "c", "text": "protean" },
+        { "id": "d", "text": "static" }
+      ],
+      "correctAnswer": ["b", "d", "a", "c"],
+      "explanation": "Immutable (cannot change at all) > static (not changing) > mutable (capable of change) > protean (constantly shifting forms). The scale runs from absolute fixedness to maximum changeability."
+    },
+    {
+      "id": "change_drill_02",
+      "type": "shade_distinction",
+      "clusterId": "cluster_change",
+      "difficulty": 2,
+      "prompt": "Which word best describes an institution that has become rigidly outdated and resistant to reform?",
+      "options": [
+        { "id": "a", "text": "static" },
+        { "id": "b", "text": "ossified" },
+        { "id": "c", "text": "immutable" },
+        { "id": "d", "text": "entrenched" }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Ossified specifically means hardened into an outdated, inflexible state, like bone turning rigid. Static is neutral (just not moving), immutable means inherently unchangeable, and entrenched means deeply established but not necessarily outdated."
+    },
+    {
+      "id": "change_drill_03",
+      "type": "confusion_resolver",
+      "clusterId": "cluster_change",
+      "difficulty": 2,
+      "prompt": "The artist's _______ style shifted between impressionism, cubism, and surrealism throughout her career.",
+      "options": [
+        { "id": "a", "text": "protean" },
+        { "id": "b", "text": "mercurial" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Protean (from the shape-shifting god Proteus) describes versatile, deliberate transformations across forms. Mercurial implies unpredictable emotional swings, not creative versatility."
+    },
+    {
+      "id": "change_drill_04",
+      "type": "confusion_resolver",
+      "clusterId": "cluster_change",
+      "difficulty": 2,
+      "prompt": "The _______ nature of social media trends means today's viral sensation is forgotten by next week.",
+      "options": [
+        { "id": "a", "text": "ephemeral" },
+        { "id": "b", "text": "transient" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Ephemeral stresses extreme brevity — something lasting days or less. Transient implies a longer passing period. A viral trend that vanishes in a week is better captured by ephemeral."
+    },
+    {
+      "id": "change_drill_05",
+      "type": "odd_one_out",
+      "clusterId": "cluster_change",
+      "difficulty": 1,
+      "prompt": "Which word does NOT describe something fixed, established, or resistant to change?",
+      "options": [
+        { "id": "a", "text": "entrenched" },
+        { "id": "b", "text": "inveterate" },
+        { "id": "c", "text": "volatile" },
+        { "id": "d", "text": "ossified" }
+      ],
+      "correctAnswer": "c",
+      "explanation": "Volatile means unstable and prone to sudden change. The other three — entrenched (firmly established), inveterate (long-standing habit), ossified (hardened into rigidity) — all describe fixedness."
+    },
+    {
+      "id": "change_drill_06",
+      "type": "shade_distinction",
+      "clusterId": "cluster_change",
+      "difficulty": 3,
+      "prompt": "A 'capricious' ruler and a 'mercurial' ruler are both unpredictable. What distinguishes them?",
+      "options": [
+        { "id": "a", "text": "Capricious stresses whimsy without reason; mercurial stresses rapid emotional swings" },
+        { "id": "b", "text": "Capricious is positive; mercurial is negative" },
+        { "id": "c", "text": "Capricious means slow change; mercurial means fast change" },
+        { "id": "d", "text": "There is no meaningful difference" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Capricious emphasizes unmotivated, whimsical changes (from 'caprice'). Mercurial emphasizes the speed and emotional nature of the shifts (from Mercury, the swift messenger god). Both are negative, and both imply speed."
+    },
+    {
+      "id": "change_drill_07",
+      "type": "connotation_sorting",
+      "clusterId": "cluster_change",
+      "difficulty": 2,
+      "prompt": "Sort these 'unchanging' words by connotation: which is most NEGATIVE?",
+      "options": [
+        { "id": "a", "text": "immutable" },
+        { "id": "b", "text": "static" },
+        { "id": "c", "text": "ossified" },
+        { "id": "d", "text": "entrenched" }
+      ],
+      "correctAnswer": "c",
+      "explanation": "Ossified is the most negative — it literally means 'turned to bone,' implying something has become rigid, outdated, and dysfunctional. Entrenched is somewhat negative, static is neutral, and immutable is neutral (laws of physics are immutable)."
+    },
+    {
+      "id": "change_drill_08",
+      "type": "relationship_labeling",
+      "clusterId": "cluster_change",
+      "difficulty": 2,
+      "prompt": "What is the relationship between 'protean' and 'static'?",
+      "options": [
+        { "id": "a", "text": "Synonyms" },
+        { "id": "b", "text": "Antonyms" },
+        { "id": "c", "text": "Stronger/weaker variants" },
+        { "id": "d", "text": "Commonly confused" }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Protean means constantly shifting and taking new forms. Static means completely unmoving and unchanged. They are antonyms on the changeability spectrum."
+    },
+    {
+      "id": "change_drill_09",
+      "type": "shade_distinction",
+      "clusterId": "cluster_change",
+      "difficulty": 3,
+      "prompt": "Which word specifically implies that someone's habit has been held for a very long time and is deeply ingrained?",
+      "options": [
+        { "id": "a", "text": "immutable" },
+        { "id": "b", "text": "entrenched" },
+        { "id": "c", "text": "inveterate" },
+        { "id": "d", "text": "static" }
+      ],
+      "correctAnswer": "c",
+      "explanation": "Inveterate specifically describes habits, attitudes, or personal qualities that have been firmly established over a long period (e.g., 'inveterate liar'). Entrenched applies more to positions and systems, not personal habits."
+    },
+    {
+      "id": "change_drill_10",
+      "type": "intensity_ordering",
+      "clusterId": "cluster_change",
+      "difficulty": 3,
+      "prompt": "Rank these 'changeable' words from LEAST changeable to MOST changeable:",
+      "options": [
+        { "id": "a", "text": "mutable" },
+        { "id": "b", "text": "volatile" },
+        { "id": "c", "text": "capricious" },
+        { "id": "d", "text": "protean" }
+      ],
+      "correctAnswer": ["a", "c", "b", "d"],
+      "explanation": "Mutable simply means 'capable of change.' Capricious adds whimsical unpredictability. Volatile adds explosive instability. Protean describes the most extreme changeability — constantly assuming entirely new forms."
+    }
+  ]
+}

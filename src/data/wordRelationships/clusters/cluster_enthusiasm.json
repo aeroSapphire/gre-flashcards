@@ -1,0 +1,300 @@
+{
+  "id": "cluster_enthusiasm",
+  "name": "Enthusiasm & Apathy",
+  "concept": "Words describing levels of passion and emotional energy — from burning zeal to complete emotional numbness",
+  "words": [
+    "fervent", "zealous", "ardent", "vehement", "impassioned",
+    "apathetic", "indifferent", "listless", "languid", "torpid", "phlegmatic"
+  ],
+  "relationships": [
+    {
+      "wordA": "fervent",
+      "wordB": "ardent",
+      "type": "near_synonym",
+      "shadeNote": "Both mean intensely passionate; fervent emphasizes heated emotion, ardent emphasizes burning devotion",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "fervent",
+      "wordB": "vehement",
+      "type": "near_synonym",
+      "shadeNote": "Fervent is warmly passionate; vehement adds forceful intensity and sometimes aggression",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "vehement",
+      "wordB": "fervent",
+      "type": "stronger_than",
+      "shadeNote": "Vehement implies more forceful, almost violent intensity than fervent's warm passion",
+      "greRelevance": "medium",
+      "bidirectional": false
+    },
+    {
+      "wordA": "zealous",
+      "wordB": "fervent",
+      "type": "near_synonym",
+      "shadeNote": "Zealous implies active pursuit driven by passion; fervent implies deep feeling that may or may not lead to action",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "impassioned",
+      "wordB": "ardent",
+      "type": "near_synonym",
+      "shadeNote": "Impassioned describes passionate expression (speeches, pleas); ardent describes passionate character or devotion",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "apathetic",
+      "wordB": "fervent",
+      "type": "antonym",
+      "shadeNote": "Direct opposites: apathetic lacks all feeling, fervent overflows with it",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "indifferent",
+      "wordB": "zealous",
+      "type": "antonym",
+      "shadeNote": "Indifferent lacks concern or preference; zealous burns with active, driven passion",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "languid",
+      "wordB": "listless",
+      "type": "commonly_confused",
+      "shadeNote": "Languid can be pleasantly relaxed or dreamy; listless is always negative — lacking energy or interest",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "indifferent",
+      "wordB": "apathetic",
+      "type": "near_synonym",
+      "shadeNote": "Indifferent means not caring about a specific matter; apathetic means a general absence of emotion or interest",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "torpid",
+      "wordB": "phlegmatic",
+      "type": "near_synonym",
+      "shadeNote": "Torpid means sluggish from numbness; phlegmatic means calm and unemotional by temperament",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "torpid",
+      "wordB": "listless",
+      "type": "near_synonym",
+      "shadeNote": "Torpid implies physical/mental numbness; listless implies lack of interest or enthusiasm",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "phlegmatic",
+      "wordB": "apathetic",
+      "type": "category_sibling",
+      "shadeNote": "Phlegmatic is unemotional by calm temperament; apathetic is unemotional from lack of caring",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "languid",
+      "wordB": "torpid",
+      "type": "near_synonym",
+      "shadeNote": "Languid suggests dreamy, slow-paced ease; torpid suggests heavy, almost hibernation-like sluggishness",
+      "greRelevance": "medium",
+      "bidirectional": true
+    }
+  ],
+  "intensityScale": {
+    "dimension": "passion",
+    "poles": ["no energy/interest", "intense passion"],
+    "words": [
+      { "word": "torpid", "position": 0.0, "connotation": "negative" },
+      { "word": "apathetic", "position": 0.05, "connotation": "negative" },
+      { "word": "listless", "position": 0.1, "connotation": "negative" },
+      { "word": "phlegmatic", "position": 0.15, "connotation": "neutral" },
+      { "word": "languid", "position": 0.2, "connotation": "neutral" },
+      { "word": "indifferent", "position": 0.25, "connotation": "negative" },
+      { "word": "fervent", "position": 0.7, "connotation": "positive" },
+      { "word": "ardent", "position": 0.75, "connotation": "positive" },
+      { "word": "zealous", "position": 0.8, "connotation": "neutral" },
+      { "word": "impassioned", "position": 0.85, "connotation": "positive" },
+      { "word": "vehement", "position": 0.95, "connotation": "neutral" }
+    ]
+  },
+  "commonConfusions": [
+    {
+      "words": ["indifferent", "disinterested"],
+      "whyConfused": "Often used interchangeably in casual speech, but disinterested means impartial (no personal stake), while indifferent means not caring at all.",
+      "mnemonic": "DISinterested = DISpassionate judge (no bias); INdifferent = IN-capable of caring",
+      "exampleSentences": [
+        "The indifferent audience barely clapped, clearly bored by the entire performance.",
+        "We need a disinterested third party to arbitrate — someone with no financial ties to either side."
+      ]
+    },
+    {
+      "words": ["languid", "listless"],
+      "whyConfused": "Both describe low energy, but languid can be attractively relaxed (a languid afternoon), while listless is always negative (lacking spirit).",
+      "mnemonic": "LANGUid = LANGUorous luxury; LISTless = no LIST of things you want to do",
+      "exampleSentences": [
+        "She stretched out in languid comfort on the sun-warmed hammock, savoring the quiet afternoon.",
+        "After weeks of illness, he remained listless, unable to muster interest in anything around him."
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "id": "enth_drill_01",
+      "type": "intensity_ordering",
+      "clusterId": "cluster_enthusiasm",
+      "difficulty": 2,
+      "prompt": "Rank these words from LEAST passionate to MOST passionate:",
+      "options": [
+        { "id": "a", "text": "fervent" },
+        { "id": "b", "text": "apathetic" },
+        { "id": "c", "text": "vehement" },
+        { "id": "d", "text": "indifferent" }
+      ],
+      "correctAnswer": ["b", "d", "a", "c"],
+      "explanation": "Apathetic (no feeling at all) < indifferent (not caring) < fervent (warm passion) < vehement (forceful, intense passion). The scale runs from emotional void to explosive intensity."
+    },
+    {
+      "id": "enth_drill_02",
+      "type": "shade_distinction",
+      "clusterId": "cluster_enthusiasm",
+      "difficulty": 2,
+      "prompt": "Which word describes someone who is calm and unemotional by natural temperament, rather than from laziness or apathy?",
+      "options": [
+        { "id": "a", "text": "torpid" },
+        { "id": "b", "text": "listless" },
+        { "id": "c", "text": "phlegmatic" },
+        { "id": "d", "text": "apathetic" }
+      ],
+      "correctAnswer": "c",
+      "explanation": "Phlegmatic describes a calm, unexcitable temperament — it is a character trait, not a deficiency. Torpid implies sluggish numbness, listless implies lack of enthusiasm, and apathetic implies failure to care."
+    },
+    {
+      "id": "enth_drill_03",
+      "type": "confusion_resolver",
+      "clusterId": "cluster_enthusiasm",
+      "difficulty": 2,
+      "prompt": "After the long illness, she felt _______, unable to summon interest in her former hobbies.",
+      "options": [
+        { "id": "a", "text": "languid" },
+        { "id": "b", "text": "listless" }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Listless means lacking energy, spirit, or interest — always negative and often associated with illness. Languid can suggest pleasant, dreamy relaxation. Post-illness lack of interest is listless."
+    },
+    {
+      "id": "enth_drill_04",
+      "type": "confusion_resolver",
+      "clusterId": "cluster_enthusiasm",
+      "difficulty": 2,
+      "prompt": "The crowd was completely _______ about the election, with barely 20% turnout.",
+      "options": [
+        { "id": "a", "text": "indifferent" },
+        { "id": "b", "text": "disinterested" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Indifferent means not caring about the outcome. Disinterested means impartial, having no personal stake. Low voter turnout signals apathy (indifference), not impartiality."
+    },
+    {
+      "id": "enth_drill_05",
+      "type": "odd_one_out",
+      "clusterId": "cluster_enthusiasm",
+      "difficulty": 1,
+      "prompt": "Which word does NOT convey passion, enthusiasm, or intense feeling?",
+      "options": [
+        { "id": "a", "text": "ardent" },
+        { "id": "b", "text": "impassioned" },
+        { "id": "c", "text": "phlegmatic" },
+        { "id": "d", "text": "vehement" }
+      ],
+      "correctAnswer": "c",
+      "explanation": "Phlegmatic means calm and unemotional. Ardent (burning devotion), impassioned (filled with passion), and vehement (forcefully intense) all describe high levels of emotional energy."
+    },
+    {
+      "id": "enth_drill_06",
+      "type": "shade_distinction",
+      "clusterId": "cluster_enthusiasm",
+      "difficulty": 3,
+      "prompt": "What distinguishes 'vehement' from 'fervent'?",
+      "options": [
+        { "id": "a", "text": "Vehement adds forceful, almost aggressive intensity; fervent is warmly but not forcefully passionate" },
+        { "id": "b", "text": "Fervent is stronger than vehement" },
+        { "id": "c", "text": "Vehement is always positive; fervent can be negative" },
+        { "id": "d", "text": "They are exact synonyms" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Vehement comes from a Latin root meaning 'violent' and implies forceful, sometimes aggressive passion (vehement denial, vehement protest). Fervent implies deep, warm passion without the aggressive edge (fervent prayer, fervent hope)."
+    },
+    {
+      "id": "enth_drill_07",
+      "type": "connotation_sorting",
+      "clusterId": "cluster_enthusiasm",
+      "difficulty": 2,
+      "prompt": "Which of these low-energy words has the most NEUTRAL or even POSITIVE connotation?",
+      "options": [
+        { "id": "a", "text": "torpid" },
+        { "id": "b", "text": "listless" },
+        { "id": "c", "text": "languid" },
+        { "id": "d", "text": "apathetic" }
+      ],
+      "correctAnswer": "c",
+      "explanation": "Languid can carry a positive, pleasantly relaxed connotation (a languid summer afternoon, languid grace). Torpid implies dull sluggishness, listless implies depressing lack of spirit, and apathetic implies a failure of character."
+    },
+    {
+      "id": "enth_drill_08",
+      "type": "relationship_labeling",
+      "clusterId": "cluster_enthusiasm",
+      "difficulty": 2,
+      "prompt": "What is the relationship between 'zealous' and 'indifferent'?",
+      "options": [
+        { "id": "a", "text": "Synonyms" },
+        { "id": "b", "text": "Commonly confused" },
+        { "id": "c", "text": "Antonyms" },
+        { "id": "d", "text": "Near synonyms" }
+      ],
+      "correctAnswer": "c",
+      "explanation": "Zealous means filled with active, driven passion. Indifferent means lacking concern or interest. They represent opposite ends of the enthusiasm spectrum."
+    },
+    {
+      "id": "enth_drill_09",
+      "type": "shade_distinction",
+      "clusterId": "cluster_enthusiasm",
+      "difficulty": 3,
+      "prompt": "Which word best describes a defense attorney's closing argument that is filled with deep emotion and urgent appeals?",
+      "options": [
+        { "id": "a", "text": "fervent" },
+        { "id": "b", "text": "impassioned" },
+        { "id": "c", "text": "zealous" },
+        { "id": "d", "text": "ardent" }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Impassioned specifically describes passionate expression — speeches, pleas, and arguments delivered with deep emotion. Fervent and ardent describe inner feelings, and zealous describes active pursuit of a cause."
+    },
+    {
+      "id": "enth_drill_10",
+      "type": "intensity_ordering",
+      "clusterId": "cluster_enthusiasm",
+      "difficulty": 3,
+      "prompt": "Rank these low-energy words from SOME remaining energy to LEAST energy:",
+      "options": [
+        { "id": "a", "text": "languid" },
+        { "id": "b", "text": "torpid" },
+        { "id": "c", "text": "listless" },
+        { "id": "d", "text": "indifferent" }
+      ],
+      "correctAnswer": ["d", "a", "c", "b"],
+      "explanation": "Indifferent (mental disengagement, but physically fine) > languid (slow and dreamy, some ease) > listless (no spirit or enthusiasm) > torpid (heavy, numb, almost hibernating). Each step drains more life force."
+    }
+  ]
+}

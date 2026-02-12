@@ -1,0 +1,337 @@
+{
+  "id": "cluster_praise",
+  "name": "Praise & Blame",
+  "concept": "Words describing the act of praising or criticizing, from harsh condemnation to effusive admiration",
+  "words": [
+    "laudatory", "panegyric", "eulogize", "acclaim", "extol",
+    "censure", "castigate", "lambaste", "decry", "disparage", "deprecate"
+  ],
+  "relationships": [
+    {
+      "wordA": "laudatory",
+      "wordB": "extol",
+      "type": "near_synonym",
+      "shadeNote": "Laudatory is an adjective (full of praise); extol is a verb (to praise highly)",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "panegyric",
+      "wordB": "eulogize",
+      "type": "near_synonym",
+      "shadeNote": "Panegyric is a formal speech of praise (noun); eulogize is to praise, especially the dead (verb)",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "eulogize",
+      "wordB": "extol",
+      "type": "near_synonym",
+      "shadeNote": "Eulogize often refers to praising the deceased; extol is general enthusiastic praise of anyone",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "acclaim",
+      "wordB": "extol",
+      "type": "near_synonym",
+      "shadeNote": "Acclaim implies widespread public praise; extol implies actively, vocally praising someone's virtues",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "extol",
+      "wordB": "disparage",
+      "type": "antonym",
+      "shadeNote": "Extol means to praise enthusiastically; disparage means to belittle and speak of as unworthy",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "laudatory",
+      "wordB": "censure",
+      "type": "antonym",
+      "shadeNote": "Laudatory expresses praise; censure expresses strong official disapproval",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "castigate",
+      "wordB": "lambaste",
+      "type": "near_synonym",
+      "shadeNote": "Both mean to criticize severely; castigate implies corrective punishment, lambaste implies a verbal beating",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "castigate",
+      "wordB": "censure",
+      "type": "stronger_than",
+      "shadeNote": "Castigate is harsher—punishing criticism; censure is formal disapproval, often institutional",
+      "greRelevance": "high",
+      "bidirectional": false
+    },
+    {
+      "wordA": "disparage",
+      "wordB": "decry",
+      "type": "near_synonym",
+      "shadeNote": "Disparage belittles with contempt; decry publicly denounces as wrong or harmful",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "deprecate",
+      "wordB": "disparage",
+      "type": "near_synonym",
+      "shadeNote": "Deprecate expresses mild disapproval; disparage actively belittles and dismisses worth",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "deprecate",
+      "wordB": "censure",
+      "type": "weaker_than",
+      "shadeNote": "Deprecate is mild disapproval; censure is strong, often official condemnation",
+      "greRelevance": "high",
+      "bidirectional": false
+    },
+    {
+      "wordA": "lambaste",
+      "wordB": "disparage",
+      "type": "stronger_than",
+      "shadeNote": "Lambaste is fierce, public verbal attack; disparage is quieter belittling",
+      "greRelevance": "medium",
+      "bidirectional": false
+    },
+    {
+      "wordA": "panegyric",
+      "wordB": "lambaste",
+      "type": "antonym",
+      "shadeNote": "Panegyric is a formal speech of highest praise; lambaste is a fierce verbal attack",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "acclaim",
+      "wordB": "decry",
+      "type": "antonym",
+      "shadeNote": "Acclaim is widespread praise; decry is public condemnation",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "panegyric",
+      "wordB": "laudatory",
+      "type": "near_synonym",
+      "shadeNote": "Panegyric is a noun (a praising speech); laudatory is its adjective form (expressing praise)",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "decry",
+      "wordB": "censure",
+      "type": "near_synonym",
+      "shadeNote": "Decry is public, passionate denouncing; censure is formal, often institutional condemnation",
+      "greRelevance": "medium",
+      "bidirectional": true
+    }
+  ],
+  "intensityScale": {
+    "dimension": "approval",
+    "poles": ["harsh blame", "high praise"],
+    "words": [
+      { "word": "castigate", "position": 0.0, "connotation": "negative" },
+      { "word": "lambaste", "position": 0.05, "connotation": "negative" },
+      { "word": "censure", "position": 0.15, "connotation": "negative" },
+      { "word": "decry", "position": 0.2, "connotation": "negative" },
+      { "word": "disparage", "position": 0.25, "connotation": "negative" },
+      { "word": "deprecate", "position": 0.35, "connotation": "negative" },
+      { "word": "acclaim", "position": 0.7, "connotation": "positive" },
+      { "word": "laudatory", "position": 0.75, "connotation": "positive" },
+      { "word": "extol", "position": 0.8, "connotation": "positive" },
+      { "word": "eulogize", "position": 0.85, "connotation": "positive" },
+      { "word": "panegyric", "position": 1.0, "connotation": "positive" }
+    ]
+  },
+  "commonConfusions": [
+    {
+      "words": ["deprecate", "disparage"],
+      "whyConfused": "Deprecate means to express (mild) disapproval of something, often used as 'self-deprecating.' It is frequently confused with 'depreciate' (to decrease in value). Disparage means to actively belittle or speak contemptuously of.",
+      "mnemonic": "DEPRECate = mildly DEPRESS enthusiasm for something. DiSPARage = SPAR with someone's reputation, tearing it down.",
+      "exampleSentences": [
+        "She deprecated the idea of skipping the review process, calling it unwise.",
+        "The rival scientist disparaged the study, calling its methodology 'laughably amateurish.'"
+      ]
+    },
+    {
+      "words": ["censure", "castigate"],
+      "whyConfused": "Both mean to criticize, but censure is formal, official disapproval (often by an institution), while castigate means to punish or rebuke severely and harshly. Also, censure is commonly confused with 'censor' (to suppress content), which is an entirely different word.",
+      "mnemonic": "CENsure = a CENtral authority's formal rebuke. CASTIgate = CAST out with harsh punishment.",
+      "exampleSentences": [
+        "The ethics committee voted to censure the senator for misuse of campaign funds.",
+        "The editorial castigated the administration for its callous indifference to the crisis."
+      ]
+    },
+    {
+      "words": ["eulogize", "extol"],
+      "whyConfused": "Both mean to praise highly, but eulogize is specifically associated with praising someone who has died (a eulogy at a funeral), while extol is general high praise for any person or thing at any time.",
+      "mnemonic": "EULOGize = EULOGY at a funeral. EXTOL = EXTRAordinarily praise anyone, anytime.",
+      "exampleSentences": [
+        "Friends gathered to eulogize the beloved teacher, sharing stories of her impact.",
+        "The review extolled the novel's lyrical prose and unforgettable characters."
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "id": "praise_drill_01",
+      "type": "shade_distinction",
+      "clusterId": "cluster_praise",
+      "difficulty": 2,
+      "prompt": "What is the key difference between 'deprecate' and 'disparage'?",
+      "options": [
+        { "id": "a", "text": "Deprecate is mild disapproval; disparage is active belittling with contempt" },
+        { "id": "b", "text": "They are interchangeable synonyms" },
+        { "id": "c", "text": "Disparage is milder; deprecate is harsher" },
+        { "id": "d", "text": "Deprecate refers to financial decline; disparage refers to criticism" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Deprecate means to express disapproval, often mildly (as in 'self-deprecating humor'). Disparage means to actively belittle, dismiss, or speak contemptuously of someone or something. Disparage is significantly more aggressive. Note: deprecate is NOT the same as depreciate (to decrease in value)."
+    },
+    {
+      "id": "praise_drill_02",
+      "type": "intensity_ordering",
+      "clusterId": "cluster_praise",
+      "difficulty": 2,
+      "prompt": "Arrange from MILDEST criticism to HARSHEST criticism: castigate, deprecate, censure, disparage",
+      "options": [
+        { "id": "a", "text": "deprecate → disparage → censure → castigate" },
+        { "id": "b", "text": "censure → castigate → deprecate → disparage" },
+        { "id": "c", "text": "disparage → deprecate → castigate → censure" },
+        { "id": "d", "text": "castigate → censure → disparage → deprecate" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Deprecate is mild disapproval. Disparage is active belittling. Censure is formal, official condemnation. Castigate is the harshest—severe, punishing rebuke that implies the person deserves punishment."
+    },
+    {
+      "id": "praise_drill_03",
+      "type": "odd_one_out",
+      "clusterId": "cluster_praise",
+      "difficulty": 1,
+      "prompt": "Which word does NOT belong? laudatory, panegyric, extol, decry",
+      "options": [
+        { "id": "a", "text": "laudatory" },
+        { "id": "b", "text": "panegyric" },
+        { "id": "c", "text": "extol" },
+        { "id": "d", "text": "decry" }
+      ],
+      "correctAnswer": "d",
+      "explanation": "Laudatory (expressing praise), panegyric (a formal speech of praise), and extol (to praise enthusiastically) all involve praising. Decry means to publicly denounce or condemn—the opposite."
+    },
+    {
+      "id": "praise_drill_04",
+      "type": "confusion_resolver",
+      "clusterId": "cluster_praise",
+      "difficulty": 3,
+      "prompt": "The committee voted to ______ the official for ethical violations, formally recording their disapproval. Which word fits best?",
+      "options": [
+        { "id": "a", "text": "castigate" },
+        { "id": "b", "text": "censure" },
+        { "id": "c", "text": "lambaste" },
+        { "id": "d", "text": "disparage" }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Censure is the correct answer because it specifically means a formal, official expression of disapproval, typically by an institution or governing body. The clues 'committee voted' and 'formally recording' point to censure. Castigate is harsher but not a formal institutional process. Lambaste is a fierce verbal attack, not an official action."
+    },
+    {
+      "id": "praise_drill_05",
+      "type": "connotation_sorting",
+      "clusterId": "cluster_praise",
+      "difficulty": 2,
+      "prompt": "Sort these words by whether they express PRAISE or BLAME: extol, lambaste, laudatory, disparage, acclaim, deprecate",
+      "options": [
+        { "id": "a", "text": "Praise: extol, laudatory, acclaim | Blame: lambaste, disparage, deprecate" },
+        { "id": "b", "text": "Praise: extol, laudatory, deprecate | Blame: lambaste, disparage, acclaim" },
+        { "id": "c", "text": "Praise: extol, acclaim | Blame: lambaste, disparage, deprecate, laudatory" },
+        { "id": "d", "text": "Praise: extol, laudatory, acclaim, deprecate | Blame: lambaste, disparage" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Extol (praise highly), laudatory (expressing praise), and acclaim (widespread praise) are all firmly in the praise camp. Lambaste (fiercely criticize), disparage (belittle), and deprecate (express disapproval) are all forms of blame or criticism."
+    },
+    {
+      "id": "praise_drill_06",
+      "type": "shade_distinction",
+      "clusterId": "cluster_praise",
+      "difficulty": 3,
+      "prompt": "How does 'censure' differ from 'censor'?",
+      "options": [
+        { "id": "a", "text": "Censure means to formally criticize; censor means to suppress or remove content" },
+        { "id": "b", "text": "They are different spellings of the same word" },
+        { "id": "c", "text": "Censor means to criticize; censure means to suppress content" },
+        { "id": "d", "text": "Censure is milder than censor" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "This is a critical GRE distinction. Censure (with a 'u') means to express formal, severe disapproval—the Senate can censure a member. Censor (with an 'o') means to suppress, remove, or prohibit content deemed objectionable. They sound similar but have entirely different meanings."
+    },
+    {
+      "id": "praise_drill_07",
+      "type": "confusion_resolver",
+      "clusterId": "cluster_praise",
+      "difficulty": 2,
+      "prompt": "At the memorial service, colleagues gathered to ______ the professor's decades of contributions to the field. Which word fits?",
+      "options": [
+        { "id": "a", "text": "extol" },
+        { "id": "b", "text": "eulogize" },
+        { "id": "c", "text": "acclaim" },
+        { "id": "d", "text": "deprecate" }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Eulogize is the correct choice because the context is a memorial service—eulogize specifically means to praise someone who has died, typically in a funeral or memorial setting. Extol could work for general praise, but the memorial context makes eulogize the precise word."
+    },
+    {
+      "id": "praise_drill_08",
+      "type": "relationship_labeling",
+      "clusterId": "cluster_praise",
+      "difficulty": 2,
+      "prompt": "What is the relationship between 'castigate' and 'lambaste'?",
+      "options": [
+        { "id": "a", "text": "Antonyms" },
+        { "id": "b", "text": "Castigate is much weaker than lambaste" },
+        { "id": "c", "text": "Near synonyms—both mean to criticize very severely" },
+        { "id": "d", "text": "Commonly confused but different in meaning" }
+      ],
+      "correctAnswer": "c",
+      "explanation": "Castigate and lambaste are near synonyms—both mean to criticize someone extremely harshly. The subtle difference: castigate carries a connotation of punishment meant to correct, while lambaste suggests a fierce, sustained verbal attack. Both are among the strongest criticism words in this cluster."
+    },
+    {
+      "id": "praise_drill_09",
+      "type": "intensity_ordering",
+      "clusterId": "cluster_praise",
+      "difficulty": 3,
+      "prompt": "Arrange from MILDEST praise to MOST EFFUSIVE praise: acclaim, laudatory, extol, panegyric",
+      "options": [
+        { "id": "a", "text": "acclaim → laudatory → extol → panegyric" },
+        { "id": "b", "text": "laudatory → acclaim → panegyric → extol" },
+        { "id": "c", "text": "panegyric → extol → laudatory → acclaim" },
+        { "id": "d", "text": "extol → panegyric → acclaim → laudatory" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Acclaim is widespread positive recognition. Laudatory means expressing praise. Extol means to praise very enthusiastically and vocally. Panegyric is the most effusive—a formal public speech or text devoted entirely to lavish praise, the highest form of commendation."
+    },
+    {
+      "id": "praise_drill_10",
+      "type": "odd_one_out",
+      "clusterId": "cluster_praise",
+      "difficulty": 2,
+      "prompt": "Which word does NOT belong? castigate, lambaste, censure, disparage",
+      "options": [
+        { "id": "a", "text": "castigate" },
+        { "id": "b", "text": "lambaste" },
+        { "id": "c", "text": "censure" },
+        { "id": "d", "text": "disparage" }
+      ],
+      "correctAnswer": "d",
+      "explanation": "Castigate, lambaste, and censure all describe strong, direct, often public criticism or condemnation. Disparage is different—it means to belittle or speak of as unworthy, which is more subtle and dismissive rather than a direct, forceful attack."
+    }
+  ]
+}

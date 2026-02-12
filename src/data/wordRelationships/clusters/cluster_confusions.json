@@ -1,0 +1,340 @@
+{
+  "id": "cluster_confusions",
+  "name": "Common Confusions",
+  "concept": "Word pairs that look or sound alike but have entirely different meanings — the traps GRE test-makers love",
+  "words": [
+    "enervate", "energize", "ingenious", "ingenuous",
+    "tortuous", "torturous", "flaunt", "flout",
+    "prescribe", "proscribe", "venal", "venial",
+    "disinterested", "uninterested", "eminent", "imminent"
+  ],
+  "relationships": [
+    {
+      "wordA": "enervate",
+      "wordB": "energize",
+      "type": "commonly_confused",
+      "shadeNote": "Enervate means to drain of energy — the opposite of energize, despite the similar prefix",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "ingenious",
+      "wordB": "ingenuous",
+      "type": "commonly_confused",
+      "shadeNote": "Ingenious means cleverly inventive; ingenuous means innocent and candid",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "tortuous",
+      "wordB": "torturous",
+      "type": "commonly_confused",
+      "shadeNote": "Tortuous means winding or complex; torturous means causing torture or pain",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "flaunt",
+      "wordB": "flout",
+      "type": "commonly_confused",
+      "shadeNote": "Flaunt means to show off proudly; flout means to openly defy a rule or convention",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "prescribe",
+      "wordB": "proscribe",
+      "type": "commonly_confused",
+      "shadeNote": "Prescribe means to recommend or order; proscribe means to forbid or condemn",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "venal",
+      "wordB": "venial",
+      "type": "commonly_confused",
+      "shadeNote": "Venal means corrupt and open to bribery; venial means minor and forgivable",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "disinterested",
+      "wordB": "uninterested",
+      "type": "commonly_confused",
+      "shadeNote": "Disinterested means impartial; uninterested means bored or not caring",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "eminent",
+      "wordB": "imminent",
+      "type": "commonly_confused",
+      "shadeNote": "Eminent means famous and respected; imminent means about to happen very soon",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "enervate",
+      "wordB": "energize",
+      "type": "antonym",
+      "shadeNote": "True antonyms: enervate weakens, energize strengthens",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "prescribe",
+      "wordB": "proscribe",
+      "type": "antonym",
+      "shadeNote": "Near-antonyms: prescribe authorizes something, proscribe bans it",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "flaunt",
+      "wordB": "flout",
+      "type": "category_sibling",
+      "shadeNote": "Both imply boldness: flaunting displays excess, flouting defies authority",
+      "greRelevance": "medium",
+      "bidirectional": true
+    }
+  ],
+  "intensityScale": null,
+  "commonConfusions": [
+    {
+      "words": ["enervate", "energize"],
+      "whyConfused": "Both start with 'ener-' and relate to energy, but enervate means to weaken, not strengthen.",
+      "mnemonic": "EnerVATE = energy VACATE (energy leaves you)",
+      "exampleSentences": [
+        "The oppressive heat enervated the hikers, leaving them too exhausted to continue.",
+        "The coach's halftime speech energized the team for a comeback victory."
+      ]
+    },
+    {
+      "words": ["ingenious", "ingenuous"],
+      "whyConfused": "Differ by only two letters and both derive from Latin roots related to inborn qualities.",
+      "mnemonic": "IngenIOUS = cleverly industriOUS; IngenUOUS = naively trUe",
+      "exampleSentences": [
+        "The engineer devised an ingenious solution that cut costs by half.",
+        "Her ingenuous smile revealed she had no idea of the scheme unfolding around her."
+      ]
+    },
+    {
+      "words": ["tortuous", "torturous"],
+      "whyConfused": "Nearly identical spelling, and a tortuous path can feel torturous, blurring the distinction.",
+      "mnemonic": "TortuOUS = twists and tUrns; TortURous = pain and sUffering",
+      "exampleSentences": [
+        "The tortuous mountain road wound through dozens of hairpin turns before reaching the summit.",
+        "Sitting through the four-hour amateur opera was a torturous experience for the entire audience."
+      ]
+    },
+    {
+      "words": ["flaunt", "flout"],
+      "whyConfused": "Both suggest brazen behavior, and 'flaunt' is commonly misused to mean 'flout' in everyday speech.",
+      "mnemonic": "fLAUNT = LAUNCH your display; fLOUT = LOCK OUT the rules",
+      "exampleSentences": [
+        "She flaunted her new diamond necklace at every opportunity during the gala.",
+        "The corporation continued to flout environmental regulations despite repeated fines."
+      ]
+    },
+    {
+      "words": ["prescribe", "proscribe"],
+      "whyConfused": "One letter difference (pre- vs. pro-) and both involve authority issuing directives.",
+      "mnemonic": "PREscribe = PRE-approve (recommend); PROscribe = PROhibit (forbid)",
+      "exampleSentences": [
+        "The doctor prescribed a strict regimen of rest and medication for the recovering patient.",
+        "The new regime proscribed all political gatherings, punishing violators with imprisonment."
+      ]
+    },
+    {
+      "words": ["venal", "venial"],
+      "whyConfused": "Nearly identical pronunciation and both relate to moral judgment, but on opposite scales of severity.",
+      "mnemonic": "VenAL = ALL about corruption; VenIAL = It's a LIttle sin",
+      "exampleSentences": [
+        "The venal official accepted bribes from every contractor seeking a government permit.",
+        "Forgetting to RSVP is a venial offense that most hosts will easily forgive."
+      ]
+    },
+    {
+      "words": ["disinterested", "uninterested"],
+      "whyConfused": "Colloquially used interchangeably, but the GRE strictly distinguishes impartial from apathetic.",
+      "mnemonic": "DISinterested = judge DISpassionately; UNinterested = UN-caring",
+      "exampleSentences": [
+        "A disinterested mediator was brought in to resolve the dispute between the two companies.",
+        "The students seemed completely uninterested in the lecture, checking their phones constantly."
+      ]
+    },
+    {
+      "words": ["eminent", "imminent"],
+      "whyConfused": "Sound almost identical and both carry a sense of importance or urgency.",
+      "mnemonic": "EMinent = faME (famous person); IMMinent = IMMediate (happening now)",
+      "exampleSentences": [
+        "The eminent historian was awarded a lifetime achievement prize for her decades of research.",
+        "Dark clouds and rising winds signaled that a severe storm was imminent."
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "id": "conf_drill_01",
+      "type": "confusion_resolver",
+      "clusterId": "cluster_confusions",
+      "difficulty": 1,
+      "prompt": "The long hike in extreme heat _______ the travelers, leaving them barely able to stand.",
+      "options": [
+        { "id": "a", "text": "enervated" },
+        { "id": "b", "text": "energized" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Enervate means to drain of energy. The context — extreme heat leaving travelers barely able to stand — signals loss of energy, not gain."
+    },
+    {
+      "id": "conf_drill_02",
+      "type": "confusion_resolver",
+      "clusterId": "cluster_confusions",
+      "difficulty": 1,
+      "prompt": "The child's _______ honesty charmed everyone at the dinner table.",
+      "options": [
+        { "id": "a", "text": "ingenious" },
+        { "id": "b", "text": "ingenuous" }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Ingenuous means innocent, open, and candid. The child's honest charm reflects natural candor, not clever inventiveness (ingenious)."
+    },
+    {
+      "id": "conf_drill_03",
+      "type": "confusion_resolver",
+      "clusterId": "cluster_confusions",
+      "difficulty": 2,
+      "prompt": "The company openly _______ the new safety regulations by continuing its old manufacturing practices.",
+      "options": [
+        { "id": "a", "text": "flaunted" },
+        { "id": "b", "text": "flouted" }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Flout means to openly disregard or defy rules. Flaunt means to display something ostentatiously. The company is defying regulations, not showing them off."
+    },
+    {
+      "id": "conf_drill_04",
+      "type": "confusion_resolver",
+      "clusterId": "cluster_confusions",
+      "difficulty": 2,
+      "prompt": "The constitution _______ cruel and unusual punishment, making such practices illegal.",
+      "options": [
+        { "id": "a", "text": "prescribes" },
+        { "id": "b", "text": "proscribes" }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Proscribe means to forbid or ban. Prescribe means to recommend or authorize. The constitution is forbidding cruel punishment, not recommending it."
+    },
+    {
+      "id": "conf_drill_05",
+      "type": "confusion_resolver",
+      "clusterId": "cluster_confusions",
+      "difficulty": 2,
+      "prompt": "The judge must be _______ — she cannot rule fairly if she has a personal stake in the outcome.",
+      "options": [
+        { "id": "a", "text": "disinterested" },
+        { "id": "b", "text": "uninterested" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Disinterested means impartial, without personal bias. Uninterested means not caring. A judge needs objectivity (disinterested), not apathy (uninterested)."
+    },
+    {
+      "id": "conf_drill_06",
+      "type": "confusion_resolver",
+      "clusterId": "cluster_confusions",
+      "difficulty": 1,
+      "prompt": "The _______ scientist was honored with a Nobel Prize for her groundbreaking research.",
+      "options": [
+        { "id": "a", "text": "eminent" },
+        { "id": "b", "text": "imminent" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Eminent means famous and distinguished. Imminent means about to happen. A scientist honored for achievements is distinguished (eminent)."
+    },
+    {
+      "id": "conf_drill_07",
+      "type": "confusion_resolver",
+      "clusterId": "cluster_confusions",
+      "difficulty": 3,
+      "prompt": "The politician's _______ nature was exposed when investigators found records of bribes totaling millions.",
+      "options": [
+        { "id": "a", "text": "venal" },
+        { "id": "b", "text": "venial" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Venal means corrupt and susceptible to bribery. Venial means minor and forgivable. Accepting millions in bribes is serious corruption (venal), not a minor fault."
+    },
+    {
+      "id": "conf_drill_08",
+      "type": "confusion_resolver",
+      "clusterId": "cluster_confusions",
+      "difficulty": 2,
+      "prompt": "The _______ path through the canyon required constant steering around sharp bends and narrow passages.",
+      "options": [
+        { "id": "a", "text": "tortuous" },
+        { "id": "b", "text": "torturous" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Tortuous means full of twists and turns. Torturous means causing suffering. A path with sharp bends is winding (tortuous), though navigating it might also feel painful."
+    },
+    {
+      "id": "conf_drill_09",
+      "type": "shade_distinction",
+      "clusterId": "cluster_confusions",
+      "difficulty": 3,
+      "prompt": "Which pair contains a word meaning 'to weaken' and a word meaning 'to strengthen'?",
+      "options": [
+        { "id": "a", "text": "flaunt / flout" },
+        { "id": "b", "text": "enervate / energize" },
+        { "id": "c", "text": "prescribe / proscribe" },
+        { "id": "d", "text": "venal / venial" }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Enervate means to drain strength; energize means to give strength. The other pairs involve showing off vs. defying, recommending vs. forbidding, and corrupt vs. forgivable."
+    },
+    {
+      "id": "conf_drill_10",
+      "type": "shade_distinction",
+      "clusterId": "cluster_confusions",
+      "difficulty": 3,
+      "prompt": "Which word means 'open to bribery' rather than 'easily forgiven'?",
+      "options": [
+        { "id": "a", "text": "venial" },
+        { "id": "b", "text": "venal" },
+        { "id": "c", "text": "tortuous" },
+        { "id": "d", "text": "ingenuous" }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Venal means susceptible to bribery and corruption. Venial describes a sin or fault that is minor and easily forgiven. The 'a' vs. 'e' makes all the difference on the GRE."
+    },
+    {
+      "id": "conf_drill_11",
+      "type": "confusion_resolver",
+      "clusterId": "cluster_confusions",
+      "difficulty": 2,
+      "prompt": "She _______ her wealth at every social event, arriving in a different luxury car each time.",
+      "options": [
+        { "id": "a", "text": "flaunted" },
+        { "id": "b", "text": "flouted" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Flaunt means to display ostentatiously. She is showing off her wealth (flaunting), not defying it (flouting). You flaunt possessions; you flout rules."
+    },
+    {
+      "id": "conf_drill_12",
+      "type": "shade_distinction",
+      "clusterId": "cluster_confusions",
+      "difficulty": 3,
+      "prompt": "In which sentence is the confused word used INCORRECTLY?",
+      "options": [
+        { "id": "a", "text": "The enervating lecture left students too drained to take notes." },
+        { "id": "b", "text": "The ingenious child trusted every stranger she met." },
+        { "id": "c", "text": "A disinterested jury is essential for a fair trial." },
+        { "id": "d", "text": "The proscribed substances were banned from competition." }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Option B incorrectly uses 'ingenious' (meaning clever) when 'ingenuous' (meaning naive/trusting) is needed. A child who trusts every stranger is innocently naive, not brilliantly inventive."
+    }
+  ]
+}

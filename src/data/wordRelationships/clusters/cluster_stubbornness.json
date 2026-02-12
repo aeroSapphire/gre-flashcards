@@ -1,0 +1,361 @@
+{
+  "id": "cluster_stubbornness",
+  "name": "Stubbornness & Flexibility",
+  "concept": "Words describing resistance to or acceptance of change, persuasion, and external influence",
+  "words": [
+    "obstinate",
+    "intransigent",
+    "obdurate",
+    "recalcitrant",
+    "tenacious",
+    "amenable",
+    "acquiescent",
+    "malleable",
+    "tractable",
+    "pliant"
+  ],
+  "relationships": [
+    {
+      "wordA": "obstinate",
+      "wordB": "intransigent",
+      "type": "near_synonym",
+      "shadeNote": "Both mean stubbornly unyielding; intransigent emphasizes refusal to compromise in disputes",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "obstinate",
+      "wordB": "obdurate",
+      "type": "near_synonym",
+      "shadeNote": "Obdurate adds emotional hardness and imperviousness to feeling; obstinate focuses on willful refusal",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "obstinate",
+      "wordB": "tenacious",
+      "type": "commonly_confused",
+      "shadeNote": "Both involve persistence, but obstinate is negative (unreasonable) while tenacious is positive (admirable)",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "obstinate",
+      "wordB": "amenable",
+      "type": "antonym",
+      "shadeNote": "Amenable means willing to accept suggestions; obstinate means refusing to change one's mind",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "intransigent",
+      "wordB": "obdurate",
+      "type": "near_synonym",
+      "shadeNote": "Intransigent stresses political/ideological rigidity; obdurate stresses emotional imperviousness",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "intransigent",
+      "wordB": "acquiescent",
+      "type": "antonym",
+      "shadeNote": "Intransigent refuses all compromise; acquiescent yields without protest",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "recalcitrant",
+      "wordB": "obstinate",
+      "type": "near_synonym",
+      "shadeNote": "Recalcitrant implies active defiance of authority; obstinate implies passive refusal to budge",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "recalcitrant",
+      "wordB": "tractable",
+      "type": "antonym",
+      "shadeNote": "Recalcitrant resists control and authority; tractable is easily managed or guided",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "amenable",
+      "wordB": "acquiescent",
+      "type": "near_synonym",
+      "shadeNote": "Amenable implies willing openness; acquiescent implies passive submission without objection",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "amenable",
+      "wordB": "tractable",
+      "type": "near_synonym",
+      "shadeNote": "Amenable suggests willingness to agree; tractable suggests ease of being controlled or managed",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "malleable",
+      "wordB": "pliant",
+      "type": "near_synonym",
+      "shadeNote": "Both mean easily shaped; malleable is more metaphorical (mind/character), pliant more physical",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "malleable",
+      "wordB": "obdurate",
+      "type": "antonym",
+      "shadeNote": "Malleable is easily influenced or shaped; obdurate is hardened and unyielding",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "pliant",
+      "wordB": "intransigent",
+      "type": "antonym",
+      "shadeNote": "Pliant bends easily to influence; intransigent refuses to bend at all",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "tractable",
+      "wordB": "malleable",
+      "type": "near_synonym",
+      "shadeNote": "Tractable emphasizes ease of management; malleable emphasizes capacity to be reshaped",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "acquiescent",
+      "wordB": "pliant",
+      "type": "near_synonym",
+      "shadeNote": "Acquiescent stresses lack of resistance; pliant stresses bendability and adaptability",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "tenacious",
+      "wordB": "recalcitrant",
+      "type": "commonly_confused",
+      "shadeNote": "Tenacious holds firm to goals (positive); recalcitrant resists authority (negative, defiant)",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "obdurate",
+      "wordB": "recalcitrant",
+      "type": "near_synonym",
+      "shadeNote": "Obdurate is stubbornly unmoved emotionally; recalcitrant is stubbornly defiant of authority",
+      "greRelevance": "high",
+      "bidirectional": true
+    }
+  ],
+  "intensityScale": {
+    "dimension": "resistance to change",
+    "poles": ["extremely flexible", "extremely stubborn"],
+    "words": [
+      { "word": "acquiescent", "position": 0.05, "connotation": "negative" },
+      { "word": "pliant", "position": 0.15, "connotation": "neutral" },
+      { "word": "malleable", "position": 0.2, "connotation": "neutral" },
+      { "word": "tractable", "position": 0.25, "connotation": "neutral" },
+      { "word": "amenable", "position": 0.3, "connotation": "positive" },
+      { "word": "tenacious", "position": 0.65, "connotation": "positive" },
+      { "word": "obstinate", "position": 0.75, "connotation": "negative" },
+      { "word": "recalcitrant", "position": 0.8, "connotation": "negative" },
+      { "word": "obdurate", "position": 0.9, "connotation": "negative" },
+      { "word": "intransigent", "position": 0.95, "connotation": "negative" }
+    ]
+  },
+  "commonConfusions": [
+    {
+      "words": ["obstinate", "tenacious"],
+      "whyConfused": "Both describe someone who refuses to give up, but obstinate implies unreasonable stubbornness while tenacious implies admirable persistence.",
+      "mnemonic": "Tenacious holds on to a goal; obstinate holds on to a position even when wrong.",
+      "exampleSentences": [
+        "The obstinate negotiator refused every reasonable compromise, derailing the entire deal.",
+        "The tenacious researcher spent years pursuing the elusive cure, ultimately succeeding."
+      ]
+    },
+    {
+      "words": ["intransigent", "recalcitrant"],
+      "whyConfused": "Both describe refusal to cooperate, but intransigent focuses on refusal to compromise in negotiations, while recalcitrant implies active defiance of authority.",
+      "mnemonic": "Intransigent won't TRANSIT to a middle ground; recalcitrant KICKS BACK against control.",
+      "exampleSentences": [
+        "The intransigent senator blocked every bipartisan bill, insisting on ideological purity.",
+        "The recalcitrant student openly defied the teacher's instructions and walked out of class."
+      ]
+    },
+    {
+      "words": ["malleable", "amenable"],
+      "whyConfused": "Both suggest openness to influence, but malleable implies being shaped by others (sometimes negatively), while amenable implies a willing, cooperative attitude.",
+      "mnemonic": "Malleable people are shaped like metal; amenable people say 'amen' and agree willingly.",
+      "exampleSentences": [
+        "The malleable youth was easily influenced by his peers and adopted their reckless habits.",
+        "The manager was amenable to the team's request for flexible working hours."
+      ]
+    },
+    {
+      "words": ["tractable", "pliant"],
+      "whyConfused": "Both mean easily managed, but tractable emphasizes being easy to control or direct, while pliant emphasizes physical or metaphorical bendability.",
+      "mnemonic": "Tractable can be pulled along a TRACK; pliant PLIES and bends without breaking.",
+      "exampleSentences": [
+        "The tractable horse followed every command from its rider without hesitation.",
+        "The pliant branches of the willow bent gracefully in the storm without snapping."
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "id": "stub_drill_01",
+      "type": "shade_distinction",
+      "clusterId": "cluster_stubbornness",
+      "difficulty": 2,
+      "prompt": "What is the key difference between 'obstinate' and 'tenacious'?",
+      "options": [
+        { "id": "a", "text": "Obstinate is stronger than tenacious" },
+        { "id": "b", "text": "Obstinate is negative (unreasonable); tenacious is positive (admirable persistence)" },
+        { "id": "c", "text": "Tenacious applies only to physical endurance" },
+        { "id": "d", "text": "They are perfect synonyms with no meaningful difference" }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Obstinate implies stubbornly clinging to a position despite good reasons to change, carrying a negative connotation. Tenacious implies holding firmly to a goal or purpose with admirable determination, carrying a positive connotation."
+    },
+    {
+      "id": "stub_drill_02",
+      "type": "intensity_ordering",
+      "clusterId": "cluster_stubbornness",
+      "difficulty": 2,
+      "prompt": "Arrange these words from MOST flexible to MOST stubborn: obdurate, amenable, pliant, obstinate",
+      "options": [
+        { "id": "a", "text": "pliant → amenable → obstinate → obdurate" },
+        { "id": "b", "text": "amenable → pliant → obdurate → obstinate" },
+        { "id": "c", "text": "obstinate → obdurate → pliant → amenable" },
+        { "id": "d", "text": "pliant → amenable → obdurate → obstinate" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Pliant (bends easily) is the most flexible, followed by amenable (willingly open). On the stubborn side, obstinate (willfully refusing) is strong, but obdurate (hardened, emotionally impervious) is even more extreme."
+    },
+    {
+      "id": "stub_drill_03",
+      "type": "odd_one_out",
+      "clusterId": "cluster_stubbornness",
+      "difficulty": 1,
+      "prompt": "Which word does NOT belong with the others?",
+      "options": [
+        { "id": "a", "text": "obstinate" },
+        { "id": "b", "text": "intransigent" },
+        { "id": "c", "text": "amenable" },
+        { "id": "d", "text": "obdurate" }
+      ],
+      "correctAnswer": "c",
+      "explanation": "Amenable means willing to accept suggestions or be guided, which is the opposite of the other three words, all of which describe stubbornness and refusal to yield."
+    },
+    {
+      "id": "stub_drill_04",
+      "type": "confusion_resolver",
+      "clusterId": "cluster_stubbornness",
+      "difficulty": 2,
+      "prompt": "A scientist who persists in pursuing a difficult experiment for years despite setbacks would best be described as:",
+      "options": [
+        { "id": "a", "text": "obstinate" },
+        { "id": "b", "text": "tenacious" },
+        { "id": "c", "text": "recalcitrant" },
+        { "id": "d", "text": "intransigent" }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Tenacious is the correct word because it describes admirable persistence toward a goal. Obstinate, recalcitrant, and intransigent all carry negative connotations of unreasonable or defiant stubbornness."
+    },
+    {
+      "id": "stub_drill_05",
+      "type": "relationship_labeling",
+      "clusterId": "cluster_stubbornness",
+      "difficulty": 3,
+      "prompt": "What is the relationship between 'recalcitrant' and 'tractable'?",
+      "options": [
+        { "id": "a", "text": "Synonyms" },
+        { "id": "b", "text": "Near synonyms" },
+        { "id": "c", "text": "Antonyms" },
+        { "id": "d", "text": "Recalcitrant is stronger than tractable" }
+      ],
+      "correctAnswer": "c",
+      "explanation": "Recalcitrant means stubbornly defiant of authority and control, while tractable means easily managed or controlled. They are antonyms on the spectrum of compliance."
+    },
+    {
+      "id": "stub_drill_06",
+      "type": "connotation_sorting",
+      "clusterId": "cluster_stubbornness",
+      "difficulty": 2,
+      "prompt": "Which word carries a POSITIVE connotation?",
+      "options": [
+        { "id": "a", "text": "obstinate" },
+        { "id": "b", "text": "recalcitrant" },
+        { "id": "c", "text": "tenacious" },
+        { "id": "d", "text": "acquiescent" }
+      ],
+      "correctAnswer": "c",
+      "explanation": "Tenacious carries a positive connotation of admirable persistence and determination. Obstinate and recalcitrant are negative (unreasonable stubbornness), and acquiescent is typically negative (passive submission)."
+    },
+    {
+      "id": "stub_drill_07",
+      "type": "shade_distinction",
+      "clusterId": "cluster_stubbornness",
+      "difficulty": 3,
+      "prompt": "How does 'intransigent' differ from 'obdurate'?",
+      "options": [
+        { "id": "a", "text": "Intransigent is weaker than obdurate" },
+        { "id": "b", "text": "Intransigent stresses refusal to compromise in disputes; obdurate stresses emotional hardness" },
+        { "id": "c", "text": "Obdurate applies only to children; intransigent applies only to politicians" },
+        { "id": "d", "text": "They are identical in meaning and usage" }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Intransigent emphasizes an unwillingness to compromise, especially in political or ideological contexts. Obdurate emphasizes being emotionally hardened and impervious to persuasion or feeling."
+    },
+    {
+      "id": "stub_drill_08",
+      "type": "odd_one_out",
+      "clusterId": "cluster_stubbornness",
+      "difficulty": 1,
+      "prompt": "Which word does NOT describe flexibility or compliance?",
+      "options": [
+        { "id": "a", "text": "malleable" },
+        { "id": "b", "text": "pliant" },
+        { "id": "c", "text": "recalcitrant" },
+        { "id": "d", "text": "tractable" }
+      ],
+      "correctAnswer": "c",
+      "explanation": "Recalcitrant means stubbornly defiant of authority, the opposite of flexibility. Malleable, pliant, and tractable all describe someone or something that is easily shaped, bent, or managed."
+    },
+    {
+      "id": "stub_drill_09",
+      "type": "confusion_resolver",
+      "clusterId": "cluster_stubbornness",
+      "difficulty": 3,
+      "prompt": "A child who openly refuses to follow the teacher's rules and disrupts class would best be called:",
+      "options": [
+        { "id": "a", "text": "obstinate" },
+        { "id": "b", "text": "intransigent" },
+        { "id": "c", "text": "recalcitrant" },
+        { "id": "d", "text": "obdurate" }
+      ],
+      "correctAnswer": "c",
+      "explanation": "Recalcitrant specifically implies active defiance of authority and resistance to control, making it the best fit for a child who openly refuses rules. Obstinate is passive refusal, intransigent is about compromise in disputes, and obdurate is about emotional hardness."
+    },
+    {
+      "id": "stub_drill_10",
+      "type": "intensity_ordering",
+      "clusterId": "cluster_stubbornness",
+      "difficulty": 3,
+      "prompt": "Arrange from LEAST submissive to MOST submissive: amenable, acquiescent, tenacious, pliant",
+      "options": [
+        { "id": "a", "text": "tenacious → amenable → pliant → acquiescent" },
+        { "id": "b", "text": "acquiescent → pliant → amenable → tenacious" },
+        { "id": "c", "text": "amenable → pliant → acquiescent → tenacious" },
+        { "id": "d", "text": "pliant → tenacious → acquiescent → amenable" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Tenacious people hold firm (least submissive). Amenable people willingly cooperate but on their own terms. Pliant people bend easily to influence. Acquiescent people yield passively without any resistance (most submissive)."
+    }
+  ]
+}

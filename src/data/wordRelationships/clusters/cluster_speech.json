@@ -1,0 +1,374 @@
+{
+  "id": "cluster_speech",
+  "name": "Speech & Silence",
+  "concept": "Words describing how much or how well someone speaks, from total silence to excessive verbosity",
+  "words": [
+    "loquacious", "garrulous", "verbose", "voluble", "eloquent", "articulate",
+    "terse", "laconic", "taciturn", "reticent", "pithy", "succinct",
+    "bombastic", "grandiloquent"
+  ],
+  "relationships": [
+    {
+      "wordA": "loquacious",
+      "wordB": "garrulous",
+      "type": "commonly_confused",
+      "shadeNote": "Both mean very talkative; garrulous adds annoyance and rambling, loquacious is more neutral",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "garrulous",
+      "wordB": "loquacious",
+      "type": "stronger_than",
+      "shadeNote": "Garrulous implies tedious, pointless rambling; loquacious is simply talkative",
+      "greRelevance": "high",
+      "bidirectional": false
+    },
+    {
+      "wordA": "verbose",
+      "wordB": "loquacious",
+      "type": "near_synonym",
+      "shadeNote": "Verbose focuses on too many words in writing/speech; loquacious focuses on talking a lot",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "voluble",
+      "wordB": "loquacious",
+      "type": "near_synonym",
+      "shadeNote": "Voluble emphasizes fluent, rapid speech; loquacious just means talkative without implying fluency",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "eloquent",
+      "wordB": "articulate",
+      "type": "near_synonym",
+      "shadeNote": "Eloquent implies persuasive beauty in speech; articulate means clear, well-expressed communication",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "eloquent",
+      "wordB": "grandiloquent",
+      "type": "commonly_confused",
+      "shadeNote": "Eloquent is genuinely moving speech; grandiloquent is pompously overblown language",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "bombastic",
+      "wordB": "grandiloquent",
+      "type": "near_synonym",
+      "shadeNote": "Both mean pompously inflated language; bombastic stresses empty bluster, grandiloquent stresses lofty pretension",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "terse",
+      "wordB": "laconic",
+      "type": "commonly_confused",
+      "shadeNote": "Terse can imply rudeness or irritation; laconic implies a dry, often witty brevity",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "taciturn",
+      "wordB": "reticent",
+      "type": "near_synonym",
+      "shadeNote": "Taciturn is habitually silent by temperament; reticent is reluctant to speak, often about specific topics",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "taciturn",
+      "wordB": "loquacious",
+      "type": "antonym",
+      "shadeNote": "Taciturn (habitually silent) is the direct opposite of loquacious (habitually talkative)",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "pithy",
+      "wordB": "succinct",
+      "type": "near_synonym",
+      "shadeNote": "Both mean brief; pithy adds meaningful substance and wit, succinct just means concise",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "pithy",
+      "wordB": "verbose",
+      "type": "antonym",
+      "shadeNote": "Pithy packs meaning into few words; verbose uses far too many words",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "succinct",
+      "wordB": "terse",
+      "type": "near_synonym",
+      "shadeNote": "Succinct is positively concise (well-edited); terse can be negatively abrupt (curt)",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "bombastic",
+      "wordB": "eloquent",
+      "type": "antonym",
+      "shadeNote": "Bombastic is empty, inflated rhetoric; eloquent is genuinely powerful and moving speech",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "laconic",
+      "wordB": "garrulous",
+      "type": "antonym",
+      "shadeNote": "Laconic uses the absolute minimum of words; garrulous uses far too many",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "verbose",
+      "wordB": "succinct",
+      "type": "antonym",
+      "shadeNote": "Verbose means using excess words; succinct means using only what is necessary",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "grandiloquent",
+      "wordB": "pithy",
+      "type": "antonym",
+      "shadeNote": "Grandiloquent uses extravagant, pompous language; pithy is brief and meaningful",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "articulate",
+      "wordB": "voluble",
+      "type": "category_sibling",
+      "shadeNote": "Both describe skilled speech; articulate stresses clarity, voluble stresses ease and fluency",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "reticent",
+      "wordB": "laconic",
+      "type": "near_synonym",
+      "shadeNote": "Reticent describes reluctance to speak; laconic describes the habit of speaking very briefly",
+      "greRelevance": "high",
+      "bidirectional": true
+    }
+  ],
+  "intensityScale": {
+    "dimension": "amount of speech",
+    "poles": ["silent", "extremely talkative"],
+    "words": [
+      { "word": "taciturn", "position": 0.0, "connotation": "neutral" },
+      { "word": "reticent", "position": 0.1, "connotation": "neutral" },
+      { "word": "laconic", "position": 0.2, "connotation": "neutral" },
+      { "word": "terse", "position": 0.25, "connotation": "negative" },
+      { "word": "succinct", "position": 0.3, "connotation": "positive" },
+      { "word": "pithy", "position": 0.35, "connotation": "positive" },
+      { "word": "articulate", "position": 0.5, "connotation": "positive" },
+      { "word": "eloquent", "position": 0.55, "connotation": "positive" },
+      { "word": "voluble", "position": 0.7, "connotation": "neutral" },
+      { "word": "loquacious", "position": 0.75, "connotation": "neutral" },
+      { "word": "verbose", "position": 0.8, "connotation": "negative" },
+      { "word": "grandiloquent", "position": 0.85, "connotation": "negative" },
+      { "word": "bombastic", "position": 0.9, "connotation": "negative" },
+      { "word": "garrulous", "position": 1.0, "connotation": "negative" }
+    ]
+  },
+  "commonConfusions": [
+    {
+      "words": ["reticent", "taciturn"],
+      "whyConfused": "Both describe people who don't talk much. Reticent means reluctant to speak (especially about feelings or specific topics); taciturn describes a permanent temperament of habitual silence.",
+      "mnemonic": "RETIcent = RETIring from a specific conversation. TACIturn = the TACIt (silent) one by nature.",
+      "exampleSentences": [
+        "She was reticent about her childhood, changing the subject whenever it arose.",
+        "The taciturn farmer rarely spoke more than five words to anyone all day."
+      ]
+    },
+    {
+      "words": ["laconic", "terse"],
+      "whyConfused": "Both describe brevity in speech, but laconic implies an admirable, often witty economy of words, while terse can suggest rudeness or curtness.",
+      "mnemonic": "LACONic = Like a LAKONIAN (Spartan)—cool, dry wit in few words. TERSE = TENSE and curt.",
+      "exampleSentences": [
+        "When asked about his victory, the laconic general replied simply, 'If.'",
+        "Her terse email—just 'No.'—left the team feeling dismissed and slighted."
+      ]
+    },
+    {
+      "words": ["loquacious", "garrulous"],
+      "whyConfused": "Both mean very talkative, but loquacious is relatively neutral (enjoys talking), while garrulous is negative (talks too much about trivial things, especially in old age).",
+      "mnemonic": "LOQUAcious = just LOVES to TALK. GARRulous = GARBage talk—rambling, tedious, annoying.",
+      "exampleSentences": [
+        "The loquacious host kept every guest engaged with fascinating stories.",
+        "The garrulous uncle cornered everyone at dinner with endless, pointless anecdotes."
+      ]
+    },
+    {
+      "words": ["eloquent", "grandiloquent"],
+      "whyConfused": "Both involve impressive language, but eloquent means genuinely powerful and persuasive, while grandiloquent means using pompous, inflated language to sound impressive without substance.",
+      "mnemonic": "ELOQuent = truly ELEVATED speech. GRANDiloquent = GRAND-standing—all show, no substance.",
+      "exampleSentences": [
+        "Her eloquent closing argument moved the jury to tears and won the case.",
+        "The grandiloquent politician used five-syllable words to mask his lack of any real policy."
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "id": "speech_drill_01",
+      "type": "shade_distinction",
+      "clusterId": "cluster_speech",
+      "difficulty": 2,
+      "prompt": "What is the key shade difference between 'reticent' and 'reluctant'?",
+      "options": [
+        { "id": "a", "text": "Reticent specifically means reluctant to SPEAK or reveal information; reluctant is general unwillingness" },
+        { "id": "b", "text": "They are exact synonyms and fully interchangeable" },
+        { "id": "c", "text": "Reluctant is about speech; reticent is about actions" },
+        { "id": "d", "text": "Reticent is stronger than reluctant in all contexts" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Reticent specifically means unwilling to speak freely or reveal information. The GRE tests this distinction because many people incorrectly use 'reticent' as a synonym for 'reluctant.' Reluctant means generally unwilling to do something (not limited to speech)."
+    },
+    {
+      "id": "speech_drill_02",
+      "type": "intensity_ordering",
+      "clusterId": "cluster_speech",
+      "difficulty": 2,
+      "prompt": "Arrange from LEAST talkative to MOST talkative: loquacious, voluble, garrulous, verbose",
+      "options": [
+        { "id": "a", "text": "voluble → loquacious → verbose → garrulous" },
+        { "id": "b", "text": "verbose → voluble → loquacious → garrulous" },
+        { "id": "c", "text": "garrulous → verbose → loquacious → voluble" },
+        { "id": "d", "text": "loquacious → garrulous → voluble → verbose" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Voluble means speaking easily and fluently. Loquacious means notably talkative. Verbose means using too many words (negatively excessive). Garrulous is the most extreme—tediously talkative with rambling, pointless speech."
+    },
+    {
+      "id": "speech_drill_03",
+      "type": "odd_one_out",
+      "clusterId": "cluster_speech",
+      "difficulty": 1,
+      "prompt": "Which word does NOT belong? laconic, terse, succinct, verbose",
+      "options": [
+        { "id": "a", "text": "laconic" },
+        { "id": "b", "text": "terse" },
+        { "id": "c", "text": "succinct" },
+        { "id": "d", "text": "verbose" }
+      ],
+      "correctAnswer": "d",
+      "explanation": "Laconic, terse, and succinct all describe brevity in speech or writing. Verbose means the opposite—using far too many words."
+    },
+    {
+      "id": "speech_drill_04",
+      "type": "confusion_resolver",
+      "clusterId": "cluster_speech",
+      "difficulty": 3,
+      "prompt": "The critic called the speech ______, noting that behind its lofty vocabulary lay no real argument. Which word fits?",
+      "options": [
+        { "id": "a", "text": "eloquent" },
+        { "id": "b", "text": "articulate" },
+        { "id": "c", "text": "grandiloquent" },
+        { "id": "d", "text": "voluble" }
+      ],
+      "correctAnswer": "c",
+      "explanation": "Grandiloquent means using pompous, extravagant language. The clue is 'lofty vocabulary' with 'no real argument'—impressive-sounding but empty. Eloquent implies genuine power and persuasion, which contradicts the criticism."
+    },
+    {
+      "id": "speech_drill_05",
+      "type": "connotation_sorting",
+      "clusterId": "cluster_speech",
+      "difficulty": 2,
+      "prompt": "Sort into POSITIVE, NEUTRAL, and NEGATIVE connotation: eloquent, garrulous, laconic, pithy, bombastic, voluble",
+      "options": [
+        { "id": "a", "text": "Positive: eloquent, pithy | Neutral: laconic, voluble | Negative: garrulous, bombastic" },
+        { "id": "b", "text": "Positive: eloquent, voluble, pithy | Neutral: laconic | Negative: garrulous, bombastic" },
+        { "id": "c", "text": "Positive: eloquent, pithy, laconic | Neutral: bombastic | Negative: garrulous, voluble" },
+        { "id": "d", "text": "Positive: eloquent, garrulous | Neutral: pithy, voluble | Negative: laconic, bombastic" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Eloquent (beautifully persuasive) and pithy (concise and meaningful) are positive. Laconic (using few words, often with dry wit) and voluble (speaking easily) are neutral. Garrulous (tediously talkative) and bombastic (inflated empty rhetoric) are negative."
+    },
+    {
+      "id": "speech_drill_06",
+      "type": "shade_distinction",
+      "clusterId": "cluster_speech",
+      "difficulty": 2,
+      "prompt": "How does 'pithy' differ from 'succinct'?",
+      "options": [
+        { "id": "a", "text": "Pithy is brief AND full of meaning/wit; succinct is simply brief and to the point" },
+        { "id": "b", "text": "Succinct is more concise than pithy" },
+        { "id": "c", "text": "Pithy is negative; succinct is positive" },
+        { "id": "d", "text": "They are identical in meaning and usage" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Both words mean brief, but pithy adds the crucial element of substance—a pithy remark is not just short but packed with meaning, insight, or wit. Succinct simply means well-edited, with no unnecessary words."
+    },
+    {
+      "id": "speech_drill_07",
+      "type": "confusion_resolver",
+      "clusterId": "cluster_speech",
+      "difficulty": 3,
+      "prompt": "The ______ old man at the bar would talk for hours about his fishing days to anyone who made eye contact. Which word best fits?",
+      "options": [
+        { "id": "a", "text": "loquacious" },
+        { "id": "b", "text": "garrulous" },
+        { "id": "c", "text": "eloquent" },
+        { "id": "d", "text": "voluble" }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Garrulous is the best fit because it specifically suggests an old person who talks at length about trivial things in a rambling way. Loquacious is more neutral and doesn't carry the connotation of tedious, pointless rambling. The context clues are 'old man,' 'hours,' and repetitive topic."
+    },
+    {
+      "id": "speech_drill_08",
+      "type": "relationship_labeling",
+      "clusterId": "cluster_speech",
+      "difficulty": 2,
+      "prompt": "What is the relationship between 'bombastic' and 'grandiloquent'?",
+      "options": [
+        { "id": "a", "text": "Antonyms" },
+        { "id": "b", "text": "Near synonyms—both mean pompously inflated speech" },
+        { "id": "c", "text": "Bombastic is much stronger than grandiloquent" },
+        { "id": "d", "text": "Commonly confused but unrelated" }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Bombastic and grandiloquent are near synonyms—both describe pompously inflated language. The subtle difference: bombastic emphasizes empty bluster and pretension, while grandiloquent emphasizes the use of extravagantly lofty words."
+    },
+    {
+      "id": "speech_drill_09",
+      "type": "intensity_ordering",
+      "clusterId": "cluster_speech",
+      "difficulty": 3,
+      "prompt": "Arrange from MOST silent to LEAST silent: reticent, laconic, taciturn, succinct",
+      "options": [
+        { "id": "a", "text": "taciturn → reticent → laconic → succinct" },
+        { "id": "b", "text": "reticent → taciturn → succinct → laconic" },
+        { "id": "c", "text": "laconic → succinct → reticent → taciturn" },
+        { "id": "d", "text": "succinct → laconic → reticent → taciturn" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Taciturn describes someone who is habitually silent by nature—the most extreme. Reticent describes reluctance to speak (but may speak when pressed). Laconic means using very few words when speaking. Succinct means concise—the person speaks, just efficiently."
+    },
+    {
+      "id": "speech_drill_10",
+      "type": "odd_one_out",
+      "clusterId": "cluster_speech",
+      "difficulty": 2,
+      "prompt": "Which word does NOT belong? bombastic, grandiloquent, eloquent, verbose",
+      "options": [
+        { "id": "a", "text": "bombastic" },
+        { "id": "b", "text": "grandiloquent" },
+        { "id": "c", "text": "eloquent" },
+        { "id": "d", "text": "verbose" }
+      ],
+      "correctAnswer": "c",
+      "explanation": "Bombastic, grandiloquent, and verbose all have negative connotations—they describe speech that is excessively wordy or pompously inflated. Eloquent is positive, meaning genuinely powerful, persuasive, and moving."
+    }
+  ]
+}

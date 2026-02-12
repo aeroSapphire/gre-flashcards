@@ -1,0 +1,351 @@
+{
+  "id": "cluster_anger",
+  "name": "Anger & Calm",
+  "concept": "Words describing temperament ranging from volatile aggression and irritability to deep calm and composure",
+  "words": [
+    "irascible",
+    "choleric",
+    "bellicose",
+    "pugnacious",
+    "placid",
+    "serene",
+    "equanimity",
+    "phlegmatic",
+    "imperturbable"
+  ],
+  "relationships": [
+    {
+      "wordA": "irascible",
+      "wordB": "choleric",
+      "type": "near_synonym",
+      "shadeNote": "Both mean easily angered; irascible focuses on quick temper, choleric on hot-blooded temperament",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "irascible",
+      "wordB": "placid",
+      "type": "antonym",
+      "shadeNote": "Irascible is quick to anger; placid is calm and unlikely to be disturbed",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "bellicose",
+      "wordB": "pugnacious",
+      "type": "commonly_confused",
+      "shadeNote": "Bellicose implies eagerness for war/large-scale conflict; pugnacious implies eagerness for personal fights",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "bellicose",
+      "wordB": "serene",
+      "type": "antonym",
+      "shadeNote": "Bellicose is aggressively warlike; serene is peacefully calm and untroubled",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "bellicose",
+      "wordB": "choleric",
+      "type": "near_synonym",
+      "shadeNote": "Choleric is quick-tempered in general; bellicose channels that aggression toward conflict and warfare",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "pugnacious",
+      "wordB": "irascible",
+      "type": "near_synonym",
+      "shadeNote": "Irascible is easily angered; pugnacious actively seeks confrontation and argument",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "pugnacious",
+      "wordB": "equanimity",
+      "type": "antonym",
+      "shadeNote": "Pugnacious is combative and aggressive; equanimity is mental calmness and composure under pressure",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "placid",
+      "wordB": "serene",
+      "type": "near_synonym",
+      "shadeNote": "Both mean calm; placid suggests unruffled stillness, serene suggests elevated peacefulness and clarity",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "placid",
+      "wordB": "phlegmatic",
+      "type": "near_synonym",
+      "shadeNote": "Placid is naturally calm and undisturbed; phlegmatic is sluggishly unemotional, showing little feeling",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "serene",
+      "wordB": "imperturbable",
+      "type": "near_synonym",
+      "shadeNote": "Serene is peacefully calm; imperturbable cannot BE disturbed, emphasizing unshakable composure",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "equanimity",
+      "wordB": "imperturbable",
+      "type": "near_synonym",
+      "shadeNote": "Equanimity is a noun for mental composure; imperturbable is an adjective for someone who cannot be rattled",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "phlegmatic",
+      "wordB": "choleric",
+      "type": "antonym",
+      "shadeNote": "Classical temperament opposites: phlegmatic is sluggish and unemotional, choleric is fiery and irritable",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "phlegmatic",
+      "wordB": "irascible",
+      "type": "antonym",
+      "shadeNote": "Phlegmatic is stoically unemotional; irascible is quick-tempered and easily provoked",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "imperturbable",
+      "wordB": "choleric",
+      "type": "antonym",
+      "shadeNote": "Imperturbable cannot be disturbed or agitated; choleric is easily stirred to anger",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "equanimity",
+      "wordB": "irascible",
+      "type": "antonym",
+      "shadeNote": "Equanimity maintains composure under stress; irascible loses composure at the slightest provocation",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "bellicose",
+      "wordB": "irascible",
+      "type": "category_sibling",
+      "shadeNote": "Both on the aggressive end; irascible is quick to anger, bellicose is quick to seek war or conflict",
+      "greRelevance": "medium",
+      "bidirectional": true
+    }
+  ],
+  "intensityScale": {
+    "dimension": "temperament",
+    "poles": ["extremely calm", "extremely angry/aggressive"],
+    "words": [
+      { "word": "imperturbable", "position": 0.0, "connotation": "positive" },
+      { "word": "equanimity", "position": 0.08, "connotation": "positive" },
+      { "word": "serene", "position": 0.15, "connotation": "positive" },
+      { "word": "placid", "position": 0.2, "connotation": "neutral" },
+      { "word": "phlegmatic", "position": 0.3, "connotation": "neutral" },
+      { "word": "irascible", "position": 0.7, "connotation": "negative" },
+      { "word": "choleric", "position": 0.78, "connotation": "negative" },
+      { "word": "pugnacious", "position": 0.88, "connotation": "negative" },
+      { "word": "bellicose", "position": 0.95, "connotation": "negative" }
+    ]
+  },
+  "commonConfusions": [
+    {
+      "words": ["bellicose", "pugnacious"],
+      "whyConfused": "Both describe eagerness for conflict, but bellicose implies warlike aggression on a larger scale (nations, factions), while pugnacious implies a personal eagerness to argue and fight.",
+      "mnemonic": "BELLicose = BELLigerent warfare. PUGnacious = like a PUG dog, scrappy and ready to fight anyone nearby.",
+      "exampleSentences": [
+        "The bellicose dictator mobilized his army and threatened to invade the neighboring country.",
+        "The pugnacious debater relished every opportunity to challenge his opponents' arguments."
+      ]
+    },
+    {
+      "words": ["irascible", "choleric"],
+      "whyConfused": "Both mean easily angered, but irascible emphasizes a quick temper that flares up suddenly, while choleric refers to a hot-blooded, fiery temperament that is generally irritable.",
+      "mnemonic": "IRascible = IRritable in an instant. CHOLeric = hot like a CHILI pepper, always simmering.",
+      "exampleSentences": [
+        "The irascible professor snapped at students for the slightest interruption during his lectures.",
+        "Her choleric disposition made her colleagues wary of bringing bad news."
+      ]
+    },
+    {
+      "words": ["placid", "phlegmatic"],
+      "whyConfused": "Both describe calm people, but placid suggests a pleasant, peaceful calm, while phlegmatic suggests a sluggish, apathetic unemotionality that can seem like indifference.",
+      "mnemonic": "PLACid = a PLACid lake, peacefully still. PHLEGmatic = like PHLEGM, thick and slow-moving.",
+      "exampleSentences": [
+        "The placid lake reflected the mountains perfectly, undisturbed by even a ripple of wind.",
+        "His phlegmatic response to the crisis frustrated his colleagues, who wanted urgency and passion."
+      ]
+    },
+    {
+      "words": ["equanimity", "serene"],
+      "whyConfused": "Both relate to calmness, but equanimity is a noun describing mental composure specifically under stress or pressure, while serene is an adjective describing a peaceful, untroubled state.",
+      "mnemonic": "EQUAnimity = EQUAL mind under pressure. SERENE = a SERENE sky, naturally peaceful.",
+      "exampleSentences": [
+        "She faced the devastating diagnosis with remarkable equanimity, calmly discussing treatment options.",
+        "The serene monastery offered visitors a peaceful escape from the chaos of urban life."
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "id": "anger_drill_01",
+      "type": "shade_distinction",
+      "clusterId": "cluster_anger",
+      "difficulty": 2,
+      "prompt": "What is the key difference between 'bellicose' and 'pugnacious'?",
+      "options": [
+        { "id": "a", "text": "Bellicose is warlike (large-scale conflict); pugnacious is eager for personal fights and arguments" },
+        { "id": "b", "text": "Pugnacious is stronger than bellicose" },
+        { "id": "c", "text": "Bellicose describes animals; pugnacious describes people" },
+        { "id": "d", "text": "They are identical in meaning" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Bellicose (from Latin bellum, war) implies a warlike, aggressive attitude often applied to nations, leaders, or rhetoric that promotes conflict. Pugnacious (from Latin pugnus, fist) implies a personal eagerness to quarrel and fight, often in everyday disputes."
+    },
+    {
+      "id": "anger_drill_02",
+      "type": "intensity_ordering",
+      "clusterId": "cluster_anger",
+      "difficulty": 2,
+      "prompt": "Arrange from CALMEST to MOST aggressive: choleric, serene, phlegmatic, bellicose",
+      "options": [
+        { "id": "a", "text": "serene → phlegmatic → choleric → bellicose" },
+        { "id": "b", "text": "phlegmatic → serene → bellicose → choleric" },
+        { "id": "c", "text": "bellicose → choleric → phlegmatic → serene" },
+        { "id": "d", "text": "serene → phlegmatic → bellicose → choleric" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Serene is peacefully calm. Phlegmatic is unemotional and sluggish (calm but more apathetic). Choleric is hot-tempered and easily angered. Bellicose is actively warlike and aggressive, the most extreme."
+    },
+    {
+      "id": "anger_drill_03",
+      "type": "odd_one_out",
+      "clusterId": "cluster_anger",
+      "difficulty": 1,
+      "prompt": "Which word does NOT describe an angry or aggressive temperament?",
+      "options": [
+        { "id": "a", "text": "irascible" },
+        { "id": "b", "text": "equanimity" },
+        { "id": "c", "text": "choleric" },
+        { "id": "d", "text": "pugnacious" }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Equanimity means mental calmness and composure, especially under stress. It is the opposite of an angry temperament. Irascible (quick-tempered), choleric (hot-blooded), and pugnacious (eager to fight) all describe aggressive temperaments."
+    },
+    {
+      "id": "anger_drill_04",
+      "type": "confusion_resolver",
+      "clusterId": "cluster_anger",
+      "difficulty": 2,
+      "prompt": "A nation's leader who constantly threatens military action against neighboring countries would best be described as:",
+      "options": [
+        { "id": "a", "text": "pugnacious" },
+        { "id": "b", "text": "irascible" },
+        { "id": "c", "text": "bellicose" },
+        { "id": "d", "text": "choleric" }
+      ],
+      "correctAnswer": "c",
+      "explanation": "Bellicose specifically describes warlike aggression, especially in the context of nations, leaders, and military conflict. Pugnacious would better describe someone eager for personal arguments. Irascible and choleric describe quick tempers but not necessarily military aggression."
+    },
+    {
+      "id": "anger_drill_05",
+      "type": "relationship_labeling",
+      "clusterId": "cluster_anger",
+      "difficulty": 2,
+      "prompt": "What is the relationship between 'phlegmatic' and 'choleric'?",
+      "options": [
+        { "id": "a", "text": "Near synonyms" },
+        { "id": "b", "text": "Antonyms rooted in classical temperament theory" },
+        { "id": "c", "text": "Choleric is stronger than phlegmatic" },
+        { "id": "d", "text": "Category siblings with similar meanings" }
+      ],
+      "correctAnswer": "b",
+      "explanation": "In classical Greek temperament theory (the four humors), phlegmatic (cold, sluggish, unemotional) and choleric (hot, fiery, irritable) are direct opposites. This makes them antonyms rooted in a shared etymological framework."
+    },
+    {
+      "id": "anger_drill_06",
+      "type": "connotation_sorting",
+      "clusterId": "cluster_anger",
+      "difficulty": 2,
+      "prompt": "Which calm-related word has a NEUTRAL or slightly negative connotation rather than positive?",
+      "options": [
+        { "id": "a", "text": "serene" },
+        { "id": "b", "text": "equanimity" },
+        { "id": "c", "text": "phlegmatic" },
+        { "id": "d", "text": "imperturbable" }
+      ],
+      "correctAnswer": "c",
+      "explanation": "Phlegmatic suggests sluggish, apathetic unemotionality, which can imply indifference rather than admirable calm. Serene, equanimity, and imperturbable all carry positive connotations of composed peacefulness or inner strength."
+    },
+    {
+      "id": "anger_drill_07",
+      "type": "shade_distinction",
+      "clusterId": "cluster_anger",
+      "difficulty": 3,
+      "prompt": "How does 'imperturbable' differ from 'placid'?",
+      "options": [
+        { "id": "a", "text": "They are identical in meaning" },
+        { "id": "b", "text": "Imperturbable emphasizes unshakable composure under pressure; placid suggests natural, undisturbed stillness" },
+        { "id": "c", "text": "Placid is always positive; imperturbable is always negative" },
+        { "id": "d", "text": "Imperturbable applies only to objects; placid applies only to people" }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Imperturbable means incapable of being disturbed or agitated, implying tested resilience under pressure. Placid suggests a naturally calm, peaceful state that has not been challenged. Imperturbable is calm despite provocation; placid is calm in the absence of it."
+    },
+    {
+      "id": "anger_drill_08",
+      "type": "confusion_resolver",
+      "clusterId": "cluster_anger",
+      "difficulty": 3,
+      "prompt": "A lawyer known for relishing courtroom arguments and verbally sparring with opposing counsel would best be called:",
+      "options": [
+        { "id": "a", "text": "bellicose" },
+        { "id": "b", "text": "pugnacious" },
+        { "id": "c", "text": "choleric" },
+        { "id": "d", "text": "irascible" }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Pugnacious describes someone who is eager for personal confrontation and argument, making it ideal for a combative lawyer. Bellicose would better describe warlike aggression. Choleric and irascible describe quick tempers, not necessarily enjoyment of argumentation."
+    },
+    {
+      "id": "anger_drill_09",
+      "type": "odd_one_out",
+      "clusterId": "cluster_anger",
+      "difficulty": 1,
+      "prompt": "Which word is a NOUN while the others are adjectives?",
+      "options": [
+        { "id": "a", "text": "placid" },
+        { "id": "b", "text": "equanimity" },
+        { "id": "c", "text": "serene" },
+        { "id": "d", "text": "imperturbable" }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Equanimity is a noun meaning 'mental calmness and composure.' You would say someone 'showed equanimity' or 'maintained equanimity.' Placid, serene, and imperturbable are all adjectives that describe a person or thing directly."
+    },
+    {
+      "id": "anger_drill_10",
+      "type": "intensity_ordering",
+      "clusterId": "cluster_anger",
+      "difficulty": 3,
+      "prompt": "Arrange from MOST calm to LEAST calm: imperturbable, placid, equanimity, serene",
+      "options": [
+        { "id": "a", "text": "imperturbable → equanimity → serene → placid" },
+        { "id": "b", "text": "placid → serene → equanimity → imperturbable" },
+        { "id": "c", "text": "serene → placid → imperturbable → equanimity" },
+        { "id": "d", "text": "equanimity → imperturbable → placid → serene" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Imperturbable is the most intensely calm (literally cannot be disturbed). Equanimity is deep composure maintained under pressure. Serene is elevated, peaceful calm. Placid is gentle, undisturbed calm — the mildest of the four, suggesting simply an unruffled surface."
+    }
+  ]
+}

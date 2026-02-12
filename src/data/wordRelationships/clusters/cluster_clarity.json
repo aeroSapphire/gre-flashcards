@@ -1,0 +1,300 @@
+{
+  "id": "cluster_clarity",
+  "name": "Clarity & Confusion",
+  "concept": "Words describing how clear or obscure something is — from crystalline transparency to impenetrable obscurity",
+  "words": [
+    "lucid", "pellucid", "perspicuous", "limpid",
+    "abstruse", "arcane", "recondite", "opaque",
+    "nebulous", "ambiguous"
+  ],
+  "relationships": [
+    {
+      "wordA": "lucid",
+      "wordB": "pellucid",
+      "type": "near_synonym",
+      "shadeNote": "Both mean clear; pellucid is more literary and emphasizes radiant, almost luminous clarity",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "pellucid",
+      "wordB": "limpid",
+      "type": "near_synonym",
+      "shadeNote": "Both suggest translucent clarity; limpid often describes serene, calm clarity (water, eyes, prose)",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "lucid",
+      "wordB": "perspicuous",
+      "type": "near_synonym",
+      "shadeNote": "Lucid is general clarity; perspicuous specifically means clearly expressed in language or argument",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "lucid",
+      "wordB": "opaque",
+      "type": "antonym",
+      "shadeNote": "Lucid means transparently clear; opaque means impossible to see through or understand",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "perspicuous",
+      "wordB": "abstruse",
+      "type": "antonym",
+      "shadeNote": "Perspicuous writing is immediately understandable; abstruse writing requires expert knowledge to grasp",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "abstruse",
+      "wordB": "recondite",
+      "type": "near_synonym",
+      "shadeNote": "Both mean hard to understand; recondite emphasizes knowledge hidden from the general public",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "abstruse",
+      "wordB": "arcane",
+      "type": "near_synonym",
+      "shadeNote": "Abstruse stresses intellectual difficulty; arcane stresses secrecy and restricted specialist knowledge",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "arcane",
+      "wordB": "recondite",
+      "type": "near_synonym",
+      "shadeNote": "Arcane suggests mysterious hidden knowledge; recondite suggests scholarly depth known to few experts",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "opaque",
+      "wordB": "ambiguous",
+      "type": "commonly_confused",
+      "shadeNote": "Opaque is completely unclear; ambiguous has multiple possible meanings — obscurity vs. multiplicity",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "nebulous",
+      "wordB": "ambiguous",
+      "type": "near_synonym",
+      "shadeNote": "Nebulous is vague and formless like a cloud; ambiguous is unclear because of multiple interpretations",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "nebulous",
+      "wordB": "opaque",
+      "type": "category_sibling",
+      "shadeNote": "Both obscure meaning: nebulous is hazy and ill-defined, opaque is dense and impenetrable",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "limpid",
+      "wordB": "nebulous",
+      "type": "antonym",
+      "shadeNote": "Limpid implies serene, see-through clarity; nebulous implies cloudy, formless vagueness",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "pellucid",
+      "wordB": "perspicuous",
+      "type": "stronger_than",
+      "shadeNote": "Pellucid implies an even higher degree of luminous clarity than perspicuous",
+      "greRelevance": "medium",
+      "bidirectional": false
+    }
+  ],
+  "intensityScale": {
+    "dimension": "clarity",
+    "poles": ["extremely obscure", "extremely clear"],
+    "words": [
+      { "word": "opaque", "position": 0.0, "connotation": "negative" },
+      { "word": "arcane", "position": 0.1, "connotation": "neutral" },
+      { "word": "recondite", "position": 0.15, "connotation": "neutral" },
+      { "word": "abstruse", "position": 0.2, "connotation": "negative" },
+      { "word": "nebulous", "position": 0.3, "connotation": "negative" },
+      { "word": "ambiguous", "position": 0.4, "connotation": "neutral" },
+      { "word": "lucid", "position": 0.75, "connotation": "positive" },
+      { "word": "perspicuous", "position": 0.8, "connotation": "positive" },
+      { "word": "limpid", "position": 0.85, "connotation": "positive" },
+      { "word": "pellucid", "position": 0.95, "connotation": "positive" }
+    ]
+  },
+  "commonConfusions": [
+    {
+      "words": ["abstruse", "obtuse"],
+      "whyConfused": "Similar sound and both relate to difficulty. Abstruse means hard to understand (describes content); obtuse means slow to understand (describes a person).",
+      "mnemonic": "ABStruse = ABStract and hard to grasp; OBTuse = OBlivious and thick-headed",
+      "exampleSentences": [
+        "The philosopher's abstruse arguments required years of study to fully comprehend.",
+        "He was too obtuse to realize that his colleagues were mocking him behind his back."
+      ]
+    },
+    {
+      "words": ["opaque", "ambiguous"],
+      "whyConfused": "Both indicate lack of clarity, but opaque means completely impenetrable while ambiguous means open to multiple interpretations.",
+      "mnemonic": "OPAQUE = a wall you can't see through at all; AMBIGUOUS = a fork in the road with multiple paths",
+      "exampleSentences": [
+        "The company's opaque financial disclosures made it impossible to determine how funds were used.",
+        "The contract's ambiguous wording could be interpreted to favor either party in the dispute."
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "id": "clarity_drill_01",
+      "type": "intensity_ordering",
+      "clusterId": "cluster_clarity",
+      "difficulty": 2,
+      "prompt": "Rank these words from MOST obscure to MOST clear:",
+      "options": [
+        { "id": "a", "text": "lucid" },
+        { "id": "b", "text": "opaque" },
+        { "id": "c", "text": "nebulous" },
+        { "id": "d", "text": "pellucid" }
+      ],
+      "correctAnswer": ["b", "c", "a", "d"],
+      "explanation": "Opaque (completely impenetrable) > nebulous (hazy and vague) > lucid (clearly understandable) > pellucid (luminously, radiantly clear). The scale goes from total obscurity to brilliant clarity."
+    },
+    {
+      "id": "clarity_drill_02",
+      "type": "shade_distinction",
+      "clusterId": "cluster_clarity",
+      "difficulty": 2,
+      "prompt": "Which word specifically describes knowledge that is hidden or secret, known only to specialists?",
+      "options": [
+        { "id": "a", "text": "abstruse" },
+        { "id": "b", "text": "arcane" },
+        { "id": "c", "text": "opaque" },
+        { "id": "d", "text": "nebulous" }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Arcane (from Latin 'arcanus' meaning secret) specifically describes knowledge that is mysterious and restricted to a small circle of initiates. Abstruse is hard to understand; opaque is impenetrable; nebulous is vague."
+    },
+    {
+      "id": "clarity_drill_03",
+      "type": "confusion_resolver",
+      "clusterId": "cluster_clarity",
+      "difficulty": 3,
+      "prompt": "The professor's lectures were so _______ that only doctoral students could follow the reasoning.",
+      "options": [
+        { "id": "a", "text": "abstruse" },
+        { "id": "b", "text": "obtuse" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Abstruse describes content that is difficult to understand due to intellectual complexity. Obtuse describes a person who is slow to understand. The lectures (content) are hard to follow, so abstruse is correct."
+    },
+    {
+      "id": "clarity_drill_04",
+      "type": "confusion_resolver",
+      "clusterId": "cluster_clarity",
+      "difficulty": 2,
+      "prompt": "The regulation's _______ language allowed two completely different legal interpretations.",
+      "options": [
+        { "id": "a", "text": "opaque" },
+        { "id": "b", "text": "ambiguous" }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Ambiguous means open to multiple interpretations. Opaque means completely incomprehensible. Since two specific interpretations were possible, the language is ambiguous (multiple meanings), not opaque (no meaning penetrable)."
+    },
+    {
+      "id": "clarity_drill_05",
+      "type": "odd_one_out",
+      "clusterId": "cluster_clarity",
+      "difficulty": 1,
+      "prompt": "Which word does NOT mean 'clear and easy to understand'?",
+      "options": [
+        { "id": "a", "text": "lucid" },
+        { "id": "b", "text": "pellucid" },
+        { "id": "c", "text": "recondite" },
+        { "id": "d", "text": "limpid" }
+      ],
+      "correctAnswer": "c",
+      "explanation": "Recondite means dealing with obscure, specialized subject matter known to few. Lucid, pellucid, and limpid all describe transparency and clarity."
+    },
+    {
+      "id": "clarity_drill_06",
+      "type": "shade_distinction",
+      "clusterId": "cluster_clarity",
+      "difficulty": 3,
+      "prompt": "What distinguishes 'recondite' from 'abstruse'?",
+      "options": [
+        { "id": "a", "text": "Recondite emphasizes knowledge hidden from most people; abstruse emphasizes intellectual difficulty" },
+        { "id": "b", "text": "Recondite is positive; abstruse is negative" },
+        { "id": "c", "text": "Recondite applies to people; abstruse applies to ideas" },
+        { "id": "d", "text": "They are perfect synonyms with no distinction" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Recondite stresses that knowledge is obscure because few people have access to it (hidden scholarly depths). Abstruse stresses that the material itself is inherently hard to penetrate intellectually. Both are somewhat negative, and both apply to ideas."
+    },
+    {
+      "id": "clarity_drill_07",
+      "type": "relationship_labeling",
+      "clusterId": "cluster_clarity",
+      "difficulty": 2,
+      "prompt": "What is the relationship between 'limpid' and 'nebulous'?",
+      "options": [
+        { "id": "a", "text": "Synonyms" },
+        { "id": "b", "text": "Antonyms" },
+        { "id": "c", "text": "Commonly confused" },
+        { "id": "d", "text": "Category siblings" }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Limpid means serenely clear and transparent (like still water). Nebulous means hazy, vague, and cloud-like. They sit at opposite ends of the clarity spectrum."
+    },
+    {
+      "id": "clarity_drill_08",
+      "type": "connotation_sorting",
+      "clusterId": "cluster_clarity",
+      "difficulty": 2,
+      "prompt": "Which of these 'unclear' words has the most NEUTRAL connotation?",
+      "options": [
+        { "id": "a", "text": "opaque" },
+        { "id": "b", "text": "arcane" },
+        { "id": "c", "text": "nebulous" },
+        { "id": "d", "text": "abstruse" }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Arcane simply means secret or known to few — it can describe specialized knowledge without negative judgment. Opaque implies frustrating impenetrability, nebulous implies unacceptable vagueness, and abstruse implies unnecessarily difficult content."
+    },
+    {
+      "id": "clarity_drill_09",
+      "type": "shade_distinction",
+      "clusterId": "cluster_clarity",
+      "difficulty": 3,
+      "prompt": "Which word best describes prose that is not only clear but has an almost luminous, radiant quality of transparency?",
+      "options": [
+        { "id": "a", "text": "lucid" },
+        { "id": "b", "text": "perspicuous" },
+        { "id": "c", "text": "pellucid" },
+        { "id": "d", "text": "limpid" }
+      ],
+      "correctAnswer": "c",
+      "explanation": "Pellucid (from Latin 'pellucidus' = thoroughly shining through) implies the highest degree of radiant, luminous clarity. Lucid and perspicuous are clear but lack the literary sense of glowing transparency that pellucid carries."
+    },
+    {
+      "id": "clarity_drill_10",
+      "type": "intensity_ordering",
+      "clusterId": "cluster_clarity",
+      "difficulty": 3,
+      "prompt": "Rank these 'obscure' words from LEAST obscure to MOST obscure:",
+      "options": [
+        { "id": "a", "text": "ambiguous" },
+        { "id": "b", "text": "abstruse" },
+        { "id": "c", "text": "nebulous" },
+        { "id": "d", "text": "opaque" }
+      ],
+      "correctAnswer": ["a", "c", "b", "d"],
+      "explanation": "Ambiguous (merely unclear, multiple interpretations possible) < nebulous (hazy, ill-defined) < abstruse (deeply hard to understand) < opaque (completely impenetrable). Each step increases the degree of incomprehensibility."
+    }
+  ]
+}

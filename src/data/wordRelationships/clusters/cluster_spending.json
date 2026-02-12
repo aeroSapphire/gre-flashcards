@@ -1,0 +1,355 @@
+{
+  "id": "cluster_spending",
+  "name": "Frugality & Excess",
+  "concept": "Words describing spending habits, from extreme cheapness to lavish generosity",
+  "words": [
+    "parsimonious", "frugal", "miserly", "penurious", "thrifty",
+    "profligate", "prodigal", "extravagant", "lavish", "munificent",
+    "austere", "spartan"
+  ],
+  "relationships": [
+    {
+      "wordA": "frugal",
+      "wordB": "thrifty",
+      "type": "synonym",
+      "shadeNote": "Both positive; thrifty implies practical skill, frugal implies principled restraint",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "parsimonious",
+      "wordB": "frugal",
+      "type": "stronger_than",
+      "shadeNote": "Parsimonious is frugal pushed to a negative extreme—stinginess, not wisdom",
+      "greRelevance": "high",
+      "bidirectional": false
+    },
+    {
+      "wordA": "miserly",
+      "wordB": "parsimonious",
+      "type": "near_synonym",
+      "shadeNote": "Both negative; miserly emphasizes hoarding wealth, parsimonious emphasizes withholding spending",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "penurious",
+      "wordB": "miserly",
+      "type": "near_synonym",
+      "shadeNote": "Penurious can mean extremely poor OR stingy; miserly is always about stinginess",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "profligate",
+      "wordB": "prodigal",
+      "type": "commonly_confused",
+      "shadeNote": "Profligate implies moral recklessness; prodigal focuses on wasteful lavishness",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "profligate",
+      "wordB": "frugal",
+      "type": "antonym",
+      "shadeNote": "Profligate is recklessly wasteful; frugal is carefully economical",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "prodigal",
+      "wordB": "thrifty",
+      "type": "antonym",
+      "shadeNote": "Prodigal spends recklessly; thrifty saves wisely",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "extravagant",
+      "wordB": "lavish",
+      "type": "near_synonym",
+      "shadeNote": "Extravagant stresses exceeding reasonable limits; lavish stresses abundance and generosity",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "lavish",
+      "wordB": "munificent",
+      "type": "near_synonym",
+      "shadeNote": "Both mean generous; munificent is formal and implies grand-scale giving",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "munificent",
+      "wordB": "miserly",
+      "type": "antonym",
+      "shadeNote": "Munificent gives abundantly; miserly hoards obsessively",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "austere",
+      "wordB": "spartan",
+      "type": "near_synonym",
+      "shadeNote": "Both mean severe simplicity; spartan implies harsh discipline, austere implies stern self-denial",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "austere",
+      "wordB": "frugal",
+      "type": "near_synonym",
+      "shadeNote": "Austere goes beyond spending—it implies stark, stripped-down living; frugal is just about money",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "spartan",
+      "wordB": "lavish",
+      "type": "antonym",
+      "shadeNote": "Spartan is bare-minimum simplicity; lavish is abundant excess",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "extravagant",
+      "wordB": "profligate",
+      "type": "weaker_than",
+      "shadeNote": "Extravagant is excessive spending; profligate adds moral corruption and recklessness",
+      "greRelevance": "high",
+      "bidirectional": false
+    },
+    {
+      "wordA": "prodigal",
+      "wordB": "extravagant",
+      "type": "near_synonym",
+      "shadeNote": "Both mean wastefully spending; prodigal carries a literary tone from the biblical parable",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "thrifty",
+      "wordB": "parsimonious",
+      "type": "weaker_than",
+      "shadeNote": "Thrifty is positive careful spending; parsimonious is negative excessive cheapness",
+      "greRelevance": "high",
+      "bidirectional": false
+    },
+    {
+      "wordA": "munificent",
+      "wordB": "extravagant",
+      "type": "commonly_confused",
+      "shadeNote": "Munificent is admirably generous to others; extravagant is excessively spending on anything",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "penurious",
+      "wordB": "spartan",
+      "type": "commonly_confused",
+      "shadeNote": "Penurious means stingy or impoverished; spartan means voluntarily austere and disciplined",
+      "greRelevance": "medium",
+      "bidirectional": true
+    }
+  ],
+  "intensityScale": {
+    "dimension": "spending restraint",
+    "poles": ["generous/wasteful", "extremely cheap"],
+    "words": [
+      { "word": "profligate", "position": 0.0, "connotation": "negative" },
+      { "word": "prodigal", "position": 0.05, "connotation": "negative" },
+      { "word": "extravagant", "position": 0.1, "connotation": "negative" },
+      { "word": "lavish", "position": 0.15, "connotation": "neutral" },
+      { "word": "munificent", "position": 0.2, "connotation": "positive" },
+      { "word": "thrifty", "position": 0.55, "connotation": "positive" },
+      { "word": "frugal", "position": 0.6, "connotation": "positive" },
+      { "word": "austere", "position": 0.7, "connotation": "neutral" },
+      { "word": "spartan", "position": 0.75, "connotation": "neutral" },
+      { "word": "parsimonious", "position": 0.85, "connotation": "negative" },
+      { "word": "penurious", "position": 0.9, "connotation": "negative" },
+      { "word": "miserly", "position": 1.0, "connotation": "negative" }
+    ]
+  },
+  "commonConfusions": [
+    {
+      "words": ["frugal", "parsimonious"],
+      "whyConfused": "Both describe careful spending, but frugal is positive (wise economy) while parsimonious is negative (excessive stinginess).",
+      "mnemonic": "FRUgal is FRUitful saving; PARSImonious isPARSE-ing every penny painfully.",
+      "exampleSentences": [
+        "Her frugal habits allowed her to retire early while still enjoying life.",
+        "The parsimonious landlord refused to fix the heating even in January."
+      ]
+    },
+    {
+      "words": ["prodigal", "profligate"],
+      "whyConfused": "Both mean wastefully extravagant, but profligate adds moral dissolution and shamelessness beyond mere spending.",
+      "mnemonic": "PRODigal wastes money (think Prodigal Son); PROFLigate wastes money AND morals.",
+      "exampleSentences": [
+        "The prodigal heir squandered his inheritance on luxuries within a year.",
+        "The profligate senator was caught using campaign funds for personal indulgences."
+      ]
+    },
+    {
+      "words": ["miserly", "penurious"],
+      "whyConfused": "Both suggest extreme cheapness, but penurious can also mean extremely poor (poverty-stricken), while miserly always means unwilling to spend.",
+      "mnemonic": "MISERly comes from MISER—always about hoarding. PENURIous sounds like PENURY (poverty)—could be poor OR cheap.",
+      "exampleSentences": [
+        "The miserly billionaire ate cold leftovers rather than spend on a meal.",
+        "The penurious students pooled their coins to afford a single textbook."
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "id": "spending_drill_01",
+      "type": "shade_distinction",
+      "clusterId": "cluster_spending",
+      "difficulty": 2,
+      "prompt": "What is the key difference between 'frugal' and 'parsimonious'?",
+      "options": [
+        { "id": "a", "text": "Frugal is positive (wise saving); parsimonious is negative (excessive stinginess)" },
+        { "id": "b", "text": "Frugal means poor; parsimonious means wealthy but cheap" },
+        { "id": "c", "text": "They are perfect synonyms with no meaningful difference" },
+        { "id": "d", "text": "Parsimonious is positive; frugal is negative" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Frugal carries a positive connotation of prudent economy, while parsimonious is negative, suggesting someone who is unreasonably stingy. The GRE frequently tests this connotation difference."
+    },
+    {
+      "id": "spending_drill_02",
+      "type": "intensity_ordering",
+      "clusterId": "cluster_spending",
+      "difficulty": 2,
+      "prompt": "Arrange from LEAST cheap to MOST cheap: parsimonious, thrifty, miserly, frugal",
+      "options": [
+        { "id": "a", "text": "thrifty → frugal → parsimonious → miserly" },
+        { "id": "b", "text": "frugal → thrifty → miserly → parsimonious" },
+        { "id": "c", "text": "miserly → parsimonious → frugal → thrifty" },
+        { "id": "d", "text": "thrifty → frugal → miserly → parsimonious" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Thrifty and frugal are mild and positive (careful spending). Parsimonious is excessive cheapness. Miserly is the extreme—obsessive hoarding. The scale: thrifty → frugal → parsimonious → miserly."
+    },
+    {
+      "id": "spending_drill_03",
+      "type": "odd_one_out",
+      "clusterId": "cluster_spending",
+      "difficulty": 1,
+      "prompt": "Which word does NOT belong with the others? profligate, prodigal, extravagant, parsimonious",
+      "options": [
+        { "id": "a", "text": "profligate" },
+        { "id": "b", "text": "prodigal" },
+        { "id": "c", "text": "extravagant" },
+        { "id": "d", "text": "parsimonious" }
+      ],
+      "correctAnswer": "d",
+      "explanation": "Profligate, prodigal, and extravagant all describe excessive spending or wastefulness. Parsimonious means the opposite—excessive cheapness."
+    },
+    {
+      "id": "spending_drill_04",
+      "type": "confusion_resolver",
+      "clusterId": "cluster_spending",
+      "difficulty": 3,
+      "prompt": "The senator's ______ lifestyle—gambling, lavish parties, and questionable associations—drew public outrage. Which word best fits?",
+      "options": [
+        { "id": "a", "text": "prodigal" },
+        { "id": "b", "text": "profligate" },
+        { "id": "c", "text": "extravagant" },
+        { "id": "d", "text": "lavish" }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Profligate is the best choice because it implies not just wasteful spending but also moral recklessness and dissolution. 'Questionable associations' signals moral corruption beyond mere spending, which is what distinguishes profligate from prodigal or extravagant."
+    },
+    {
+      "id": "spending_drill_05",
+      "type": "connotation_sorting",
+      "clusterId": "cluster_spending",
+      "difficulty": 2,
+      "prompt": "Sort these words into POSITIVE, NEUTRAL, and NEGATIVE connotation groups: thrifty, miserly, lavish, frugal, parsimonious, munificent",
+      "options": [
+        { "id": "a", "text": "Positive: thrifty, frugal, munificent | Neutral: lavish | Negative: miserly, parsimonious" },
+        { "id": "b", "text": "Positive: thrifty, frugal, lavish | Neutral: munificent | Negative: miserly, parsimonious" },
+        { "id": "c", "text": "Positive: thrifty, munificent | Neutral: frugal, lavish | Negative: miserly, parsimonious" },
+        { "id": "d", "text": "Positive: thrifty, frugal | Neutral: lavish, parsimonious | Negative: miserly, munificent" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Thrifty (wise saving), frugal (prudent economy), and munificent (admirable generosity) are all positive. Lavish is neutral—it can be positive or negative depending on context. Miserly (obsessive hoarding) and parsimonious (excessive stinginess) are negative."
+    },
+    {
+      "id": "spending_drill_06",
+      "type": "shade_distinction",
+      "clusterId": "cluster_spending",
+      "difficulty": 2,
+      "prompt": "How do 'austere' and 'spartan' differ from 'frugal'?",
+      "options": [
+        { "id": "a", "text": "Austere and spartan describe an entire lifestyle of severe simplicity, not just careful spending" },
+        { "id": "b", "text": "Austere and spartan are always negative; frugal is always positive" },
+        { "id": "c", "text": "Austere and spartan imply poverty; frugal implies wealth" },
+        { "id": "d", "text": "They are all interchangeable synonyms" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Frugal specifically describes careful money management. Austere and spartan describe a broader lifestyle of severe simplicity and self-denial that extends beyond finances to living conditions, comforts, and pleasures."
+    },
+    {
+      "id": "spending_drill_07",
+      "type": "confusion_resolver",
+      "clusterId": "cluster_spending",
+      "difficulty": 3,
+      "prompt": "The returning heir, once ______, had learned humility during years of poverty abroad. Which word best captures someone who formerly wasted wealth?",
+      "options": [
+        { "id": "a", "text": "profligate" },
+        { "id": "b", "text": "prodigal" },
+        { "id": "c", "text": "penurious" },
+        { "id": "d", "text": "munificent" }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Prodigal is the correct choice. The context echoes the biblical Prodigal Son—someone who wasted their inheritance, experienced hardship, and returned home. Prodigal focuses on wasteful spending without the moral dissolution that profligate implies."
+    },
+    {
+      "id": "spending_drill_08",
+      "type": "intensity_ordering",
+      "clusterId": "cluster_spending",
+      "difficulty": 3,
+      "prompt": "Arrange from LEAST wasteful to MOST wasteful: extravagant, lavish, prodigal, profligate",
+      "options": [
+        { "id": "a", "text": "lavish → extravagant → prodigal → profligate" },
+        { "id": "b", "text": "profligate → prodigal → extravagant → lavish" },
+        { "id": "c", "text": "extravagant → lavish → profligate → prodigal" },
+        { "id": "d", "text": "lavish → prodigal → extravagant → profligate" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Lavish suggests abundance (can be positive). Extravagant means exceeding reasonable limits. Prodigal means recklessly wasteful. Profligate is the most extreme—reckless wastefulness combined with moral abandonment."
+    },
+    {
+      "id": "spending_drill_09",
+      "type": "odd_one_out",
+      "clusterId": "cluster_spending",
+      "difficulty": 2,
+      "prompt": "Which word does NOT belong? austere, spartan, penurious, frugal",
+      "options": [
+        { "id": "a", "text": "austere" },
+        { "id": "b", "text": "spartan" },
+        { "id": "c", "text": "penurious" },
+        { "id": "d", "text": "frugal" }
+      ],
+      "correctAnswer": "c",
+      "explanation": "Austere, spartan, and frugal all describe voluntary restraint—choosing to live simply or spend carefully. Penurious primarily means suffering from extreme poverty (involuntary), or being stingy in a mean-spirited way. It does not imply a principled choice."
+    },
+    {
+      "id": "spending_drill_10",
+      "type": "relationship_labeling",
+      "clusterId": "cluster_spending",
+      "difficulty": 2,
+      "prompt": "What is the relationship between 'munificent' and 'miserly'?",
+      "options": [
+        { "id": "a", "text": "Synonyms" },
+        { "id": "b", "text": "Antonyms" },
+        { "id": "c", "text": "Munificent is stronger than miserly" },
+        { "id": "d", "text": "Commonly confused pair" }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Munificent (extremely generous, giving abundantly) is a direct antonym of miserly (extremely stingy, hoarding obsessively). They represent opposite extremes of the spending spectrum."
+    }
+  ]
+}

@@ -1,0 +1,375 @@
+{
+  "id": "cluster_deception",
+  "name": "Deception & Honesty",
+  "concept": "Words describing dishonesty, trickery, and moral integrity versus candor and truthfulness",
+  "words": [
+    "duplicitous",
+    "disingenuous",
+    "mendacious",
+    "perfidious",
+    "chicanery",
+    "candid",
+    "forthright",
+    "veracious",
+    "guileless",
+    "artless",
+    "probity",
+    "rectitude",
+    "dissemble"
+  ],
+  "relationships": [
+    {
+      "wordA": "duplicitous",
+      "wordB": "disingenuous",
+      "type": "near_synonym",
+      "shadeNote": "Duplicitous implies deliberate double-dealing; disingenuous implies pretending to be naive or unaware",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "duplicitous",
+      "wordB": "perfidious",
+      "type": "near_synonym",
+      "shadeNote": "Both involve betrayal; perfidious emphasizes treachery and broken trust, duplicitous emphasizes two-facedness",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "duplicitous",
+      "wordB": "candid",
+      "type": "antonym",
+      "shadeNote": "Duplicitous is deliberately deceptive; candid is openly and honestly straightforward",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "mendacious",
+      "wordB": "veracious",
+      "type": "antonym",
+      "shadeNote": "Mendacious means habitually lying; veracious means habitually truthful — exact opposites",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "mendacious",
+      "wordB": "duplicitous",
+      "type": "near_synonym",
+      "shadeNote": "Mendacious focuses on telling lies; duplicitous focuses on presenting a false front",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "disingenuous",
+      "wordB": "guileless",
+      "type": "antonym",
+      "shadeNote": "Disingenuous pretends to lack knowledge; guileless genuinely lacks cunning or deceit",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "perfidious",
+      "wordB": "forthright",
+      "type": "antonym",
+      "shadeNote": "Perfidious betrays trust through treachery; forthright is directly honest without evasion",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "chicanery",
+      "wordB": "probity",
+      "type": "antonym",
+      "shadeNote": "Chicanery is deception through legal trickery; probity is strong moral integrity and honesty",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "candid",
+      "wordB": "forthright",
+      "type": "near_synonym",
+      "shadeNote": "Candid is openly honest in expression; forthright adds proactive directness, volunteering the truth",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "guileless",
+      "wordB": "artless",
+      "type": "near_synonym",
+      "shadeNote": "Both mean without deception; guileless stresses absence of cunning, artless stresses natural sincerity",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "probity",
+      "wordB": "rectitude",
+      "type": "near_synonym",
+      "shadeNote": "Both mean moral uprightness; probity emphasizes tested integrity, rectitude emphasizes strict correctness",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "dissemble",
+      "wordB": "candid",
+      "type": "antonym",
+      "shadeNote": "Dissemble means to conceal one's true feelings; candid means to express them openly",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "dissemble",
+      "wordB": "disingenuous",
+      "type": "near_synonym",
+      "shadeNote": "Dissemble is the act of hiding true motives; disingenuous describes the character of someone who does so",
+      "greRelevance": "high",
+      "bidirectional": true
+    },
+    {
+      "wordA": "chicanery",
+      "wordB": "duplicitous",
+      "type": "category_sibling",
+      "shadeNote": "Both involve deception; chicanery is trickery in legal/political contexts, duplicitous is personal two-facedness",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "veracious",
+      "wordB": "forthright",
+      "type": "near_synonym",
+      "shadeNote": "Veracious emphasizes truthfulness of statements; forthright emphasizes directness in communication",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "artless",
+      "wordB": "dissemble",
+      "type": "antonym",
+      "shadeNote": "Artless means naturally sincere without pretense; dissemble means to deliberately hide one's true nature",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "rectitude",
+      "wordB": "mendacious",
+      "type": "antonym",
+      "shadeNote": "Rectitude is moral uprightness and honesty; mendacious is habitually dishonest and lying",
+      "greRelevance": "medium",
+      "bidirectional": true
+    },
+    {
+      "wordA": "perfidious",
+      "wordB": "mendacious",
+      "type": "near_synonym",
+      "shadeNote": "Perfidious emphasizes betrayal of trust; mendacious emphasizes habitual untruthfulness",
+      "greRelevance": "medium",
+      "bidirectional": true
+    }
+  ],
+  "intensityScale": {
+    "dimension": "honesty",
+    "poles": ["completely deceptive", "morally upright"],
+    "words": [
+      { "word": "perfidious", "position": 0.0, "connotation": "negative" },
+      { "word": "duplicitous", "position": 0.08, "connotation": "negative" },
+      { "word": "mendacious", "position": 0.12, "connotation": "negative" },
+      { "word": "chicanery", "position": 0.18, "connotation": "negative" },
+      { "word": "dissemble", "position": 0.25, "connotation": "negative" },
+      { "word": "disingenuous", "position": 0.3, "connotation": "negative" },
+      { "word": "artless", "position": 0.65, "connotation": "neutral" },
+      { "word": "guileless", "position": 0.7, "connotation": "positive" },
+      { "word": "candid", "position": 0.75, "connotation": "positive" },
+      { "word": "forthright", "position": 0.8, "connotation": "positive" },
+      { "word": "veracious", "position": 0.85, "connotation": "positive" },
+      { "word": "probity", "position": 0.92, "connotation": "positive" },
+      { "word": "rectitude", "position": 0.97, "connotation": "positive" }
+    ]
+  },
+  "commonConfusions": [
+    {
+      "words": ["disingenuous", "guileless"],
+      "whyConfused": "They sound like they could be related (both contain 'genuous'/'guile' roots suggesting sincerity), but disingenuous means insincere while guileless means genuinely without deceit.",
+      "mnemonic": "DIS-ingenuous = DIS-honest pretense. GUILE-less = without GUILE, truly sincere.",
+      "exampleSentences": [
+        "His disingenuous claim of ignorance fooled no one; everyone knew he had orchestrated the scheme.",
+        "Her guileless smile and open manner made everyone trust her immediately."
+      ]
+    },
+    {
+      "words": ["artless", "guileless"],
+      "whyConfused": "Both mean without deception, but artless carries a subtle connotation of natural simplicity (sometimes implying lack of sophistication), while guileless purely means free from cunning.",
+      "mnemonic": "Artless = no ART or artifice, naturally simple. Guileless = no GUILE or tricks, purely sincere.",
+      "exampleSentences": [
+        "The artless charm of the country folk was refreshing after years in the cynical city.",
+        "The guileless witness gave a straightforward account, clearly incapable of deception."
+      ]
+    },
+    {
+      "words": ["mendacious", "veracious"],
+      "whyConfused": "Both describe habitual speech patterns and sound similarly formal, but they are exact antonyms: mendacious means lying, veracious means truthful.",
+      "mnemonic": "MENDacious = MENDs the truth (lies). VERacious = VERifies the truth (honest).",
+      "exampleSentences": [
+        "The mendacious politician had fabricated his entire military record.",
+        "The veracious historian was renowned for her meticulous commitment to factual accuracy."
+      ]
+    },
+    {
+      "words": ["duplicitous", "dissemble"],
+      "whyConfused": "Both involve concealing the truth, but duplicitous is an adjective describing someone's deceptive character, while dissemble is a verb meaning the act of hiding one's true intentions.",
+      "mnemonic": "Duplicitous = a DUPLIcate face. Dissemble = DIS-assemble your true self to hide it.",
+      "exampleSentences": [
+        "The duplicitous advisor publicly praised the plan while secretly working to undermine it.",
+        "She tried to dissemble her disappointment with a forced smile, but her eyes betrayed her."
+      ]
+    }
+  ],
+  "drills": [
+    {
+      "id": "decep_drill_01",
+      "type": "shade_distinction",
+      "clusterId": "cluster_deception",
+      "difficulty": 2,
+      "prompt": "What is the key difference between 'disingenuous' and 'duplicitous'?",
+      "options": [
+        { "id": "a", "text": "Disingenuous means pretending ignorance or naivety; duplicitous means deliberate double-dealing" },
+        { "id": "b", "text": "Duplicitous is weaker than disingenuous" },
+        { "id": "c", "text": "They are interchangeable synonyms" },
+        { "id": "d", "text": "Disingenuous refers only to legal deception" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Disingenuous specifically describes someone who pretends to know less than they do or feigns innocence. Duplicitous describes someone who actively maintains two faces, saying one thing while doing another."
+    },
+    {
+      "id": "decep_drill_02",
+      "type": "odd_one_out",
+      "clusterId": "cluster_deception",
+      "difficulty": 1,
+      "prompt": "Which word does NOT describe dishonesty or deception?",
+      "options": [
+        { "id": "a", "text": "mendacious" },
+        { "id": "b", "text": "perfidious" },
+        { "id": "c", "text": "forthright" },
+        { "id": "d", "text": "duplicitous" }
+      ],
+      "correctAnswer": "c",
+      "explanation": "Forthright means directly and outspokenly honest, which is the opposite of deception. The other three words all describe forms of dishonesty: mendacious (lying), perfidious (treacherous), and duplicitous (two-faced)."
+    },
+    {
+      "id": "decep_drill_03",
+      "type": "intensity_ordering",
+      "clusterId": "cluster_deception",
+      "difficulty": 3,
+      "prompt": "Arrange from MOST deceptive to MOST honest: candid, perfidious, disingenuous, rectitude",
+      "options": [
+        { "id": "a", "text": "perfidious → disingenuous → candid → rectitude" },
+        { "id": "b", "text": "disingenuous → perfidious → rectitude → candid" },
+        { "id": "c", "text": "rectitude → candid → disingenuous → perfidious" },
+        { "id": "d", "text": "perfidious → candid → disingenuous → rectitude" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Perfidious (treacherous betrayal) is the most intensely deceptive. Disingenuous (feigning innocence) is deceptive but less extreme. Candid (openly honest) is on the honest side. Rectitude (strict moral uprightness) represents the highest moral standard."
+    },
+    {
+      "id": "decep_drill_04",
+      "type": "confusion_resolver",
+      "clusterId": "cluster_deception",
+      "difficulty": 2,
+      "prompt": "A child who genuinely does not understand social manipulation and speaks with complete openness would best be described as:",
+      "options": [
+        { "id": "a", "text": "disingenuous" },
+        { "id": "b", "text": "guileless" },
+        { "id": "c", "text": "veracious" },
+        { "id": "d", "text": "forthright" }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Guileless means genuinely without cunning or deceit, perfectly describing natural innocence. Disingenuous would mean pretending to be innocent (the opposite). Veracious means truthful in statements, and forthright means proactively direct — neither captures the quality of innate innocence."
+    },
+    {
+      "id": "decep_drill_05",
+      "type": "relationship_labeling",
+      "clusterId": "cluster_deception",
+      "difficulty": 2,
+      "prompt": "What is the relationship between 'probity' and 'rectitude'?",
+      "options": [
+        { "id": "a", "text": "Antonyms" },
+        { "id": "b", "text": "Probity is stronger than rectitude" },
+        { "id": "c", "text": "Near synonyms — probity emphasizes tested integrity, rectitude emphasizes strict correctness" },
+        { "id": "d", "text": "Commonly confused but unrelated" }
+      ],
+      "correctAnswer": "c",
+      "explanation": "Probity and rectitude are near synonyms both meaning moral uprightness. The shade of difference is that probity suggests integrity proven through experience and testing, while rectitude emphasizes adherence to strict moral standards and correctness."
+    },
+    {
+      "id": "decep_drill_06",
+      "type": "connotation_sorting",
+      "clusterId": "cluster_deception",
+      "difficulty": 2,
+      "prompt": "Which of these 'honest' words has a NEUTRAL rather than positive connotation?",
+      "options": [
+        { "id": "a", "text": "probity" },
+        { "id": "b", "text": "artless" },
+        { "id": "c", "text": "forthright" },
+        { "id": "d", "text": "veracious" }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Artless can mean naturally sincere, but it also carries a secondary connotation of lacking sophistication or skill, making its overall connotation more neutral. Probity, forthright, and veracious are all unambiguously positive."
+    },
+    {
+      "id": "decep_drill_07",
+      "type": "shade_distinction",
+      "clusterId": "cluster_deception",
+      "difficulty": 3,
+      "prompt": "How does 'chicanery' differ from 'mendacity'?",
+      "options": [
+        { "id": "a", "text": "Chicanery is trickery through clever schemes, often legal; mendacity is straightforward lying" },
+        { "id": "b", "text": "Mendacity is more formal; they mean the same thing" },
+        { "id": "c", "text": "Chicanery is always illegal; mendacity is not" },
+        { "id": "d", "text": "Chicanery involves violence; mendacity does not" }
+      ],
+      "correctAnswer": "a",
+      "explanation": "Chicanery refers to deception through clever but underhanded tricks, especially in legal or political contexts. Mendacity (the noun form of mendacious) refers to habitual dishonesty and lying. Chicanery is about elaborate scheming; mendacity is about untruthfulness."
+    },
+    {
+      "id": "decep_drill_08",
+      "type": "confusion_resolver",
+      "clusterId": "cluster_deception",
+      "difficulty": 3,
+      "prompt": "An ally who secretly betrays your trust and switches sides would best be called:",
+      "options": [
+        { "id": "a", "text": "disingenuous" },
+        { "id": "b", "text": "mendacious" },
+        { "id": "c", "text": "perfidious" },
+        { "id": "d", "text": "dissemble" }
+      ],
+      "correctAnswer": "c",
+      "explanation": "Perfidious specifically means treacherous through deliberate betrayal of trust, making it perfect for a false ally. Disingenuous is about feigning innocence, mendacious is about habitual lying, and dissemble is a verb meaning to hide one's true feelings."
+    },
+    {
+      "id": "decep_drill_09",
+      "type": "odd_one_out",
+      "clusterId": "cluster_deception",
+      "difficulty": 2,
+      "prompt": "Which word is a VERB while the others are adjectives or nouns?",
+      "options": [
+        { "id": "a", "text": "perfidious" },
+        { "id": "b", "text": "dissemble" },
+        { "id": "c", "text": "mendacious" },
+        { "id": "d", "text": "probity" }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Dissemble is a verb meaning 'to conceal one's true motives or feelings.' Perfidious and mendacious are adjectives, and probity is a noun. Recognizing parts of speech helps you use these words correctly on the GRE."
+    },
+    {
+      "id": "decep_drill_10",
+      "type": "relationship_labeling",
+      "clusterId": "cluster_deception",
+      "difficulty": 1,
+      "prompt": "What is the relationship between 'mendacious' and 'veracious'?",
+      "options": [
+        { "id": "a", "text": "Near synonyms" },
+        { "id": "b", "text": "Antonyms" },
+        { "id": "c", "text": "Veracious is stronger than mendacious" },
+        { "id": "d", "text": "Category siblings" }
+      ],
+      "correctAnswer": "b",
+      "explanation": "Mendacious (habitually lying) and veracious (habitually truthful) are direct antonyms. They describe opposite ends of the truthfulness spectrum and share a similar formal register, making them a classic GRE antonym pair."
+    }
+  ]
+}

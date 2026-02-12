@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, BookOpen, GraduationCap, Filter, ArrowLeft, LogOut, Settings, Trophy, Clock, FileText, Gamepad2, Search, X, Flame, Zap, Menu } from 'lucide-react';
+import { Plus, BookOpen, GraduationCap, Filter, ArrowLeft, LogOut, Settings, Trophy, Clock, FileText, Gamepad2, Search, X, Flame, Zap, Menu, Network } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useFlashcardsDb, FlashcardWithProgress, FlashcardList } from '@/hooks/useFlashcardsDb';
 import { useAuth } from '@/contexts/AuthContext';
@@ -383,6 +383,10 @@ const Index = () => {
                 <FileText className="h-4 w-4 mr-1" />
                 Verbal
               </Button>
+              <Button variant="outline" size="sm" onClick={() => navigate('/word-web')}>
+                <Network className="h-4 w-4 mr-1" />
+                Word Web
+              </Button>
               <Button variant="ghost" size="icon" onClick={() => navigate('/settings')} title="Settings">
                 <Settings className="h-4 w-4" />
               </Button>
@@ -425,6 +429,10 @@ const Index = () => {
                     <Button variant="ghost" className="justify-start" onClick={() => navigate('/verbal')}>
                       <FileText className="h-4 w-4 mr-3" />
                       Verbal
+                    </Button>
+                    <Button variant="ghost" className="justify-start" onClick={() => navigate('/word-web')}>
+                      <Network className="h-4 w-4 mr-3" />
+                      Word Web
                     </Button>
                     <div className="h-px bg-border my-2" />
                     <Button variant="ghost" className="justify-start" onClick={() => navigate('/settings')}>
