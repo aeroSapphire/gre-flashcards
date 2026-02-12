@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import type { IntensityScale as IntensityScaleType } from '@/data/wordRelationships/types';
 
@@ -8,80 +8,107 @@ interface IntensityScaleProps {
   onWordClick: (word: string) => void;
 }
 
-const CONNOTATION_DOT: Record<string, string> = {
-  positive: 'bg-green-400',
-  neutral: 'bg-slate-400',
-  negative: 'bg-red-400',
-};
+const GROUP_CONFIG = {
+  positive: {
+    label: 'Positive',
+    card: 'bg-green-500/8 border-green-500/25 hover:border-green-500/40',
+    text: 'text-green-400',
+    badge: 'bg-green-500/15 text-green-400 border-green-500/30',
+  },
+  neutral: {
+    label: 'Neutral',
+    card: 'bg-slate-500/8 border-slate-500/25 hover:border-slate-500/40',
+    text: 'text-slate-300',
+    badge: 'bg-slate-500/15 text-slate-300 border-slate-500/30',
+  },
+  negative: {
+    label: 'Negative',
+    card: 'bg-red-500/8 border-red-500/25 hover:border-red-500/40',
+    text: 'text-red-400',
+    badge: 'bg-red-500/15 text-red-400 border-red-500/30',
+  },
+} as const;
 
-const CONNOTATION_TEXT: Record<string, string> = {
-  positive: 'text-green-400',
-  neutral: 'text-slate-300',
-  negative: 'text-red-400',
-};
+type Connotation = keyof typeof GROUP_CONFIG;
 
 export function IntensityScale({ scale, learnedWords, onWordClick }: IntensityScaleProps) {
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const groups = useMemo(() => {
+    const result: Record<Connotation, typeof scale.words> = {
+      positive: [],
+      neutral: [],
+      negative: [],
+    };
+    for (const entry of scale.words) {
+      result[entry.connotation].push(entry);
+    }
+    // Sort each group by position on the scale
+    for (const key of Object.keys(result) as Connotation[]) {
+      result[key].sort((a, b) => a.position - b.position);
+    }
+    return result;
+  }, [scale.words]);
 
-  // Sort words by position (left = one pole, right = other pole)
-  const sorted = [...scale.words].sort((a, b) => a.position - b.position);
+  // Only render groups that have words
+  const activeGroups = (['positive', 'neutral', 'negative'] as Connotation[]).filter(
+    g => groups[g].length > 0
+  );
 
   return (
-    <div className="space-y-3">
-      {/* Pole labels */}
-      <div className="flex justify-between text-xs text-muted-foreground">
-        <span>{scale.poles[0]}</span>
-        <span className="text-[10px] text-muted-foreground/60 uppercase tracking-wider">
-          {scale.dimension}
-        </span>
-        <span>{scale.poles[1]}</span>
-      </div>
+    <div className="space-y-4">
+      {/* Dimension label */}
+      <p className="text-xs text-muted-foreground text-center uppercase tracking-wider">
+        {scale.dimension}
+      </p>
 
-      {/* Gradient bar */}
-      <div className="h-1.5 rounded-full bg-gradient-to-r from-primary/50 via-muted to-amber-500/50" />
+      {/* Three connotation groups */}
+      <div className="space-y-3">
+        {activeGroups.map((connotation, gi) => {
+          const config = GROUP_CONFIG[connotation];
+          const words = groups[connotation];
 
-      {/* Words in a single scrollable row */}
-      <div
-        ref={scrollRef}
-        className="flex gap-1 overflow-x-auto pb-2 scrollbar-thin"
-      >
-        {sorted.map((entry, i) => (
-          <motion.button
-            key={entry.word}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.03 }}
-            onClick={() => onWordClick(entry.word)}
-            className={`flex-shrink-0 flex flex-col items-center gap-1 px-2.5 py-2 rounded-lg border transition-all cursor-pointer hover:bg-muted/50 ${
-              learnedWords.has(entry.word)
-                ? 'border-green-500/30 bg-green-500/5'
-                : 'border-border bg-card'
-            }`}
-          >
-            <span className={`text-xs font-medium whitespace-nowrap ${CONNOTATION_TEXT[entry.connotation]}`}>
-              {entry.word}
-            </span>
-            <span className={`w-2 h-2 rounded-full ${CONNOTATION_DOT[entry.connotation]}`} />
-          </motion.button>
-        ))}
-      </div>
+          return (
+            <motion.div
+              key={connotation}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: gi * 0.08 }}
+            >
+              {/* Group header */}
+              <div className="flex items-center gap-2 mb-2">
+                <span className={`text-[10px] font-semibold uppercase tracking-wider ${config.text}`}>
+                  {config.label}
+                </span>
+                <span className="text-[10px] text-muted-foreground/50">
+                  {words.length} {words.length === 1 ? 'word' : 'words'}
+                </span>
+              </div>
 
-      {/* Legend */}
-      <div className="flex gap-4 text-[10px] text-muted-foreground">
-        <span className="flex items-center gap-1">
-          <span className="w-2 h-2 rounded-full bg-green-400" /> positive
-        </span>
-        <span className="flex items-center gap-1">
-          <span className="w-2 h-2 rounded-full bg-slate-400" /> neutral
-        </span>
-        <span className="flex items-center gap-1">
-          <span className="w-2 h-2 rounded-full bg-red-400" /> negative
-        </span>
-        {learnedWords.size > 0 && (
-          <span className="flex items-center gap-1">
-            <span className="w-2 h-2 rounded border border-green-500/30 bg-green-500/5" /> learned
-          </span>
-        )}
+              {/* Word cards grid */}
+              <div className="flex flex-wrap gap-2">
+                {words.map((entry, i) => {
+                  const isLearned = learnedWords.has(entry.word);
+                  return (
+                    <motion.button
+                      key={entry.word}
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: gi * 0.08 + i * 0.03 }}
+                      onClick={() => onWordClick(entry.word)}
+                      className={`px-3 py-2 rounded-lg border text-sm font-medium transition-all cursor-pointer ${config.card} ${
+                        isLearned ? 'ring-1 ring-primary/40' : ''
+                      }`}
+                    >
+                      <span className={config.text}>{entry.word}</span>
+                      {isLearned && (
+                        <span className="ml-1.5 text-[9px] text-primary">✓</span>
+                      )}
+                    </motion.button>
+                  );
+                })}
+              </div>
+            </motion.div>
+          );
+        })}
       </div>
     </div>
   );
