@@ -28,6 +28,9 @@ export interface FlashcardWithProgress extends Flashcard {
   interval?: number;
   repetition?: number;
   ease_factor?: number;
+  consecutive_failures?: number;
+  consecutive_success?: number;
+  last_grade?: string | null;
   isHard?: boolean;
 }
 
@@ -47,6 +50,9 @@ interface UserProgress {
   interval?: number;
   ease_factor?: number;
   repetitions?: number;
+  consecutive_failures?: number;
+  consecutive_success?: number;
+  last_grade?: string | null;
 }
 
 interface UserStats {
@@ -191,6 +197,9 @@ export function useFlashcardsDb() {
               interval: p.interval,
               ease_factor: p.ease_factor,
               repetitions: p.repetitions,
+              consecutive_failures: p.consecutive_failures || 0,
+              consecutive_success: p.consecutive_success || 0,
+              last_grade: p.last_grade || null,
             } as UserProgress);
           });
           setMyProgress(progressMap);
@@ -237,6 +246,9 @@ export function useFlashcardsDb() {
               interval: p.interval,
               ease_factor: p.ease_factor,
               repetitions: p.repetitions,
+              consecutive_failures: p.consecutive_failures || 0,
+              consecutive_success: p.consecutive_success || 0,
+              last_grade: p.last_grade || null,
             } as UserProgress);
           });
           setMyProgress(progressMap);
@@ -533,6 +545,9 @@ export function useFlashcardsDb() {
         interval: userProgress?.interval,
         repetition: userProgress?.repetitions,
         ease_factor: userProgress?.ease_factor,
+        consecutive_failures: userProgress?.consecutive_failures,
+        consecutive_success: userProgress?.consecutive_success,
+        last_grade: userProgress?.last_grade,
       };
     });
   }, [cards, myProgress, progressByCardId, profilesById]);
@@ -689,6 +704,9 @@ export function useFlashcardsDb() {
           interval: srsUpdates.interval,
           ease_factor: srsUpdates.ease_factor,
           repetitions: srsUpdates.repetitions,
+          consecutive_failures: srsUpdates.consecutive_failures,
+          consecutive_success: srsUpdates.consecutive_success,
+          last_grade: srsUpdates.last_grade,
         } : undefined,
       });
 
@@ -721,6 +739,9 @@ export function useFlashcardsDb() {
           interval: srsUpdates.interval,
           ease_factor: srsUpdates.ease_factor,
           repetitions: srsUpdates.repetitions,
+          consecutive_failures: srsUpdates.consecutive_failures,
+          consecutive_success: srsUpdates.consecutive_success,
+          last_grade: srsUpdates.last_grade,
         } : undefined,
       });
 
@@ -834,8 +855,11 @@ export function useFlashcardsDb() {
     updateProgress(id, 'learned', {
       next_review_at: new Date().toISOString(),
       interval: 0,
-      ease_factor: 2.5,
-      repetitions: 0
+      ease_factor: 2.1,
+      repetitions: 0,
+      consecutive_failures: 0,
+      consecutive_success: 0,
+      last_grade: null,
     });
   };
 
@@ -847,9 +871,12 @@ export function useFlashcardsDb() {
   const resetCard = (id: string) => {
     updateProgress(id, 'new', {
       interval: 0,
-      ease_factor: 2.5,
+      ease_factor: 2.1,
       repetitions: 0,
-      next_review_at: null
+      consecutive_failures: 0,
+      consecutive_success: 0,
+      last_grade: null,
+      next_review_at: null,
     });
   };
 
@@ -859,8 +886,11 @@ export function useFlashcardsDb() {
     // Calculate new SRS state
     const { state, nextReviewDate } = calculateNextReview(rating, currentProgress ? {
       interval: currentProgress.interval || 0,
-      ease_factor: currentProgress.ease_factor || 2.5,
-      repetitions: currentProgress.repetitions || 0
+      ease_factor: currentProgress.ease_factor || 2.1,
+      repetitions: currentProgress.repetitions || 0,
+      consecutive_failures: currentProgress.consecutive_failures || 0,
+      consecutive_success: currentProgress.consecutive_success || 0,
+      last_grade: (currentProgress.last_grade as SRSRating) || null,
     } : undefined);
 
     // SRS ratings only affect WHEN the card appears next, NOT the learned status

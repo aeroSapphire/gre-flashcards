@@ -149,7 +149,7 @@ export default function StudySession() {
 
         setSessionStats(prev => ({
             reviewed: prev.reviewed + 1,
-            correct: rating !== 'again' ? prev.correct + 1 : prev.correct
+            correct: rating !== 'fail' ? prev.correct + 1 : prev.correct
         }));
 
         setIsFlipped(false);
@@ -206,7 +206,7 @@ export default function StudySession() {
 
         setSessionStats(prev => ({
             reviewed: prev.reviewed + 1,
-            correct: evaluationResult.rating !== 'again' ? prev.correct + 1 : prev.correct
+            correct: evaluationResult.rating !== 'fail' ? prev.correct + 1 : prev.correct
         }));
 
         setIsFlipped(false);
@@ -223,9 +223,8 @@ export default function StudySession() {
     const formatRatingText = (rating: string): string => {
         switch (rating) {
             case 'easy': return 'Excellent';
-            case 'good': return 'Good';
             case 'hard': return 'Some';
-            case 'again': return 'Weak';
+            case 'fail': return 'Weak';
             default: return rating;
         }
     };
@@ -302,8 +301,11 @@ export default function StudySession() {
 
     const cardState = {
         interval: currentCard.interval || 0,
-        ease_factor: currentCard.ease_factor || 2.5,
+        ease_factor: currentCard.ease_factor || 2.1,
         repetitions: currentCard.repetition || 0,
+        consecutive_failures: currentCard.consecutive_failures || 0,
+        consecutive_success: currentCard.consecutive_success || 0,
+        last_grade: (currentCard.last_grade as SRSRating) || null,
     };
     const previews = getIntervalPreviews(cardState);
 
@@ -431,7 +433,7 @@ export default function StudySession() {
                                                     <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-2">Your sentence</p>
                                                     <p className="text-base italic">"{userSentence}"</p>
                                                 </div>
-                                                <div className={`p-4 rounded-lg border ${evaluationResult.rating === 'easy' || evaluationResult.rating === 'good'
+                                                <div className={`p-4 rounded-lg border ${evaluationResult.rating === 'easy'
                                                     ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800'
                                                     : evaluationResult.rating === 'hard'
                                                         ? 'bg-amber-50 dark:bg-amber-900/20 border-amber-200 dark:border-amber-800'
@@ -439,20 +441,18 @@ export default function StudySession() {
                                                     }`}>
                                                     <div className="space-y-2 text-left">
                                                         <div className="flex items-center justify-between">
-                                                            <p className={`font-medium ${evaluationResult.rating === 'easy' || evaluationResult.rating === 'good'
+                                                            <p className={`font-medium ${evaluationResult.rating === 'easy'
                                                                 ? 'text-green-700 dark:text-green-300'
                                                                 : evaluationResult.rating === 'hard'
                                                                     ? 'text-amber-700 dark:text-amber-300'
                                                                     : 'text-red-700 dark:text-red-300'
                                                                 }`}>
                                                                 {evaluationResult.rating === 'easy' ? 'Excellent!' :
-                                                                    evaluationResult.rating === 'good' ? 'Good job!' :
-                                                                        evaluationResult.rating === 'hard' ? 'Almost there!' : 'Try again next time!'}
+                                                                    evaluationResult.rating === 'hard' ? 'Almost there!' : 'Try again next time!'}
                                                             </p>
                                                             <Badge variant="outline" className={`uppercase ${evaluationResult.rating === 'easy' ? 'border-green-500 text-green-600' :
-                                                                evaluationResult.rating === 'good' ? 'border-blue-500 text-blue-600' :
-                                                                    evaluationResult.rating === 'hard' ? 'border-amber-500 text-amber-600' :
-                                                                        'border-red-500 text-red-600'
+                                                                evaluationResult.rating === 'hard' ? 'border-amber-500 text-amber-600' :
+                                                                    'border-red-500 text-red-600'
                                                                 }`}>
                                                                 {evaluationResult.rating}
                                                             </Badge>
@@ -618,41 +618,31 @@ export default function StudySession() {
                                 <Button
                                     onClick={handleContinueAfterEvaluation}
                                     className={`w-full h-14 text-lg font-semibold shadow-md ${evaluationResult.rating === 'easy' ? 'bg-green-600 hover:bg-green-700' :
-                                        evaluationResult.rating === 'good' ? 'bg-blue-600 hover:bg-blue-700' :
-                                            evaluationResult.rating === 'hard' ? 'bg-amber-600 hover:bg-amber-700' :
-                                                'bg-red-600 hover:bg-red-700'
+                                        evaluationResult.rating === 'hard' ? 'bg-amber-600 hover:bg-amber-700' :
+                                            'bg-red-600 hover:bg-red-700'
                                         }`}
                                 >
                                     Continue ({evaluationResult.rating.charAt(0).toUpperCase() + evaluationResult.rating.slice(1)} - {previews[evaluationResult.rating]})
                                 </Button>
                             ) : (
                                 // Manual rating mode
-                                <div className="grid grid-cols-4 gap-2 md:gap-4">
+                                <div className="grid grid-cols-3 gap-2 md:gap-4">
                                     <Button
                                         variant="outline"
                                         className="flex flex-col h-auto py-3 gap-1 hover:bg-red-100 hover:text-red-700 hover:border-red-200 dark:hover:bg-red-900/30"
-                                        onClick={() => handleRate('again')}
+                                        onClick={() => handleRate('fail')}
                                     >
-                                        <span className="font-bold text-base">Again</span>
-                                        <span className="text-[10px] text-muted-foreground font-normal">{previews.again}</span>
+                                        <span className="font-bold text-base">Fail</span>
+                                        <span className="text-[10px] text-muted-foreground font-normal">{previews.fail}</span>
                                     </Button>
 
                                     <Button
                                         variant="outline"
-                                        className="flex flex-col h-auto py-3 gap-1 hover:bg-orange-100 hover:text-orange-700 hover:border-orange-200 dark:hover:bg-orange-900/30"
+                                        className="flex flex-col h-auto py-3 gap-1 hover:bg-amber-100 hover:text-amber-700 hover:border-amber-200 dark:hover:bg-amber-900/30"
                                         onClick={() => handleRate('hard')}
                                     >
                                         <span className="font-bold text-base">Hard</span>
                                         <span className="text-[10px] text-muted-foreground font-normal">{previews.hard}</span>
-                                    </Button>
-
-                                    <Button
-                                        variant="outline"
-                                        className="flex flex-col h-auto py-3 gap-1 hover:bg-blue-100 hover:text-blue-700 hover:border-blue-200 dark:hover:bg-blue-900/30"
-                                        onClick={() => handleRate('good')}
-                                    >
-                                        <span className="font-bold text-base">Good</span>
-                                        <span className="text-[10px] text-muted-foreground font-normal">{previews.good}</span>
                                     </Button>
 
                                     <Button

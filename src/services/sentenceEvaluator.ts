@@ -75,9 +75,16 @@ export async function evaluateSentence(
       throw new Error(finalData.error);
     }
 
-    // Validate rating is one of the expected values
-    const validRatings: SRSRating[] = ['again', 'hard', 'good', 'easy'];
-    const rating = validRatings.includes(finalData.rating) ? finalData.rating : 'hard';
+    // Map edge function's 4-grade output to 3-grade system
+    const ratingMap: Record<string, SRSRating> = {
+      'again': 'fail',
+      'hard': 'hard',
+      'good': 'easy',
+      'easy': 'easy',
+      // Also accept new ratings directly
+      'fail': 'fail',
+    };
+    const rating: SRSRating = ratingMap[finalData.rating] || 'hard';
 
     // Cache examples if we got new ones
     if (!hasCachedExamples && finalData.examples && Array.isArray(finalData.examples) && finalData.examples.length > 0 && flashcard?.id) {
