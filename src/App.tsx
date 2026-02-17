@@ -30,6 +30,7 @@ import HardWordsHub from "./pages/HardWordsHub";
 import GRETestHub from "./pages/GRETestHub";
 import GRETestResults from "./pages/GRETestResults";
 import WordWeb from "./pages/WordWeb";
+import QuantPractice from "./pages/QuantPractice";
 
 const queryClient = new QueryClient();
 
@@ -76,6 +77,7 @@ const App = () => (
             <Route path="/gre-test" element={<GRETestHub />} />
             <Route path="/gre-test/results" element={<GRETestResults />} />
             <Route path="/word-web" element={<WordWeb />} />
+            <Route path="/quant" element={<QuantPractice />} />
             <Route path="/study" element={<StudySession />} />
             <Route path="/arcade" element={<Arcade />} />
             <Route path="/quick-quiz" element={<QuickQuiz />} />
