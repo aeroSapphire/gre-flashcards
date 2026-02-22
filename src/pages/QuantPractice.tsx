@@ -16,6 +16,10 @@ import {
   Play,
   Trophy,
   RotateCcw,
+  ChevronDown,
+  ChevronUp,
+  Lightbulb,
+  Filter,
 } from 'lucide-react';
 import {
   quantQuizzes,
@@ -24,21 +28,40 @@ import {
 } from '@/data/quantQuizzes';
 
 type Mode = 'hub' | 'quiz' | 'results';
+type ReviewFilter = 'all' | 'incorrect' | 'correct';
+
+interface SavedScore {
+  score: number;
+  total: number;
+  greScore: string;
+  greLevel: string;
+  date: string;
+}
 
 const STORAGE_KEY = 'quant-best-scores';
 
-function getBestScores(): Record<string, number> {
+function getBestScores(): Record<string, SavedScore> {
   try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    const raw = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    const result: Record<string, SavedScore> = {};
+    for (const [key, value] of Object.entries(raw)) {
+      if (typeof value === 'number') {
+        // backward compat: old format was just a number
+        result[key] = { score: value, total: 0, greScore: '', greLevel: '', date: '' };
+      } else {
+        result[key] = value as SavedScore;
+      }
+    }
+    return result;
   } catch {
     return {};
   }
 }
 
-function saveBestScore(quizId: string, score: number) {
+function saveBestScore(quizId: string, entry: SavedScore) {
   const scores = getBestScores();
-  if (!scores[quizId] || score > scores[quizId]) {
-    scores[quizId] = score;
+  if (!scores[quizId] || entry.score > scores[quizId].score) {
+    scores[quizId] = entry;
     localStorage.setItem(STORAGE_KEY, JSON.stringify(scores));
   }
 }
@@ -95,11 +118,37 @@ const QuantPractice = () => {
     setMode('quiz');
   }, []);
 
+  const [reviewFilter, setReviewFilter] = useState<ReviewFilter>('all');
+  const [expandedExplanations, setExpandedExplanations] = useState<Set<number>>(new Set());
+
+  const toggleExplanation = useCallback((qId: number) => {
+    setExpandedExplanations((prev) => {
+      const next = new Set(prev);
+      if (next.has(qId)) next.delete(qId);
+      else next.add(qId);
+      return next;
+    });
+  }, []);
+
   const finishQuiz = useCallback(() => {
     setMode('results');
+    setReviewFilter('all');
+    // Auto-expand explanations for incorrect questions
     if (activeQuiz) {
-      const score = calculateScore();
-      saveBestScore(activeQuiz.id, score);
+      const incorrectIds = new Set<number>();
+      activeQuiz.questions.forEach((q) => {
+        if (!isCorrect(q, answers[q.id])) incorrectIds.add(q.id);
+      });
+      setExpandedExplanations(incorrectIds);
+      const score = activeQuiz.questions.filter((q) => isCorrect(q, answers[q.id])).length;
+      const greResult = getGreScore(score);
+      saveBestScore(activeQuiz.id, {
+        score,
+        total: activeQuiz.questions.length,
+        greScore: greResult.score,
+        greLevel: greResult.level,
+        date: new Date().toISOString(),
+      });
       setBestScores(getBestScores());
     }
   }, [activeQuiz, answers]);
@@ -169,12 +218,29 @@ const QuantPractice = () => {
                         <CardTitle className="text-lg">{quiz.title}</CardTitle>
                         <p className="text-sm text-muted-foreground mt-1">{quiz.description}</p>
                       </div>
-                      {best !== undefined && (
-                        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 shrink-0">
-                          <Trophy className="h-4 w-4 text-primary" />
-                          <span className="text-sm font-semibold text-primary">
-                            {best}/{quiz.questions.length}
-                          </span>
+                      {best && (
+                        <div className="flex flex-col items-end gap-1 shrink-0">
+                          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20">
+                            <Trophy className="h-4 w-4 text-primary" />
+                            <span className="text-sm font-semibold text-primary">
+                              {best.score}/{best.total || quiz.questions.length}
+                            </span>
+                          </div>
+                          {best.greScore && (
+                            <span className="text-xs font-medium text-primary/80 px-2">
+                              Est. {best.greScore}
+                            </span>
+                          )}
+                          {best.greLevel && (
+                            <span className="text-[10px] text-muted-foreground px-2">
+                              {best.greLevel}
+                            </span>
+                          )}
+                          {best.date && (
+                            <span className="text-[10px] text-muted-foreground/60 px-2">
+                              {new Date(best.date).toLocaleDateString()}
+                            </span>
+                          )}
                         </div>
                       )}
                     </div>
@@ -292,6 +358,9 @@ const QuantPractice = () => {
               {/* Question content */}
               {question.type === 'qc' ? (
                 <div className="space-y-4">
+                  {question.content && (
+                    <p className="text-base sm:text-lg font-medium text-foreground leading-relaxed">{question.content}</p>
+                  )}
                   {question.condition && (
                     <p className="text-sm text-muted-foreground italic">{question.condition}</p>
                   )}
@@ -512,80 +581,246 @@ const QuantPractice = () => {
             </Button>
           </div>
 
-          {/* Question review */}
+          {/* Question Review */}
           <h2 className="font-display text-lg font-semibold text-foreground mb-4">
             Question Review
           </h2>
-          <div className="space-y-4">
-            {activeQuiz.questions.map((q) => {
-              const userAnswer = answers[q.id];
-              const correct = isCorrect(q, userAnswer);
+
+          {/* Question navigation dots */}
+          <div className="flex flex-wrap gap-1.5 mb-4">
+            {activeQuiz.questions.map((q, idx) => {
+              const qCorrect = isCorrect(q, answers[q.id]);
               return (
-                <Card key={q.id} className={`border-l-4 ${correct ? 'border-l-green-500' : 'border-l-red-500'}`}>
-                  <CardContent className="pt-4 pb-4">
-                    <div className="flex items-start gap-3">
-                      <div className="shrink-0 mt-0.5">
-                        {correct ? (
-                          <CheckCircle2 className="h-5 w-5 text-green-500" />
-                        ) : (
-                          <XCircle className="h-5 w-5 text-red-500" />
-                        )}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="font-semibold text-sm">Q{q.id}</span>
-                          <span className={`px-1.5 py-0.5 rounded text-[10px] font-medium ${difficultyColors[q.difficulty]}`}>
-                            {q.difficulty}
-                          </span>
-                          <span className="text-[10px] text-muted-foreground">{typeLabels[q.type]}</span>
-                        </div>
-                        {q.type === 'qc' ? (
-                          <p className="text-sm text-foreground mb-1">
-                            {q.condition && <span className="italic text-muted-foreground">{q.condition} </span>}
-                            A: {q.quantityA} vs B: {q.quantityB}
-                          </p>
-                        ) : (
-                          <p className="text-sm text-foreground mb-1">{q.content}</p>
-                        )}
-
-                        {/* Show user answer vs correct */}
-                        <div className="text-xs text-muted-foreground mt-1 space-y-0.5">
-                          {q.type === 'numeric' ? (
-                            <>
-                              <p>Your answer: <span className={correct ? 'text-green-600 font-medium' : 'text-red-600 font-medium'}>{userAnswer !== undefined ? String(userAnswer) : '(no answer)'}</span></p>
-                              {!correct && <p>Correct: <span className="text-green-600 font-medium">{String(q.correctAnswer)}</span></p>}
-                            </>
-                          ) : (
-                            <>
-                              <p>
-                                Your answer:{' '}
-                                <span className={correct ? 'text-green-600 font-medium' : 'text-red-600 font-medium'}>
-                                  {Array.isArray(userAnswer) && userAnswer.length > 0
-                                    ? userAnswer.map((i) => String.fromCharCode(65 + i)).join(', ')
-                                    : '(no answer)'}
-                                </span>
-                              </p>
-                              {!correct && (
-                                <p>
-                                  Correct:{' '}
-                                  <span className="text-green-600 font-medium">
-                                    {(q.correctAnswer as number[]).map((i) => String.fromCharCode(65 + i)).join(', ')}
-                                  </span>
-                                </p>
-                              )}
-                            </>
-                          )}
-                        </div>
-
-                        <p className="text-xs text-muted-foreground mt-2 bg-muted/50 rounded p-2">
-                          {q.explanation}
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                <button
+                  key={q.id}
+                  onClick={() => {
+                    const el = document.getElementById(`review-q-${q.id}`);
+                    el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  }}
+                  className={`w-7 h-7 rounded-full text-xs font-bold transition-colors ${
+                    qCorrect
+                      ? 'bg-green-500/20 text-green-700 dark:text-green-400 hover:bg-green-500/30'
+                      : 'bg-red-500/20 text-red-700 dark:text-red-400 hover:bg-red-500/30'
+                  }`}
+                >
+                  {idx + 1}
+                </button>
               );
             })}
+          </div>
+
+          {/* Filter bar */}
+          {(() => {
+            const correctCount = activeQuiz.questions.filter((q) => isCorrect(q, answers[q.id])).length;
+            const incorrectCount = total - correctCount;
+            return (
+              <div className="flex flex-wrap items-center gap-2 mb-4">
+                <Filter className="h-4 w-4 text-muted-foreground" />
+                <button
+                  onClick={() => setReviewFilter('all')}
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
+                    reviewFilter === 'all'
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-muted text-muted-foreground hover:bg-muted/80'
+                  }`}
+                >
+                  All ({total})
+                </button>
+                <button
+                  onClick={() => setReviewFilter('incorrect')}
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
+                    reviewFilter === 'incorrect'
+                      ? 'bg-red-500 text-white'
+                      : 'bg-red-500/10 text-red-700 dark:text-red-400 hover:bg-red-500/20'
+                  }`}
+                >
+                  Incorrect ({incorrectCount})
+                </button>
+                <button
+                  onClick={() => setReviewFilter('correct')}
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
+                    reviewFilter === 'correct'
+                      ? 'bg-green-500 text-white'
+                      : 'bg-green-500/10 text-green-700 dark:text-green-400 hover:bg-green-500/20'
+                  }`}
+                >
+                  Correct ({correctCount})
+                </button>
+                <div className="ml-auto flex items-center gap-1.5">
+                  <button
+                    onClick={() => setExpandedExplanations(new Set(activeQuiz.questions.map((q) => q.id)))}
+                    className="px-3 py-1.5 rounded-full text-xs font-medium bg-yellow-500/10 text-yellow-700 dark:text-yellow-400 hover:bg-yellow-500/20 transition-colors"
+                  >
+                    Expand All
+                  </button>
+                  <button
+                    onClick={() => setExpandedExplanations(new Set())}
+                    className="px-3 py-1.5 rounded-full text-xs font-medium bg-muted text-muted-foreground hover:bg-muted/80 transition-colors"
+                  >
+                    Collapse All
+                  </button>
+                </div>
+              </div>
+            );
+          })()}
+
+          {/* Question cards */}
+          <div className="space-y-5">
+            {activeQuiz.questions
+              .map((q, idx) => ({ q, idx, correct: isCorrect(q, answers[q.id]) }))
+              .filter(({ correct }) =>
+                reviewFilter === 'all' ? true : reviewFilter === 'correct' ? correct : !correct
+              )
+              .map(({ q, idx, correct }) => {
+                const userAnswer = answers[q.id];
+                const isExpanded = expandedExplanations.has(q.id);
+
+                return (
+                  <Card
+                    key={q.id}
+                    id={`review-q-${q.id}`}
+                    className={`border-l-4 ${correct ? 'border-l-green-500' : 'border-l-red-500'} overflow-hidden`}
+                  >
+                    <CardContent className="pt-5 pb-4">
+                      {/* Header row */}
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold shrink-0 ${
+                          correct ? 'bg-green-500/15 text-green-700 dark:text-green-400' : 'bg-red-500/15 text-red-700 dark:text-red-400'
+                        }`}>
+                          {idx + 1}
+                        </span>
+                        {correct ? (
+                          <CheckCircle2 className="h-5 w-5 text-green-500 shrink-0" />
+                        ) : (
+                          <XCircle className="h-5 w-5 text-red-500 shrink-0" />
+                        )}
+                        <span className={`px-2 py-0.5 rounded text-xs font-semibold ${difficultyColors[q.difficulty]}`}>
+                          {q.difficulty.charAt(0).toUpperCase() + q.difficulty.slice(1)}
+                        </span>
+                        <span className="px-2 py-0.5 rounded text-xs font-medium bg-primary/10 text-primary">
+                          {typeLabels[q.type]}
+                        </span>
+                      </div>
+
+                      {/* Full question rendering */}
+                      {q.type === 'qc' ? (
+                        <div className="mb-4">
+                          {q.content && (
+                            <p className="text-sm sm:text-base font-medium text-foreground leading-relaxed mb-3">{q.content}</p>
+                          )}
+                          {q.condition && (
+                            <p className="text-sm text-muted-foreground italic mb-3">{q.condition}</p>
+                          )}
+                          <div className="grid grid-cols-2 gap-3">
+                            <div className="rounded-xl border-2 border-blue-500/30 bg-blue-500/5 p-3 text-center">
+                              <p className="text-xs font-semibold text-blue-600 dark:text-blue-400 mb-1 uppercase tracking-wider">
+                                Quantity A
+                              </p>
+                              <p className="font-medium text-foreground text-sm">{q.quantityA}</p>
+                            </div>
+                            <div className="rounded-xl border-2 border-purple-500/30 bg-purple-500/5 p-3 text-center">
+                              <p className="text-xs font-semibold text-purple-600 dark:text-purple-400 mb-1 uppercase tracking-wider">
+                                Quantity B
+                              </p>
+                              <p className="font-medium text-foreground text-sm">{q.quantityB}</p>
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <p className="text-sm sm:text-base font-medium text-foreground leading-relaxed mb-4">
+                          {q.content}
+                        </p>
+                      )}
+
+                      {/* Options with highlights / Numeric answer */}
+                      {q.type === 'numeric' ? (
+                        <div className="space-y-2 mb-4">
+                          <div className="flex items-center gap-3">
+                            <span className="text-sm text-muted-foreground">Your answer:</span>
+                            <span className={`px-3 py-1.5 rounded-lg text-sm font-medium border-2 ${
+                              correct
+                                ? 'border-green-500/40 bg-green-500/10 text-green-700 dark:text-green-400'
+                                : 'border-red-500/40 bg-red-500/10 text-red-700 dark:text-red-400'
+                            }`}>
+                              {userAnswer !== undefined && String(userAnswer).trim() !== '' ? String(userAnswer) : '(no answer)'}
+                            </span>
+                          </div>
+                          {!correct && (
+                            <div className="flex items-center gap-3">
+                              <span className="text-sm text-muted-foreground">Correct answer:</span>
+                              <span className="px-3 py-1.5 rounded-lg text-sm font-medium border-2 border-green-500/40 bg-green-500/10 text-green-700 dark:text-green-400">
+                                {String(q.correctAnswer)}
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                      ) : (
+                        <div className="space-y-2 mb-4">
+                          {q.options?.map((option, optIdx) => {
+                            const correctAnswers = q.correctAnswer as number[];
+                            const givenAnswers = Array.isArray(userAnswer) ? userAnswer : [];
+                            const isCorrectOption = correctAnswers.includes(optIdx);
+                            const isSelected = givenAnswers.includes(optIdx);
+                            const letter = String.fromCharCode(65 + optIdx);
+
+                            let borderClass = 'border-border bg-card';
+                            let iconEl: React.ReactNode = null;
+
+                            if (isCorrectOption && isSelected) {
+                              borderClass = 'border-green-500/50 bg-green-500/10';
+                              iconEl = <CheckCircle2 className="h-4 w-4 text-green-500 shrink-0" />;
+                            } else if (isCorrectOption && !isSelected) {
+                              borderClass = 'border-green-500/50 bg-green-500/10';
+                              iconEl = <CheckCircle2 className="h-4 w-4 text-green-500 shrink-0" />;
+                            } else if (!isCorrectOption && isSelected) {
+                              borderClass = 'border-red-500/50 bg-red-500/10';
+                              iconEl = <XCircle className="h-4 w-4 text-red-500 shrink-0" />;
+                            }
+
+                            return (
+                              <div
+                                key={optIdx}
+                                className={`flex items-center gap-3 px-4 py-2.5 rounded-lg border-2 ${borderClass}`}
+                              >
+                                <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
+                                  isCorrectOption
+                                    ? 'bg-green-500/20 text-green-700 dark:text-green-400'
+                                    : isSelected
+                                    ? 'bg-red-500/20 text-red-700 dark:text-red-400'
+                                    : 'bg-muted text-muted-foreground'
+                                }`}>
+                                  {letter}
+                                </span>
+                                <span className="text-sm flex-1">{option}</span>
+                                {iconEl}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+
+                      {/* Collapsible explanation */}
+                      <button
+                        onClick={() => toggleExplanation(q.id)}
+                        className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors w-full"
+                      >
+                        <Lightbulb className="h-4 w-4 text-yellow-500" />
+                        <span className="font-medium">Explanation</span>
+                        {isExpanded ? (
+                          <ChevronUp className="h-4 w-4 ml-auto" />
+                        ) : (
+                          <ChevronDown className="h-4 w-4 ml-auto" />
+                        )}
+                      </button>
+                      {isExpanded && (
+                        <div className="mt-2 p-3 rounded-lg bg-yellow-500/5 border border-yellow-500/20 text-sm text-foreground leading-relaxed whitespace-pre-line">
+                          {q.explanation}
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                );
+              })}
           </div>
         </main>
       </div>

@@ -1228,7 +1228,8 @@ export const algebraFoundationQuiz: QuantQuiz = {
       id: 25,
       difficulty: 'medium',
       type: 'qc',
-      content: 'x and y are positive numbers.',
+      content: '',
+      condition: 'x and y are positive numbers.',
       quantityA: 'x² + y²',
       quantityB: '(x + y)²',
       options: [
@@ -1305,7 +1306,7 @@ export const algebraFoundationQuiz2: QuantQuiz = {
       type: 'numeric',
       content: 'Worker A can complete a job in 12 days. Worker B can complete the same job in 15 days. A works alone for 3 days, then A and B work together to finish the job. What is the total number of days from start to finish?',
       correctAnswer: '8',
-      explanation: 'Rate A = 1/12, Rate B = 1/15. Phase 1: A alone 3 days = 3/12 = 1/4. Remaining = 3/4. Combined rate = 1/12 + 1/15 = 9/60 = 3/20. Time = (3/4)/(3/20) = 5 days. Total = 3 + 5 = 8.',
+      explanation: 'Rate A = 1/12 job/day. Rate B = 1/15 job/day.\n\nPhase 1 — A alone for 3 days: 3 × (1/12) = 1/4 of the job done.\nRemaining = 3/4.\n\nPhase 2 — A+B together: Combined rate = 1/12 + 1/15 = 5/60 + 4/60 = 9/60 = 3/20.\nTime = (3/4) ÷ (3/20) = (3/4) × (20/3) = 5 days.\n\nTotal = 3 + 5 = 8 days.\n\nPattern: Any "X works alone, then they work together" problem is a two-phase problem — compute leftover, then divide by combined rate.',
     },
     {
       id: 2,
@@ -1313,7 +1314,7 @@ export const algebraFoundationQuiz2: QuantQuiz = {
       type: 'numeric',
       content: 'The nth term of a sequence is defined by aₙ = (−1)ⁿ × (2n − 1). What is the sum of the first 40 terms?',
       correctAnswer: '40',
-      explanation: 'Terms: −1, +3, −5, +7, ... Pair consecutive terms: (−1+3) + (−5+7) + ... = 2 + 2 + ... 40 terms = 20 pairs, each = 2. Sum = 40.',
+      explanation: 'Write out terms: a₁ = −1, a₂ = +3, a₃ = −5, a₄ = +7, ...\n\nSeries: −1 + 3 − 5 + 7 − 9 + 11 − ...\n\nPair consecutive terms:\n(−1 + 3) + (−5 + 7) + (−9 + 11) + ... = 2 + 2 + 2 + ...\n\n40 terms = 20 pairs, each summing to 2.\nSum = 20 × 2 = 40.\n\nTrick: For ANY alternating series with an even number of terms — pair them up. If odd, pair all but the last, then add the leftover.',
     },
     {
       id: 3,
@@ -1322,7 +1323,7 @@ export const algebraFoundationQuiz2: QuantQuiz = {
       content: 'Car A leaves a city at 8:00 AM traveling at 40 mph. Car B leaves the same city at 10:00 AM traveling at 60 mph in the same direction. At what time does Car B catch Car A?',
       options: ['12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM'],
       correctAnswer: [2],
-      explanation: 'By 10 AM, A has 80-mile head start. Relative speed = 60 − 40 = 20 mph. Time = 80/20 = 4 hours after 10 AM = 2:00 PM.',
+      explanation: 'By 10:00 AM, Car A has a head start of 2 × 40 = 80 miles.\n\nSame direction → subtract speeds: relative speed = 60 − 40 = 20 mph.\nTime to close gap = 80/20 = 4 hours after 10 AM = 2:00 PM.\n\nDelayed Start Pattern: Compute the head start distance FIRST, then divide by relative speed. Every "leaves later" problem follows this exact template.',
     },
     {
       id: 4,
@@ -1330,7 +1331,7 @@ export const algebraFoundationQuiz2: QuantQuiz = {
       type: 'numeric',
       content: 'Solution A is 20% salt and Solution B is 50% salt. How many liters of Solution A are needed to mix with Solution B to make exactly 15 liters of a 30% salt solution?',
       correctAnswer: '10',
-      explanation: '0.20A + 0.50(15 − A) = 0.30(15). 0.20A + 7.5 − 0.50A = 4.5. −0.30A = −3. A = 10.',
+      explanation: '0.20(A) + 0.50(15 − A) = 0.30(15)\n0.20A + 7.5 − 0.50A = 4.5\n−0.30A = −3 → A = 10 liters.\n\nMixture Trick (no algebra needed): The target 30% is between 20% and 50%. Distances: 30−20 = 10 and 50−30 = 20. Ratio of quantities = inverse of distances = 20:10 = 2:1. So A:B = 2:1 out of 15 liters → A = 10, B = 5. Done in 5 seconds.',
     },
     {
       id: 5,
@@ -1339,7 +1340,7 @@ export const algebraFoundationQuiz2: QuantQuiz = {
       content: '1/(1×3) + 1/(3×5) + 1/(5×7) + ... + 1/(99×101) = ?',
       options: ['49/101', '50/101', '50/99', '99/202', '1/2'],
       correctAnswer: [1],
-      explanation: 'Telescoping: 1/(n(n+2)) = (1/2)(1/n − 1/(n+2)). Sum = (1/2)(1 − 1/101) = (1/2)(100/101) = 50/101.',
+      explanation: 'Denominators are 2 apart, so use partial fractions:\n1/(n(n+2)) = (1/2)(1/n − 1/(n+2))\n\nApply with n = 1, 3, 5, ..., 99:\n(1/2)[(1/1 − 1/3) + (1/3 − 1/5) + ... + (1/99 − 1/101)]\n\nTelescoping — everything cancels except endpoints:\n= (1/2)(1 − 1/101) = (1/2)(100/101) = 50/101.\n\nTelescoping Checklist: (1) Spot the product in denominator. (2) Partial fractions. (3) Write first/last terms. (4) Cancel the middle. (5) Only endpoints survive.',
     },
     {
       id: 6,
@@ -1347,13 +1348,14 @@ export const algebraFoundationQuiz2: QuantQuiz = {
       type: 'numeric',
       content: 'A pipe can fill a tank in 8 hours. A drain can empty the same tank in 12 hours. The tank is currently 1/3 full. If both the pipe and drain are opened simultaneously, how many hours will it take to fill the tank completely?',
       correctAnswer: '16',
-      explanation: 'Net rate = 1/8 − 1/12 = 1/24 tank/hour. Remaining = 2/3. Time = (2/3)/(1/24) = 16 hours.',
+      explanation: 'Fill rate = 1/8 tank/hr. Drain rate = 1/12 tank/hr.\nNet rate = 1/8 − 1/12 = 3/24 − 2/24 = 1/24 tank/hr.\n\nTrap: The tank is already 1/3 full! Remaining = 2/3.\nTime = (2/3) ÷ (1/24) = (2/3) × 24 = 16 hours.\n\nPipe/Drain Template: (1) Find net rate (fill − drain). (2) Find remaining work. (3) Divide remaining by net rate.',
     },
     {
       id: 7,
       difficulty: 'medium',
       type: 'qc',
-      content: '$10,000 is invested for 3 years at 10% annual interest.',
+      content: '',
+      condition: '$10,000 is invested for 3 years at 10% annual interest.',
       quantityA: 'Total interest earned under simple interest',
       quantityB: 'Total interest earned under compound interest (compounded annually)',
       options: [
@@ -1363,7 +1365,7 @@ export const algebraFoundationQuiz2: QuantQuiz = {
         'The relationship cannot be determined',
       ],
       correctAnswer: [1],
-      explanation: 'SI = 10,000 × 0.10 × 3 = $3,000. CI = 10,000(1.10)³ − 10,000 = $3,310. Quantity B is greater.',
+      explanation: 'SI = 10,000 × 0.10 × 3 = $3,000.\nCI = 10,000(1.10)³ − 10,000 = 13,310 − 10,000 = $3,310.\n\nQuantity B is greater.\n\nKey Rule: Compound interest > simple interest for any period > 1 year at the same rate. The only time they\'re equal is n = 1. On the GRE, if n > 1, pick B immediately.',
     },
     {
       id: 8,
@@ -1371,7 +1373,7 @@ export const algebraFoundationQuiz2: QuantQuiz = {
       type: 'numeric',
       content: 'In a geometric sequence, the 3rd term is 24 and the 6th term is 192. What is the first term?',
       correctAnswer: '6',
-      explanation: 'a₃ = a₁r² = 24, a₆ = a₁r⁵ = 192. Divide: r³ = 8, r = 2. a₁ = 24/4 = 6.',
+      explanation: 'a₃ = a₁ × r² = 24\na₆ = a₁ × r⁵ = 192\n\nDivide a₆ by a₃: r³ = 192/24 = 8 → r = 2.\nNow: a₁ × 2² = 24 → a₁ = 6.\n\nVerify: 6, 12, 24, 48, 96, 192.\n\nTrick: If you know aₘ and aₙ, then r^(n−m) = aₙ/aₘ. Find r first, then backtrack to a₁.',
     },
     {
       id: 9,
@@ -1380,7 +1382,7 @@ export const algebraFoundationQuiz2: QuantQuiz = {
       content: '5 years ago, a father was 7 times as old as his son. 5 years from now, the father will be 3 times as old as his son. How old is the father now?',
       options: ['30', '35', '40', '45', '50'],
       correctAnswer: [2],
-      explanation: 'F − 5 = 7(S − 5) → F = 7S − 30. F + 5 = 3(S + 5) → F = 3S + 10. 7S − 30 = 3S + 10 → S = 10, F = 40.',
+      explanation: 'Let S = son\'s age now, F = father\'s age now.\n\n"5 years ago, father was 7× son" → F − 5 = 7(S − 5) → F = 7S − 30\n"5 years from now, father 3× son" → F + 5 = 3(S + 5) → F = 3S + 10\n\nSet equal: 7S − 30 = 3S + 10 → 4S = 40 → S = 10, F = 40.\n\nVerify: 5 years ago → 35 and 5 → 35 = 7(5). 5 years from now → 45 and 15 → 45 = 3(15).\n\nAge Problem Template: (1) Variables = current ages. (2) "X years ago" = subtract from BOTH. (3) "X years from now" = add to BOTH. (4) Two equations, solve.',
     },
     {
       id: 10,
@@ -1388,7 +1390,7 @@ export const algebraFoundationQuiz2: QuantQuiz = {
       type: 'numeric',
       content: 'What is the sum of the arithmetic sequence: 7, 11, 15, 19, ..., 91?',
       correctAnswer: '1078',
-      explanation: 'Terms: (91 − 7)/4 + 1 = 22. Sum = (22/2)(7 + 91) = 11 × 98 = 1078.',
+      explanation: 'Common difference d = 4.\nNumber of terms: (91 − 7)/4 + 1 = 84/4 + 1 = 22.\nSum = (n/2)(first + last) = (22/2)(7 + 91) = 11 × 98 = 1078.\n\nThe +1 Trap: Students always forget the +1 in the term count formula. Think: the integers from 1 to 5 have (5−1)+1 = 5 numbers, not 4.',
     },
     {
       id: 11,
@@ -1396,7 +1398,7 @@ export const algebraFoundationQuiz2: QuantQuiz = {
       type: 'numeric',
       content: '3 identical printers can print 900 pages in 5 hours. If 2 printers break down, how many hours will it take the remaining printer to print 600 pages?',
       correctAnswer: '10',
-      explanation: 'Rate per printer = 900/(3×5) = 60 pages/hour. 1 printer, 600 pages: 600/60 = 10 hours.',
+      explanation: '3 printers × 5 hours = 15 machine-hours for 900 pages.\nRate per printer = 900/15 = 60 pages per hour.\n\n1 printer doing 600 pages: 600/60 = 10 hours.\n\nMachine problems are just unit rate problems. Total work = (machines) × (time) × (rate per machine). Find whichever piece is missing.',
     },
     {
       id: 12,
@@ -1405,7 +1407,7 @@ export const algebraFoundationQuiz2: QuantQuiz = {
       content: '12 workers can finish a project in 20 days. After 5 days of work, 4 workers leave. How many more days will the remaining workers need to finish the project?',
       options: ['18.5', '20', '22.5', '25', '27.5'],
       correctAnswer: [2],
-      explanation: 'Total = 12 × 20 = 240 worker-days. Done in 5 days: 12 × 5 = 60. Remaining: 180. Workers left: 8. Time = 180/8 = 22.5.',
+      explanation: 'Total work = 12 workers × 20 days = 240 worker-days.\nWork done in first 5 days = 12 × 5 = 60 worker-days.\nRemaining = 240 − 60 = 180 worker-days.\nWorkers left = 12 − 4 = 8.\nTime = 180/8 = 22.5 more days.\n\nWorker-Days Concept: Think of the job as 240 identical mini-tasks. It doesn\'t matter WHO does them or WHEN — you just need 240 total. This reframe makes every "workers leave/join" problem trivial.',
     },
     {
       id: 13,
@@ -1413,13 +1415,14 @@ export const algebraFoundationQuiz2: QuantQuiz = {
       type: 'numeric',
       content: 'At a movie theater, adult tickets cost $8 and child tickets cost $5. A total of 200 tickets were sold for $1,180. How many adult tickets were sold?',
       correctAnswer: '60',
-      explanation: 'a + c = 200, 8a + 5c = 1180. Substitute c = 200 − a: 8a + 5(200 − a) = 1180 → 3a = 180 → a = 60.',
+      explanation: 'Two equations:\na + c = 200\n8a + 5c = 1180\n\nSubstitute c = 200 − a:\n8a + 5(200 − a) = 1180 → 3a = 180 → a = 60.\n\nSpeed Trick: Subtract 5×(eq 1) from eq 2:\n(8a + 5c) − 5(a + c) = 1180 − 1000 → 3a = 180 → a = 60. One step.',
     },
     {
       id: 14,
       difficulty: 'hard',
       type: 'qc',
-      content: 'f(x) = x² − 4x + 3',
+      content: '',
+      condition: 'f(x) = x² − 4x + 3',
       quantityA: 'f(5)',
       quantityB: 'f(−1)',
       options: [
@@ -1429,7 +1432,7 @@ export const algebraFoundationQuiz2: QuantQuiz = {
         'The relationship cannot be determined',
       ],
       correctAnswer: [2],
-      explanation: 'f(5) = 25 − 20 + 3 = 8. f(−1) = 1 + 4 + 3 = 8. They are equal. The vertex is at x = 2; both 5 and −1 are 3 units away.',
+      explanation: 'f(5) = 25 − 20 + 3 = 8.\nf(−1) = 1 + 4 + 3 = 8.\nThey are equal.\n\nWhy: f(x) = (x−2)² − 1. The vertex is at x = 2. Notice 5 is 3 units RIGHT of the vertex, and −1 is 3 units LEFT. Parabolas are symmetric, so f(2+k) = f(2−k) always.\n\nThis symmetry check can save you from computing both values entirely.',
     },
     {
       id: 15,
@@ -1438,7 +1441,7 @@ export const algebraFoundationQuiz2: QuantQuiz = {
       content: 'What is the sum of the first 30 positive odd numbers?',
       options: ['810', '870', '900', '930', '960'],
       correctAnswer: [2],
-      explanation: 'Sum of first n odd numbers = n². 30² = 900.',
+      explanation: 'Shortcut you MUST memorize: Sum of first n odd numbers = n².\n\nFirst 30 odd numbers: 1 + 3 + 5 + ... + 59 = 30² = 900.\n\nWhy it works: The nth odd number is (2n−1). Sum = n(1+(2n−1))/2 = n(2n)/2 = n². But just memorize it — it shows up constantly.',
     },
     {
       id: 16,
@@ -1447,7 +1450,7 @@ export const algebraFoundationQuiz2: QuantQuiz = {
       content: 'A town\'s population doubles every 5 years. If the current population is 1,000, in how many years will it reach 32,000?',
       options: ['15', '20', '25', '30', '32'],
       correctAnswer: [2],
-      explanation: 'P(t) = 1000 × 2^(t/5). 2^(t/5) = 32 = 2⁵. t/5 = 5 → t = 25 years.',
+      explanation: '"Doubles every 5 years" = exponential with base 2.\nP(t) = 1000 × 2^(t/5)\n\nSet equal to 32,000:\n2^(t/5) = 32 = 2⁵\nt/5 = 5 → t = 25 years.\n\nExponent Matching: Convert everything to the same base, then set exponents equal. Works for all "grows by factor" problems.',
     },
     {
       id: 17,
@@ -1456,7 +1459,7 @@ export const algebraFoundationQuiz2: QuantQuiz = {
       content: 'A boat travels at 12 mph in still water. The river current is 4 mph. The boat travels 24 miles upstream and then 24 miles back downstream. What is the total travel time?',
       options: ['3.5 hours', '4.0 hours', '4.5 hours', '5.0 hours', '5.5 hours'],
       correctAnswer: [2],
-      explanation: 'Upstream: 24/(12−4) = 3 hours. Downstream: 24/(12+4) = 1.5 hours. Total = 4.5 hours.',
+      explanation: 'Upstream speed = 12 − 4 = 8 mph → time = 24/8 = 3 hours.\nDownstream speed = 12 + 4 = 16 mph → time = 24/16 = 1.5 hours.\nTotal = 3 + 1.5 = 4.5 hours.\n\nTHE classic average speed trap: You CANNOT average 8 and 16 to get 12 mph. Always compute each leg separately.\n\nAverage speed for the whole trip = 48/4.5 = 10.67 mph, NOT 12. The slower leg always drags the average down.',
     },
     {
       id: 18,
@@ -1464,7 +1467,7 @@ export const algebraFoundationQuiz2: QuantQuiz = {
       type: 'numeric',
       content: 'The area of a rectangle is 84 square units. The length is 5 more than the width. What is the perimeter?',
       correctAnswer: '38',
-      explanation: 'w(w+5) = 84 → w² + 5w − 84 = 0 → (w+12)(w−7) = 0 → w = 7. Dimensions: 7 × 12. Perimeter = 2(7+12) = 38.',
+      explanation: 'Let w = width. Length = w + 5.\nw(w + 5) = 84 → w² + 5w − 84 = 0\n\nFactor: need two numbers that multiply to −84 and add to +5 → +12 and −7.\n(w + 12)(w − 7) = 0 → w = 7 (reject −12).\n\nDimensions: 7 × 12. Perimeter = 2(7 + 12) = 38.\n\nArea/perimeter problems always become quadratics. Answer what they ACTUALLY asked — here it\'s perimeter, not dimensions!',
     },
     {
       id: 19,
@@ -1472,7 +1475,7 @@ export const algebraFoundationQuiz2: QuantQuiz = {
       type: 'numeric',
       content: 'Gym A charges $50 per month with unlimited visits. Gym B charges $20 per month plus $4 per visit. What is the minimum number of visits per month that makes Gym A the cheaper option?',
       correctAnswer: '8',
-      explanation: '50 < 20 + 4v → 30 < 4v → v > 7.5. Minimum whole number: 8 visits.',
+      explanation: 'Set up the inequality: 50 < 20 + 4v\n30 < 4v → v > 7.5\n\nSince visits must be a whole number: minimum 8 visits.\n\nThe Discrete Trap: 7.5 visits is impossible, so round UP to 8. At 7 visits: A=$50, B=$48 — B is cheaper. At 8 visits: A=$50, B=$52 — A is cheaper.',
     },
     {
       id: 20,
@@ -1480,7 +1483,7 @@ export const algebraFoundationQuiz2: QuantQuiz = {
       type: 'numeric',
       content: '2 − 4 + 6 − 8 + 10 − 12 + ... − 100 = ?\n\n(The series has 50 terms.)',
       correctAnswer: '-50',
-      explanation: 'Pair terms: (2−4) + (6−8) + ... + (98−100) = 25 pairs of −2. Sum = 25 × (−2) = −50.',
+      explanation: 'Pair consecutive terms:\n(2 − 4) + (6 − 8) + (10 − 12) + ... + (98 − 100)\n= (−2) + (−2) + (−2) + ... + (−2)\n\n50 terms → 25 pairs, each = −2.\nSum = 25 × (−2) = −50.\n\nAll terms are even and the total count is even → pair them. If the count were odd, the last term would be unpaired.',
     },
     {
       id: 21,
@@ -1489,13 +1492,14 @@ export const algebraFoundationQuiz2: QuantQuiz = {
       content: 'Two trains leave stations 480 miles apart heading toward each other. Train A leaves at 9:00 AM traveling at 50 mph. Train B leaves at 11:00 AM traveling at 70 mph. At approximately what time do they meet?',
       options: ['1:10 PM', '2:10 PM', '2:30 PM', '3:00 PM', '3:10 PM'],
       correctAnswer: [1],
-      explanation: 'By 11 AM, A traveled 100 miles. Remaining = 380 miles. Combined speed = 120 mph. Time = 380/120 = 19/6 ≈ 3h 10min after 11 AM = 2:10 PM.',
+      explanation: 'By 11:00 AM, Train A has traveled 2 × 50 = 100 miles.\nRemaining gap = 480 − 100 = 380 miles.\n\nNow both are moving toward each other → add speeds: 50 + 70 = 120 mph.\nTime to meet = 380/120 = 19/6 hours = 3 hours 10 minutes after 11:00 AM.\n\n11:00 AM + 3h 10min = 2:10 PM.\n\nTwo-Clock Template: (1) Fast-forward to when BOTH are moving. (2) Compute remaining distance. (3) Add speeds (opposite direction) or subtract (same direction). (4) Convert fractional hours to minutes carefully.',
     },
     {
       id: 22,
       difficulty: 'medium',
       type: 'qc',
-      content: 'In an arithmetic sequence, a₁ = 100 and d = −7.',
+      content: '',
+      condition: 'In an arithmetic sequence, a₁ = 100 and d = −7.',
       quantityA: 'a₁₅',
       quantityB: '0',
       options: [
@@ -1505,7 +1509,7 @@ export const algebraFoundationQuiz2: QuantQuiz = {
         'The relationship cannot be determined',
       ],
       correctAnswer: [0],
-      explanation: 'a₁₅ = 100 + 14(−7) = 100 − 98 = 2. 2 > 0. Quantity A is greater.',
+      explanation: 'a₁₅ = 100 + 14(−7) = 100 − 98 = 2.\n2 > 0. Quantity A is greater.\n\nTrap: They want you to miscalculate and get 0. Notice it\'s a₁₅, not a₁₆. a₁₆ = 100 − 105 = −5 would flip the answer. Always double-check which term they\'re asking for.',
     },
     {
       id: 23,
@@ -1513,7 +1517,7 @@ export const algebraFoundationQuiz2: QuantQuiz = {
       type: 'numeric',
       content: 'After 2 years of 20% annual compound interest, an investment is worth $8,640. What was the original investment, in dollars?',
       correctAnswer: '6000',
-      explanation: 'P × (1.20)² = 8640. P × 1.44 = 8640. P = 8640/1.44 = $6,000.',
+      explanation: 'Working BACKWARDS through compound interest: divide by the multiplier.\n\nP × (1.20)² = 8640\nP × 1.44 = 8640\nP = 8640/1.44 = $6,000.\n\nMental Math: 6000 × 1.2 = 7200, × 1.2 = 8640.',
     },
     {
       id: 24,
@@ -1522,7 +1526,7 @@ export const algebraFoundationQuiz2: QuantQuiz = {
       content: 'Pipe A fills a pool in 10 hours. Pipe B fills it in 15 hours. Both pipes are open for 4 hours, then Pipe B is shut off. How many more hours does Pipe A need to finish filling the pool alone?',
       options: ['2/3', '3', '10/3', '4', '5'],
       correctAnswer: [2],
-      explanation: 'Combined rate = 1/10 + 1/15 = 1/6. Phase 1: 4 × 1/6 = 2/3. Remaining = 1/3. Phase 2: (1/3)/(1/10) = 10/3 hours.',
+      explanation: 'Rate A = 1/10. Rate B = 1/15. Combined = 1/10 + 1/15 = 3/30 + 2/30 = 1/6.\n\nPhase 1 — Both work 4 hours: 4 × (1/6) = 2/3 done.\nPhase 2 — A alone: Remaining = 1 − 2/3 = 1/3.\nTime = (1/3) ÷ (1/10) = 10/3 ≈ 3.33 hours.\n\nEvery "they work together then one stops" problem: (1) Combined rate × shared time = work done. (2) Remaining = 1 − work done. (3) Remaining ÷ solo rate = answer.',
     },
     {
       id: 25,
@@ -1530,7 +1534,7 @@ export const algebraFoundationQuiz2: QuantQuiz = {
       type: 'numeric',
       content: 'A jar contains 47 coins, all nickels and dimes, worth $3.50 total. How many dimes are in the jar?',
       correctAnswer: '23',
-      explanation: 'n + d = 47, 5n + 10d = 350. Substitute: 5(47 − d) + 10d = 350 → 5d = 115 → d = 23.',
+      explanation: 'n + d = 47, and 5n + 10d = 350 (work in CENTS to avoid decimals).\n\nSubstitute n = 47 − d:\n5(47 − d) + 10d = 350\n235 − 5d + 10d = 350\n5d = 115 → d = 23.\n\nTip: Always work in CENTS for coin problems. It avoids decimal errors entirely.',
     },
     {
       id: 26,
@@ -1539,7 +1543,7 @@ export const algebraFoundationQuiz2: QuantQuiz = {
       content: '1/(2×3) + 1/(3×4) + 1/(4×5) + ... + 1/(49×50) = ?',
       options: ['12/25', '24/50', '47/100', '48/100', 'Both (A) and (B)'],
       correctAnswer: [4],
-      explanation: 'Telescoping: 1/(n(n+1)) = 1/n − 1/(n+1). Sum = 1/2 − 1/50 = 24/50 = 12/25. Both (A) and (B) are the same.',
+      explanation: 'Same telescoping trick: 1/(n(n+1)) = 1/n − 1/(n+1).\n\nSum = (1/2 − 1/3) + (1/3 − 1/4) + ... + (1/49 − 1/50)\n= 1/2 − 1/50 = 25/50 − 1/50 = 24/50 = 12/25.\n\nBoth (A) 12/25 and (B) 24/50 are the same fraction.\n\nAlways check for "both X and Y" answers on the GRE when two choices look like the same number in different forms. This is a deliberate trap.',
     },
     {
       id: 27,
@@ -1547,7 +1551,7 @@ export const algebraFoundationQuiz2: QuantQuiz = {
       type: 'numeric',
       content: 'A town has 20,000 residents. 60% are adults. Of the adults, 45% are employed. Of the employed adults, 30% earn over $50,000. How many residents earn over $50,000?',
       correctAnswer: '1620',
-      explanation: '20,000 × 0.60 = 12,000 adults. × 0.45 = 5,400 employed. × 0.30 = 1,620 earn over $50K.',
+      explanation: '"Percent of a percent of a percent" — just multiply the chain:\n\n20,000 × 0.60 = 12,000 (adults)\n12,000 × 0.45 = 5,400 (employed)\n5,400 × 0.30 = 1,620 (earn over $50K)\n\nDon\'t set up equations for these. Each "of the..." means multiply by the next percentage.',
     },
     {
       id: 28,
@@ -1556,7 +1560,7 @@ export const algebraFoundationQuiz2: QuantQuiz = {
       content: 'Alex can paint a room in 6 hours. Ben is 50% faster than Alex. Working together, how many hours will it take them to paint the room?',
       options: ['2.0', '2.4', '3.0', '3.6', '4.0'],
       correctAnswer: [1],
-      explanation: 'Alex rate = 1/6. Ben is 50% faster → rate = 1.5 × 1/6 = 1/4. Combined = 1/6 + 1/4 = 5/12. Time = 12/5 = 2.4 hours.',
+      explanation: 'Alex rate = 1/6 room/hr.\n"50% faster" means Ben\'s RATE is 1.5 × (1/6) = 1/4 room/hr (Ben finishes in 4 hours).\n\nCombined = 1/6 + 1/4 = 2/12 + 3/12 = 5/12.\nTime = 12/5 = 2.4 hours.\n\nTHE key trap: "X% faster" means the RATE is multiplied by (1 + X/100). It does NOT mean time is reduced by X%. 50% faster rate ≠ 50% less time. Ben\'s time is 4 hours (33% less than 6, not 50% less).',
     },
     {
       id: 29,
@@ -1564,7 +1568,7 @@ export const algebraFoundationQuiz2: QuantQuiz = {
       type: 'numeric',
       content: 'A sequence is defined by a₁ = 2 and aₙ = 3aₙ₋₁ − 1 for n ≥ 2. What is a₅?',
       correctAnswer: '122',
-      explanation: 'a₁ = 2, a₂ = 5, a₃ = 14, a₄ = 41, a₅ = 3(41) − 1 = 122.',
+      explanation: 'Recursive sequences: just grind it out step by step.\n\na₁ = 2\na₂ = 3(2) − 1 = 5\na₃ = 3(5) − 1 = 14\na₄ = 3(14) − 1 = 41\na₅ = 3(41) − 1 = 122\n\nGRE recursive sequence problems NEVER require more than 5-6 iterations. Don\'t look for a closed-form formula — just compute carefully. The GRE tests arithmetic accuracy here, not pattern recognition.',
     },
     {
       id: 30,
@@ -1572,7 +1576,7 @@ export const algebraFoundationQuiz2: QuantQuiz = {
       type: 'numeric',
       content: 'A store marks up its wholesale price by 40%, then offers a 25% discount to customers. If a customer pays $84, what was the wholesale price in dollars?',
       correctAnswer: '80',
-      explanation: 'Net multiplier = 1.40 × 0.75 = 1.05. Wholesale × 1.05 = 84 → Wholesale = $80.',
+      explanation: 'Work BACKWARDS through successive percent changes.\n\nCustomer pays $84 = marked price × 0.75.\nMarked = 84/0.75 = $112.\n\nMarked = wholesale × 1.40.\nWholesale = 112/1.40 = $80.\n\nShortcut: Net multiplier = 1.40 × 0.75 = 1.05. So Wholesale × 1.05 = 84 → Wholesale = 84/1.05 = $80. One step.\n\nThe GRE loves markup-then-discount. Always multiply the individual multipliers to get the net multiplier.',
     },
   ],
 };
