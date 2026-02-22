@@ -38,7 +38,12 @@ interface SavedScore {
   date: string;
 }
 
+interface QuizHistory {
+  attempts: SavedScore[];
+}
+
 const STORAGE_KEY = 'quant-best-scores';
+const HISTORY_KEY = 'quant-quiz-history';
 
 function getBestScores(): Record<string, SavedScore> {
   try {
@@ -46,7 +51,6 @@ function getBestScores(): Record<string, SavedScore> {
     const result: Record<string, SavedScore> = {};
     for (const [key, value] of Object.entries(raw)) {
       if (typeof value === 'number') {
-        // backward compat: old format was just a number
         result[key] = { score: value, total: 0, greScore: '', greLevel: '', date: '' };
       } else {
         result[key] = value as SavedScore;
@@ -58,12 +62,26 @@ function getBestScores(): Record<string, SavedScore> {
   }
 }
 
-function saveBestScore(quizId: string, entry: SavedScore) {
+function getQuizHistory(): Record<string, QuizHistory> {
+  try {
+    return JSON.parse(localStorage.getItem(HISTORY_KEY) || '{}');
+  } catch {
+    return {};
+  }
+}
+
+function saveAttempt(quizId: string, entry: SavedScore) {
+  // Save to best scores (existing behavior)
   const scores = getBestScores();
   if (!scores[quizId] || entry.score > scores[quizId].score) {
     scores[quizId] = entry;
     localStorage.setItem(STORAGE_KEY, JSON.stringify(scores));
   }
+  // Append to attempt history
+  const history = getQuizHistory();
+  if (!history[quizId]) history[quizId] = { attempts: [] };
+  history[quizId].attempts.push(entry);
+  localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
 }
 
 function formatTime(seconds: number): string {
@@ -93,6 +111,7 @@ const QuantPractice = () => {
   const [answers, setAnswers] = useState<Record<number, number[] | string>>({});
   const [timeLeft, setTimeLeft] = useState(0);
   const [bestScores, setBestScores] = useState(getBestScores);
+  const [quizHistory, setQuizHistory] = useState(getQuizHistory);
 
   // Timer
   useEffect(() => {
@@ -142,7 +161,7 @@ const QuantPractice = () => {
       setExpandedExplanations(incorrectIds);
       const score = activeQuiz.questions.filter((q) => isCorrect(q, answers[q.id])).length;
       const greResult = getGreScore(score);
-      saveBestScore(activeQuiz.id, {
+      saveAttempt(activeQuiz.id, {
         score,
         total: activeQuiz.questions.length,
         greScore: greResult.score,
@@ -150,6 +169,7 @@ const QuantPractice = () => {
         date: new Date().toISOString(),
       });
       setBestScores(getBestScores());
+      setQuizHistory(getQuizHistory());
     }
   }, [activeQuiz, answers]);
 
@@ -210,39 +230,15 @@ const QuantPractice = () => {
           <div className="grid gap-4">
             {quantQuizzes.map((quiz) => {
               const best = bestScores[quiz.id];
+              const history = quizHistory[quiz.id];
+              const attempts = history?.attempts || [];
+              const latest = attempts.length > 0 ? attempts[attempts.length - 1] : null;
               return (
                 <Card key={quiz.id} className="overflow-hidden">
                   <CardHeader className="pb-3">
-                    <div className="flex items-start justify-between gap-4">
-                      <div>
-                        <CardTitle className="text-lg">{quiz.title}</CardTitle>
-                        <p className="text-sm text-muted-foreground mt-1">{quiz.description}</p>
-                      </div>
-                      {best && (
-                        <div className="flex flex-col items-end gap-1 shrink-0">
-                          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20">
-                            <Trophy className="h-4 w-4 text-primary" />
-                            <span className="text-sm font-semibold text-primary">
-                              {best.score}/{best.total || quiz.questions.length}
-                            </span>
-                          </div>
-                          {best.greScore && (
-                            <span className="text-xs font-medium text-primary/80 px-2">
-                              Est. {best.greScore}
-                            </span>
-                          )}
-                          {best.greLevel && (
-                            <span className="text-[10px] text-muted-foreground px-2">
-                              {best.greLevel}
-                            </span>
-                          )}
-                          {best.date && (
-                            <span className="text-[10px] text-muted-foreground/60 px-2">
-                              {new Date(best.date).toLocaleDateString()}
-                            </span>
-                          )}
-                        </div>
-                      )}
+                    <div>
+                      <CardTitle className="text-lg">{quiz.title}</CardTitle>
+                      <p className="text-sm text-muted-foreground mt-1">{quiz.description}</p>
                     </div>
                   </CardHeader>
                   <CardContent>
@@ -264,9 +260,45 @@ const QuantPractice = () => {
                         </span>
                       </span>
                     </div>
+
+                    {/* Score history */}
+                    {attempts.length > 0 && (
+                      <div className="rounded-lg border border-border bg-muted/30 p-3 mb-4">
+                        <div className="grid grid-cols-3 gap-3 text-center">
+                          <div>
+                            <p className="text-xs text-muted-foreground mb-0.5">Attempts</p>
+                            <p className="text-lg font-bold text-foreground">{attempts.length}</p>
+                          </div>
+                          <div>
+                            <p className="text-xs text-muted-foreground mb-0.5">Best Score</p>
+                            <p className="text-lg font-bold text-green-600 dark:text-green-400">
+                              {best ? best.score : 0}/{quiz.questions.length}
+                            </p>
+                          </div>
+                          <div>
+                            <p className="text-xs text-muted-foreground mb-0.5">Est. GRE</p>
+                            <p className="text-lg font-bold text-primary">
+                              {best?.greScore || '—'}
+                            </p>
+                          </div>
+                        </div>
+                        {latest && (
+                          <div className="mt-2 pt-2 border-t border-border flex items-center justify-between text-xs text-muted-foreground">
+                            <span>
+                              Latest: {latest.score}/{latest.total || quiz.questions.length}
+                              {latest.greScore ? ` (Est. ${latest.greScore})` : ''}
+                            </span>
+                            {latest.date && (
+                              <span>{new Date(latest.date).toLocaleDateString()}</span>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    )}
+
                     <Button onClick={() => startQuiz(quiz)} className="w-full sm:w-auto">
                       <Play className="h-4 w-4 mr-2" />
-                      Start Quiz
+                      {attempts.length > 0 ? 'Retake Quiz' : 'Start Quiz'}
                     </Button>
                   </CardContent>
                 </Card>
