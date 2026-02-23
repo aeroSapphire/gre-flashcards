@@ -20,6 +20,7 @@ import {
   ChevronUp,
   Lightbulb,
   Filter,
+  X,
 } from 'lucide-react';
 import {
   quantQuizzes,
@@ -103,6 +104,164 @@ const typeLabels: Record<string, string> = {
   numeric: 'Numeric Entry',
 };
 
+// ─────────────────────────────────────────────────────────
+// GRE Calculator Widget
+// ─────────────────────────────────────────────────────────
+function CalculatorWidget({ onClose }: { onClose: () => void }) {
+  const [display, setDisplay] = useState('0');
+  const [prev, setPrev] = useState<string | null>(null);
+  const [op, setOp] = useState<string | null>(null);
+  const [newNum, setNewNum] = useState(true);
+  const [memory, setMemory] = useState<number>(0);
+  const [hasMemory, setHasMemory] = useState(false);
+
+  const handleDigit = (d: string) => {
+    if (display.length >= 12 && !newNum) return;
+    if (newNum) {
+      setDisplay(d === '.' ? '0.' : d);
+      setNewNum(false);
+    } else {
+      if (d === '.' && display.includes('.')) return;
+      setDisplay(display + d);
+    }
+  };
+
+  const handleOp = (o: string) => {
+    if (op && !newNum) {
+      const a = parseFloat(prev!);
+      const b = parseFloat(display);
+      let result: number;
+      switch (op) {
+        case '+': result = a + b; break;
+        case '−': result = a - b; break;
+        case '×': result = a * b; break;
+        case '÷': result = b !== 0 ? a / b : NaN; break;
+        default: result = b;
+      }
+      const str = isNaN(result) ? 'Error' : parseFloat(result.toFixed(10)).toString();
+      setDisplay(str);
+      setPrev(str);
+    } else {
+      setPrev(display);
+    }
+    setOp(o);
+    setNewNum(true);
+  };
+
+  const handleEquals = () => {
+    if (!prev || !op) return;
+    const a = parseFloat(prev);
+    const b = parseFloat(display);
+    let result: number;
+    switch (op) {
+      case '+': result = a + b; break;
+      case '−': result = a - b; break;
+      case '×': result = a * b; break;
+      case '÷': result = b !== 0 ? a / b : NaN; break;
+      default: return;
+    }
+    const str = isNaN(result) ? 'Error' : parseFloat(result.toFixed(10)).toString();
+    setDisplay(str);
+    setPrev(null);
+    setOp(null);
+    setNewNum(true);
+  };
+
+  const handleClear = () => {
+    setDisplay('0');
+    setPrev(null);
+    setOp(null);
+    setNewNum(true);
+  };
+
+  const handleClearEntry = () => {
+    setDisplay('0');
+    setNewNum(true);
+  };
+
+  const handleToggleSign = () => {
+    if (display === '0' || display === 'Error') return;
+    setDisplay(display.startsWith('-') ? display.slice(1) : '-' + display);
+  };
+
+  const handleSqrt = () => {
+    const val = parseFloat(display);
+    if (val < 0) { setDisplay('Error'); setNewNum(true); return; }
+    setDisplay(parseFloat(Math.sqrt(val).toFixed(10)).toString());
+    setPrev(null);
+    setOp(null);
+    setNewNum(true);
+  };
+
+  const handleMemoryAdd = () => {
+    const val = parseFloat(display);
+    if (!isNaN(val)) { setMemory(m => m + val); setHasMemory(true); }
+  };
+
+  const handleMemoryRecall = () => {
+    setDisplay(parseFloat(memory.toFixed(10)).toString());
+    setNewNum(true);
+  };
+
+  const handleMemoryClear = () => {
+    setMemory(0);
+    setHasMemory(false);
+  };
+
+  const btn = 'h-9 rounded font-medium text-sm transition-colors focus:outline-none';
+
+  return (
+    <div className="fixed bottom-20 right-4 z-50 w-60 bg-card border border-border rounded-xl shadow-2xl overflow-hidden">
+      <div className="flex items-center justify-between px-3 py-2 bg-muted/50 border-b border-border">
+        <span className="text-xs font-semibold text-muted-foreground">Calculator</span>
+        <button onClick={onClose} className="text-muted-foreground hover:text-foreground">
+          <X className="h-3.5 w-3.5" />
+        </button>
+      </div>
+      <div className="p-2 space-y-1">
+        {/* Display */}
+        <div className="bg-muted rounded-lg px-3 py-2 text-right min-h-[2.75rem] flex flex-col items-end justify-center">
+          {op && prev && (
+            <span className="text-xs text-muted-foreground font-mono leading-none mb-0.5">{prev} {op}</span>
+          )}
+          <span className={`font-mono font-bold ${display.length > 9 ? 'text-sm' : 'text-lg'} text-foreground leading-none`}>
+            {display}
+          </span>
+        </div>
+        {/* Memory row */}
+        <div className="grid grid-cols-3 gap-1">
+          <button onClick={handleMemoryClear} title="Memory Clear" className={`${btn} bg-muted hover:bg-muted/60 text-foreground text-xs`}>MC</button>
+          <button onClick={handleMemoryRecall} title="Memory Recall" disabled={!hasMemory} className={`${btn} text-xs ${hasMemory ? 'bg-primary/10 text-primary hover:bg-primary/20' : 'bg-muted text-muted-foreground opacity-50 cursor-not-allowed'}`}>MR</button>
+          <button onClick={handleMemoryAdd} title="Memory Add" className={`${btn} bg-muted hover:bg-muted/60 text-foreground text-xs`}>M+</button>
+        </div>
+        {/* Buttons grid */}
+        <div className="grid grid-cols-4 gap-1">
+          <button onClick={handleClearEntry} className={`${btn} bg-amber-500/10 text-amber-600 dark:text-amber-400 hover:bg-amber-500/20`}>CE</button>
+          <button onClick={handleClear}      className={`${btn} bg-destructive/10 text-destructive hover:bg-destructive/20`}>C</button>
+          <button onClick={handleSqrt}       className={`${btn} bg-muted hover:bg-muted/60 text-foreground`}>√</button>
+          <button onClick={() => handleOp('÷')} className={`${btn} bg-primary/10 text-primary hover:bg-primary/20 font-bold`}>÷</button>
+          {['7', '8', '9'].map(d => (
+            <button key={d} onClick={() => handleDigit(d)} className={`${btn} bg-muted hover:bg-muted/60 text-foreground`}>{d}</button>
+          ))}
+          <button onClick={() => handleOp('×')} className={`${btn} bg-primary/10 text-primary hover:bg-primary/20 font-bold`}>×</button>
+          {['4', '5', '6'].map(d => (
+            <button key={d} onClick={() => handleDigit(d)} className={`${btn} bg-muted hover:bg-muted/60 text-foreground`}>{d}</button>
+          ))}
+          <button onClick={() => handleOp('−')} className={`${btn} bg-primary/10 text-primary hover:bg-primary/20 font-bold`}>−</button>
+          {['1', '2', '3'].map(d => (
+            <button key={d} onClick={() => handleDigit(d)} className={`${btn} bg-muted hover:bg-muted/60 text-foreground`}>{d}</button>
+          ))}
+          <button onClick={() => handleOp('+')} className={`${btn} bg-primary/10 text-primary hover:bg-primary/20 font-bold`}>+</button>
+          <button onClick={handleToggleSign}       className={`${btn} bg-muted hover:bg-muted/60 text-foreground`}>+/−</button>
+          <button onClick={() => handleDigit('0')} className={`${btn} bg-muted hover:bg-muted/60 text-foreground`}>0</button>
+          <button onClick={() => handleDigit('.')} className={`${btn} bg-muted hover:bg-muted/60 text-foreground`}>.</button>
+          <button onClick={handleEquals} className={`${btn} bg-primary text-primary-foreground hover:bg-primary/90 font-bold`}>=</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const QuantPractice = () => {
   const navigate = useNavigate();
   const [mode, setMode] = useState<Mode>('hub');
@@ -112,6 +271,7 @@ const QuantPractice = () => {
   const [timeLeft, setTimeLeft] = useState(0);
   const [bestScores, setBestScores] = useState(getBestScores);
   const [quizHistory, setQuizHistory] = useState(getQuizHistory);
+  const [showCalculator, setShowCalculator] = useState(false);
 
   // Timer
   useEffect(() => {
@@ -370,13 +530,24 @@ const QuantPractice = () => {
               <span className="text-sm font-medium text-muted-foreground">
                 {currentIndex + 1} / {totalQuestions}
               </span>
-              <div
-                className={`flex items-center gap-1.5 font-mono text-sm font-semibold ${
-                  timeLeft < 60 ? 'text-red-500' : timeLeft < 300 ? 'text-yellow-600' : 'text-muted-foreground'
-                }`}
-              >
-                <Clock className="h-4 w-4" />
-                {formatTime(timeLeft)}
+              <div className="flex items-center gap-2">
+                <div
+                  className={`flex items-center gap-1.5 font-mono text-sm font-semibold ${
+                    timeLeft < 60 ? 'text-red-500' : timeLeft < 300 ? 'text-yellow-600' : 'text-muted-foreground'
+                  }`}
+                >
+                  <Clock className="h-4 w-4" />
+                  {formatTime(timeLeft)}
+                </div>
+                <Button
+                  variant={showCalculator ? 'secondary' : 'ghost'}
+                  size="icon"
+                  className="h-8 w-8"
+                  title="Calculator"
+                  onClick={() => setShowCalculator((v) => !v)}
+                >
+                  <Calculator className="h-4 w-4" />
+                </Button>
               </div>
             </div>
             <Progress value={progress} className="mt-2 h-1.5" />
@@ -538,6 +709,11 @@ const QuantPractice = () => {
             )}
           </div>
         </footer>
+
+        {/* Calculator */}
+        {showCalculator && (
+          <CalculatorWidget onClose={() => setShowCalculator(false)} />
+        )}
       </div>
     );
   }
