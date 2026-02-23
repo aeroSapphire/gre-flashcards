@@ -223,9 +223,25 @@ const QuantPractice = () => {
         </header>
 
         <main className="container max-w-4xl mx-auto px-4 py-6 sm:py-8">
-          <p className="text-muted-foreground mb-6">
+          <p className="text-muted-foreground mb-4">
             Practice quizzes covering GRE Quantitative Reasoning topics. All four question formats included.
           </p>
+
+          {/* Mock Test CTA */}
+          <div
+            className="mb-6 bg-gradient-to-r from-blue-500/10 to-indigo-500/10 border border-blue-500/20 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center gap-4 cursor-pointer hover:bg-blue-500/15 transition-colors"
+            onClick={() => navigate('/mock-test')}
+          >
+            <div className="flex-1">
+              <p className="font-semibold text-foreground">GRE Adaptive Mock Test</p>
+              <p className="text-sm text-muted-foreground">
+                27-question, 47-minute full test with adaptive scoring (130–170). Ready to go?
+              </p>
+            </div>
+            <Button variant="outline" size="sm" className="shrink-0 border-blue-500/20 hover:bg-blue-500/10 hover:text-blue-600" onClick={e => { e.stopPropagation(); navigate('/mock-test'); }}>
+              Take Mock Test →
+            </Button>
+          </div>
 
           <div className="grid gap-4">
             {quantQuizzes.map((quiz) => {

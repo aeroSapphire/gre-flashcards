@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, BookOpen, GraduationCap, Filter, ArrowLeft, LogOut, Settings, Trophy, Clock, FileText, Gamepad2, Search, X, Flame, Zap, Menu, Network, Calculator } from 'lucide-react';
+import { Plus, BookOpen, GraduationCap, Filter, ArrowLeft, LogOut, Settings, Trophy, Clock, FileText, Gamepad2, Search, X, Flame, Zap, Menu, Network, Calculator, ClipboardList } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useFlashcardsDb, FlashcardWithProgress, FlashcardList } from '@/hooks/useFlashcardsDb';
 import { useAuth } from '@/contexts/AuthContext';
@@ -387,6 +387,10 @@ const Index = () => {
                 <Calculator className="h-4 w-4 mr-1" />
                 Quant
               </Button>
+              <Button variant="outline" size="sm" onClick={() => navigate('/mock-test')}>
+                <ClipboardList className="h-4 w-4 mr-1" />
+                Mock Test
+              </Button>
               <Button variant="outline" size="sm" onClick={() => navigate('/word-web')}>
                 <Network className="h-4 w-4 mr-1" />
                 Word Web
@@ -437,6 +441,10 @@ const Index = () => {
                     <Button variant="ghost" className="justify-start" onClick={() => navigate('/quant')}>
                       <Calculator className="h-4 w-4 mr-3" />
                       Quant
+                    </Button>
+                    <Button variant="ghost" className="justify-start" onClick={() => navigate('/mock-test')}>
+                      <ClipboardList className="h-4 w-4 mr-3" />
+                      Mock Test
                     </Button>
                     <Button variant="ghost" className="justify-start" onClick={() => navigate('/word-web')}>
                       <Network className="h-4 w-4 mr-3" />
@@ -622,6 +630,35 @@ const Index = () => {
               >
                 <Flame className="h-4 w-4 mr-2" />
                 View Hub
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        {/* Mock Test Banner */}
+        <div className="mb-6 sm:mb-8">
+          <div className="bg-gradient-to-r from-blue-500/10 to-indigo-500/10 rounded-xl border border-blue-500/20 p-4 sm:p-6">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+              <div className="flex items-center gap-3 sm:gap-4 flex-1">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-500/20 flex items-center justify-center shrink-0">
+                  <ClipboardList className="h-5 w-5 sm:h-6 sm:w-6 text-blue-600" />
+                </div>
+                <div>
+                  <h3 className="font-display text-base sm:text-lg font-semibold text-foreground">
+                    GRE Adaptive Mock Test
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    27-question adaptive test with real GRE scoring — Arithmetic & Algebra.
+                  </p>
+                </div>
+              </div>
+              <Button
+                variant="outline"
+                className="w-full sm:w-auto shrink-0 border-blue-500/20 hover:bg-blue-500/10 hover:text-blue-600"
+                onClick={() => navigate('/mock-test')}
+              >
+                <ClipboardList className="h-4 w-4 mr-2" />
+                Take Test
               </Button>
             </div>
           </div>
