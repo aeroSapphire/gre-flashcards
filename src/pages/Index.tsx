@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, BookOpen, GraduationCap, Filter, ArrowLeft, LogOut, Settings, Trophy, Clock, FileText, Gamepad2, Search, X, Flame, Zap, Menu, Network, Calculator, ClipboardList } from 'lucide-react';
+import { Plus, BookOpen, GraduationCap, Filter, ArrowLeft, LogOut, Settings, Trophy, Clock, FileText, Gamepad2, Search, X, Flame, Zap, Menu, Network, Calculator, ClipboardList, Library } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useFlashcardsDb, FlashcardWithProgress, FlashcardList } from '@/hooks/useFlashcardsDb';
 import { useAuth } from '@/contexts/AuthContext';
@@ -387,6 +387,10 @@ const Index = () => {
                 <Calculator className="h-4 w-4 mr-1" />
                 Quant
               </Button>
+              <Button variant="outline" size="sm" onClick={() => navigate('/mock-tests')}>
+                <Library className="h-4 w-4 mr-1" />
+                Tests
+              </Button>
               <Button variant="outline" size="sm" onClick={() => navigate('/mock-test')}>
                 <ClipboardList className="h-4 w-4 mr-1" />
                 Mock Test
@@ -441,6 +445,10 @@ const Index = () => {
                     <Button variant="ghost" className="justify-start" onClick={() => navigate('/quant')}>
                       <Calculator className="h-4 w-4 mr-3" />
                       Quant
+                    </Button>
+                    <Button variant="ghost" className="justify-start" onClick={() => navigate('/mock-tests')}>
+                      <Library className="h-4 w-4 mr-3" />
+                      Practice Tests
                     </Button>
                     <Button variant="ghost" className="justify-start" onClick={() => navigate('/mock-test')}>
                       <ClipboardList className="h-4 w-4 mr-3" />
@@ -659,6 +667,35 @@ const Index = () => {
               >
                 <ClipboardList className="h-4 w-4 mr-2" />
                 Take Test
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        {/* Practice Tests Banner */}
+        <div className="mb-6 sm:mb-8">
+          <div className="bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-xl border border-emerald-500/20 p-4 sm:p-6">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+              <div className="flex items-center gap-3 sm:gap-4 flex-1">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-emerald-500/20 flex items-center justify-center shrink-0">
+                  <Library className="h-5 w-5 sm:h-6 sm:w-6 text-emerald-600" />
+                </div>
+                <div>
+                  <h3 className="font-display text-base sm:text-lg font-semibold text-foreground">
+                    Full-Length Practice Tests
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    6 complete Barron's GRE tests — Verbal, Quant & Analytical Writing with timed sections.
+                  </p>
+                </div>
+              </div>
+              <Button
+                variant="outline"
+                className="w-full sm:w-auto shrink-0 border-emerald-500/20 hover:bg-emerald-500/10 hover:text-emerald-600"
+                onClick={() => navigate('/mock-tests')}
+              >
+                <Library className="h-4 w-4 mr-2" />
+                Browse Tests
               </Button>
             </div>
           </div>
