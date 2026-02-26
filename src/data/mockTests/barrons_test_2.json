@@ -1,0 +1,733 @@
+{
+  "id": "barrons-test-2",
+  "name": "Barron's Practice Test 2",
+  "source": "Barron's 6 GRE Practice Tests",
+  "sourceShort": "Barron's",
+  "description": "Full-length GRE practice test 2 from Barron's 6 GRE Practice Tests. Includes Analytical Writing, 2 Verbal Reasoning sections (20 questions each, 30 min), and 2 Quantitative Reasoning sections (20 questions each, 35 min).",
+  "sectionCount": 5,
+  "totalTimeMinutes": 160,
+  "format": "old",
+  "sections": [
+    {
+      "id": "BT2-S1",
+      "sectionNumber": 1,
+      "type": "analytical_writing",
+      "name": "Section 1 — Analytical Writing",
+      "timeMinutes": 30,
+      "questionCount": 1,
+      "questions": [
+        {
+          "id": "BT2-S1-Q1",
+          "type": "analytical_writing",
+          "stem": "Analyze an Argument",
+          "correctAnswer": "essay",
+          "explanation": "This is an essay question - no single correct answer.",
+          "prompt": "Section 1—Analytical Writing Time: 60 Minutes—2 Writing Tasks TASK 1: ISSUE EXPLORATION TIME: 30 MINUTES The topic is presented in a one- to two-sentence quotation commenting on an issue of general concern.\nYour essay will be judged on the basis of your skill in the following areas:\n•   response to the specific task instructions •   consideration of the complexities of the issue •   organization, development, and expression of your ideas •   support of your position with relevant reasoning and examples •   control of the elements of standard written English Topic Technology causes more problems for modern societies than it solves.\nDirections: Write a response in which you discuss the extent to which you agree or disagree with the claim. In developing and supporting your position, be sure to address the most compelling reasons and/or examples that could be used to challenge your position.\n*Please write your response on separate pieces of paper.\nTASK 2: ARGUMENT ANALYSIS TIME: 30 MINUTES Your essay will be judged on the basis of your skill in the following areas:\n•   identification and assessment of the argument’s main elements •   organization and articulation of your thoughts •   use of relevant examples and arguments to support your case •   handling of the mechanics of standard written English Topic The following appeared as part of a letter to the editor of a scientific",
+          "directions": "Write a response in which you discuss what specific evidence is needed to evaluate the argument and explain how the evidence would weaken or strengthen the argument."
+        }
+      ]
+    },
+    {
+      "id": "BT2-S2",
+      "sectionNumber": 2,
+      "type": "verbal",
+      "name": "Section 2 — Verbal Reasoning",
+      "timeMinutes": 30,
+      "questionCount": 20,
+      "questions": [
+        {
+          "id": "BT2-S2-Q1",
+          "type": "text_completion",
+          "stem": "[Question 1 - Text Completion - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) If direct insults are dangerous, it makes sense that slights (insults) are insinuated (hinted at) instead of declared.",
+          "blanks": 1
+        },
+        {
+          "id": "BT2-S2-Q2",
+          "type": "text_completion",
+          "stem": "[Question 2 - Text Completion - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) If impasses (obstacles with no obvious solution) are hurdled (overcome) with rapidity (speed), then it would not be surprising that a quagmire (difficult position) would not be worrisome.",
+          "blanks": 1
+        },
+        {
+          "id": "BT2-S2-Q3",
+          "type": "text_completion",
+          "stem": "[Question 3 - Text Completion - see source material]",
+          "correctAnswer": [
+            "B",
+            "D"
+          ],
+          "explanation": "(B, D) The word despite signifies a shift, and so blank (i) must be a word like reprobate (evil) because the papers have ignored the criminality of forgery. The most helpful clue for blank (ii) is that the critics say the papers’ authors “lack (the) ethics and good sense,” so it makes sense that they lambasted (vigorously attacked) the papers.",
+          "blanks": 2
+        },
+        {
+          "id": "BT2-S2-Q4",
+          "type": "text_completion",
+          "stem": "[Question 4 - Text Completion - see source material]",
+          "correctAnswer": [
+            "C",
+            "D"
+          ],
+          "explanation": "(C, D) The clue for blank (i) is found in the second sentence, since those who criticize new-age administrators are heralded, making fashionable a good fit. Since there is a logical connection between criticizing and being heralded, incisively (sharply) is a good fit for the second blank.",
+          "blanks": 2
+        },
+        {
+          "id": "BT2-S2-Q5",
+          "type": "text_completion",
+          "stem": "[Question 5 - Text Completion - see source material]",
+          "correctAnswer": [
+            "B",
+            "F"
+          ],
+          "explanation": "(B, F) The use of “many” authors provides a clue for blank (i), so rash (large number) is supported. For blank (ii), logically, if the new documents have amplified voices that were previously unheard, it makes sense that the authors have recognized the opportunity to write about these voices.",
+          "blanks": 2
+        },
+        {
+          "id": "BT2-S2-Q6",
+          "type": "text_completion",
+          "stem": "[Question 6 - Text Completion - see source material]",
+          "correctAnswer": [
+            "A",
+            "E",
+            "G"
+          ],
+          "explanation": "(A, E, G) Blank (i) is explained by the part of the sentence after it, specifically, “which will greatly enhance the ability… . ” So, veritable (true; correct) information makes the rest of the sentence logical. Blank (ii) is explained by the preceding portion of the next sentence “But given human nature … age misreporting,” which implies that there is a problem that can be solved with age validation, which is therefore a requisite (necessary) process. Blank (iii) is explained by the sentence containing blank (ii), which mentions “exceptional longevity research.” Therefore, it is logical that these claims need a significant validation procedure, making consummate (complete) a good choice, and the only choice that could work (cavalier means dismissive and jackleg means lacking skill).",
+          "blanks": 3
+        },
+        {
+          "id": "BT2-S2-Q7",
+          "type": "reading_comprehension",
+          "stem": "[Question 7 - Reading Comprehension - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) It would seem that pesticide exposure would be a good explanation for the syndrome, since the cows in Country B were not exposed to the pesticides and now have the syndrome. However, if choice (D) is true— that the cows in Country B are slaughtered before they are old enough to develop signs—then it’s possible that those cows would have developed the syndrome as much as those in Country A."
+        },
+        {
+          "id": "BT2-S2-Q8",
+          "type": "reading_comprehension",
+          "stem": "[Question 8 - Reading Comprehension - see source material]",
+          "correctAnswer": [
+            "B",
+            "C"
+          ],
+          "explanation": "(B, C) The author says that Pythagoras thought of beauty as an objective (based on fact) principle, or one that is not affected by differing opinions. The author also says that Pythagoras believed beauty “maintains harmony, order, and balance,” which supports the notion that a person’s well-being will be supported by watching something beautiful (like a sunset or an act of kindness).",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT2-S2-Q9",
+          "type": "reading_comprehension",
+          "stem": "[Question 9 - Reading Comprehension - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) In much of the first paragraph, the author introduces the concept of creativity, then proceeds to explain how creativity applies to philosophy and science, linking beauty and creativity as well as showing how creativity is applied to science."
+        },
+        {
+          "id": "BT2-S2-Q10",
+          "type": "reading_comprehension",
+          "stem": "[Question 10 - Reading Comprehension - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) The author of the passage begins by defining creativity, then quickly connects the concept to beauty, saying that there is only a “small step” between the two. He then provides examples—like the example about chaos theory—that further demonstrate the relation, or parallel, between the concepts."
+        },
+        {
+          "id": "BT2-S2-Q11",
+          "type": "reading_comprehension",
+          "stem": "[Question 11 - Reading Comprehension - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) In the final sentence of the passage, the author explains that the field of computational creativity helps “construct … tools that are able to support the creative processes of humans.” If a new mobile phone becomes part of a work of art, then its creation certainly has supported a human creative process."
+        },
+        {
+          "id": "BT2-S2-Q12",
+          "type": "reading_comprehension",
+          "stem": "[Question 12 - Reading Comprehension - see source material]",
+          "correctAnswer": [
+            "B",
+            "D"
+          ],
+          "explanation": "(B, D) The word though creates a shift from the fact that the advisor was recently reviled (hated) for his fawning (trying to gain favor through flattery) behavior. Imperious (commanding) and domineering (controlling) create the necessary shift.",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT2-S2-Q13",
+          "type": "sentence_equivalence",
+          "stem": "[Question 13 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "D",
+            "F"
+          ],
+          "explanation": "(D, F) If the advocates did not anticipate “obvious consequences,” then their praise must have been excessive, so immoderate (without moderation) and effusive (gushing) are appropriate choices.",
+          "selectCount": 2
+        },
+        {
+          "id": "BT2-S2-Q14",
+          "type": "sentence_equivalence",
+          "stem": "[Question 14 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "A",
+            "E"
+          ],
+          "explanation": "(A, E) Since ATP is essential for cellular energy, it makes sense that its production is a prerequisite (required) or an indispensable (necessary) component.",
+          "selectCount": 2
+        },
+        {
+          "id": "BT2-S2-Q15",
+          "type": "sentence_equivalence",
+          "stem": "[Question 15 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "A",
+            "C"
+          ],
+          "explanation": "(A, C) If the novel was previously banned for the salacious (sexually appealing) passages, then it would be logical to say those passages were thought of as unwholesome or prurient (arousing unwholesome desire).",
+          "selectCount": 2
+        },
+        {
+          "id": "BT2-S2-Q16",
+          "type": "sentence_equivalence",
+          "stem": "[Question 16 - Sentence Equivalence - see source material]",
+          "correctAnswer": "Sentence 5",
+          "explanation": "(Sentence 5: Similarly, actions … sentiments.) This sentence, by the use of the word “similarly,” compares the relative ease by which firms can measure customer satisfaction to the previous sentence’s assertion that customer satisfaction is a more reliable indicator than customer confidence, and then uses this comparison to extend its assertion (that measuring satisfaction is easier).",
+          "selectCount": 2
+        },
+        {
+          "id": "BT2-S2-Q17",
+          "type": "reading_comprehension",
+          "stem": "[Question 17 - Reading Comprehension - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) The word “but” hints at a shift, or conflict. The discrepancy, that there are surprisingly low levels of ozone at the ocean’s surface despite its absorption ability, can be explained if the absorbed ozone can leave the ocean and migrate to the surrounding area."
+        },
+        {
+          "id": "BT2-S2-Q18",
+          "type": "reading_comprehension",
+          "stem": "[Question 18 - Reading Comprehension - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) If the ocean water tested had surprisingly low levels of ozone, it makes sense that the ocean is usually adept (skilled) at absorbing ozone. Proficient (expert) is a good replacement."
+        },
+        {
+          "id": "BT2-S2-Q19",
+          "type": "reading_comprehension",
+          "stem": "[Question 19 - Reading Comprehension - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) The author most likely provides the information about ozone levels in western Ireland to point out that there are increased ozone levels over land as well as over the ocean, where the study took place, thereby providing more background information for his readers."
+        },
+        {
+          "id": "BT2-S2-Q20",
+          "type": "reading_comprehension",
+          "stem": "[Question 20 - Reading Comprehension - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) The position of the argument is that further testing is needed before the laptop’s fan speed is reduced. Therefore, it is arguing against the position to lower the fan speed. The first boldfaced portion gives reasoning that this may be done by saying that if Component H is the most heat-sensitive, then its viability is the crucial factor. The second boldfaced portion provides additional reasoning for the argument’s position by outlining a benefit of adopting the position."
+        }
+      ]
+    },
+    {
+      "id": "BT2-S3",
+      "sectionNumber": 3,
+      "type": "quantitative",
+      "name": "Section 3 — Quantitative Reasoning",
+      "timeMinutes": 35,
+      "questionCount": 20,
+      "questions": [
+        {
+          "id": "BT2-S3-Q1",
+          "type": "quantitative_comparison",
+          "stem": "[Question 1 - Quantitative Comparison - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) Standard deviation is a measure of the dispersion of the numbers on a list from the list’s mean, or average. When the teacher adds 10 points to every score, the scores and their average are all shifted upward by 10, but the spread of the test scores from their mean remains unchanged. Therefore, the standard deviation of the new set is the same as that of the original set, and (C) is correct. To compute an actual standard deviation will not be required on the GRE. The complicated formula involves subtracting every number on the list from the mean, then averaging the squares of these differences, and finally taking the square root."
+        },
+        {
+          "id": "BT2-S3-Q2",
+          "type": "quantitative_comparison",
+          "stem": "[Question 2 - Quantitative Comparison - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) Because there is an unlimited supply of water in Column (A), only the amount of rice and the number of people matter. Set up a ratio to compare these quantities, using x to represent the unknown number of people: Cross-multiply to obtain Isolate x by multiplying both sides by the reciprocal of Then Since 64 is less than 65, (B) is greater."
+        },
+        {
+          "id": "BT2-S3-Q3",
+          "type": "quantitative_comparison",
+          "stem": "[Question 3 - Quantitative Comparison - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) The probability of any event is always between zero and one, inclusive, which means that 0 ≤ p ≤ 1, and 0 ≤ s ≤ 1. Recall that the product of two decimals between 0 and 1 is smaller than either one of them (“fraction of a fraction”) and that the sum of any two positive numbers is greater than either one of them. This suggests that Quantity (A), p + s, is greater than Quantity (B), ps. Choice (A) is correct, but don’t forget to check the boundary cases, because p or s could equal 0 or 1, when some of these general rules do not apply. If p equals 1, then p + s equals 1 + s, while ps equals 1s. Since 1 + s > s, (A) is greater. If p = 0, then p + s = s, while ps = 0, and again (A) is greater. *Pick plausible values for p and s, consistent with the fact that p and s represent probabilities, and test each pair. For example, if and then p + s equals 1, while ps equals and (A) is greater. If p = .1 and s = .1, then p + s equals .2, which is much greater than ps, or .01. Finally, if p = s = .9 or .8, then p + s > 1, while ps < 1, confirming that Quantity (A) is greater. By testing a wide range of possible values for p and s, we are fairly certain that (A) will always be greater."
+        },
+        {
+          "id": "BT2-S3-Q4",
+          "type": "quantitative_comparison",
+          "stem": "[Question 4 - Quantitative Comparison - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) We know that 0 < w < x < y < 100, but we don’t know how far apart the variables w, x, and y are spread between 0 and 100. For example, if w = 1, x = 2, and y = 3, then Quantity (A), 100 − y, equals 97, while Quantity (B), y − w, equals only 2. But if w = 10, x = 20, and y = 99, then Quantity (A) equals only 1, while Quantity (B) equals 89. Therefore, there is not enough information to determine, and (D) is correct."
+        },
+        {
+          "id": "BT2-S3-Q5",
+          "type": "quantitative_comparison",
+          "stem": "[Question 5 - Quantitative Comparison - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) In the second sentence given, there is one fewer hot dog but one more pretzel. Replacing one hot dog with one pretzel decreases the total cost, so the pretzel must be cheaper. Then the cost of the hot dog, Quantity (A), is greater. *Represent the information with a linear system. If x is the price of one hot dog and y is the price of one pretzel, then 10x + 9y = 74.15, and 9x + 10y = 74.05. Try lining up the equations vertically and subtracting to find some type of cancellation. Adding y to each side reveals that x = y + .10, so the cost of the hot dog is $.10 more than the cost of the pretzel, and (A) is greater. *The on-screen calculator makes the traditional elimination method possible, but since this approach is much longer, try to spot one of the easier ways first. Set up a linear system, as in (*) above. Then multiply the first equation by 9 and the second equation by −10, so that the x coefficients become equal but opposite in sign. Some number crunching shows that Add the two whole equations together to obtain −19y = −73.15. Dividing both sides by −19 shows that y = $3.85. Finally, substitute this value back into one of the original equations and solve for x, to obtain x = $3.95, and (A) is greater."
+        },
+        {
+          "id": "BT2-S3-Q6",
+          "type": "multiple_choice_single",
+          "stem": "[Question 6 - Multiple Choice - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) If then we can cross-multiply to obtain x(4 − x) = −3(x − 2). Distribute on both sides to obtain 4x − x2 = −3x + 6. Now subtract 4x from each side, and add x2 to each side, in order to combine like terms and to get one side equal to zero. Then 0 = x2 − 7x + 6. Factor the right side by noting that (x − 6)(x − 1) = x2 − 1x − 6x + 6 = x2 − 7x + 6. So (x − 6)(x − 1) = 0 and x could equal 6 or 1, the values that make either expression in parentheses equal to 0. Both values check in the original equation, but only x = 6, (E) is listed as an answer choice."
+        },
+        {
+          "id": "BT2-S3-Q7",
+          "type": "multiple_choice_single",
+          "stem": "[Question 7 - Multiple Choice - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) Make sure to draw the picture. The interior point (−8, −8), is located 3 units directly above the circle’s center (−8, −11), so its distance from the center is 3 units. The exterior point (−11, −7) is located 3 units to the left and 4 units above the circle’s center. Its distance from the center is given by the Pythagorean Theorem as units. If a point 3 units from the center lies inside the circle, while a point 5 units from the center lies outside the circle, then the radius of the circle is between 3 and 5 and must equal 4, since the radius is given as an integer. Then the area, given by πr2, equals π42 = 16π, (C)."
+        },
+        {
+          "id": "BT2-S3-Q8",
+          "type": "multiple_choice_single",
+          "stem": "[Question 8 - Multiple Choice - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) Compute the area of Rectangle B, by finding length times width, which equals 30 × 48, or 1,440. Similarly, the area of Rectangle A equals 12x. These areas are given as equal, so 12x = 1,440, and dividing by 12 yields x = 120. But be careful. The question asks for the perimeter of Rectangle A, not its length. Perimeter equals 2 × (length + width), which is 2 × (120 + 12), or 2(132) = 264, (D)."
+        },
+        {
+          "id": "BT2-S3-Q9",
+          "type": "multiple_choice_single",
+          "stem": "[Question 9 - Multiple Choice - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) First, change to a percent by setting it equal to Multiply the top and bottom of the left fraction by 4, to get x = 12, i.e., 12%, which can also be obtained by cross-multiplying or by simply typing 3 ÷ 25 on the calculator and converting .12 to 12%. Then the pool went from 12% full at 12:00 to 28% full at 2:30. The increase is 28% − 12% = 16% of the pool’s full volume in 2.5 hours. During this time, the pool was filled at a rate of 2 gallons per minute. We must convert 2.5 hours into 2.5 × 60 = 150 minutes, in order to find that gallons. This means that 300 gallons were added and that 300 gallons represents 16% of the pool’s total volume, say T. Then 300 = .16T. Divide both sides by .16, and T equals 300 ÷ .16 = 1875, (A)."
+        },
+        {
+          "id": "BT2-S3-Q10",
+          "type": "numeric_entry",
+          "stem": "[Question 10 - Numeric Entry - see source material]",
+          "correctAnswer": "$2,940",
+          "explanation": "($2,940) Since the four shares together constitute 100% of the total, Heir D inherits 100% minus the sum of the other three heirs’ percentages. Then his share is 10% of the total inheritance, because 100 − (35 + 30 + 25) = 100 − 90 = 10. If Heir D’s $840 inheritance is 10% of the total, then the total is 10 × 840 = $8400. Heir A received 35% of the total, which is .35 × 8400 = $2,940."
+        },
+        {
+          "id": "BT2-S3-Q11",
+          "type": "numeric_entry",
+          "stem": "[Question 11 - Numeric Entry - see source material]",
+          "correctAnswer": "89.9",
+          "explanation": "(89.9) Think of a negative exponent as “one over” the expression if it had a positive exponent. That is, Here, Plugging this value into the expression (3 + x)(3 − x)(1/x), yields (3.1) (2.9)(10), which the calculator shows is 89.9. *Non-calculator method: The first part of the expression, (3 + x)(3 − x), fits the “difference of two squares” form (a + b)(a − b) = a2 − b2. Then (3 + x) (3 − x) = 9 − x2, or Because equals the final product becomes 8.99 × 10, or 89.9, by simply shifting the decimal one place. 12. Strategy note: most students would benefit by skipping this challenging question and using their time on several easier ones in the section. The area of the square is 256, so the length of one side is 16, the square root of 256. Since the square is centered at (0,0), half the square’s length, 8, will extend to the right of the origin. Similarly, the square will extend 8 units to the left, above, and below the origin. Then the square’s “top right corner point,” or vertex in Quadrant I, has coordinates (8,8). If this is also a point on the graph of f(x) = cx3, then f(8) = 8, meaning that we can substitute (8,8) as x and y values into the function and solve for the unknown constant, c. Then 8 = c83, and"
+        },
+        {
+          "id": "BT2-S3-Q12",
+          "type": "numeric_entry",
+          "stem": "[Question 12 - Numeric Entry - see source material]",
+          "correctAnswer": "1/64",
+          "explanation": "See answer key."
+        },
+        {
+          "id": "BT2-S3-Q13",
+          "type": "numeric_entry",
+          "stem": "[Question 13 - Numeric Entry - see source material]",
+          "correctAnswer": "$588",
+          "explanation": "($588) Store A received 50% of all revenue from Packaged Food, the highest percentage from this category for any of the stores. Store A’s revenue from Beverages is 30%, so its ratio of Beverage revenue to Packaged Food revenue is or If it earned $980 from Packaged Food, then it earned from beverages. You can also set up the ratio: Cross-multiply to obtain .5x = 294, and"
+        },
+        {
+          "id": "BT2-S3-Q14",
+          "type": "multiple_choice_single",
+          "stem": "[Question 14 - Multiple Choice - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) At Store D, the left-hand column, Beverages, is higher than for any other store. For Store D, the ratio of Prepared Food to Packaged Food is 15% to 40%, or 15:40. Divide both numbers in the ratio by 5, the greatest common factor of 15 and 40, to obtain the reduced ratio 3:8, choice (A)."
+        },
+        {
+          "id": "BT2-S3-Q15",
+          "type": "multiple_choice_single",
+          "stem": "[Question 15 - Multiple Choice - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) In order for one category to account for at least as much revenue as the other two categories combined, the one category must comprise at least half, or 50%, of the total revenue. Only Stores A and B have a column that reaches the 50% level, so these two stores meet the condition described, choice (C)."
+        },
+        {
+          "id": "BT2-S3-Q16",
+          "type": "multiple_choice_single",
+          "stem": "[Question 16 - Multiple Choice - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) If each of the four stores earned exactly the same amount of total revenue, we might as well suppose that this number was $100—an unrealistic figure—but one that makes computing percents easy. Then the percentage of revenue from beverages for the four stores—30%, 25%, 40%, and 45%—would correspond precisely to the dollar figures $30, $25, $40, and $45. So the revenue from beverages would be 30 + 25 + 40 + 45 = $140 out of 4 × 100 = $400 total revenue. Therefore beverages would account for of total revenue, choice (C)."
+        },
+        {
+          "id": "BT2-S3-Q17",
+          "type": "multiple_choice_multi",
+          "stem": "[Question 17 - Multiple Choice (Select All) - see source material]",
+          "correctAnswer": [
+            "A",
+            "B"
+          ],
+          "explanation": "(A, B) Let b = the marked price of the book. The sales tax is 9% of the book’s marked price, so tax = .09b. Then the cost of the book plus tax is given by 1b + .09b, which equals 1.09b. Since John received change for his $20 bill, and since the change was less than $5, he must have spent between $15 and $20. Then $15 < 1.09b < $20. Divide all three parts of this inequality by 1.09 to obtain $13.76 < b < $18.35. This result implies both (A) and (B), because b is certainly greater than $13.50 but less than $18.50. Choice (C) is not true, because if the marked price were $18, for example, then the sales tax would have been .09 × $18 = $1.62, which is greater than $1.50, while the total price remains low enough, $19.62, to leave John change, as required.",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT2-S3-Q18",
+          "type": "multiple_choice_multi",
+          "stem": "[Question 18 - Multiple Choice (Select All) - see source material]",
+          "correctAnswer": [
+            "C",
+            "E"
+          ],
+          "explanation": "(C, E) Set S is the infinite set of all odd integers: {… −7, −5, −3, −1, 1, 3, 5, 7 …}. Adding two odd integers yields an even integer, so (A) is not correct. For example, 5 + 3 = 8. Subtracting two odd integers yields an even integer, so (B) is not correct. For example, 5 − 3 = 2. (C) is correct because multiplying any two odd integers always results in another odd integer—for example, 3 × −9 = −27, and 7 × 11 = 77. This is because when neither number has 2 as a factor, the product will not have 2 as a factor (since 2 is a prime number). (D) is not correct, because dividing two elements from Set S will often produce a non-integer value. For example, 5 ÷ 3 ≈ 1.67. Finally, (E) is correct, because raising an odd number to any power will yield an odd result for basically the same reasons as (C) above. Repeated multiplication by the same odd number continues to yield products that lack 2 as a factor and are thus, by definition, odd. For example, 31 = 3, 32 = 9, 33 = 27, 34 = 81. Answer is (C) and (E).",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT2-S3-Q19",
+          "type": "numeric_entry",
+          "stem": "[Question 19 - Numeric Entry - see source material]",
+          "correctAnswer": "175",
+          "explanation": "(175) Use the formula D = r × t, that is, distance = rate × time. hours = 472 miles that the man drove, and that the woman drove. Then he drove 472 − 297 = 175 miles further."
+        },
+        {
+          "id": "BT2-S3-Q20",
+          "type": "numeric_entry",
+          "stem": "[Question 20 - Numeric Entry - see source material]",
+          "correctAnswer": ".125",
+          "explanation": "(.125) Find the y-intercept by setting x equal to 0. which is b in the problem. Find the x-intercept by setting y equal to 0. Then Take the square root of each side, and so This is a in the problem. Then or .125."
+        }
+      ]
+    },
+    {
+      "id": "BT2-S4",
+      "sectionNumber": 4,
+      "type": "verbal",
+      "name": "Section 4 — Verbal Reasoning",
+      "timeMinutes": 30,
+      "questionCount": 20,
+      "questions": [
+        {
+          "id": "BT2-S4-Q1",
+          "type": "text_completion",
+          "stem": "[Question 1 - Text Completion - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) If the tribe had been known to only have “primitive” skills, then it makes sense that only rudimentary (crude) tools were discovered.",
+          "blanks": 1
+        },
+        {
+          "id": "BT2-S4-Q2",
+          "type": "text_completion",
+          "stem": "[Question 2 - Text Completion - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) If the union’s opposition to the regulations grew stronger, then implementing (carrying out) those regulations would have become more challenging.",
+          "blanks": 1
+        },
+        {
+          "id": "BT2-S4-Q3",
+          "type": "text_completion",
+          "stem": "[Question 3 - Text Completion - see source material]",
+          "correctAnswer": [
+            "B",
+            "F"
+          ],
+          "explanation": "(B, F) Start with blank (ii). The clue for that blank is “cheered even the gloomiest souls,” so jocundity (a joking, mirthful manner) fits. Since the poet’s personal life is in sharp contrast to his public persona (image), the word for the blank must be the opposite of the second blank. Therefore, a word like morose (gloomy) makes sense.",
+          "blanks": 2
+        },
+        {
+          "id": "BT2-S4-Q4",
+          "type": "text_completion",
+          "stem": "[Question 4 - Text Completion - see source material]",
+          "correctAnswer": [
+            "C",
+            "D",
+            "H"
+          ],
+          "explanation": "(C, D, H) The clue for blank (i) is found in the second sentence—if those who make the suggestion to establish a year of experience often write congratulatory articles about others who do the same, then popular is a logical fit. For blank (ii), having a year’s worth of experience would demonstrate steadfastness (loyalty). For blank (iii), the author’s use of “so-called” supports pundits (experts) because he continues to criticize them, and implies that only they think they are experts.",
+          "blanks": 3
+        },
+        {
+          "id": "BT2-S4-Q5",
+          "type": "text_completion",
+          "stem": "[Question 5 - Text Completion - see source material]",
+          "correctAnswer": [
+            "A",
+            "E"
+          ],
+          "explanation": "(A, E) The clue for blank (i) is given by the phrase “habitual lateness,” so dilatory (characterized by being late) works. Blank (ii) is supported by the lack of ire (anger) from the parents, so exemplary (excellent) grades would be a good reason to not be upset at his lateness.",
+          "blanks": 2
+        },
+        {
+          "id": "BT2-S4-Q6",
+          "type": "text_completion",
+          "stem": "[Question 6 - Text Completion - see source material]",
+          "correctAnswer": [
+            "A",
+            "F",
+            "H"
+          ],
+          "explanation": "(A, F, H) Filling in blank (i) and (ii) is easier if the second sentence is used to help. Since there is a “lack,” dearth (lack) works for blank (i), and omission (something left out) fits blank (ii). The author implies that good things will result from the inclusion of the testing, so fundamental (crucial) works for blank (iii).",
+          "blanks": 3
+        },
+        {
+          "id": "BT2-S4-Q7",
+          "type": "reading_comprehension",
+          "stem": "[Question 7 - Reading Comprehension - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) The challenges described in the passage are the Native American histories and the African Diaspora: narratives that, as the author says, “assert alternatives to the understanding of our national origins.” Therefore, a document from a tomb that provides an alternate history for a battle would be analogous to these challenges."
+        },
+        {
+          "id": "BT2-S4-Q8",
+          "type": "reading_comprehension",
+          "stem": "[Question 8 - Reading Comprehension - see source material]",
+          "correctAnswer": "Sentence 5",
+          "explanation": "(Sentence 5: Overshadowing such … 1820s.) The author, in the preceding sentence, asserts that Riordan argues “that the nation was composed of local struggles over power … ,” but then, in the next sentence, claims that transregional organizations were “overshadowing such local contents.” In other words, the preceding sentence is superseded (displaced in favor of something else) by the sentence beginning with “overshadowing.”"
+        },
+        {
+          "id": "BT2-S4-Q9",
+          "type": "reading_comprehension",
+          "stem": "[Question 9 - Reading Comprehension - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) There is a context clue for the definition of parochial (limited in scope) that comes shortly after the word: “context of community studies that is often overlooked in favor of a more national scope.” In other words, the parochial, or limited scope, is passed over for the larger, national one."
+        },
+        {
+          "id": "BT2-S4-Q10",
+          "type": "reading_comprehension",
+          "stem": "[Question 10 - Reading Comprehension - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) The author implies that the audience of a public intellectual often believes that person’s words without questioning, because the author says, among other things, that such an intellectual “has enormous power to influence and change.”"
+        },
+        {
+          "id": "BT2-S4-Q11",
+          "type": "reading_comprehension",
+          "stem": "[Question 11 - Reading Comprehension - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) Striving (putting effort toward) is used by the author to convey people’s attempt to understand. He implies this by emphasizing the powerful influence that a public intellectual has on his audience. Since the intellectual is imparting knowledge on the public, it makes sense that the public views the figure as their attempt or striving, to understand."
+        },
+        {
+          "id": "BT2-S4-Q12",
+          "type": "reading_comprehension",
+          "stem": "[Question 12 - Reading Comprehension - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) The new editorial policy, implemented in 2009, entails undergoing a “time-consuming” and rigorous (thorough) process, which would adequately explain the drop in articles in that year, since it would take longer for those articles to be approved to be published."
+        },
+        {
+          "id": "BT2-S4-Q13",
+          "type": "sentence_equivalence",
+          "stem": "[Question 13 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "A",
+            "C"
+          ],
+          "explanation": "(A, C) The senator’s heavy-handed (clumsy) approach contrasts with his opponents’, so his opponent must have craft (skill) or caginess (cleverness).",
+          "selectCount": 2
+        },
+        {
+          "id": "BT2-S4-Q14",
+          "type": "sentence_equivalence",
+          "stem": "[Question 14 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "B",
+            "D"
+          ],
+          "explanation": "(B, D) Using the word but as a clue to the sentence’s shift, the blank needs a word that means the opposite of “viewed by itself.” Concert (simultaneous agreement) or conjunction (combination) create the necessary opposition.",
+          "selectCount": 2
+        },
+        {
+          "id": "BT2-S4-Q15",
+          "type": "sentence_equivalence",
+          "stem": "[Question 15 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "A",
+            "E"
+          ],
+          "explanation": "(A, E) If the editor is not known for deigning (stooping) to explain himself, it would make sense that he would refuse to explicate (explain) or elucidate (clarify).",
+          "selectCount": 2
+        },
+        {
+          "id": "BT2-S4-Q16",
+          "type": "sentence_equivalence",
+          "stem": "[Question 16 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "D",
+            "E"
+          ],
+          "explanation": "(D, E) The word despite indicates a shift, so if the servant has a reputation for slavish (excessive) devotion, then it is logical to use nonchalance (indifference) or insouciance (unconcern).",
+          "selectCount": 2
+        },
+        {
+          "id": "BT2-S4-Q17",
+          "type": "reading_comprehension",
+          "stem": "[Question 17 - Reading Comprehension - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) The author explains that the “changes in the soil microbiota”—that he previously asserted to be caused by the triclosan-tainted water—raise “concerns” about public health. Since he claims that these changes include an increase in resistant bacteria, one can conclude that the passage supports the assertion that the resistant bacteria are of more concern than the non-resistant bacteria."
+        },
+        {
+          "id": "BT2-S4-Q18",
+          "type": "reading_comprehension",
+          "stem": "[Question 18 - Reading Comprehension - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) The author, at the end of the passage, makes it clear that more research is needed before irrigation with waste water becomes a viable (workable) idea, so he stops short of providing information on whether it is a viable idea or not."
+        },
+        {
+          "id": "BT2-S4-Q19",
+          "type": "reading_comprehension",
+          "stem": "[Question 19 - Reading Comprehension - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) In this context, the author is emphasizing that the uncertainty is significant, and claims that finding the infestations is no better than guesswork. Therefore, the uncertainty must be momentous (extremely significant)."
+        },
+        {
+          "id": "BT2-S4-Q20",
+          "type": "reading_comprehension",
+          "stem": "[Question 20 - Reading Comprehension - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) The author explains what he means by lack of “economic content” in the next sentence, saying that the current policy does not account for either costs or uncertainty. In other words, he is claiming that the current strategy is unsound (not well made)."
+        }
+      ]
+    },
+    {
+      "id": "BT2-S5",
+      "sectionNumber": 5,
+      "type": "quantitative",
+      "name": "Section 5 — Quantitative Reasoning",
+      "timeMinutes": 35,
+      "questionCount": 20,
+      "questions": [
+        {
+          "id": "BT2-S5-Q1",
+          "type": "quantitative_comparison",
+          "stem": "[Question 1 - Quantitative Comparison - see source material]",
+          "correctAnswer": [
+            "D",
+            "E"
+          ],
+          "explanation": "(D, E) If there were an equal number of boys and girls, then the class average would equal the average of 78 and 94, which is But since there are more boys in the class, the average is weighted toward their number, 78, and will be less than 86. So choices (A) and (B) may be eliminated. If there are at least 3 times as many boys, then the class average will be at least 3 times as close numerically to their average as to the girls’ average. To find this value, which will be the maximum average for the class, we find the number  of the way from the boys’ average to the girls’ in order to obtain a 1:3 ratio of lengths. First, find the difference in the two averages, 94 − 78 = 16, and then divide this by 4 to obtain 16 ÷ 4 = 4. This number, 4, is added to 78, to obtain 82, the value 4 units from the boys’ average and 94 − 82 = 12 units from the girls’ average, which creates a 4:12 or 1:3 ratio of distances on the number line. This means that “at least three times as many boys” implies that the class average is at most 82, and (D) and (E) are correct. (This is sometimes thought of as the leverage or “see-saw” principle. On a see-saw, a 100- pound boy must sit 3 feet from the fulcrum to balance a 150-pound boy sitting 2 feet from the fulcrum, because 100 × 3 = 150 × 2.)"
+        },
+        {
+          "id": "BT2-S5-Q2",
+          "type": "quantitative_comparison",
+          "stem": "[Question 2 - Quantitative Comparison - see source material]",
+          "correctAnswer": [
+            "D",
+            "E",
+            "F"
+          ],
+          "explanation": "(D, E, F) When x is a negative number, squaring x will yield a positive number, whose square root in turn, is positive. So will not equal x, but will equal −x. For example, say x = −3. Then x2 = 9 and the opposite of x. So (A), (B), and (C) may be eliminated. When x ≥ 0, then taking the square root will cancel with squaring, its inverse operation, and (D), (E), and (F) are all correct. Note that which equals x if and only if x ≥ 0."
+        },
+        {
+          "id": "BT2-S5-Q3",
+          "type": "quantitative_comparison",
+          "stem": "[Question 3 - Quantitative Comparison - see source material]",
+          "correctAnswer": [
+            "A",
+            "B",
+            "D"
+          ],
+          "explanation": "(A, B, D) Easiest is to pick numbers for k, m, and n, and to assume our observations will hold in general, unless we have reason to think otherwise, in which case we would test other values too. We need k to be a factor of m, and m to be a factor of n, so say k = 5, m = 10, and n = 20. (A) is true, because 5 is a factor of 20. (B) is true because 10 is a factor of 20 × 5 = 100. (C) is not true, because 20 is not a factor of 50. (D) is true, because and and both 4 and 2 are integers. The answer is (A), (B), and (D)."
+        },
+        {
+          "id": "BT2-S5-Q4",
+          "type": "quantitative_comparison",
+          "stem": "[Question 4 - Quantitative Comparison - see source material]",
+          "correctAnswer": [
+            "A",
+            "B",
+            "D"
+          ],
+          "explanation": "(A, B, D) If ABD is equilateral, then AB, the height in larger triangle ABC is 9, and since we also know base BC, we can compute the area, making (A) sufficient. (B) is correct, because if DC = 6, then AC, the hypotenuse of the right triangle, equals 9 + 6, or 15. This would allow us to compute AB from the Pythagorean Theorem and the area as (D) is correct because if then and we again know the base and height of the triangle. (C) and (E) are not correct. These choices present us with only negative information, that BD is not perpendicular to AC, or that AB ≠ AD. These facts tell us very little, because they present no positive information that would allow us to determine an angle or side length in the figure. The answer is (A), (B), and (D)."
+        },
+        {
+          "id": "BT2-S5-Q5",
+          "type": "quantitative_comparison",
+          "stem": "[Question 5 - Quantitative Comparison - see source material]",
+          "correctAnswer": [
+            "C",
+            "E"
+          ],
+          "explanation": "(C, E) First factor the number 60 into its prime factors. Since 60 = 4 × 15, we have 60 = 22 × 3 × 5. Notice that 2 appears squared in this expression, but that 3 and 5 appear to the first power. For a number to be the square of another integer, each prime in the prime factorization of the number must be raised to an even power. (A) is not correct, because 228 × 60 will equal 230 × 3 × 5, which cannot be the square of an integer, because 3 and 5 are still to the first power. (B) is not correct, because multiplying 60 by 29 × 35 leaves an expression with 51. (C) is correct, because (22 × 3 × 5) × (33 × 55) = 22 × 34 × 56, which is the square of an integer, because all prime factors appear to even powers. Explicitly 22 × 34 × 56 is equal to the square of (21 × 32 × 53). (D) is not correct because of the 58 part, which multiplied by the 5 in 22 × 3 × 5 yields 59, which will not be the square of an integer, because the exponent is odd. In (E), the product of 3 × 5 × 728 and 22 × 3 × 5 is 230 × 32 × 52 × 728, which equals (215 × 31 × 51 × 714)2, so (E) is correct. The answer is (C) and (E)."
+        },
+        {
+          "id": "BT2-S5-Q6",
+          "type": "multiple_choice_single",
+          "stem": "[Question 6 - Multiple Choice - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) Joe bought the stock at just under $40, and sold it at just under $60. His profit is 60 − 40 = $20 per share. If he bought 800 shares, his profit was 800 × 20 = $16,000, (C)."
+        },
+        {
+          "id": "BT2-S5-Q7",
+          "type": "multiple_choice_single",
+          "stem": "[Question 7 - Multiple Choice - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) Friendbook changed from $30 to $60 during the year. SearchWiz varied from $20 to $50 during the year. Both differences are $30, but for SearchWiz, $30 represents a higher percentage of the stock’s value, because its stocks have a lower value. At SearchWiz, the stock’s minimum value, $20, is 40% of its maximum value, $50, because 40% of 50 = .40 × 50 = 20, or because (C) is correct."
+        },
+        {
+          "id": "BT2-S5-Q8",
+          "type": "numeric_entry",
+          "stem": "[Question 8 - Numeric Entry - see source material]",
+          "correctAnswer": "630",
+          "explanation": "(630) Microtech, whose stock values spanned less than one horizontal line on the graph, saw the least change in value. The highest value of the year for Microtech stocks was $70. The least expensive stock, LinkUp, had a value of $10 at its lowest price of the year. This means that Ann could purchase seven stocks of the latter for every one stock sold of the former. Then if she sold 90 shares of Microtech, she could purchase 90 × 7 = 630 shares of LinkUp."
+        },
+        {
+          "id": "BT2-S5-Q9",
+          "type": "multiple_choice_single",
+          "stem": "[Question 9 - Multiple Choice - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) The profit per shirt is given by the price at which a shirt is sold minus the price at which it was bought. Here, this quantity is r − c. The total profit will equal the number of shirts sold × the profit per shirt, which is simply x(r − c), choice (B)."
+        },
+        {
+          "id": "BT2-S5-Q10",
+          "type": "multiple_choice_single",
+          "stem": "[Question 10 - Multiple Choice - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) You are being asked to divide two fractions: Recall that to divide two fractions, multiply the fraction in the numerator by the reciprocal of the fraction in the denominator: Cross cancel the 3 over 6, which reduces to  to yield (B)."
+        },
+        {
+          "id": "BT2-S5-Q11",
+          "type": "multiple_choice_single",
+          "stem": "[Question 11 - Multiple Choice - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) We need to choose two math classes from eight offered and two physics classes from nine offered. These can be found with the “choose” function, written as and defined for positive integers by the formula Recall that n! means the product of all positive integers from 1 through n, inclusive. For math classes, we need 8C2, so n = 8 and k = 2 in the formula above: Most of the factors in the 8! expression cancel with all of the factors in 6!, and we are left with choices for math. Similarly, the number of combinations of physics classes equals The total combinations for math and physics classes equals 28 × 36 = 1,008, (D)."
+        },
+        {
+          "id": "BT2-S5-Q12",
+          "type": "multiple_choice_single",
+          "stem": "[Question 12 - Multiple Choice - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) If the four parts of the equation 5b = 6c = 7d = 120 are all equal, then any two parts are equal, so 5b = 120 and 6c = 120. Then division shows that b = 24 and c = 20. We are asked for which equals by substitution. Finally, substitute 120 for the entire 7d, and the last expression becomes (C)."
+        },
+        {
+          "id": "BT2-S5-Q13",
+          "type": "numeric_entry",
+          "stem": "[Question 13 - Numeric Entry - see source material]",
+          "correctAnswer": "80",
+          "explanation": "(80) The diagonal of a rectangle divides the rectangle into two right triangles, and so the diagonal’s length can be thought of as c, the hypotenuse, in the Pythagorean Theorem: a2 + b2 = c2. For the first TV, 702 + 2402 = c2, and For the second TV, 802 + 1502 = c2, and If you remember some common “Pythagorean Triples,” such as 3-4-5, 5-12-13, 8-15-17, and 7-24-25, you can obtain these values more quickly, because the side lengths of both triangles in the problem are 10 times one of these common triples. Finally, the one TV screen is 250 − 170 = 80 units longer."
+        },
+        {
+          "id": "BT2-S5-Q14",
+          "type": "multiple_choice_single",
+          "stem": "[Question 14 - Multiple Choice - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) Since 6.5 Yuan = $1 U.S. = 30 Baht, then 6.5 Yuan = 30 Baht. Divide both sides by 6.5 to obtain 1 Yuan ≈ 4.6 Baht, (D)."
+        },
+        {
+          "id": "BT2-S5-Q15",
+          "type": "multiple_choice_single",
+          "stem": "[Question 15 - Multiple Choice - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) One U.S. Dollar buys more than one Yuan, Baht, or Rupee, so those currencies are worth less than $1. The U.S. Dollar buys fewer than one Swiss Franc, so the Franc is worth more than $1, the only such currency, making the Swiss Franc, (E), greatest in value."
+        },
+        {
+          "id": "BT2-S5-Q16",
+          "type": "multiple_choice_single",
+          "stem": "[Question 16 - Multiple Choice - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) Find the x-intercept of a graph by setting y equal to 0. Then 6x = 72, and x = 12. Find the y-intercept of a graph by setting x equal to 0. Then 8y = 72, and y = 9. Quantity (A) is greater."
+        },
+        {
+          "id": "BT2-S5-Q17",
+          "type": "multiple_choice_single",
+          "stem": "[Question 17 - Multiple Choice - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) The median of a list of numbers is the middle value. If there are 19 numbers, the median will be the 10th smallest and the 10th largest. In other words, there will be nine values greater than the median, and nine values less than the median. Since there are also exactly nine numbers given as less than 60, these must be the nine smallest values, so the median will be the least of the numbers greater than 60. This number could be just barely greater than 60, say 60.0001, which is less than (B), or much greater than 60, say 1,000, which is greater than (B). Therefore, (D) is correct."
+        },
+        {
+          "id": "BT2-S5-Q18",
+          "type": "multiple_choice_single",
+          "stem": "[Question 18 - Multiple Choice - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) The average rate or speed of a moving object equals the distance it travels divided by the time it takes to travel that distance. That is In Column (A), the rate is In Column (B), the rate is which equals which is greater than (as long as the variables are positive), so (B) is greater. *Pick numbers. Let d = 10 and h = 10. Then Quantity (A) equals 1 mph, while Quantity (B) equals mph, so (B) is greater."
+        },
+        {
+          "id": "BT2-S5-Q19",
+          "type": "multiple_choice_single",
+          "stem": "[Question 19 - Multiple Choice - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) Since n equals 33, it equals, by definition, 3 × 3 × 3 = 27. Then Quantity (A) can be written as n27, or as (33)27. The “power to a power” rule dictates that the exponents here are multiplied, and that in general (xm)n = xmn. Then (A) equals 33×27 = 381, matching Quantity (B), so the quantities are equal, (C)."
+        },
+        {
+          "id": "BT2-S5-Q20",
+          "type": "multiple_choice_single",
+          "stem": "[Question 20 - Multiple Choice - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) Recall that the absolute value of a number equals the distance from 0 to that number on a number line. The integers that satisfy 10 < |k| < 20 are as follows: 11, 12, 13, 14, 15, 16, 17, 18, 19, −11, −12, −13, −14, −15, −16, −17, −18, −19. Of the negative integers on this list, the greatest is −11, so Quantity (A) is −11. The greatest of all negative integers, −1, makes the absolute value inequality false because |−1| equals 1, which is not between 10 and 20. So Quantity (B) is −1. Since −1 > −11, (B) is correct."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,727 @@
+{
+  "id": "barrons-test-3",
+  "name": "Barron's Practice Test 3",
+  "source": "Barron's 6 GRE Practice Tests",
+  "sourceShort": "Barron's",
+  "description": "Full-length GRE practice test 3 from Barron's 6 GRE Practice Tests. Includes Analytical Writing, 2 Verbal Reasoning sections (20 questions each, 30 min), and 2 Quantitative Reasoning sections (20 questions each, 35 min).",
+  "sectionCount": 5,
+  "totalTimeMinutes": 160,
+  "format": "old",
+  "sections": [
+    {
+      "id": "BT3-S1",
+      "sectionNumber": 1,
+      "type": "analytical_writing",
+      "name": "Section 1 — Analytical Writing",
+      "timeMinutes": 30,
+      "questionCount": 1,
+      "questions": [
+        {
+          "id": "BT3-S1-Q1",
+          "type": "analytical_writing",
+          "stem": "Analyze an Argument",
+          "correctAnswer": "essay",
+          "explanation": "This is an essay question - no single correct answer.",
+          "prompt": "Section 1—Analytical Writing Time: 60 Minutes—2 Writing Tasks TASK 1: ISSUE EXPLORATION TIME: 30 MINUTES The topic is presented in a one- to two-sentence quotation commenting on an issue of general concern.\nYour essay will be judged on the basis of your skill in the following areas:\n•   response to the specific task instructions •   consideration of the complexities of the issue •   organization, development, and expression of your ideas •   support of your position with relevant reasoning and examples •   control of the elements of standard written English Topic Claim: Scholastic art and music programs are so important that the government should fund those programs in schools that cannot afford them.\nReason: Students who study art and music are more likely to succeed than those who do not.\nDirections: Write a response in which you discuss the extent to which you agree or disagree with the claim and the reason on which that claim is based.\n*Please write your response on separate pieces of paper.\nTASK 2: ARGUMENT ANALYSIS TIME: 30 MINUTES Your essay will be judged on the basis of your skill in the following areas:\n•   identification and assessment of the argument’s main elements •   organization and articulation of your thoughts •   use of relevant examples and arguments to support your case •   handling of the mechanics of standard written English",
+          "directions": "Write a response in which you discuss what specific evidence is needed to evaluate the argument and explain how the evidence would weaken or strengthen the argument."
+        }
+      ]
+    },
+    {
+      "id": "BT3-S2",
+      "sectionNumber": 2,
+      "type": "verbal",
+      "name": "Section 2 — Verbal Reasoning",
+      "timeMinutes": 30,
+      "questionCount": 20,
+      "questions": [
+        {
+          "id": "BT3-S2-Q1",
+          "type": "text_completion",
+          "stem": "[Question 1 - Text Completion - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) The phrase “when in fact” signifies a change in the sentence’s direction, so a word such as accretion (growth by gradual addition) is a logical shift from “appear out of nowhere.”",
+          "blanks": 1
+        },
+        {
+          "id": "BT3-S2-Q2",
+          "type": "text_completion",
+          "stem": "[Question 2 - Text Completion - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) If the scientist’s results matched those from labs with stringent (strict) quality standards, it would make sense that finding out that his supplier was adulterating (making impure by adding cheaper ingredients) its chemicals would make him flabbergasted (shocked).",
+          "blanks": 1
+        },
+        {
+          "id": "BT3-S2-Q3",
+          "type": "text_completion",
+          "stem": "[Question 3 - Text Completion - see source material]",
+          "correctAnswer": [
+            "B",
+            "D"
+          ],
+          "explanation": "(B, D) That lenders were cognizant (aware) of the tenuousness (uncertainty) of the market would make it all the more reprehensible (blameworthy) that they still loaned money. Since they are still loaning money in a worse market, it follows that the author thinks they deserve censure (condemnation) from regulators.",
+          "blanks": 2
+        },
+        {
+          "id": "BT3-S2-Q4",
+          "type": "text_completion",
+          "stem": "[Question 4 - Text Completion - see source material]",
+          "correctAnswer": [
+            "C",
+            "D"
+          ],
+          "explanation": "(C, D) Since Phillips seems to think the studies are “misguided,” it makes sense that his book is a disparagement (belittling) of them. If the “traditionalists” did something unsurprising to this contrarian’s (one who goes against the norm) views, logically they must have reprehended (condemned) those views.",
+          "blanks": 2
+        },
+        {
+          "id": "BT3-S2-Q5",
+          "type": "text_completion",
+          "stem": "[Question 5 - Text Completion - see source material]",
+          "correctAnswer": [
+            "A",
+            "F"
+          ],
+          "explanation": "(A, F) Since the countries didn’t want a panic, they must have wanted their people to believe the survival tips would work. They downplayed a potential war’s severity to add credence (believability) to the tips’ efficacy (effectiveness). Given their goal, hiring physicists who were complicit (acting as an accomplice in a crime) in this deception made sense.",
+          "blanks": 2
+        },
+        {
+          "id": "BT3-S2-Q6",
+          "type": "text_completion",
+          "stem": "[Question 6 - Text Completion - see source material]",
+          "correctAnswer": [
+            "A",
+            "E",
+            "G"
+          ],
+          "explanation": "(A, E, G) The proliferation (growth) of online marketplaces would facilitate (help) reselling. Since the author poses the question “is it surprising…bidder?,” one can infer that the artists and critics do not like this fact because the word “though” prefaces a shift from their opinion; therefore, it makes sense they have reviled (sharply criticized) this reselling. Mercenary (motivated by profit) fits because of the passage’s topic: those who buy and sell art for monetary gain.",
+          "blanks": 3
+        },
+        {
+          "id": "BT3-S2-Q7",
+          "type": "reading_comprehension",
+          "stem": "[Question 7 - Reading Comprehension - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) This weakens the argument because if cars that are built better last longer, then the cars in City X built before 1980 probably still exist because of the quality with which they were built. Therefore, these existing cars might not represent all cars built before 1980, since many of those cars may have been discarded. Perhaps even most of the pre-1980 cars had poor quality and were quickly discarded."
+        },
+        {
+          "id": "BT3-S2-Q8",
+          "type": "reading_comprehension",
+          "stem": "[Question 8 - Reading Comprehension - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) The author says that someone who studies the cats and their prey “may benefit from understanding” the cats’ tendencies, but then goes on to say that “the capacity to actually estimate” the cats’ behavior is “out of reach.” Therefore, understanding the leopards’ behavior would be more helpful than a scientific or quantitative model."
+        },
+        {
+          "id": "BT3-S2-Q9",
+          "type": "reading_comprehension",
+          "stem": "[Question 9 - Reading Comprehension - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) The author stops short of saying that ecological methods of prediction do not work “the gist is not that ecological paradigms are failing” and instead argues that people are expecting too much of these models, saying that they don’t always work in practice, especially concerning small populations. Therefore, he is describing the limitations of ecological methods."
+        },
+        {
+          "id": "BT3-S2-Q10",
+          "type": "reading_comprehension",
+          "stem": "[Question 10 - Reading Comprehension - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) The author cites the “exploitation of (an organism) by indigenous people” as a reason that ecological models should not pretend to be able to predict that organism’s population in such cases. In other words, he argues that the typical ecological model could not account for an organism being hunted by humans in its habitat."
+        },
+        {
+          "id": "BT3-S2-Q11",
+          "type": "reading_comprehension",
+          "stem": "[Question 11 - Reading Comprehension - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) The passage says that accounting for the effect of animals consuming fish “may be warranted,” but then calls the prediction of the effect of humans consuming fish a “pretense,” saying it is not realistic. Therefore, the effect of animals consuming the species is less likely to invalidate the model described in the passage."
+        },
+        {
+          "id": "BT3-S2-Q12",
+          "type": "reading_comprehension",
+          "stem": "[Question 12 - Reading Comprehension - see source material]",
+          "correctAnswer": [
+            "A",
+            "D"
+          ],
+          "explanation": "(A, D) Since those who knew Alvarez are immune, or not fooled by, his portrayal in the press as a boor (rude person) and since he is described as having a veneer (thin covering) of churlishness (rudeness), it can be inferred that instead, he is genial (good-natured) or affable (friendly).",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT3-S2-Q13",
+          "type": "sentence_equivalence",
+          "stem": "[Question 13 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "C",
+            "F"
+          ],
+          "explanation": "(C, F) If red diamonds are only produced in one mine and second only to another mineral in their rarity, they must be extremely uncommon. Both singular (unusual) and anomalous (abnormal) would describe them well.",
+          "selectCount": 2
+        },
+        {
+          "id": "BT3-S2-Q14",
+          "type": "sentence_equivalence",
+          "stem": "[Question 14 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "B",
+            "C"
+          ],
+          "explanation": "(B, C) The “for instance” is an example of the conventional advice: to choose someone unlike yourself. If someone is histrionic (overly emotional), someone who is either stolid (unemotional) or phlegmatic (calm) would have a contrasting personality.",
+          "selectCount": 2
+        },
+        {
+          "id": "BT3-S2-Q15",
+          "type": "sentence_equivalence",
+          "stem": "[Question 15 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "A",
+            "E"
+          ],
+          "explanation": "(A, E) The described situation is clearly difficult if even a worldlywise (experienced) traveler would think so. Therefore, the situation could well be described as an embroilment (entanglement) or an imbroglio (difficult situation).",
+          "selectCount": 2
+        },
+        {
+          "id": "BT3-S2-Q16",
+          "type": "sentence_equivalence",
+          "stem": "[Question 16 - Sentence Equivalence - see source material]",
+          "correctAnswer": "The last sentence",
+          "explanation": "(The last sentence: Studies of tribes … domains.) The theory the passage postulates is that “perhaps with a limited amount of land, (they) … built structures with a dual purpose.” The last sentence supports this theory by providing evidence that other tribes with more territory kept observation and burial separate.",
+          "selectCount": 2
+        },
+        {
+          "id": "BT3-S2-Q17",
+          "type": "reading_comprehension",
+          "stem": "[Question 17 - Reading Comprehension - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) The passage explains that the ions, which are positive, are attracted to the negative dee, then again attracted to a negative dee after the dee’s electric potential has been reversed."
+        },
+        {
+          "id": "BT3-S2-Q18",
+          "type": "reading_comprehension",
+          "stem": "[Question 18 - Reading Comprehension - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) It can be inferred from the context that the author believes that the ions in the cyclotron act in a predictable way because their behavior is described chronologically and authoritatively; the author therefore uses “regular” to mean “predictable.”"
+        },
+        {
+          "id": "BT3-S2-Q19",
+          "type": "reading_comprehension",
+          "stem": "[Question 19 - Reading Comprehension - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) The author explains the magnetic field as a tool with which to direct the ions back toward the dee gap; he is therefore indicating the necessity of that direction for the operation of the cyclotron."
+        },
+        {
+          "id": "BT3-S2-Q20",
+          "type": "reading_comprehension",
+          "stem": "[Question 20 - Reading Comprehension - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) The first highlighted portion is a hypothesis: this year is not over. If that hypothesis is correct, that this year’s trees will not produce more oranges than last year’s new trees, then the hypothesis supports the argument’s conclusion. That conclusion is the second highlighted sentence, which postulates that this year’s orange crop will not break last year’s record."
+        }
+      ]
+    },
+    {
+      "id": "BT3-S3",
+      "sectionNumber": 3,
+      "type": "quantitative",
+      "name": "Section 3 — Quantitative Reasoning",
+      "timeMinutes": 35,
+      "questionCount": 20,
+      "questions": [
+        {
+          "id": "BT3-S3-Q1",
+          "type": "quantitative_comparison",
+          "stem": "[Question 1 - Quantitative Comparison - see source material]",
+          "correctAnswer": "17",
+          "explanation": "(17) Begin by writing out a few of the numbers to get a feeling for the problem: –8, –7, –6 … 0, 1, 2, 3…. They are consecutive integers beginning at –8. The question asks how many of these must be added, so that the sum is 0. Look for cancellation! If we extend the list to positive 8, then every positive integer may be paired with its opposite, to make the sum 0. The list now contains n = 17 numbers, namely eight positives, eight negatives, and the one number that is neither positive nor negative: zero."
+        },
+        {
+          "id": "BT3-S3-Q2",
+          "type": "quantitative_comparison",
+          "stem": "[Question 2 - Quantitative Comparison - see source material]",
+          "correctAnswer": "54",
+          "explanation": "(54) First, find the angle adjacent to the 132° angle along the line segment at bottom, which equals 180 – 132 = 48°, because the angles comprising a straight line sum to 180°. Then two angles in the lower triangle are known, so we can subtract their sum from 180 to find the third angle. 180 – (48 + 95) = 37°. Both the top angle of the lower triangle and the bottom angle of the upper triangle become 37°, because when two lines intersect, the angles directly across from each other, “vertical angles,” are equal. Now angle A, the third angle in the upper triangle equals 180 – (89 + 37) = 54°."
+        },
+        {
+          "id": "BT3-S3-Q3",
+          "type": "quantitative_comparison",
+          "stem": "[Question 3 - Quantitative Comparison - see source material]",
+          "correctAnswer": "−3/2",
+          "explanation": "( −  or −1.5) The Fundamental Theorem of Algebra states that if 6 is a root of the equation 2x2 − 9x − 18 = 0, then x − 6 is a factor of the polynomial. So 2x2 − 9x − 18 = (x − 6) (________ + ________). Fill in the blanks and thus factor the polynomial by noting that 2x2 and −18 must be formed as products, when multiplying by x and −6, respectively: 2x2 − 9x − 18 = (x − 6)(2x + 3). The two solutions are x − 6 = 0, so x = 6 (already known), or 2x + 3 = 0, so x = −  or −1.5."
+        },
+        {
+          "id": "BT3-S3-Q4",
+          "type": "quantitative_comparison",
+          "stem": "[Question 4 - Quantitative Comparison - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) Pick numbers, say 40 for x and −50 for y. Then (A) is −50 − 40 = −90, and (B) is 40 − (−50) = 40 + 50 = 90. So (B) is greater. Quantity (B) will always be greater because it will be positive in value (since the double negatives cancel to make a positive), while Quantity (A) will always be negative."
+        },
+        {
+          "id": "BT3-S3-Q5",
+          "type": "quantitative_comparison",
+          "stem": "[Question 5 - Quantitative Comparison - see source material]",
+          "correctAnswer": "A",
+          "explanation": "Then (A) is pm = 15, not an even number, and (B) is 3(3) – 2(5) = –1, also not even, so (A) and (B) are both incorrect. (C) is always even by definition, because it is written as 2 times another integer. Because 3 + 5 = 8, (D) is correct. 8 is even, and, in general, the sum of two odds is even. (E) is correct, because the value of the inner parentheses is even (since it is the sum of two odd numbers), and an even times any integer is even. Here, for example, (3 × 3 + 5 × 5) = 9 + 25 = 34. Answer is (C), (D), and (E)."
+        },
+        {
+          "id": "BT3-S3-Q6",
+          "type": "multiple_choice_single",
+          "stem": "[Question 6 - Multiple Choice - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) Let p = the full price, before any discounts. Then Mary, who received 25% marked off the price, paid p – .25p = .75p. Since she also paid $201, we know .75p = 201. Divide by .75 to obtain 1p = $268. Nan received a 15% discount, so she paid 1p – .15p = .85p, which is .85 × 268 = $227.80, a little more than $227, so (A) is correct."
+        },
+        {
+          "id": "BT3-S3-Q7",
+          "type": "multiple_choice_multi",
+          "stem": "[Question 7 - Multiple Choice (Select All) - see source material]",
+          "correctAnswer": [
+            "C",
+            "D",
+            "E"
+          ],
+          "explanation": "(C, D, E) Easiest is to pick numbers for the two odds, say p = 3, and m =",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT3-S3-Q8",
+          "type": "multiple_choice_multi",
+          "stem": "[Question 8 - Multiple Choice (Select All) - see source material]",
+          "correctAnswer": [
+            "C",
+            "D"
+          ],
+          "explanation": "(C, D) The triangle inequality states that in a triangle, the sum of any two of the side lengths is always greater than the length of any one. Equivalently, any one side length in a triangle must be less than the sum of the other two, but greater than the difference of the other two side lengths. Here, 17 – 12 < x < 17 + 12, or 5 < x < 29. Then the sum of the triangle’s three side length, its perimeter, will be greater than 5 + 12 + 17 but less than 29 + 12 + 17. This means 34 < perimeter < 58. Choices (C) and (D) satisfy this.",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT3-S3-Q9",
+          "type": "multiple_choice_multi",
+          "stem": "[Question 9 - Multiple Choice (Select All) - see source material]",
+          "correctAnswer": [
+            "B",
+            "C",
+            "D"
+          ],
+          "explanation": "(B, C, D) The restaurant will spend more than 55 + 23 = 78% of its revenue but less than 70 + 28 = 98% of its revenue on food, supplies, and staff salaries combined. Then its remaining net profit, after these expenses are subtracted from revenue, will be between 2% and 22% of revenue, because 100 – 78 = 22, and 100 – 98 = 2. Then for a revenue of $80,000, the profit, p, will satisfy .02 × 80,000 < p < .22 × 80,000, which implies 1600 < p < 17600. (B), (C), and (D) satisfy this.",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT3-S3-Q10",
+          "type": "numeric_entry",
+          "stem": "[Question 10 - Numeric Entry - see source material]",
+          "correctAnswer": "$1,360",
+          "explanation": "($1,360) Since Ann spent twice as much on expenses as on savings, we can think of expenses as 2x and savings as x, for some unknown x. If she spent an equal amount on food plus rent as on expenses plus savings, then expenses plus savings must account for exactly  of all spending. This means that 2x + 1x = , as long as x represents the proportion of spending on savings. Then 3x = , and multiplying by  on each side yields x = . In other words, x =  of Ann’s spending was on savings, and therefore was for expenses. One-third of the total $4,080 is 4,080 ÷ 3 = $1,360."
+        },
+        {
+          "id": "BT3-S3-Q11",
+          "type": "multiple_choice_single",
+          "stem": "[Question 11 - Multiple Choice - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) Ann’s rent is .25(4,080) =  = × 4,080 = $1,020. When this is reduced by $244.80, her rent becomes 1,020 – 244.80 = $775.20. This represents of savings, (C)."
+        },
+        {
+          "id": "BT3-S3-Q12",
+          "type": "multiple_choice_single",
+          "stem": "[Question 12 - Multiple Choice - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) The area of the full circle is 4 × 9π = 36π. The circle’s area is also given by the formula πr2. So 36π = πr2, and the radius, r, equals 6. Then AC = BC = 6. The four sectors are congruent, so the four central angles at point C are all equal, and thus each measures one-fourth of 360°. (Since there are 360° in a circle.) That is, angle ACB measures  × 360° = 90°. Then triangle ACB is an isosceles right triangle (45-45-90 triangle), the side lengths of which are always in the ratio x:x:x . This means that the length of hypotenuse AB equals the leg length times , which equals 6 , (B). If you don’t have the formula for the 45-45-90 triangle memorized, you can also obtain the last result from the Pythagorean Theorem: 62 + 62 = 36 + 36 = 72 = c2, and"
+        },
+        {
+          "id": "BT3-S3-Q13",
+          "type": "numeric_entry",
+          "stem": "[Question 13 - Numeric Entry - see source material]",
+          "correctAnswer": "$77.6",
+          "explanation": "($77.6 or $77.60) Set up a ratio to compare the number of books to their cost, aligning the unknown, x, with the desired cost: Cross multiply to obtain 6x = 465.50, and divide by 6 to get x = $77.6 or $77.60"
+        },
+        {
+          "id": "BT3-S3-Q14",
+          "type": "numeric_entry",
+          "stem": "[Question 14 - Numeric Entry - see source material]",
+          "correctAnswer": "12",
+          "explanation": "(12) Copy out the given equation and then add 11x and 99 to both sides, in order to combine like terms: Dividing both sides by 14 yields x = 12."
+        },
+        {
+          "id": "BT3-S3-Q15",
+          "type": "numeric_entry",
+          "stem": "[Question 15 - Numeric Entry - see source material]",
+          "correctAnswer": "2,640",
+          "explanation": "(2,640) Draw out four blanks to represent the four places in the word to be filled: ________ ________ ________ ________. In each blank, write the number of different ways that particular place can be filled. The total number of combinations will then equal the product of the numbers in the blanks. There are 12 consonants and five vowels in the language. Words fit the CVVC pattern, so we might expect the total number of possible words to equal 12 × 5 × 5 × 12. But since we are looking for words with no repeated letters, the number of possibilities for the second vowel and for the second consonant are each reduced by 1, so the answer becomes 12 × 5 × 4 × 11 = 2,640 possible words with four different letters."
+        },
+        {
+          "id": "BT3-S3-Q16",
+          "type": "numeric_entry",
+          "stem": "[Question 16 - Numeric Entry - see source material]",
+          "correctAnswer": "$78,104",
+          "explanation": "($78,104) When Company D’s value decreased by 3%, it retained 97% of its value of $66,000, which is .97 × 66,000 = $64,020. In the following year, it increased in value by 22% of this, or .22 × $64,020 = $14,084.40. When this increase is added to 64,020, the final value becomes $78104.4, which rounds to $78,104. *A nice shortcut is to think of the final value as 1.22(.97(66,000)), which is entered on the calculator as 1.22 × .97 × 66,000 = 78,104.4 ≈ 78,104. In this approach, we obtain 1.22 mentally by thinking of (value + 22% of value) as 1V + .22V = 1.22V. Similarly, value minus 3% of value is 1V – .03V = .97V, justifying the shortcut."
+        },
+        {
+          "id": "BT3-S3-Q17",
+          "type": "multiple_choice_single",
+          "stem": "[Question 17 - Multiple Choice - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) We are informed of the percent change in the companies’ total sales, but we have no information on the actual sales amounts in dollars. A small percentage of a high sales total could be greater than a larger percentage of a low sales total. Therefore, (E), there is not enough information to determine."
+        },
+        {
+          "id": "BT3-S3-Q18",
+          "type": "multiple_choice_multi",
+          "stem": "[Question 18 - Multiple Choice (Select All) - see source material]",
+          "correctAnswer": [
+            "A",
+            "B"
+          ],
+          "explanation": "(A, B) For (A), it is easiest to imagine that the company started with sales of $100. After a 10% increase, it had sales of 100 + 10 = $110. When the company next experienced a 10% decrease in sales, it lost .10 × 110 = $11 in sales, so it had only $110 – 11 = $99 in sales. (Or .9 × 110 = $99, as in 16* above.) This makes (A) correct, because 99 < 100, corresponding to a decrease in sales from the starting value. To compute Company B’s change in sales for the 2-year period, multiply 1.12 by 1.13 to represent the 12% increase “on top of” a 13% increase (again, see 16* above). This yields 1.12 × 1.13 ≈ 1.266, or about a 26.6% increase for the 2-year period. Inspection of the other numbers shows that none of the other companies increased by as much, so (B) is correct. You can use the percent change figures to compute Company C’s total sales ratio for 2011 to 2009. Assume the figure is $100 in 2009. After a 17% increase, the sales will equal $117. However, to decrease this number, $117, by 5% is not to simply subtract 5 from 117, to obtain 112, and so the ratio will not equal 112:100, and (C) is not correct. Company C’s sales in 2011 in this example would equal .95 × 117 = 111.15, and so the proper ratio of sales between the two years would be 111.15:100. Answer is (A) and (B).",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT3-S3-Q19",
+          "type": "numeric_entry",
+          "stem": "[Question 19 - Numeric Entry - see source material]",
+          "correctAnswer": "1.8 cents",
+          "explanation": "(1.8 cents) Plug the value x = 9.91 into the function which becomes = 1.8 cents."
+        },
+        {
+          "id": "BT3-S3-Q20",
+          "type": "numeric_entry",
+          "stem": "[Question 20 - Numeric Entry - see source material]",
+          "correctAnswer": "5",
+          "explanation": "(5) The area of rectangular region ABCD is equal to 6 × 8 = 48. The area of a trapezoid is given by where b1 and b2 are the bases (the parallel sides) and h is the height, or perpendicular altitude drawn between the bases. Here, This means that 12 × h = 48, since the trapezoid’s area equals that of the rectangle, and h = 4. Finally, the symmetry of the isosceles trapezoid and the central rectangle allow us to infer that XY, in the figure below, is equal to 9, and that PX and YQ are both equal to Then QR is the hypotenuse of a right triangle with legs equal to 3 and 4, so QR = 5, by the Pythagorean Theorem, because 32 + 42 = 52. If you forget the formula for area of a trapezoid, you can also find h by setting the sum of the areas of the rectangle and two right triangles in the figure above equal to the known area of 48. That is and 12h = 48, and again h = 4."
+        }
+      ]
+    },
+    {
+      "id": "BT3-S4",
+      "sectionNumber": 4,
+      "type": "verbal",
+      "name": "Section 4 — Verbal Reasoning",
+      "timeMinutes": 30,
+      "questionCount": 20,
+      "questions": [
+        {
+          "id": "BT3-S4-Q1",
+          "type": "text_completion",
+          "stem": "[Question 1 - Text Completion - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) The word despite indicates that the professor’s occasional behavior contrasts with his usual tolerance, so fulmination (strong condemnation) would work.",
+          "blanks": 1
+        },
+        {
+          "id": "BT3-S4-Q2",
+          "type": "text_completion",
+          "stem": "[Question 2 - Text Completion - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) Since the research shows transfats are harmful and the electorate (group of voters) has an outcry against them, lawmakers will probably ban them, i.e., it is improbable (unlikely) that they’ll refrain from banning them.",
+          "blanks": 1
+        },
+        {
+          "id": "BT3-S4-Q3",
+          "type": "text_completion",
+          "stem": "[Question 3 - Text Completion - see source material]",
+          "correctAnswer": [
+            "C",
+            "D"
+          ],
+          "explanation": "(C, D) Since the author’s earlier writing was noted for its “flourishes and flair,” it must have a decorative, showy style. If blank (i) was sparing (restrained), it would make sense that the current work is unrecognizable. Blank (ii) should fit “flourishes and flair” but have a more negative connotation; grandiloquence (marked by excess) fits.",
+          "blanks": 2
+        },
+        {
+          "id": "BT3-S4-Q4",
+          "type": "text_completion",
+          "stem": "[Question 4 - Text Completion - see source material]",
+          "correctAnswer": [
+            "B",
+            "D",
+            "G"
+          ],
+          "explanation": "(B, D, G) A clue for blank (i) is provided in the second sentence, with the phrase “it can be difficult to imagine how these monoliths (large organizations) might be influenced.” Since the second sentence begins with “but,” the first sentence must express an idea in contrast to this difficulty, and subject (under the power of) creates that contrast. For blank (ii), the same clue can be used, and the phrase “even the largest shareholders” implies that the companies cannot be swayed. Therefore, trivialized and disregarded logically fits. Blank (iii) must support the last sentence, and if omnipotent (all-powerful) boards of directors are pervasive (spread throughout), it would be difficult to effect change.",
+          "blanks": 3
+        },
+        {
+          "id": "BT3-S4-Q5",
+          "type": "text_completion",
+          "stem": "[Question 5 - Text Completion - see source material]",
+          "correctAnswer": [
+            "B",
+            "F"
+          ],
+          "explanation": "(B, F) For blank (ii), garnering makes sense because the solar panel company “bested” its competitors. A clue for blank (i) is provided with the word “despite,” which signifies that the blank is the opposite of inveterate (established), so inchoate (in an early stage) would fit.",
+          "blanks": 2
+        },
+        {
+          "id": "BT3-S4-Q6",
+          "type": "text_completion",
+          "stem": "[Question 6 - Text Completion - see source material]",
+          "correctAnswer": [
+            "B",
+            "F",
+            "I"
+          ],
+          "explanation": "(B, F, I) It’s easiest to start with blank (iii): if the savage warriors dare not cross the range, they would consider it to be a juggernaut (overwhelming force). Then, blank (i) could be boon (something beneficial), since the eastern tribes are known for their belligerence (warlike nature) toward the kingdom. Blank (ii) would then have to be safeguarded (protected), since the mountains are protecting the inhabitants by keeping out the tribes.",
+          "blanks": 3
+        },
+        {
+          "id": "BT3-S4-Q7",
+          "type": "reading_comprehension",
+          "stem": "[Question 7 - Reading Comprehension - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) Only this choice is analogous to Burroughs’ portrayal of language as a parasitic virus that makes life less interesting. Therefore, an adult who possesses language would be less likely than a newborn baby to be able to experience interesting things that produce excitement and delight."
+        },
+        {
+          "id": "BT3-S4-Q8",
+          "type": "reading_comprehension",
+          "stem": "[Question 8 - Reading Comprehension - see source material]",
+          "correctAnswer": "Sentence 8",
+          "explanation": "(Sentence 8: Disrupting the “natural” … recombinant DNA.) In this sentence, by his use of quotation marks, the author calls the established wisdom about what is natural and what flaws are into question. The effect is as if he is making quotation marks with his fingers when mentioning those terms."
+        },
+        {
+          "id": "BT3-S4-Q9",
+          "type": "reading_comprehension",
+          "stem": "[Question 9 - Reading Comprehension - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) In this context, “holds” means “controls,” since the sentence continues to say that it “impose(s) a simple linearity on experience.” This “imposing” implies that language is controlling experience."
+        },
+        {
+          "id": "BT3-S4-Q10",
+          "type": "reading_comprehension",
+          "stem": "[Question 10 - Reading Comprehension - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) By saying that Palgen’s work has “hints about how to uncover the truth for ourselves” and that the reader is required to “read between the lines,” the author implies that the work does not merely provide answer, but instead encourages the reader to think and draw her own conclusions."
+        },
+        {
+          "id": "BT3-S4-Q11",
+          "type": "reading_comprehension",
+          "stem": "[Question 11 - Reading Comprehension - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) The context of the rest of the sentence provides clues. Since the author claims that access to truth is “elusive,” the image of a receding horizon logically continues that idea; since the horizon recedes from the viewer, the truth draws farther away, making it more difficult to obtain."
+        },
+        {
+          "id": "BT3-S4-Q12",
+          "type": "reading_comprehension",
+          "stem": "[Question 12 - Reading Comprehension - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) If both of the insecticides can be used, then the argument, that Insecticide Q has no role, is weakened. Perhaps its harmless nature toward humans would make using it for the first 30 days and then using Insecticide P afterwards an effective plan."
+        },
+        {
+          "id": "BT3-S4-Q13",
+          "type": "sentence_equivalence",
+          "stem": "[Question 13 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "A",
+            "F"
+          ],
+          "explanation": "(A, F) The word notwithstanding (in spite of) creates a shift, so since the virtuoso (master musician) feels as though he cannot play, if his talents are prodigious (impressive) or extraordinary, then there is a surprising outcome as indicated by the shift.",
+          "selectCount": 2
+        },
+        {
+          "id": "BT3-S4-Q14",
+          "type": "sentence_equivalence",
+          "stem": "[Question 14 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "B",
+            "C"
+          ],
+          "explanation": "(B, C) A clue for the blank is given by the description of thoughts’ fleeting (short-lived) nature; therefore, both evanescent (short-lived) and ephemeral (short-lived) would also aptly describe the thoughts.",
+          "selectCount": 2
+        },
+        {
+          "id": "BT3-S4-Q15",
+          "type": "sentence_equivalence",
+          "stem": "[Question 15 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "C",
+            "E"
+          ],
+          "explanation": "(C, E) Kopitsky’s manner is being criticized, since his professor is chastising (criticizing) him and warning him about the consequences of continued delays. Both dilatory (tending to delay) and tardy (tending toward lateness) would thus describe Kopitsky’s research.",
+          "selectCount": 2
+        },
+        {
+          "id": "BT3-S4-Q16",
+          "type": "sentence_equivalence",
+          "stem": "[Question 16 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "A",
+            "D"
+          ],
+          "explanation": "(A, D) If modesty is not immune to excess, then it is vulnerable to being overdone. The semicolon indicates a continuation of the sentence’s theme since there are no shifting words, so a surfeit (overabundance) of self-effacement (modesty) could be called words like conceit (an excessively favorable opinion of oneself) or haughtiness (pridefulness), both of which are near-opposites of modesty.",
+          "selectCount": 2
+        },
+        {
+          "id": "BT3-S4-Q17",
+          "type": "reading_comprehension",
+          "stem": "[Question 17 - Reading Comprehension - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) The passage states that the pitch of a siren “seemingly descends” as it moves away from an observer, which supports the assertion that the pitch seems lower but is not actually lower."
+        },
+        {
+          "id": "BT3-S4-Q18",
+          "type": "reading_comprehension",
+          "stem": "[Question 18 - Reading Comprehension - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) The passage makes no mention of the intensity of a sound relative to an observer; it only discusses the changes in relative pitch and frequency of the sound."
+        },
+        {
+          "id": "BT3-S4-Q19",
+          "type": "reading_comprehension",
+          "stem": "[Question 19 - Reading Comprehension - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) If the coins were sought after, “patent to” in this context means a guarantee or assurance of nobility if the coins were possessed by someone."
+        },
+        {
+          "id": "BT3-S4-Q20",
+          "type": "reading_comprehension",
+          "stem": "[Question 20 - Reading Comprehension - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) The sentence provides evidence (Japan collected the Chinese coins) that supports a claim (having the coins was desirable and was seen as an indication that the owner of the coins was of a noble class)."
+        }
+      ]
+    },
+    {
+      "id": "BT3-S5",
+      "sectionNumber": 5,
+      "type": "quantitative",
+      "name": "Section 5 — Quantitative Reasoning",
+      "timeMinutes": 35,
+      "questionCount": 20,
+      "questions": [
+        {
+          "id": "BT3-S5-Q1",
+          "type": "quantitative_comparison",
+          "stem": "[Question 1 - Quantitative Comparison - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) When a line passes through the origin, (0, 0), the x- and y-coordinates of any point on the line will vary directly with each other. In other words, there is some constant, k, for which y = kx, or = the slope of the line. , so the x-coordinate of any point on the line (in Quadrant I) will be greater than the y-coordinate, and a > b, making (A) is greater. This is because the constant so the slope is less than 1. Think of this as meaning that the “rise” is less than the “run,” so that the “up amount” of any point on the line, or its y-coordinate, is less than the “across amount,” or its x-coordinate. This makes b < a, and a > b."
+        },
+        {
+          "id": "BT3-S5-Q2",
+          "type": "quantitative_comparison",
+          "stem": "[Question 2 - Quantitative Comparison - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) Solve for m by trial and error. Observe that 25 = 2 × 2 × 2 × 2 × 2 = 8 × 4 = 32, so m = 5. Then (A) is 35 = 3 × 3 × 3 × 3 × 3 = 243, while (B) is 53 = 5 × 5 × 5 = 125, and (A) is greater."
+        },
+        {
+          "id": "BT3-S5-Q3",
+          "type": "quantitative_comparison",
+          "stem": "[Question 3 - Quantitative Comparison - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) The area of the parallelogram will not equal 40 × 50, but 40h, because area is given by base × height. h < 50, because h is the leg of a right triangle with hypotenuse equal to 50. Then area, 40h, is less than 40 × 50, so (B), equal to 40 × 50 = 2,000, is greater."
+        },
+        {
+          "id": "BT3-S5-Q4",
+          "type": "quantitative_comparison",
+          "stem": "[Question 4 - Quantitative Comparison - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) Many equations with an x2 are solved by first getting one side equal to 0. If x2 + 5x = 6 then x2 + 5x – 6 = 0. The left side is factored as (x + 6) (x – 1), since 6x – 1x = 5x. Quantity (A) exactly matches the factored form (x + 6)(x – 1), which equals 0. Since 1 > 0, Quantity (B) is greater."
+        },
+        {
+          "id": "BT3-S5-Q5",
+          "type": "quantitative_comparison",
+          "stem": "[Question 5 - Quantitative Comparison - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) There are a couple of different ways to draw the picture: The three children, say X, Y, and Z, might all live quite near Ann, A, which would make (B) greater. But the children may also live near the opposite corner of the rectangular region from Ann, which would make each distance greater than 100 and the sum greater than 300. (D) is correct."
+        },
+        {
+          "id": "BT3-S5-Q6",
+          "type": "multiple_choice_single",
+          "stem": "[Question 6 - Multiple Choice - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) Work your way up from the bottom. and this added to 1 is To divide change to multiplication by the reciprocal of the denominator: This added to 1 becomes As before, . Finally, , (C)."
+        },
+        {
+          "id": "BT3-S5-Q7",
+          "type": "multiple_choice_single",
+          "stem": "[Question 7 - Multiple Choice - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) If the average weight of five people is 120 pounds per person, then the total weight in the room is 5 × 120 = 600 pounds. A moment later there are pounds in the room. This means that the 6th person brought 750 – 600 = 150 new pounds to the room, (E)."
+        },
+        {
+          "id": "BT3-S5-Q8",
+          "type": "multiple_choice_single",
+          "stem": "[Question 8 - Multiple Choice - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) By visual inspection, the point in the lower right, (5, 5.5) is farthest from the line, so it represents the student who least fit the general pattern of data. Reading straight across to the left, we see that the score for this student is 5.5, (B)."
+        },
+        {
+          "id": "BT3-S5-Q9",
+          "type": "multiple_choice_multi",
+          "stem": "[Question 9 - Multiple Choice (Select All) - see source material]",
+          "correctAnswer": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "explanation": "(A, B, C, D) (A) The trend line, or line of best fit, has a positive slope. It inclines upward as we move from left to right, implying that scores rise with more hours studied. (B) There are three students who studied for less than 2 hours, the 3 points in the lower left. Two of these students scored a 6, but none scored above 6. (C) The most frequently recurring quiz score, or mode quiz score, is 8. The median, or middle value on the list, must be below 8, because only four of the scores are as high as 8, while six of the scores are below 8. Specifically, the median of 10 scores will always be the average of the 5th and 6th highest scores, both of which, here, are less than 8. (D) The two students who scored a 7 differed in their number of hours studied by more than 2 full hours.",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT3-S5-Q10",
+          "type": "multiple_choice_single",
+          "stem": "[Question 10 - Multiple Choice - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) The question is really asking, for what number n will 320 + 322 = 320 × n. Factor the left side by factoring out 320, the greatest common factor of 320 and 322. Then 320(1 + 32) = 320 × n, since exponents are added when multiplying expressions with a common base. So 320(1 + 9) = 320(10) = 320n, and 10 = n, to make the two sides match, (B)."
+        },
+        {
+          "id": "BT3-S5-Q11",
+          "type": "multiple_choice_single",
+          "stem": "[Question 11 - Multiple Choice - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) Begin by distributing on both sides to obtain Now combine like terms by subtracting 3 and adding  to each side. This yields so 10 = 5x, and x = 2, (D). Check by putting 2 back in as x to see that 3(1 + 1) = 3 × 2 = 6, which also equals"
+        },
+        {
+          "id": "BT3-S5-Q12",
+          "type": "multiple_choice_single",
+          "stem": "[Question 12 - Multiple Choice - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) Translate the words into math symbols, noting that eight less than the square of x translates into x-squared minus 8, so x2 – 8 < 8. Add 8 to both sides, and x2 < 16. Avoid carelessly taking the square-root of each side to obtain x < 4, (B), because this approach neglects consideration of negative values. Negative numbers that are more than 4 units from 0 will become positive and greater than 16 when squared, failing to satisfy the inequality. All numbers less than 4 units from 0 in either direction will be less than 16 when squared: The values of x within the shaded region, –4 < x < 4, (D), satisfy the inequality."
+        },
+        {
+          "id": "BT3-S5-Q13",
+          "type": "numeric_entry",
+          "stem": "[Question 13 - Numeric Entry - see source material]",
+          "correctAnswer": "120",
+          "explanation": "(120) Many students will not get past the initial thought that the answer must be 5 × 5 and will quickly enter 25, which is incorrect. To solve, take a “fill in the blank” approach. Write out five blanks to represent the five weekdays, say Monday through Friday:_____ _____ _____ _____ _____. In each blank, write the number of ways that particular blank can be filled. On Monday, there are five possible games we could test, so write 5 in the first blank. On Tuesday, there are only four choices left, because the same game will not be tested again. Since five different games need to be tested in the 5-day period, repeats are precluded. Write 4 in the second blank. On Wednesday, there are only three choices remaining, and so forth. By the Basic Counting Principle, the total number of combinations equals the product of these numbers. Therefore, there are 5 × 4 × 3 × 2 × 1 or 120 total orderings."
+        },
+        {
+          "id": "BT3-S5-Q14",
+          "type": "numeric_entry",
+          "stem": "[Question 14 - Numeric Entry - see source material]",
+          "correctAnswer": "231",
+          "explanation": "(231) Think of the unknowns as x and y, and set up a linear system: If we add the two whole rows together, the y and –y term cancel, and 2x = 66, so x = 33. Substituting this value back into the first row shows that y = 7, since 33 + 7 = 40. Finally, the product means xy, which is 33 × 7 = 231."
+        },
+        {
+          "id": "BT3-S5-Q15",
+          "type": "multiple_choice_single",
+          "stem": "[Question 15 - Multiple Choice - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) Look only at the total enrollment column at the right. This shows a few small yearly decreases and three larger decreases of 42, 41, and 40, in the periods from 2000 to 2001, 2001 to 2002, and 2005 to 2006, respectively. Put each decrease over the starting value of that period, to determine the percent change. The calculator shows that the greatest is (E)."
+        },
+        {
+          "id": "BT3-S5-Q16",
+          "type": "multiple_choice_single",
+          "stem": "[Question 16 - Multiple Choice - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) Conveniently, the numbers are already in (decreasing) numerical order, making it easy to compute the median. The median annual total enrollment through 2006 is simply 828, the number in the middle. If the new value, the 2007 total enrollment, were less than 828, the median would go down and would not equal 834.5, as required. If the 2007 total were more than 850, then the median for the 8 years would be the average of the two middle values, and again would not equal 834.5. Therefore, the 2007 total enrollment, say x, must have been between 828 and 850, and more importantly, when x is averaged with 828, the result is the median for all 8 years, 834.5. This means So 828 + x = 1,669. Then x = 1,669 – 828 = 841. Finally, 300 of these 841 students were female, leaving 841 – 300 = 541 males, (D)."
+        },
+        {
+          "id": "BT3-S5-Q17",
+          "type": "multiple_choice_single",
+          "stem": "[Question 17 - Multiple Choice - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) Find the average of 24 and 52, which is in order to find the midpoint of 24 and 52 on a number line. The number 38 is located 14 units from both 24 and 52, so we can think of all permissible heights as those within 14 units of 38. By definition, |x – 38| means the distance from x to 38 on a number line. If we want this to be less than 14, choice (C), |x – 38| <14, properly expresses the relationship."
+        },
+        {
+          "id": "BT3-S5-Q18",
+          "type": "numeric_entry",
+          "stem": "[Question 18 - Numeric Entry - see source material]",
+          "correctAnswer": "92",
+          "explanation": "(92) In the year 2000, there were eight programmers for every five scientists for every 8 + 5 = 13 total people. This means that programmers were of all people and that scientists were of all people. (We need only consider these two types of employees as “people.”) Then there were scientists at the company in 2000. In 2010, there were three programmers for every four scientists for every 3 + 4 = 7 total people. So scientists were  of the 196 employees, which equals scientists. Then there were 112 – 20 = 92 more scientists in 2010."
+        },
+        {
+          "id": "BT3-S5-Q19",
+          "type": "multiple_choice_single",
+          "stem": "[Question 19 - Multiple Choice - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) This is a direct application of the Pythagorean Theorem, a2 + b2 = c2, which relates the side lengths in a right triangle. Notice that to solve for x, you are finding the hypotenuse—c in the formula—but that to solve for y, you are finding one of the legs –a or b in the formula. 42 + 52 = x2, so 16 + 25 = x2, and x = Furthermore, 32 + y2 = 72, so 9 + y2 = 49, making Because (A) is greater."
+        },
+        {
+          "id": "BT3-S5-Q20",
+          "type": "multiple_choice_single",
+          "stem": "[Question 20 - Multiple Choice - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) The segment whose endpoints are the centers of the two circles will have a length of 3 + 4 = 7, because the segment consists of the radii of the two circles meeting endpoint to endpoint on a straight line. Since the circles are tangent to the x-axis (intersecting at exactly one point), the radius of each circle, when drawn to the x-axis, will be perpendicular to the x-axis and will determine the center’s y-coordinate. That is, one circle’s center is 3 units above the x-axis, and one center is 4 units above the x–axis. Then for some constants, c and d, we can think of the coordinates of the two centers as (c,3) and (d,4). To find the slope of the segment, find change in y over change in x, or We can infer that d – c is less than 7, because it represents the length of the horizontal leg of the right triangle depicted, which must be less than the length of the triangle’s hypotenuse, 7. (Specifically, Then so (A) is greater. For positive values, a larger number in the denominator makes the fraction smaller."
+        }
+      ]
+    }
+  ]
+}

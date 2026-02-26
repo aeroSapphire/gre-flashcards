@@ -1,0 +1,740 @@
+{
+  "id": "barrons-test-1",
+  "name": "Barron's Practice Test 1",
+  "source": "Barron's 6 GRE Practice Tests",
+  "sourceShort": "Barron's",
+  "description": "Full-length GRE practice test 1 from Barron's 6 GRE Practice Tests. Includes Analytical Writing, 2 Verbal Reasoning sections (20 questions each, 30 min), and 2 Quantitative Reasoning sections (20 questions each, 35 min).",
+  "sectionCount": 5,
+  "totalTimeMinutes": 160,
+  "format": "old",
+  "sections": [
+    {
+      "id": "BT1-S1",
+      "sectionNumber": 1,
+      "type": "analytical_writing",
+      "name": "Section 1 — Analytical Writing",
+      "timeMinutes": 30,
+      "questionCount": 1,
+      "questions": [
+        {
+          "id": "BT1-S1-Q1",
+          "type": "analytical_writing",
+          "stem": "Analyze an Argument",
+          "correctAnswer": "essay",
+          "explanation": "This is an essay question - no single correct answer.",
+          "prompt": "Section 5: Quantitative Reasoning\n\nSection 1—Analytical Writing Time: 60 Minutes—2 Writing Tasks TASK 1: ISSUE EXPLORATION TIME: 30 MINUTES The topic is presented in a one- to two-sentence quotation commenting on an issue of general concern.\nYour essay will be judged on the basis of your skill in the following areas:\n•   response to the specific task instructions •   consideration of the complexities of the issue •   organization, development, and expression of your ideas •   support of your position with relevant reasoning and examples •   control of the elements of standard written English Topic Students are more responsible for their educations than are their teachers.\nDirections: Write a response in which you discuss the extent to which you agree or disagree with the statement and explain your reasoning for the position you take. In developing and supporting your position, you should consider ways in which the statement might or might not hold true and explain how these considerations shape your position.\n*Please write your response on separate pieces of paper.\nTASK 2: ARGUMENT ANALYSIS TIME: 30 MINUTES Your essay will be judged on the basis of your skill in the following areas:\n•   identification and assessment of the argument’s main elements •   organization and articulation of your thoughts •   use of relevant examples and arguments to support your case •   handling of the mechanics of standard written English Topic",
+          "directions": "Write a response in which you discuss what specific evidence is needed to evaluate the argument and explain how the evidence would weaken or strengthen the argument."
+        }
+      ]
+    },
+    {
+      "id": "BT1-S2",
+      "sectionNumber": 2,
+      "type": "verbal",
+      "name": "Section 2 — Verbal Reasoning",
+      "timeMinutes": 30,
+      "questionCount": 20,
+      "questions": [
+        {
+          "id": "BT1-S2-Q1",
+          "type": "text_completion",
+          "stem": "[Question 1 - Text Completion - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) An optimist and a cynic will have contrasting world views, so if the optimist thinks corruption is sporadic (occasional), it is logical that the cynic believes graft (corruption) to be ubiquitous (ever-present). The use of the word while also signifies contrasting elements.",
+          "blanks": 1
+        },
+        {
+          "id": "BT1-S2-Q2",
+          "type": "text_completion",
+          "stem": "[Question 2 - Text Completion - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) If it is surprising that the official became contentious (tending to argue) and belligerent (hostile), then he must have been conciliatory (agreeable) beforehand.",
+          "blanks": 1
+        },
+        {
+          "id": "BT1-S2-Q3",
+          "type": "text_completion",
+          "stem": "[Question 3 - Text Completion - see source material]",
+          "correctAnswer": [
+            "B",
+            "F"
+          ],
+          "explanation": "(B, F) Neither of the two blanks has a supporting clue in the sentence, so it is useful to think about the relationship between the blanks. If blank (i) was small, for instance, then blank (ii) could be a word like unsurprising. Looking at the choices, only overwhelming and stupefying (astonishing) create the necessary logic.",
+          "blanks": 2
+        },
+        {
+          "id": "BT1-S2-Q4",
+          "type": "text_completion",
+          "stem": "[Question 4 - Text Completion - see source material]",
+          "correctAnswer": [
+            "A",
+            "D"
+          ],
+          "explanation": "(A, D) Since without further context both choices (A) and (C) could fit blank (i), it makes sense to begin with blank (ii). The architects are utilitarian (only focused on the useful), and they discard embellishments (decorations); their style could therefore be termed ascetic (severely simple in appearance), especially since given the clue “to the point that,” which indicates “to an extreme level.” The contrast to such a style would be ornateness (decorativeness).",
+          "blanks": 2
+        },
+        {
+          "id": "BT1-S2-Q5",
+          "type": "text_completion",
+          "stem": "[Question 5 - Text Completion - see source material]",
+          "correctAnswer": [
+            "A",
+            "E"
+          ],
+          "explanation": "(A, E) The word despite signifies an upcoming shift or contradiction in the sentence. Looking at the choices, melodrama (excessive drama) and maudlin (overly sentimental) create that shift, because, with those words in the sentence, the actor does something that contradicts what he claims to believe. Knowing the definition of antithesis (opposite) helps here.",
+          "blanks": 2
+        },
+        {
+          "id": "BT1-S2-Q6",
+          "type": "text_completion",
+          "stem": "[Question 6 - Text Completion - see source material]",
+          "correctAnswer": [
+            "A",
+            "E",
+            "H"
+          ],
+          "explanation": "(A, E, H) It is easiest to start with blank (ii): if the works were once only collected by a few and now sell for thousands of dollars, then approbation (approval) fits. Accordingly, blank (i) should also be complimentary to the art, so esteem (high regard) is logical. Blank (iii) should maintain the positive light in which these works are regarded, and if the works supplant (replace) old ones, such a tone is supported.",
+          "blanks": 3
+        },
+        {
+          "id": "BT1-S2-Q7",
+          "type": "reading_comprehension",
+          "stem": "[Question 7 - Reading Comprehension - see source material]",
+          "correctAnswer": [
+            "A",
+            "B"
+          ],
+          "explanation": "(A, B) Choice (A) is correct. The researchers studying the Anadarko group had a functional understanding of the signs used by the delegation of tribes because, as the passage mentions, they were able to ascertain that the signs used had a degree of uniformity, a judgment that would have been impossible if they didn’t have a working understanding of the signs. Choice (B) is correct. Since the passage uses qualifying language like “nearly uniform” when describing the signs and says that they were unified “to an extent,” it can be inferred that at least some of the signs used by delegation members differed significantly from those used by other members.",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT1-S2-Q8",
+          "type": "reading_comprehension",
+          "stem": "[Question 8 - Reading Comprehension - see source material]",
+          "correctAnswer": "Sentence 3",
+          "explanation": "(Sentence 3: However, the individuals who gave the signs … heterogeneity) Most of the passage is concerned with describing the similarities between different tribes’ signs, but the author compares sign language to spoken language in Sentence 3, saying that signs can have “the unification so often observed in oral speech.”"
+        },
+        {
+          "id": "BT1-S2-Q9",
+          "type": "reading_comprehension",
+          "stem": "[Question 9 - Reading Comprehension - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) The idea “gained currency” because of the reasoning given later in the sentence, so the word “acceptance” could be substituted for “currency” in this context. The idea gained support."
+        },
+        {
+          "id": "BT1-S2-Q10",
+          "type": "reading_comprehension",
+          "stem": "[Question 10 - Reading Comprehension - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) If the researchers are calling the explanation a “useful way to tie” things together, it makes sense that “hailed” means lauded (praised) in this context."
+        },
+        {
+          "id": "BT1-S2-Q11",
+          "type": "reading_comprehension",
+          "stem": "[Question 11 - Reading Comprehension - see source material]",
+          "correctAnswer": [
+            "B",
+            "C"
+          ],
+          "explanation": "(B, C) Like any trait that current organisms possess, conspicuous markings must exist because organisms with them are the offspring of previous generations that survived long enough to reproduce. By saying that there is a “trade off” in terms of color function, the author implies that any trait would not exist unless it had a corresponding benefit to the organism’s survival, and therefore, its reproduction. He also implies that conspicuous markings may be detrimental to an organism, contrasting them with cryptic (camouflaging) markings, giving further evidence that being conspicuous must help an organism breed, (B). Choice (C) is also supported by this reasoning.",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT1-S2-Q12",
+          "type": "reading_comprehension",
+          "stem": "[Question 12 - Reading Comprehension - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) By saying that an organism’s color is an “adaptive function,” the author implies that its color can help the organism in different ways at different times, which supports the assertion that these demands may be “competing,” i.e., a color that helps with one demand may be unhelpful for another."
+        },
+        {
+          "id": "BT1-S2-Q13",
+          "type": "sentence_equivalence",
+          "stem": "[Question 13 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "B",
+            "F"
+          ],
+          "explanation": "(B, F) If even the politician’s ardent (passionate) supporters are unsure of his position, he must not be very clear. Equivocate (communicate to allow multiple interpretations) and vacillate (waver) both convey the politician’s lack of clarity.",
+          "selectCount": 2
+        },
+        {
+          "id": "BT1-S2-Q14",
+          "type": "sentence_equivalence",
+          "stem": "[Question 14 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "B",
+            "D"
+          ],
+          "explanation": "(B, D) The word but indicates that the critic’s review will be in contrast to his private insistence. Both extolled (praised) and celebrated create the necessary shift.",
+          "selectCount": 2
+        },
+        {
+          "id": "BT1-S2-Q15",
+          "type": "sentence_equivalence",
+          "stem": "[Question 15 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "C",
+            "F"
+          ],
+          "explanation": "(C, F) Since the professor cannot write simply and clearly, his directions must be the opposite of those characteristics. It is thus logical that his directions are obfuscated (made unclear) or obscured (hidden) by ambiguity (lack of clarity).",
+          "selectCount": 2
+        },
+        {
+          "id": "BT1-S2-Q16",
+          "type": "sentence_equivalence",
+          "stem": "[Question 16 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "C",
+            "E"
+          ],
+          "explanation": "(C, E) If scientists have trouble collecting data due to the brief time span, it follows that the bursts are either transient (short-lived) or fleeting. The use of “bursts” also conveys a short time-span.",
+          "selectCount": 2
+        },
+        {
+          "id": "BT1-S2-Q17",
+          "type": "reading_comprehension",
+          "stem": "[Question 17 - Reading Comprehension - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) The first portion in boldface makes a claim, or assertion, that “in the southern hemisphere this effect is intensified.” The second portion provides another assertion that qualifies, or restricts, the earlier assertion, by giving a reason that compensates for the sun’s greater intensity, i.e., that the southern summer is shorter."
+        },
+        {
+          "id": "BT1-S2-Q18",
+          "type": "reading_comprehension",
+          "stem": "[Question 18 - Reading Comprehension - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) In paragraph 2, the author provides examples of Coupland’s work and says that it “gives language to the Canadian experience.” He also subtly mocks Grassian, who seems to classify Coupland’s fiction as American, which implies that the author disagrees with that classification."
+        },
+        {
+          "id": "BT1-S2-Q19",
+          "type": "reading_comprehension",
+          "stem": "[Question 19 - Reading Comprehension - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) The author begins with a description of Coupland claiming that his work should not be characterized as Canadian, but then provides evidence that Coupland’s work helps create a Canadian identity that is therefore, essentially, Canadian. The word “yet” signifies a shift from Coupland’s dismissal."
+        },
+        {
+          "id": "BT1-S2-Q20",
+          "type": "reading_comprehension",
+          "stem": "[Question 20 - Reading Comprehension - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) In the second paragraph, the author says that by exploring and extending Canadian culture through his writing, Coupland has, ironically, made his work a part of Canadian literature even though he dismisses said literature as of inferior quality. In other words, his claim is belied (contradicted) by his work’s content."
+        }
+      ]
+    },
+    {
+      "id": "BT1-S3",
+      "sectionNumber": 3,
+      "type": "quantitative",
+      "name": "Section 3 — Quantitative Reasoning",
+      "timeMinutes": 35,
+      "questionCount": 20,
+      "questions": [
+        {
+          "id": "BT1-S3-Q1",
+          "type": "quantitative_comparison",
+          "stem": "[Question 1 - Quantitative Comparison - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) Think of s as a constant, such as 2 or 3, and replace t with various values. If t = 100, then Column A reads s25, while Column B reads s96, and Quantity (B) is much greater. If t = 4, then Column A becomes s1, which equals s, while Column B reads s0, which equals 1, and this time Quantity (A) is greater. Therefore, (D) is correct, since it is possible to make either quantity greater."
+        },
+        {
+          "id": "BT1-S3-Q2",
+          "type": "quantitative_comparison",
+          "stem": "[Question 2 - Quantitative Comparison - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) Start with the given equation, and divide both sides by y to obtain Now square both sides: Thus, the two quantities are equal, (C)."
+        },
+        {
+          "id": "BT1-S3-Q3",
+          "type": "quantitative_comparison",
+          "stem": "[Question 3 - Quantitative Comparison - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) Line up the two given equations vertically, and then subtract to eliminate the variable a, remembering to distribute the negative sign across the second equation: Divide this last equation, 3b = −9, by 3 on each side, and b = −3. Now substitute this value of b into either given equation, say the second, to obtain the value of a. So a − (−3) = 12, which means a + 3 = 12, yielding a = 9. Because 9 > −3, (A) is greater."
+        },
+        {
+          "id": "BT1-S3-Q4",
+          "type": "quantitative_comparison",
+          "stem": "[Question 4 - Quantitative Comparison - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) Obtain the revenue for five discounts by putting in 5 as x into the given function R(x) = −2x2 + 32x +160. Then R(5) = −2(5)2 + 32(5) +"
+        },
+        {
+          "id": "BT1-S3-Q5",
+          "type": "quantitative_comparison",
+          "stem": "[Question 5 - Quantitative Comparison - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) Divide the square’s perimeter by 4 to obtain the length of one side. 36 ÷ 4 = 9. Draw the diameter of the circle and note that this also equals the square’s side length, 9. Then the circle’s circumference, given by π × diameter, equals 9π. Since π > 3, 9π > 9 × 3 = 27 and (A) is greater."
+        },
+        {
+          "id": "BT1-S3-Q6",
+          "type": "numeric_entry",
+          "stem": "[Question 6 - Numeric Entry - see source material]",
+          "correctAnswer": "24",
+          "explanation": "(24) Three consecutive even integers can be represented by x, x + 2, and x + 4. Set the sum of these side lengths equal to the perimeter: x + x + 2 + x + 4 = 24. Combining like terms yields 3x + 6 = 24. Subtract 6 from both sides, and 3x = 18, so x = 6. This means that the three side lengths are 6, 8, and 10, which you can also obtain with a guess-and-check approach, since 4 + 6 + 8 equals only 18, but 6 + 8 + 10 = 24. If we knew that this were a right triangle, we could treat 8 as the base and 6 as the height, and the triangle’s area, given by  × base × height, would equal  × 6 × 8 = 24. We can verify that the triangle is, in fact, right by noting that 62 + 82 = 102 (since 36 + 64 = 100), which means that the side lengths satisfy the Pythagorean relationship a2 + b2 = c2. Then the area is 24, by coincidence matching the perimeter."
+        },
+        {
+          "id": "BT1-S3-Q7",
+          "type": "numeric_entry",
+          "stem": "[Question 7 - Numeric Entry - see source material]",
+          "correctAnswer": "71.5",
+          "explanation": "(71.5) Start by writing the ratios in an easy-to-read form, using the first letter of each type of nut. A:C:P 5:8:11 There are 11 pounds of peanuts for every 5 + 8 + 11 = 24 pounds of the nut mixture. This means that peanuts are of the total weight. Then a 156-pound mix contains pounds of peanuts."
+        },
+        {
+          "id": "BT1-S3-Q8",
+          "type": "multiple_choice_single",
+          "stem": "[Question 8 - Multiple Choice - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) In year one, the account earned 6% of $400 in interest. That is, .06 × 400, or $24. When the interest is “compounded,” this $24 is reinvested in the account, which will then hold 400 + 24 = $424. In year two, the interest is 6% of $424, or .06 × 424, which equals $25.44. The year two interest is greater by 25.44 − 24 = $1.44, (D)."
+        },
+        {
+          "id": "BT1-S3-Q9",
+          "type": "multiple_choice_single",
+          "stem": "[Question 9 - Multiple Choice - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) Set up a linear equation to model each tree’s growth. Let x be the number of years, and let y, the dependent variable, represent the height of the tree as it varies over time. For Ann’s tree, y = 3.6x + 76; for Bob’s, y = 4.8x + 58. When the trees’ heights are equal, the y values in each equation will be equal, so we can set 3.6x + 76 equal to 4.8x + 58. Then, group like terms together by subtracting 3.6x and 58 from both sides: Finally, divide both sides by 1.2 to obtain x = 15, (C)."
+        },
+        {
+          "id": "BT1-S3-Q10",
+          "type": "multiple_choice_single",
+          "stem": "[Question 10 - Multiple Choice - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) The mode of a list is the most frequently recurring number on the list. Since 76 is the mode, 76 must appear at least twice on the list. So at least one of the unknown scores must equal 76. The median, or middle value on a list, is found by first rewriting the given numbers in order from least to greatest. Here, after inserting the second 76, we know these 6 scores: 35, 48, 76, 76, 89. Since the median is given as 54, draw a triangle below the 54, and think of that as the balancing point. There are three values to the right of the triangle but only two to the left. Therefore, the final missing score must be less than 54, to ensure that 54 is in the middle. Only choice (A), 50, works. Thus, the two missing scores are 50 and 76, and since the problem asks for the smaller of these, (A) is correct."
+        },
+        {
+          "id": "BT1-S3-Q11",
+          "type": "multiple_choice_single",
+          "stem": "[Question 11 - Multiple Choice - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) The original area of the 12 by 20 page was 12 × 20 = 240 cm2. When a 1- cm margin is painted around the edge of the paper, the length and width of the unpainted region are each reduced by 2 cm, because the paint covers both the top and bottom of the page, as well as the left and right of the page. Therefore, the unpainted region now measures (12 − 2) by (20 − 2), or 10 by 18, and its area is 10 × 18 = 180 cm2. This means that or 75% remains unpainted, (E)."
+        },
+        {
+          "id": "BT1-S3-Q12",
+          "type": "multiple_choice_single",
+          "stem": "[Question 12 - Multiple Choice - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) In 2011, the technology sector consists of 25% of 80 million people, which is 20 million people. In 2050, technology represents 30% of 120 million people, which is .30 × 120 million, or 36 million people. The increase is 36 − 20 = 16 million people, (D)."
+        },
+        {
+          "id": "BT1-S3-Q13",
+          "type": "numeric_entry",
+          "stem": "[Question 13 - Numeric Entry - see source material]",
+          "correctAnswer": "8",
+          "explanation": "(8) In 2011, the ratio of health employees to service employees was 12.5%:20%, or Multiply the top and bottom of the fraction by 2 to create an equivalent ratio of integers, Now divide the numerator and denominator by 5, the greatest common factor of 25 and 40 to obtain the reduced ratio of This means that for every five health employees there were 8 service employees."
+        },
+        {
+          "id": "BT1-S3-Q14",
+          "type": "multiple_choice_single",
+          "stem": "[Question 14 - Multiple Choice - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) Be careful. The total number of employees increases from 80 million to 120 million between 2011 and 2050, so a decrease in percentage for a category could correspond to an increase in actual workers. For example, the service sector in 2011 contains 20% of 80 million employees, which is 16 million employees, while in 2050, the percentage drops to 16.67%, but .1667 × 120 million ≈ 20 million employees, a net increase. In addition to the service sector, the health, technology, and education sectors also see an increase in the number of employees (a higher percentage of a higher total), so there are four such categories in all, (C)."
+        },
+        {
+          "id": "BT1-S3-Q15",
+          "type": "multiple_choice_single",
+          "stem": "[Question 15 - Multiple Choice - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) In 2050, the education and manufacturing sectors account for 15% + 8.33% = 23.33% of the 120 million total employees. This equals .2333 × 120 million ≈ 28 million employees. In 2011, education and other account for 10% + 17.5% = 27.5% of the 80 million total employees. This equals .275 × 80 million = 22 million employees. The first figure exceeds the second by 28 − 22 = 6 million (C)."
+        },
+        {
+          "id": "BT1-S3-Q16",
+          "type": "multiple_choice_multi",
+          "stem": "[Question 16 - Multiple Choice (Select All) - see source material]",
+          "correctAnswer": [
+            "D",
+            "E",
+            "F"
+          ],
+          "explanation": "(D, E, F) The question asks, when is n2 ≥ 2n. Since we are only considering positive values of n, we can divide both sides by n to obtain n ≥ 2. Thus, the statement is satisfied for values of n greater than or equal to 2, (D), (E), and (F). *10−2 means (A) and (B) are not correct because squaring 0.01 or 0.9 yields an even smaller value, certainly not “at least twice the number.” (C) is not correct because 12 = 1, whereas twice 1 equals 2. (D) is correct, because 22 = 4, which is exactly twice 2, or 2 × 2, and a number is at least equal to itself. (E) and (F) are correct, because if n > 2, then n2 = n × n > n × 2.",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT1-S3-Q17",
+          "type": "multiple_choice_multi",
+          "stem": "[Question 17 - Multiple Choice (Select All) - see source material]",
+          "correctAnswer": [
+            "A",
+            "C",
+            "D"
+          ],
+          "explanation": "(A, C, D) (A) is sufficient because if the solid is a cube, the volume can be found by cubing the side length 8. That is, volume would equal 83. (B) is not sufficient because the face with area 64 might have dimensions of, say, 16 × 4 or 32 × 2, producing solids of varying volumes. (C) is sufficient because if BC = CD = AB = 8, the volume will equal 8 × 8 × 8 = 83, length times width times height. (D) is sufficient, because in an isosceles right triangle (45-45-90 triangle), it is possible to determine all three side lengths from knowing just one. The leg lengths always equal the length of the hypotenuse divided by Here, BC and CD would both equal and again we know the length, width, and height of the solid. (E) is not sufficient, because there is no way to determine the solid’s height. The vertical length BC can be stretched to any height, producing varying volumes, but as long as CD = 8, AC will remain equal to BD as given. The answer is (A), (C), and (D).",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT1-S3-Q18",
+          "type": "multiple_choice_multi",
+          "stem": "[Question 18 - Multiple Choice (Select All) - see source material]",
+          "correctAnswer": [
+            "B",
+            "D",
+            "E"
+          ],
+          "explanation": "(B, D, E) The numbers that make g(x) undefined are numbers that make the denominator equal to 0, because division by 0 is not defined. The product (x − 1)(x + 2)(x − 3) will equal 0 when any of the individual factors equals 0, because zero times anything equals zero. Then either x − 1 = 0, x + 2 = 0, or x − 3 = 0, and x could equal 1, −2, or 3 choices, (B), (D), and (E).",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT1-S3-Q19",
+          "type": "numeric_entry",
+          "stem": "[Question 19 - Numeric Entry - see source material]",
+          "correctAnswer": "129",
+          "explanation": "(129) First, compute the missing angle in the left-hand triangle, by subtracting the two known angles from 180°. 180 − 24 − 89 yields 67°. Because “vertical angles” are congruent, the angle directly across from this one also measures 67°. Two angles are now known in the right-hand triangle, and we can compute its third angle as 180 − 67 − 62, which equals 51°. Finally, the two adjacent angles that make up a straight line add up to 180°, so x = 180 − 51 = 129."
+        },
+        {
+          "id": "BT1-S3-Q20",
+          "type": "numeric_entry",
+          "stem": "[Question 20 - Numeric Entry - see source material]",
+          "correctAnswer": "6",
+          "explanation": "(6) Square both sides of the given equation, in order to get rid of the square root: Be careful on the right- side to square the binomial by using the F.O.I.L. method or the formula (a − b)2 = a2 − 2ab + b2. This yields 2x − 3 = x2 − 6x + 9. To solve a quadratic, or x2, equation, set one side equal to zero first, by grouping all the terms onto the other side. Here, subtract 2x and add 3 to both sides to obtain: 0 = x2 − 8x + 12. Finally, factor the right side by noting that −6 × −2 equals 12, while −6 + −2 = −8. So 0 = (x − 2)(x − 6), and x = 2 or x = 6. However, squaring both sides may produce an “extraneous” solution, so make sure to check each result in the original equation. If x = 2, the right side equals but the left equals 2 − 3 = −1. Only x = 6 satisfies the original equation, making both sides equal to 3."
+        }
+      ]
+    },
+    {
+      "id": "BT1-S4",
+      "sectionNumber": 4,
+      "type": "verbal",
+      "name": "Section 4 — Verbal Reasoning",
+      "timeMinutes": 30,
+      "questionCount": 20,
+      "questions": [
+        {
+          "id": "BT1-S4-Q1",
+          "type": "text_completion",
+          "stem": "[Question 1 - Text Completion - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) The phrasing “just as … so” indicates the blank will coincide with the professor’s curt (brief) answers. Summary (short) creates the necessary link.",
+          "blanks": 1
+        },
+        {
+          "id": "BT1-S4-Q2",
+          "type": "text_completion",
+          "stem": "[Question 2 - Text Completion - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) The word although tells us that the adjective describing the matter will be different than the description in the second part of the sentence, which explains that the disagreement is from a fundamental (foundational) schism, or split. Therefore, nugatory (trivial) makes sense.",
+          "blanks": 1
+        },
+        {
+          "id": "BT1-S4-Q3",
+          "type": "text_completion",
+          "stem": "[Question 3 - Text Completion - see source material]",
+          "correctAnswer": [
+            "C",
+            "F"
+          ],
+          "explanation": "(C, F) Start with the second blank. If the critics wanted the movie to be accessible to more people, then forthright (direct) would fit blank (ii). The word but signifies a shift, so nicety (understatement) works for blank (i).",
+          "blanks": 2
+        },
+        {
+          "id": "BT1-S4-Q4",
+          "type": "text_completion",
+          "stem": "[Question 4 - Text Completion - see source material]",
+          "correctAnswer": [
+            "C",
+            "D"
+          ],
+          "explanation": "(C, D) If critics once categorized Westerns as patent (obvious) escapism, then using derided (ridiculed) for blank (i) to describe that criticism would make sense. And, if those films are now lauded (praised), then only exemplars (ideal models) fits blank (ii).",
+          "blanks": 2
+        },
+        {
+          "id": "BT1-S4-Q5",
+          "type": "text_completion",
+          "stem": "[Question 5 - Text Completion - see source material]",
+          "correctAnswer": [
+            "A",
+            "F"
+          ],
+          "explanation": "(A, F) Looking at the relationship between the two blanks helps on this question. If the blank (i) was a word like “supported,” blank (ii) would have to be a word like “similar.” Or, if blank (i) was a word like “weakened,” blank (ii) would be something like “different.” Looking at the choices, only bolstered (supported) and complementary (shared in a helpful way) create a workable relationship.",
+          "blanks": 2
+        },
+        {
+          "id": "BT1-S4-Q6",
+          "type": "text_completion",
+          "stem": "[Question 6 - Text Completion - see source material]",
+          "correctAnswer": [
+            "A",
+            "D",
+            "G"
+          ],
+          "explanation": "(A, D, G) Blank (i) is explained by looking at the rest of the sentence after the blank. The word “and” implies continuation, so the right answer should go along with “naturalness,” and should match “what natural intelligence might … do.” Plausibility (believability) is a good match. Blank (ii) is clarified by looking at the next sentence, which says “these goals are … secondary and … undesirable.” Therefore, they are not optimal, or ideal. Blank (iii) must be a negative word to go along with “detracts,” and so discomfits (frustrates) is the only possible choice.",
+          "blanks": 3
+        },
+        {
+          "id": "BT1-S4-Q7",
+          "type": "reading_comprehension",
+          "stem": "[Question 7 - Reading Comprehension - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) If the students can now buy sodas for less money, it would explain why their soda consumption would increase."
+        },
+        {
+          "id": "BT1-S4-Q8",
+          "type": "reading_comprehension",
+          "stem": "[Question 8 - Reading Comprehension - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) The author says that “a neutrino-dominated universe would have … caused a ‘top-down’ formation,” and then follows by explaining that, in a top-down formation, larger structures would have formed, then broken apart, supporting the statement that the average distance between galaxies would grow as time passed."
+        },
+        {
+          "id": "BT1-S4-Q9",
+          "type": "reading_comprehension",
+          "stem": "[Question 9 - Reading Comprehension - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) The mention of large galaxies is part of the author’s description of a sequence of events in the “bottom-up” theory, which he claims to explain the universe and which he uses to argue against a model using neutrinos as the main source of dark matter."
+        },
+        {
+          "id": "BT1-S4-Q10",
+          "type": "reading_comprehension",
+          "stem": "[Question 10 - Reading Comprehension - see source material]",
+          "correctAnswer": [
+            "B",
+            "C"
+          ],
+          "explanation": "(B, C) The author says that, in the novel, “tramps appear as professional parasites … (that) cadge money off of … well-meaning marks,” which supports choice (B). Choice (C) is also supported by this depiction, as well as by the descriptions that follow, where tramps are “defined as drunkards” and as “immigrants with weak work habits”—all supporting the idea that tramping is done of one’s own volition (will).",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT1-S4-Q11",
+          "type": "reading_comprehension",
+          "stem": "[Question 11 - Reading Comprehension - see source material]",
+          "correctAnswer": "Sentence 8",
+          "explanation": "(Sentence 8: This sometimes takes … companion.) The “Thoreauvian” tramp explains that he “could tramp forever and forever, with Nature as a companion.” In doing so, he personifies (give human qualities to) nature to explain his reason for being a tramp."
+        },
+        {
+          "id": "BT1-S4-Q12",
+          "type": "reading_comprehension",
+          "stem": "[Question 12 - Reading Comprehension - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) The author says that there is “a direct relation between the size of the neocortex and cognitive abilities.” Since the author also says that the size of a human neocortex is quadruple that of a chimpanzee’s, the ability of a human neocortex is the biggest difference."
+        },
+        {
+          "id": "BT1-S4-Q13",
+          "type": "sentence_equivalence",
+          "stem": "[Question 13 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "B",
+            "F"
+          ],
+          "explanation": "(B, F) The main clue for the blank is that the companies described after the blank “are not afraid to take risks,” implying they are aggressive or intrepid (bold). The other clue is that the businesses that embrace the status quo (the way things are) will not compete well against the later- mentioned companies.",
+          "selectCount": 2
+        },
+        {
+          "id": "BT1-S4-Q14",
+          "type": "sentence_equivalence",
+          "stem": "[Question 14 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "C",
+            "D"
+          ],
+          "explanation": "(C, D) If sunspots were, in the past, incorrectly thought to be planets, there must have been a lack or scantness (insufficient quantity) of knowledge at that time compared to the knowledge available now.",
+          "selectCount": 2
+        },
+        {
+          "id": "BT1-S4-Q15",
+          "type": "sentence_equivalence",
+          "stem": "[Question 15 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "A",
+            "D"
+          ],
+          "explanation": "(A, D) The clues given for the blank are deluged (overwhelmed) and the implication that people should filter out certain information. This makes sense if people receive copious (large) or profuse (abundant) amounts of information.",
+          "selectCount": 2
+        },
+        {
+          "id": "BT1-S4-Q16",
+          "type": "sentence_equivalence",
+          "stem": "[Question 16 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "D",
+            "E"
+          ],
+          "explanation": "(D, E) Since the governments are allowing the businesses to merely pay a modicum (small portion) of taxes, they must be continuing to propitiate (gain the favor of) or coddle (treat with excessive kindness) them.",
+          "selectCount": 2
+        },
+        {
+          "id": "BT1-S4-Q17",
+          "type": "reading_comprehension",
+          "stem": "[Question 17 - Reading Comprehension - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) The argument is that drivers now use less gasoline than they did before the advent of hybrid vehicles. Knowing that the number of miles driven in a hybrid vehicle that were powered by electricity exceeds the number that could have been driven with the gasoline used to make the electricity strengthens the argument. It explains that more miles come from that electricity, proving that hybrid vehicles use less gas than conventional cars and trucks."
+        },
+        {
+          "id": "BT1-S4-Q18",
+          "type": "reading_comprehension",
+          "stem": "[Question 18 - Reading Comprehension - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) In the second sentence of the passage, the author implies that the novel is not clearly outlined or logically structured and says that these qualities may frustrate readers. In the last sentence, the author claims that its lack of structure helps it “achieve(s) its authenticity,” which indicates the author believes that the structure also adds to the novel’s worth."
+        },
+        {
+          "id": "BT1-S4-Q19",
+          "type": "reading_comprehension",
+          "stem": "[Question 19 - Reading Comprehension - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) The second sentence provides help to interpret the first, since in it, the author talks about A Killing in This Town’s lack of structure. The first sentence also implies that Vernon decided to improvise rather than plan the novel."
+        },
+        {
+          "id": "BT1-S4-Q20",
+          "type": "reading_comprehension",
+          "stem": "[Question 20 - Reading Comprehension - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) Throughout the passage, the author talks about the novel’s structure. Although the author complains about the “randomness” of its development, this is a comment on the nature of the narrative development rather than a comment on the lack of development."
+        }
+      ]
+    },
+    {
+      "id": "BT1-S5",
+      "sectionNumber": 5,
+      "type": "quantitative",
+      "name": "Section 5 — Quantitative Reasoning",
+      "timeMinutes": 35,
+      "questionCount": 20,
+      "questions": [
+        {
+          "id": "BT1-S5-Q1",
+          "type": "quantitative_comparison",
+          "stem": "[Question 1 - Quantitative Comparison - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) The zero product property states that when several numbers multiply to equal zero, one of the individual numbers must equal zero. From the first equation, one of the unknowns, a, b, or c must be 0. But b and c both appear in the second equation, which shows that bcd equals 12, a non-zero value. So neither b, nor c, nor d can equal zero, and therefore, in the first equation, a must have been the variable equal to zero. A similar analysis of the second and third equations reveals that e = 0. So a = 0 = e, and the quantities are equal, (C)."
+        },
+        {
+          "id": "BT1-S5-Q2",
+          "type": "quantitative_comparison",
+          "stem": "[Question 2 - Quantitative Comparison - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) In column A, work within the parentheses first. which equals 9 × 3, because (ab)2 = a2b2. So Quantity (A) is 27. In column B, simplify under the radical first. so Quantity and the quantities are equal, (C). Remember that squaring and taking a square root are inverse operations, so squaring a radical generally yields the value underneath the radical. *Simplify column A to and column B to as above. In column B, so the quantities must be equal because the values inside the parentheses, before squaring, are both"
+        },
+        {
+          "id": "BT1-S5-Q3",
+          "type": "quantitative_comparison",
+          "stem": "[Question 3 - Quantitative Comparison - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) First, try to find a number which multiplied by itself four times equals 81. Observe that 81 = 9 × 9, and that 9 = 3 × 3, so that 81 = 3 × 3 × 3 × 3 = 34, so x = 3 satisfies the first equation. Next, solve for y by dividing both sides of the second equation by 8 to obtain y3 = 8, and y = 2 (since 2 × 2 × 2 = 8). It may seem that if x = 3 and y = 2, then (A) is greater, but recall that a negative number raised to an even power is positive. Here, (−3)4 also equals 81, so x could equal 3 or −3. Since 3 > 2, but −3 < 2, (D) is correct."
+        },
+        {
+          "id": "BT1-S5-Q4",
+          "type": "quantitative_comparison",
+          "stem": "[Question 4 - Quantitative Comparison - see source material]",
+          "correctAnswer": "B",
+          "explanation": "Then mn equals 54 = 625."
+        },
+        {
+          "id": "BT1-S5-Q5",
+          "type": "quantitative_comparison",
+          "stem": "[Question 5 - Quantitative Comparison - see source material]",
+          "correctAnswer": "A",
+          "explanation": "The answer is (A) and (D)."
+        },
+        {
+          "id": "BT1-S5-Q6",
+          "type": "multiple_choice_single",
+          "stem": "[Question 6 - Multiple Choice - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) The easiest approach is to substitute the xy-coordinate values of points on the curve into the functions given in the answer choices, to see which choice produces the proper y-value for a given x-value. Begin with the vertex, an important point on a parabola, given here by the coordinates (1, −2). If the equation of the parabola is g(x), then g(1) must equal −2. In choice (B), g(1) = (1 − 1)2 − 2 = 0 − 2 = −2. No other choice contains a function such that g(1) = −2. *The function given in choice (B), g(x) = (x − 1)2 − 2, represents a transformation of the common function, f(x) = x2, whose graph in the xy- plane is a parabola pointed upward with vertex at the origin (0, 0,). Replacing x with (x − 1) causes a horizontal translation 1 unit to the right, and subtracting 2 causes a vertical translation 2 units down. Since the graph depicted has been shifted 1 unit to the right and 2 units down from the origin, (B) is correct."
+        },
+        {
+          "id": "BT1-S5-Q7",
+          "type": "multiple_choice_single",
+          "stem": "[Question 7 - Multiple Choice - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) points that the student scored in total on all eight tests combined. When two scores are dropped, six remain, and the total points for six tests at the new average of 92 points per test is equal to 6 × 92 = 552. The sum of the points that were dropped must account for the difference 704 − 552, or 152 points. Finally, the average of the two dropped tests is their sum, 152, divided by 2, or (D)."
+        },
+        {
+          "id": "BT1-S5-Q8",
+          "type": "multiple_choice_single",
+          "stem": "[Question 8 - Multiple Choice - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) The sum of the first 80 positive integers means 1 + 2 + 3 … + 79 +"
+        },
+        {
+          "id": "BT1-S5-Q9",
+          "type": "numeric_entry",
+          "stem": "[Question 9 - Numeric Entry - see source material]",
+          "correctAnswer": "18",
+          "explanation": "(18) First, draw the picture. The horizontal distance between the two points is the difference of their x-coordinates, 9 − 1 = 8. The diagonal distance between the points, given as 17, forms the hypotenuse of a right triangle, with one leg of length 8 and one of length (y − 3). By the Pythagorean Theorem, (y − 3)2 + 82 = 172. Using the onscreen calculator, we find that (y − 3)2 = 289 − 64 = 225. Now take the square root of each side, noting that only the positive solution need be considered, because y > 0. Then , and y − 3 = 15, so y = 18."
+        },
+        {
+          "id": "BT1-S5-Q10",
+          "type": "multiple_choice_single",
+          "stem": "[Question 10 - Multiple Choice - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) If 68% of pythons weigh within 1 standard deviation of the mean and 95% weigh within 2 standard deviations of the mean, then the difference 95% − 68% = 27% weigh between 1 and 2 standard deviations from the mean. Here, each standard deviation equals 8 kg, so 1 to 2 standard deviations correspond to 8 to 16 kg. Pythons weighing from 8 to 16 kg from the mean of 110, would have weights in either the interval 94 to 102, if they are below average, or in the interval 118 to 126, if they are above average. The question asks what percentage weigh between 94 and 102 kg, which matches the lower interval, and is therefore half of the 27%, or 13.5%, choice (E)."
+        },
+        {
+          "id": "BT1-S5-Q11",
+          "type": "numeric_entry",
+          "stem": "[Question 11 - Numeric Entry - see source material]",
+          "correctAnswer": "84",
+          "explanation": "(84) To find out how many of the small boxes will fit in the large, divide the volume of the large box by the volume of the small box. Since the volume of a rectangular solid is the product of its three dimensions, the number of boxes equals We can save time by reducing the fractions before multiplying: = 7 × 12 = 84. *Another equivalent approach is to reason that seven boxes that are 2 feet across will fit across a 14-foot-wide locker, while four rows of boxes that are 4 feet deep will fit in the 16-foot-deep locker, and that this 7 × 4 rectangular array of boxes can be stacked three levels high, because three boxes that are 6 feet tall will fit in an 18-foot-tall locker. 7 × 4 × 3 = 84."
+        },
+        {
+          "id": "BT1-S5-Q12",
+          "type": "numeric_entry",
+          "stem": "[Question 12 - Numeric Entry - see source material]",
+          "correctAnswer": "625",
+          "explanation": "(625) The bar above the digits to the right of the decimal point means that those digits repeat forever. Begin to write the first sequence and look for a pattern: .135791357913579… . Notice that the 5th, 10th, and 15th digits are all 9, suggesting that any digit that is a multiple of 5 to the right of the decimal will equal 9. Then the 1,000th digit will be a 9, and the 1,003rd digit will be three digits after this, a 5. In the other number, .246824682468 …, the pattern contains four digits before repeating. Notice that the 4th, 8th, and 12th digits are all 8. We again see that any multiple of the pattern length will be the last digit of the pattern —that is, any digit a multiple of 4 to the right of the decimal point will be an 8. This means that the 76th digit is an 8, because 76 is a multiple of 4, since 76 = 19 × 4. Then the 78th digit will be two digits after this, a"
+        },
+        {
+          "id": "BT1-S5-Q13",
+          "type": "numeric_entry",
+          "stem": "[Question 13 - Numeric Entry - see source material]",
+          "correctAnswer": "240",
+          "explanation": "(240) Think of the probability of choosing a blue marble as the number of blue marbles out of the total number of marbles. Initially we have If we add x blue marbles, this will add to the number of blue and to the total, so P(blue) becomes Set this result equal to the desired probability and then cross-multiply: So 9(40 + x) = 7(120 + x). Distribute on both sides, and 360 + 9x = 840 + 7x. Combine like terms by subtracting 7x and 360 from both sides to obtain 2x = 480. Divide by 2, and x = 240. 14. The number of male students at the school is 60% of 25, or .60 × 25 = 15. Of these 15 males, 40% are male transfer students. So there are .4 × 15 = 6 male transfer students. To find the probability that two randomly selected students will be in this group of six out of 25, we can reason, “The first student selected must be a male transfer AND the second student must be a male transfer.” The AND requires you to multiply the two probabilities. The first probability is simply but if one male transfer student is selected, there will be only five such students remaining to choose from, out of 24 students in all. Then the second probability is and the probability of both students being in this group is You can find the product on your calculator, or perhaps faster by hand by cross-canceling: reduce 6 with 24 and 5 with 25 to obtain or .05."
+        },
+        {
+          "id": "BT1-S5-Q14",
+          "type": "numeric_entry",
+          "stem": "[Question 14 - Numeric Entry - see source material]",
+          "correctAnswer": ".05 or",
+          "explanation": "See answer key."
+        },
+        {
+          "id": "BT1-S5-Q15",
+          "type": "multiple_choice_multi",
+          "stem": "[Question 15 - Multiple Choice (Select All) - see source material]",
+          "correctAnswer": [
+            "A",
+            "D"
+          ],
+          "explanation": "(A, D) Recall that an integer is a positive or negative whole number with no fractional part: …−3, −2, −1, 0, 1, 2, 3… . When the quantity 4n2 is divided by 15, the result will be an integer whenever 4n2 contains as factors all prime number factors of 15, namely 3 and 5. Choices (A) and (D) satisfy this condition, because 75 = 3 × 52, and 135 = 33 × 5. Choice (B), n = −9, does not work; 9 is not divisible by 5, so 4n2 will not be divisible by 5 or by 15. (C) does not work; if n = 4, then 3 and 5 are not factors of n or of 4n2. So 4n2 will not be divisible by 15, and division will produce a non-integer value. You can also evaluate these quantities directly by using your calculator to plug in the numbers in the answer choices. For example, if n = 4, then is not an integer. Ignore the negative signs when entering your numbers; they are not relevant to this problem and will disappear when squaring.",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT1-S5-Q16",
+          "type": "multiple_choice_multi",
+          "stem": "[Question 16 - Multiple Choice (Select All) - see source material]",
+          "correctAnswer": [
+            "A",
+            "D"
+          ],
+          "explanation": "(A, D) Sum implies addition, so this problem requires the three numbers in the circle to add up to the fourth. One possibility is x = 6 + 17 + 28, and x = 51. Another possibility is for 28, the largest given number, to equal the sum of the other three. Then x + 6 + 17 = 28. So x = 28 − 23 =",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT1-S5-Q17",
+          "type": "multiple_choice_multi",
+          "stem": "[Question 17 - Multiple Choice (Select All) - see source material]",
+          "correctAnswer": [
+            "A",
+            "C"
+          ],
+          "explanation": "(A, C) Tuition is the bottom part of each bar, which grew each year, so (A) is correct. Rent is the middle part of each bar. In 2007, rent spans more than two horizontal lines and is thus greater than $2,000. In 2008, rent spans fewer than two horizontal lines, and is thus less than $2,000. So rent decreased from 2007 to 2008, and (B) is not correct. (C) is correct, because rent plus food plus tuition equals the height of the full bar, which clearly grew each year. The answer is (A) and (C).",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT1-S5-Q18",
+          "type": "multiple_choice_single",
+          "stem": "[Question 18 - Multiple Choice - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) Compare the sizes of the top part of each bar, food, and notice that this is smallest in 2008. So in 2008, (B), food expenses were less than in the previous year."
+        },
+        {
+          "id": "BT1-S5-Q19",
+          "type": "multiple_choice_single",
+          "stem": "[Question 19 - Multiple Choice - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) Tuition, the bottom part of each bar appeared to increase from $4,000 to $5,500 from 2007 to 2010. Find the percent change by computing the amount of change, the difference of the two numbers, and dividing this by the original or starting value. Here, we have This is the answer in decimal form. Multiply by 100, or shift the decimal two places mentally to obtain 37.5%, approximately 38%, (D)."
+        },
+        {
+          "id": "BT1-S5-Q20",
+          "type": "multiple_choice_single",
+          "stem": "[Question 20 - Multiple Choice - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) The underlined words, tuition and rent, comprise the bottom two parts of the bar. The phrase “over the period shown” suggests that we should compare the heights of these bars in the first and last years depicted, 2007 and 2010. In 2007, the lower two parts of the bar measure just above $6,000, say $6,100, while in 2010 this height is just below $8000, say $7900. Then the overall increase in tuition plus rent is 7,900 − 6,100 = $1,800. The change occurs in a three-year span (2010 − 2007 = 3), so the per year average increase is (D)."
+        }
+      ]
+    }
+  ]
+}

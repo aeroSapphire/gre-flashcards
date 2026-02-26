@@ -32,6 +32,8 @@ import GRETestResults from "./pages/GRETestResults";
 import WordWeb from "./pages/WordWeb";
 import QuantPractice from "./pages/QuantPractice";
 import GREAdaptiveMockTest from "./pages/GREAdaptiveMockTest";
+import MockTestBrowser from "./pages/MockTestBrowser";
+import NamedMockTestRunner from "./pages/NamedMockTestRunner";
 
 const queryClient = new QueryClient();
 
@@ -80,6 +82,8 @@ const App = () => (
             <Route path="/word-web" element={<WordWeb />} />
             <Route path="/quant" element={<QuantPractice />} />
             <Route path="/mock-test" element={<GREAdaptiveMockTest />} />
+            <Route path="/mock-tests" element={<MockTestBrowser />} />
+            <Route path="/mock-tests/:testId" element={<NamedMockTestRunner />} />
             <Route path="/study" element={<StudySession />} />
             <Route path="/arcade" element={<Arcade />} />
             <Route path="/quick-quiz" element={<QuickQuiz />} />

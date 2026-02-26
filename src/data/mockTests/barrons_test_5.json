@@ -1,0 +1,730 @@
+{
+  "id": "barrons-test-5",
+  "name": "Barron's Practice Test 5",
+  "source": "Barron's 6 GRE Practice Tests",
+  "sourceShort": "Barron's",
+  "description": "Full-length GRE practice test 5 from Barron's 6 GRE Practice Tests. Includes Analytical Writing, 2 Verbal Reasoning sections (20 questions each, 30 min), and 2 Quantitative Reasoning sections (20 questions each, 35 min).",
+  "sectionCount": 5,
+  "totalTimeMinutes": 160,
+  "format": "old",
+  "sections": [
+    {
+      "id": "BT5-S1",
+      "sectionNumber": 1,
+      "type": "analytical_writing",
+      "name": "Section 1 — Analytical Writing",
+      "timeMinutes": 30,
+      "questionCount": 1,
+      "questions": [
+        {
+          "id": "BT5-S1-Q1",
+          "type": "analytical_writing",
+          "stem": "Analyze an Argument",
+          "correctAnswer": "essay",
+          "explanation": "This is an essay question - no single correct answer.",
+          "prompt": "Section 1—Analytical Writing Time: 60 Minutes—2 Writing Tasks TASK 1: ISSUE EXPLORATION TIME: 30 MINUTES The topic is presented in a one- to two-sentence quotation commenting on an issue of general concern.\nYour essay will be judged on the basis of your skill in the following areas:\n• response to the specific task instructions • consideration of the complexities of the issue • organization, development, and expression of your ideas • support of your position with relevant reasoning and examples • control of the elements of standard written English Topic Some believe the more comforts a society provides, the more likely it is to create people who cannot provide for themselves. Others believe such comforts are indicative of a society’s self-sufficiency.\nDirections: Write a response in which you discuss which view more closely aligns with your own position and explain your reasoning for the position you take. In developing and supporting your position, you should address both the views presented.\n*Please write your response on separate pieces of paper.\n\nTASK 2: ARGUMENT ANALYSIS TIME: 30 MINUTES Your essay will be judged on the basis of your skill in the following areas:\n• identification and assessment of the argument’s main elements • organization and articulation of your thoughts • use of relevant examples and arguments to support your case • handling of the mechanics of standard written English Topic In a study of the music listening preferences of Hollyland residents, conducted by the University of Sunnyland, most respondents listed their favorite type of music as country. However, another study indicated that, in Hollyland, the most frequently downloaded songs were all in the popular music genre. Therefore, it can be assumed that the respondents in the initial study were not truthful about their music listening habits.\nDirections: Write a response in which you examine the stated and/or unstated assumptions of the argument. Be sure to explain how the argument depends on these assumptions and what the implications are for the argument if the assumptions prove unwarranted.\n*Please write your response on separate pieces of paper.",
+          "directions": "Write a response in which you discuss what specific evidence is needed to evaluate the argument and explain how the evidence would weaken or strengthen the argument."
+        }
+      ]
+    },
+    {
+      "id": "BT5-S2",
+      "sectionNumber": 2,
+      "type": "verbal",
+      "name": "Section 2 — Verbal Reasoning",
+      "timeMinutes": 30,
+      "questionCount": 20,
+      "questions": [
+        {
+          "id": "BT5-S2-Q1",
+          "type": "text_completion",
+          "stem": "[Question 1 - Text Completion - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) If the employees initially felt “stung by (the supervisor’s) sharply- edged jibes,” his humor must have been cutting. Acerbic (biting) would aptly describe that kind of humor.",
+          "blanks": 1
+        },
+        {
+          "id": "BT5-S2-Q2",
+          "type": "text_completion",
+          "stem": "[Question 2 - Text Completion - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) It would be surprising that a tremulous (timid) student would be the first to volunteer for public speaking.",
+          "blanks": 1
+        },
+        {
+          "id": "BT5-S2-Q3",
+          "type": "text_completion",
+          "stem": "[Question 3 - Text Completion - see source material]",
+          "correctAnswer": [
+            "B",
+            "D"
+          ],
+          "explanation": "(B, D) The author’s critical stance and his description of the motives as ones that the public “cannot or do not notice” makes ulterior (beyond what is admitted) a good fit for blank (i). The author’s critical tone also provides a clue for blank (ii), of the choices given, only sap (weaken) would have a negative effect on the corporations.",
+          "blanks": 2
+        },
+        {
+          "id": "BT5-S2-Q4",
+          "type": "text_completion",
+          "stem": "[Question 4 - Text Completion - see source material]",
+          "correctAnswer": [
+            "A",
+            "F"
+          ],
+          "explanation": "(A, F) The author’s critical tone and his use of the phrase “leaves much to be desired” makes it clear she is criticizing the curricula (courses) of the programs. Therefore, it would make sense for her to take issue with the rigor (exactness; difficulty) of the curricula. For blank (ii), if the students are doing something with the culture in favor of revelry (partying), they are choosing revelry over culture; i.e., they shun (avoid) the culture.",
+          "blanks": 2
+        },
+        {
+          "id": "BT5-S2-Q5",
+          "type": "text_completion",
+          "stem": "[Question 5 - Text Completion - see source material]",
+          "correctAnswer": [
+            "B",
+            "E"
+          ],
+          "explanation": "(B, E) Since the discussion of confinement focuses on its psychological costs, it can be expected that an unfortunate result will be discussed. A clue for the first blank is provided by the fact that the captives often “prefer to remain inside their cells,” i.e., they must display a reluctance to rejoin the world. The second blank must create a contrast between the actions of the emancipators (those who deliver freedom) and the captives’ preference because of the shift the word despite creates. Exhortations (urgings) creates such a shift.",
+          "blanks": 2
+        },
+        {
+          "id": "BT5-S2-Q6",
+          "type": "text_completion",
+          "stem": "[Question 6 - Text Completion - see source material]",
+          "correctAnswer": [
+            "A",
+            "D",
+            "I"
+          ],
+          "explanation": "(A, D, I) Using convincing for blank (i) is supported by the author’s description of the paper as “compelling.” Since Michaelson’s new idea is highlighted, it would make sense that this new idea is taking the place of a more conventional (blank ii) one, which is described as “wrong.” The clue for blank (iii) is at the end of the last sentence: “visceral (instinctive) trumps rational.” This axiom (wise saying) is said to support his new idea, so instinctively would make sense to describe how the untrained person sees value.",
+          "blanks": 3
+        },
+        {
+          "id": "BT5-S2-Q7",
+          "type": "reading_comprehension",
+          "stem": "[Question 7 - Reading Comprehension - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) If the two countries have significantly different manufacturing exports, the same shortage of resources might affect Country X much more severely than it does Country Y; therefore this statement casts doubt that the shortage in Country X is caused by the government—it could very well be caused by the shortage of resources."
+        },
+        {
+          "id": "BT5-S2-Q8",
+          "type": "reading_comprehension",
+          "stem": "[Question 8 - Reading Comprehension - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) The author, by saying that planners “often use jargon and theory that may be inaccessible to community members,” is communicating that sometimes these members cannot comprehend the planners, making it more difficult for citizens to participate in the planning process since they don’t understand some of the terms being used."
+        },
+        {
+          "id": "BT5-S2-Q9",
+          "type": "reading_comprehension",
+          "stem": "[Question 9 - Reading Comprehension - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) In the beginning of the last paragraph, the author cautions that if an urban planning process is not well executed, then even if it is inclusive, it will not be effective in the long term. He then provides methods by which the process can be better executed."
+        },
+        {
+          "id": "BT5-S2-Q10",
+          "type": "reading_comprehension",
+          "stem": "[Question 10 - Reading Comprehension - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) In the last paragraph, the author suggests that participatory planning “provide inventive ways for interaction and negotiation,” therefore suggesting that planners should create new ways for different groups to discuss issues important to them."
+        },
+        {
+          "id": "BT5-S2-Q11",
+          "type": "reading_comprehension",
+          "stem": "[Question 11 - Reading Comprehension - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) By saying that timelines for creation of planning projects sometimes “exceed any relevant temporal horizon” for young residents and renters, it can be inferred that a planning project will not be relevant to someone if he is no longer living in the community where it takes place."
+        },
+        {
+          "id": "BT5-S2-Q12",
+          "type": "reading_comprehension",
+          "stem": "[Question 12 - Reading Comprehension - see source material]",
+          "correctAnswer": [
+            "A",
+            "B"
+          ],
+          "explanation": "(A, B) The phrase “in fact” signifies a shift in the sentence, so a logical shift from whimsy (imagination) would be to plumb (explore carefully) or fathom (probe) genuine meaning.",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT5-S2-Q13",
+          "type": "sentence_equivalence",
+          "stem": "[Question 13 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "B",
+            "D"
+          ],
+          "explanation": "(B, D) If nitroglycerine must be handled with care and is used to make explosives, it would make sense that these are due to its volatility (explosiveness) or instability.",
+          "selectCount": 2
+        },
+        {
+          "id": "BT5-S2-Q14",
+          "type": "sentence_equivalence",
+          "stem": "[Question 14 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "A",
+            "E"
+          ],
+          "explanation": "(A, E) If the person’s sense of humor is infantile (immature), then it follows that his anecdote will be sophomoric (immature) or puerile (childish).",
+          "selectCount": 2
+        },
+        {
+          "id": "BT5-S2-Q15",
+          "type": "sentence_equivalence",
+          "stem": "[Question 15 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "B",
+            "C"
+          ],
+          "explanation": "(B, C) If the bodyguard’s appearance is a deterrent (that which discourages), then he might look minatory (threatening) or menacing.",
+          "selectCount": 2
+        },
+        {
+          "id": "BT5-S2-Q16",
+          "type": "sentence_equivalence",
+          "stem": "[Question 16 - Sentence Equivalence - see source material]",
+          "correctAnswer": "Sentence 3",
+          "explanation": "(Sentence 3: The set of … network.) In this sentence, the author provides a definition for the term “migrant network.”",
+          "selectCount": 2
+        },
+        {
+          "id": "BT5-S2-Q17",
+          "type": "reading_comprehension",
+          "stem": "[Question 17 - Reading Comprehension - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) Although the author makes a prediction in the last sentence and devotes the beginning of the passage to a description of faint galaxies’ historical discovery, she spends most of the passage describing recent developments in the field as well as providing some current data about faint galaxies."
+        },
+        {
+          "id": "BT5-S2-Q18",
+          "type": "reading_comprehension",
+          "stem": "[Question 18 - Reading Comprehension - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) Since the described stars are part of galaxies, the stars are resolved, or separated, from the galaxies so the stars can individually be observed."
+        },
+        {
+          "id": "BT5-S2-Q19",
+          "type": "reading_comprehension",
+          "stem": "[Question 19 - Reading Comprehension - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) Since the author mentions the fact that historically most faint galaxies have been discovered close to our own galaxy, and later suggests that more galaxies may soon be discovered, it can be inferred that the historical prevalence of faint galaxies to our own is due partly to our technology’s limits. Also, the author offers that “present survey data are not deep enough,” again indicating that faint galaxies have been discovered near the Milky Way is due to limitations of technology, not due to an astronomical phenomenon."
+        },
+        {
+          "id": "BT5-S2-Q20",
+          "type": "reading_comprehension",
+          "stem": "[Question 20 - Reading Comprehension - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) The first highlighted portion is the critics’ opinion, i.e., the position the argument opposes. The second highlighted portion is the argument’s conclusion, that the critics are wrong, based on the evidence that the company’s customers have placed orders that justify the inventory."
+        }
+      ]
+    },
+    {
+      "id": "BT5-S3",
+      "sectionNumber": 3,
+      "type": "quantitative",
+      "name": "Section 3 — Quantitative Reasoning",
+      "timeMinutes": 35,
+      "questionCount": 20,
+      "questions": [
+        {
+          "id": "BT5-S3-Q1",
+          "type": "quantitative_comparison",
+          "stem": "[Question 1 - Quantitative Comparison - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) Draw the dashed segments above and consider the rectangular region at right, made up of the three triangles together. The area of this rectangle equals twice the area of the original equilateral triangle and thus represents Quantity (B). This is because if PQ were drawn, the two exterior triangles could be paired with two congruent interior triangles. The rectangle has the same height as the square but a lesser width. So its area is less than that of the square, and (A) is greater. *Let x equal the length of each side in the figure. The area of the square (A), is x2. Compute the area of the equilateral triangle by first drawing the dotted altitude, h, which will be used as the height, along with base x, to find the triangle’s area = . This altitude, h, creates a 30-60-90 triangle, and if you remember the s – s – 2s pattern for the side lengths of these special triangles, you can quickly obtain . (Or find h by the Pythagorean Theorem.) Then the area of the original triangle is Twice this is which is less than 1x2, because Then (A), x2, is greater."
+        },
+        {
+          "id": "BT5-S3-Q2",
+          "type": "quantitative_comparison",
+          "stem": "[Question 2 - Quantitative Comparison - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) Let x = price of apple = price of pear, and then 2x = price of melon. Quantity (A) is 8x + 9x + 3(2x) = 17x + 6x = 23x. (B) is 7x + 4x + 6(2x) = 11x + 12x = 23x, as well. So the quantities are equal, (C)."
+        },
+        {
+          "id": "BT5-S3-Q3",
+          "type": "quantitative_comparison",
+          "stem": "[Question 3 - Quantitative Comparison - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) Recall that absolute value equations generally have two solutions. Divide both sides by –2 to obtain |x – 5| = 6. Therefore, x – 5 = 6, or x – 5 = –6. Adding 5 to both sides in each equation yields x = 11 or x = –1. Since one possible x value is greater than 0, while the other is less than 0, there is not enough information to determine, and (D) is correct."
+        },
+        {
+          "id": "BT5-S3-Q4",
+          "type": "quantitative_comparison",
+          "stem": "[Question 4 - Quantitative Comparison - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) Find the x-intercepts by setting y = 0, and the y term vanishes to leave 9x2 = 144, and so x2 = 16. Then x = ± 4, and AB = 8, the distance from (–4, 0) to (4, 0). Find the y-intercepts by setting x = 0, and the x term vanishes to leave 16y2 = 144, so y2 = 9. Then y = ± 3, and CD = 6, the distance from (0, –3) to (0, 3). Since 8 > 6, (A) is correct."
+        },
+        {
+          "id": "BT5-S3-Q5",
+          "type": "quantitative_comparison",
+          "stem": "[Question 5 - Quantitative Comparison - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) As depicted at left, Ed’s friends might live close to each other or even be neighbors, which would make the perimeter much less than 45 miles. On the other hand, in the diagram at right, the three friends live nearly 20 miles from Ed and much more than 20 miles from each other. This would make the perimeter greater than 3 × 20 = 60 > 45, and (D) is correct."
+        },
+        {
+          "id": "BT5-S3-Q6",
+          "type": "multiple_choice_single",
+          "stem": "[Question 6 - Multiple Choice - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) Quantity After converting 4 minutes to 4 × 60 = 240 seconds, Quantity (B) becomes 35 Since 100 cm = 1 m, 8,400 cm = 84 m. Then (B) is greater, because 84 > 72."
+        },
+        {
+          "id": "BT5-S3-Q7",
+          "type": "multiple_choice_single",
+          "stem": "[Question 7 - Multiple Choice - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) It may appear that there are four choices for the element from Set S times three choices for the element from Set T, making both quantities equal 4 × 3 = 12, choice (C). But when you begin multiplying elements of S by elements of T, notice that many of the products formed are not distinct. For example, 2 × 100 = 4 × 50. So Quantity (A) < 12. In Quantity (B), there are 4 × 3 = 12 distinct sums formed, because the large spread of values in Set T ensures no duplication. Thus, (B) must be greater."
+        },
+        {
+          "id": "BT5-S3-Q8",
+          "type": "multiple_choice_single",
+          "stem": "[Question 8 - Multiple Choice - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) In Jar X,  of marbles are black, and in Jar Y,  are black, so the probability that both marbles drawn are black is (A). In Jar X, of marbles are white, and in Jar Y,  are white, so the probability that both marbles drawn are white is (B). Since 12 > 10, Quantity (B) is greater."
+        },
+        {
+          "id": "BT5-S3-Q9",
+          "type": "numeric_entry",
+          "stem": "[Question 9 - Numeric Entry - see source material]",
+          "correctAnswer": "411",
+          "explanation": "(411) Use your calculator to reconstruct all the values in the table, by first adding across the top row to obtain the total long sleeve shirts, 1,014, and then subtracting this sum from 2,048, the total of all shirts in the bottom right corner, to obtain the total short sleeves, 1,034. Red Blue Total Long Sleeve 423 591 1014 Short Sleeve 411 623 1034 Total 834 1214 2048 Red short sleeve is then 1034 − 623 = 411."
+        },
+        {
+          "id": "BT5-S3-Q10",
+          "type": "numeric_entry",
+          "stem": "[Question 10 - Numeric Entry - see source material]",
+          "correctAnswer": "$2,700",
+          "explanation": "($2,700) There were 1034 – 834 = 200 more short sleeve than red shirts sold. At $13.50 per shirt, the difference in the totals earned is 13.5"
+        },
+        {
+          "id": "BT5-S3-Q11",
+          "type": "numeric_entry",
+          "stem": "[Question 11 - Numeric Entry - see source material]",
+          "correctAnswer": "5",
+          "explanation": "(5) First compute f (1) by finding the point on the graph where x = 1, P, and then reading across horizontally to find the y-value associated with this point, 4. Then f (f (1)) = f (4). Now find a point on the graph where x = 4, Q, by reading straight up vertically from the number 4 on the x- axis. The y-value associated with this point is 5."
+        },
+        {
+          "id": "BT5-S3-Q12",
+          "type": "numeric_entry",
+          "stem": "[Question 12 - Numeric Entry - see source material]",
+          "correctAnswer": "160 ml",
+          "explanation": "(160 ml) The nurse uses 120 ml of the 8% solution, which must contain 120 × .08 = 9.6 ml of acid. Let x = the volume of 15% solution that he or she uses. When the solutions are combined, there will be 120 + x total solution, of which 9.6 + .15x is acid. Since the combined solution is meant to have a 12% concentration, 12% of the total must equal the acid volume. That is, .12(120 + x) = 9.6 + .15x. Then 14.4 + .12x = 9.6 + .15x. Combine like terms by subtracting 9.6 and .12x from each side: 4.8 = .03x. Finally, divide by .03 on each side to obtain 160 ml = x."
+        },
+        {
+          "id": "BT5-S3-Q13",
+          "type": "numeric_entry",
+          "stem": "[Question 13 - Numeric Entry - see source material]",
+          "correctAnswer": "$825",
+          "explanation": "($825) The shortcut: the number in front of x—also called the coefficient of x—in the equation c(x) = 3.75x + 180 represents the per item cost. In other words, $3.75 is the price per shirt. So when 995 – 775 = 220 more shirts are bought, the cost differential is 3.75 × 220 = $825. *The cost of 995 shirts is c(995) = 3.75(995) + 180 = $3,911.25. The cost of 775 shirts is c(775) = 3.75(775) + 180 = $3,086.25. The difference is 3,911.25 − 3,086.25 = $825."
+        },
+        {
+          "id": "BT5-S3-Q14",
+          "type": "multiple_choice_multi",
+          "stem": "[Question 14 - Multiple Choice (Select All) - see source material]",
+          "correctAnswer": [
+            "B",
+            "C"
+          ],
+          "explanation": "(B, C) Start by arranging the five known numbers in order from least to greatest: 0, 12, 54, 88, 185. If x > 88, then 54 and 88 become the two middle values, and the median This is not between 60 and 70, so (E) is not correct. If x = 65, choice (A), then 54 and 65 become the two middle values, and the median So (A) is not correct. The average of six numbers will be between 60 and 70 when their sum, or total, is between 6 × 60 = 360 and 6 × 70 = 420. The sum of the weekly spending figures given is 0 + 12 + 54 + 88 + 185 + x = 339 + x. Then 360 < 339 + x < 420. Subtracting 339 from all three branches of the inequality yields 21 < x < 81. (D) is incorrect, because 83 > 81, so only choices (B) and (C) remain as correct.",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT5-S3-Q15",
+          "type": "numeric_entry",
+          "stem": "[Question 15 - Numeric Entry - see source material]",
+          "correctAnswer": "1,356",
+          "explanation": "(1,356) If x alone accounts for at least 80% of total spending, then x ≥ .80 × (339 + x). Distribute the .8, and x ≥ 271.2 + .8x. Subtract .8x from both sides to obtain .2x ≥ 271.2. Finally, divide both sides by .2, and x ≥ 1,356."
+        },
+        {
+          "id": "BT5-S3-Q16",
+          "type": "multiple_choice_single",
+          "stem": "[Question 16 - Multiple Choice - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) In 1 hour, Machine A produces of a case, and Machine B produces of a case. Working together, the machines produce of a case per hour, found by using the common denominator 60, because 60 is the least common multiple of 12 and 15. This implies that it will take the machines of an hour to produce one case, because one case. (A number times its reciprocal equals 1.) To produce nine such cases will require hours, (D)."
+        },
+        {
+          "id": "BT5-S3-Q17",
+          "type": "multiple_choice_single",
+          "stem": "[Question 17 - Multiple Choice - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) If s is the side length of a cube, then the cube’s volume = s3. Here, 64 = s3, so s = 4, because 4 × 4 × 4 = 64. Then AB = 4, and MA = NB = 2 in the figure below, because M and N are midpoints of two of the edges. Now draw MB and form the two right triangles, MAB and MBN. MB is the hypotenuse of a right triangle with legs equal to 2 and 4, so by the Pythagorean Theorem. This length becomes a leg in the second right triangle MBN. Therefore, . Then MN2 = 20 + 4, and MN= ."
+        },
+        {
+          "id": "BT5-S3-Q18",
+          "type": "multiple_choice_single",
+          "stem": "[Question 18 - Multiple Choice - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) Let l and w be the poster’s original length and width. When w is increased by 40%, the new width is 1w + .40w = 1.4w. Similarly, the enlarged length equals 1.3l. This makes the new area 1.4w × 1.3l = 1.82lw. Compared to the original area, lw, the change is *Pick easy-to-use numbers for l and w, such as l = 10 = w. Then the poster’s original area was 10 × 10 = 100. The new dimensions are w = 14 and l = 13, after the 40% and 30% increases in width and length. The new area is 14 × 13 = 182, which represents an increase of"
+        },
+        {
+          "id": "BT5-S3-Q19",
+          "type": "multiple_choice_multi",
+          "stem": "[Question 19 - Multiple Choice (Select All) - see source material]",
+          "correctAnswer": [
+            "B",
+            "C",
+            "D",
+            "E"
+          ],
+          "explanation": "(B, C, D, E) Find the minimum Zoe could have spent by choosing the least price for both books and magazines. Then her total is 4 × 5 + 5 × 3 = 20 + 15 = $35. Find the maximum expenditure by choosing the greatest price for both books and magazines. Then her total is 4 × 10 + 5 × 5 = 40 + 25 = $65. So she spent from $35 to $65, (B), (C), (D), and (E).",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT5-S3-Q20",
+          "type": "multiple_choice_multi",
+          "stem": "[Question 20 - Multiple Choice (Select All) - see source material]",
+          "correctAnswer": [
+            "C",
+            "D"
+          ],
+          "explanation": "(C, D) Except when multiplying or dividing by a negative number, you can work with inequalities in the same way that you work with equations: Notice that the direction of the inequality reverses when you do multiply or divide by a negative (bottom right, above). This means – 8.33 < x < –6.8. Choices (C) and (D) fall within this range.",
+          "selectCount": "all"
+        }
+      ]
+    },
+    {
+      "id": "BT5-S4",
+      "sectionNumber": 4,
+      "type": "verbal",
+      "name": "Section 4 — Verbal Reasoning",
+      "timeMinutes": 30,
+      "questionCount": 20,
+      "questions": [
+        {
+          "id": "BT5-S4-Q1",
+          "type": "text_completion",
+          "stem": "[Question 1 - Text Completion - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) Since the discussion was about the bank’s “ability to pay back its debts,” it must have been talking about its solvency (ability to meet financial obligations).",
+          "blanks": 1
+        },
+        {
+          "id": "BT5-S4-Q2",
+          "type": "text_completion",
+          "stem": "[Question 2 - Text Completion - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) If the poet is a master of “subtlety,” and if he makes others seem heavyhanded (clumsy), then he would use intimations (implications).",
+          "blanks": 1
+        },
+        {
+          "id": "BT5-S4-Q3",
+          "type": "text_completion",
+          "stem": "[Question 3 - Text Completion - see source material]",
+          "correctAnswer": [
+            "C",
+            "F"
+          ],
+          "explanation": "(C, F) The missive (written message) was designed to “prevent violence,” so its intention must have been to placate (soothe) the leaders. If it instead “inflamed their wrath,” condescending would fit its tone.",
+          "blanks": 2
+        },
+        {
+          "id": "BT5-S4-Q4",
+          "type": "text_completion",
+          "stem": "[Question 4 - Text Completion - see source material]",
+          "correctAnswer": [
+            "B",
+            "E"
+          ],
+          "explanation": "(B, E) If the elements come from all over the world, it could be said that they are diverse (ii), and since this diversity describes the artist’s technique, his technique could be said to be an amalgam (combination of diverse elements).",
+          "blanks": 2
+        },
+        {
+          "id": "BT5-S4-Q5",
+          "type": "text_completion",
+          "stem": "[Question 5 - Text Completion - see source material]",
+          "correctAnswer": [
+            "C",
+            "F",
+            "I"
+          ],
+          "explanation": "(C, F, I) A clue for blank (i) is provided by “despite workers’ tendency to joke about this,” which supports wry (drily humorous) remark. The passage described a “conflict,” and refers to blank (ii) as a “chasm,” supporting schism (separation). If the study is a blueprint for resolving differences, then it delineates (describes) how to do this.",
+          "blanks": 3
+        },
+        {
+          "id": "BT5-S4-Q6",
+          "type": "text_completion",
+          "stem": "[Question 6 - Text Completion - see source material]",
+          "correctAnswer": [
+            "B",
+            "E",
+            "I"
+          ],
+          "explanation": "(B, E, I) A clue for blank (i) is given by the phrase “dual goal” as well as by common sense; naturally, any athlete would want to augment (increase) endurance while building strength. For blank (ii), if only a “handful” of triathletes have managed to build both strength and endurance, then this goal is usually outside the bounds of the possible. Since the number of triathletes who have accomplished the dual goal is small, it would be fitting to describe these athletes as anomalies (exceptions).",
+          "blanks": 3
+        },
+        {
+          "id": "BT5-S4-Q7",
+          "type": "reading_comprehension",
+          "stem": "[Question 7 - Reading Comprehension - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) The author makes several statements about Wenders’ beliefs about film. He suggests that Wenders’ film aesthetic is a “personal moral stance,” and says that for Wenders, “only film can redeem the real,” among other such statements."
+        },
+        {
+          "id": "BT5-S4-Q8",
+          "type": "reading_comprehension",
+          "stem": "[Question 8 - Reading Comprehension - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) In the preceding sentence, the author paraphrases Graf, saying that film images are open to abuse, and then proceeds to discuss the implications of that statement in the passage’s last sentence, saying that the images can “manipulate, distort, and tell lies.”"
+        },
+        {
+          "id": "BT5-S4-Q9",
+          "type": "reading_comprehension",
+          "stem": "[Question 9 - Reading Comprehension - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) The author states that “Wenders belie[ves] that cinematography bears an unimpeachable witness to ‘things as they are,’ ” and later asserts that “for Wenders, only film can redeem the real,” thereby arguing that Wenders believes film shows what is real."
+        },
+        {
+          "id": "BT5-S4-Q10",
+          "type": "reading_comprehension",
+          "stem": "[Question 10 - Reading Comprehension - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) In discussing the importance of non-participants in the democratic process, the author suggests that these people have value, saying, “they are citizens who have rights and interests that need to be represented.” This assertion supports the idea that participatory democracy should endeavor to represent those who choose not to be active."
+        },
+        {
+          "id": "BT5-S4-Q11",
+          "type": "reading_comprehension",
+          "stem": "[Question 11 - Reading Comprehension - see source material]",
+          "correctAnswer": [
+            "A",
+            "C"
+          ],
+          "explanation": "(A, C) The author says that the “few” activists who do the most work “monopolize” the process, thus implying that a minority of them control most of the effort. He also says that this group of activists needs a “reminder” that they are only “part of the citizenry,” implying some of their views are shortsighted in this regard.",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT5-S4-Q12",
+          "type": "reading_comprehension",
+          "stem": "[Question 12 - Reading Comprehension - see source material]",
+          "correctAnswer": [
+            "D",
+            "F"
+          ],
+          "explanation": "(D, F) Since the claims were once believed until an experiment disproved them, and since the word “however” creates a shift, spurious (false) or apocryphal (of unlikely validity) would describe the claims.",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT5-S4-Q13",
+          "type": "sentence_equivalence",
+          "stem": "[Question 13 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "B",
+            "C"
+          ],
+          "explanation": "(B, C) If the worker was surprised by his depiction as phlegmatic (unemotional) and uninspired, he must have thought he worked with alacrity (cheerful willingness) or zeal (enthusiasm).",
+          "selectCount": 2
+        },
+        {
+          "id": "BT5-S4-Q14",
+          "type": "sentence_equivalence",
+          "stem": "[Question 14 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "C",
+            "E"
+          ],
+          "explanation": "(C, E) If the vampires would fit a soap opera better than they would a horror movie, then they are probably not very scary. Both baleful (threatening; ominous) or pernicious (deadly) would therefore describe them.",
+          "selectCount": 2
+        },
+        {
+          "id": "BT5-S4-Q15",
+          "type": "sentence_equivalence",
+          "stem": "[Question 15 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "A",
+            "D"
+          ],
+          "explanation": "(A, D) Of the choices provided, those who are either blithe (carefree) or debonair (carefree) about their humor’s effect would logically benefit from knowing its significance.",
+          "selectCount": 2
+        },
+        {
+          "id": "BT5-S4-Q16",
+          "type": "sentence_equivalence",
+          "stem": "[Question 16 - Sentence Equivalence - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) In this sense, “popular” means “representative” because, in the sentence, the author is discussing the views of most people.",
+          "selectCount": 2
+        },
+        {
+          "id": "BT5-S4-Q17",
+          "type": "reading_comprehension",
+          "stem": "[Question 17 - Reading Comprehension - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) The author compares attitudes about meat consumption to other personal choices with public relevance, but adds that the majority of people still see no link between meat and broader “problems.” Since he then continues to explicate the problems that meat consumption engenders, he implies that the popular portrayal of meat consumption needs to be altered."
+        },
+        {
+          "id": "BT5-S4-Q18",
+          "type": "reading_comprehension",
+          "stem": "[Question 18 - Reading Comprehension - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) In order to determine whether Country A will need to rely less on grain imports, it would be useful to know if its consumption of grains is increasing: if so, even if its own grain production increased, it still might have to maintain or even increase its imports."
+        },
+        {
+          "id": "BT5-S4-Q19",
+          "type": "reading_comprehension",
+          "stem": "[Question 19 - Reading Comprehension - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) In this context, “flatly” means “without qualification or reservation,” in other words, “absolutely” in that the government is saying it will not limit its promise."
+        },
+        {
+          "id": "BT5-S4-Q20",
+          "type": "reading_comprehension",
+          "stem": "[Question 20 - Reading Comprehension - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) If automobile buyers base their decisions on the past, when Country J’s autos were better than Country K’s, then even though Country K’s cars are now similar in quality to Country J’s, Country J’s would still enjoy a marketing advantage due to that outdated perception."
+        }
+      ]
+    },
+    {
+      "id": "BT5-S5",
+      "sectionNumber": 5,
+      "type": "quantitative",
+      "name": "Section 5 — Quantitative Reasoning",
+      "timeMinutes": 35,
+      "questionCount": 20,
+      "questions": [
+        {
+          "id": "BT5-S5-Q1",
+          "type": "quantitative_comparison",
+          "stem": "[Question 1 - Quantitative Comparison - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) Find the slope of the line by computing “rise over run.” In moving along the line from n to n – 8, the y-coordinate decreases by 8. In moving from 0 to 3, the x-coordinate increases by 3. So slope = To compare to (B), multiply the numerator and denominator by This is greater than , which is “more negative,” so (A) is correct."
+        },
+        {
+          "id": "BT5-S5-Q2",
+          "type": "quantitative_comparison",
+          "stem": "[Question 2 - Quantitative Comparison - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) If Ann’s original salary was a, then a + .25a = 20,000, so 1.25a = 20,000, and a = 16,000. If Bob’s original salary was b, then 1b – .20b = 20,000, so .80b = 20,000, and b = 25,000, after dividing both sides by .8. The difference in their original salaries was 25,000 – 16,000 = 9,000, (C)."
+        },
+        {
+          "id": "BT5-S5-Q3",
+          "type": "quantitative_comparison",
+          "stem": "[Question 3 - Quantitative Comparison - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) When the 1,498 students are divided into classes of 35, the number of left over students, N, is simply the remainder when dividing 1,498 by"
+        },
+        {
+          "id": "BT5-S5-Q4",
+          "type": "quantitative_comparison",
+          "stem": "[Question 4 - Quantitative Comparison - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) The formula for the volume of a cylinder is Volume = πr 2h. In (A), the height is 15 times as great, which would contribute 15 times to the volume. But in (B), the diameter, and hence the radius, is 4 times as great. Because radius is squared in the formula, multiplying r by 4 will multiply volume by 42 = 16. In other words, (4r)2 = 16r2. Then (B) is greater by a factor of . *Use the Volume formula above, after you find the two radii,  y and 2y, by dividing the given diameters by 2. In (A), Volume . In (B), Volume = π(2y)2(1x) = 4πxy2. Because , (B) is greater."
+        },
+        {
+          "id": "BT5-S5-Q5",
+          "type": "quantitative_comparison",
+          "stem": "[Question 5 - Quantitative Comparison - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) Find the number combinations with the “choose” function, written as nCk or and defined by the formula: Recall that n! means the product of all positive integers from 1 through n, inclusive. From six flavors, we are choosing two, so we want 6C2, which equals *Label the flavors A, B, C, D, E, and F, and list all combinations of two different flavors systematically: AB, AC, AD, AE, AF, BC, BD, BE, BF, CD, CE, CF, DE, DF, EF. There are 5 + 4 + 3 + 2 + 1 = 15 combinations in all, (C)."
+        },
+        {
+          "id": "BT5-S5-Q6",
+          "type": "numeric_entry",
+          "stem": "[Question 6 - Numeric Entry - see source material]",
+          "correctAnswer": "23",
+          "explanation": "(23) Let a = the number of adult tickets and c = the number of children’s tickets. Since 44 tickets were sold, a + c = 44. Find the associated costs by multiplying the quantity of each type of ticket by the price per ticket. Then 9a + 5c = 312. Multiply the first equation by –5 in order to eliminate the c variable: Dividing by 4 on each side shows a = 23."
+        },
+        {
+          "id": "BT5-S5-Q7",
+          "type": "numeric_entry",
+          "stem": "[Question 7 - Numeric Entry - see source material]",
+          "correctAnswer": "74",
+          "explanation": "(74) For 18 boys at 70 points per boy, there are 18 × 70 = 1,260 total points. For 12 girls at 80 points per girl, there are 12 × 80 = 960 total points. Then, the combined sum of test scores for the entire class is 1,260 + 960 = 2,220 points. Divide this by 30 to obtain the average score per student, because there are 18 + 12 = 30 students in the class. 2,220 ÷ 30 = 74. *Divide the number of boys and girls by 6, the greatest common factor of 18 and 12, in order to work with an equivalent ratio of children involving smaller numbers. The ratio of 18 boys to 12 girls is thus reduced to 3:2. For three boys at 70 points per boy, there are 3 × 70 = 210 total points. For two girls at 80 points per girl, there are 2 × 80 = 160 total points. This yields 210 + 160 = 370 total points for all five students together (3 boys + 2 girls). Divide 370 by 5 to obtain the average score per student. 370 ÷ 5 = 74."
+        },
+        {
+          "id": "BT5-S5-Q8",
+          "type": "numeric_entry",
+          "stem": "[Question 8 - Numeric Entry - see source material]",
+          "correctAnswer": "44",
+          "explanation": "(44) Prime numbers are numbers with exactly two positive integer factors, namely 1 and the number itself. The sum of the prime numbers given is 2 + 3 + 5 + 7 + 11 = 28. The next four prime numbers in order are 13, 17, 19, 23. Their sum is 13 + 17 + 19 + 23 = 72. This is 72 – 28 = 44 greater."
+        },
+        {
+          "id": "BT5-S5-Q9",
+          "type": "numeric_entry",
+          "stem": "[Question 9 - Numeric Entry - see source material]",
+          "correctAnswer": "$20.25",
+          "explanation": "($20.25) Let p = the original price of milk. Then p plus 12% of p becomes p + .12p = 1.12p. So 1.12p = $2.52, and by division p = $2.25. The cost of nine gallons at this price is 9 × 2.25 = $20.25"
+        },
+        {
+          "id": "BT5-S5-Q10",
+          "type": "multiple_choice_multi",
+          "stem": "[Question 10 - Multiple Choice (Select All) - see source material]",
+          "correctAnswer": [
+            "B",
+            "C"
+          ],
+          "explanation": "(B, C) Tablet Z has the most iron, but it does not contain less zinc than Tablet X, so (A) is incorrect. Tablet Z has 45 + 20 + 15 = 80 mg of the three elements combined, which is greater than any of the other row totals, so (B) is correct. Tablet X has the most calcium. But it has only 17 units of iron and 14 of zinc, which are less than the other tablets’ contents, so (C) is correct. For (D), add the values in the middle column to find that one of each tablet would include 40 + 25 + 20 = 85 mg of calcium. Then three of each tablet would contain 3 × 85 = 255 mg of calcium, which is not between 140 and 250, so (D) is not correct. Answer is (B) and (C).",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT5-S5-Q11",
+          "type": "multiple_choice_single",
+          "stem": "[Question 11 - Multiple Choice - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) Combination (A) has insufficient zinc. Combination (B) contains either 120 or 150 milligrams of each element, as desired. Combination (C) has too much iron. Combination (D) contains too much calcium. Only (B) works."
+        },
+        {
+          "id": "BT5-S5-Q12",
+          "type": "numeric_entry",
+          "stem": "[Question 12 - Numeric Entry - see source material]",
+          "correctAnswer": "5",
+          "explanation": "This would mean 12 heads and 12 tails, which is permissible. The choice that could not be the ratio of heads to tails is (D), 4:1, because then 4x + 1x would equal 24. If 5x = 24, x is not an integer. Specifically, we could not have 4.8 tosses that resulted in “tails.”"
+        },
+        {
+          "id": "BT5-S5-Q13",
+          "type": "multiple_choice_single",
+          "stem": "[Question 13 - Multiple Choice - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) Try to find the three edge lengths of the solid. The areas of the rectangular faces are 15, 33, and 55, so the pairwise products of the edges (the edge lengths multiplied two at a time) must equal these values. Trial and error reveals that 3 × 5 = 15, 3 × 11 = 33, and 5 × 11 ="
+        },
+        {
+          "id": "BT5-S5-Q14",
+          "type": "multiple_choice_single",
+          "stem": "[Question 14 - Multiple Choice - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) Graph both equations. Each represents a standard graph, y = x2 or y = |x|, shifted vertically upward by 4 units. The three points of intersection are (0, 4), (1, 5), and (−1, 5), so (D) is correct. Note that x2 > |x|, except on the interval from –1 through 1. To understand why the graphs are equal when x = 0, 1, or –1, observe that 02 = 0 = |0|, while 12 = 1 = |1|, and (–1)2 = 1 = |–1|."
+        },
+        {
+          "id": "BT5-S5-Q15",
+          "type": "multiple_choice_single",
+          "stem": "[Question 15 - Multiple Choice - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) Factor out the common factor, –10t, to obtain h(t) = –10t(t – 4). Find the t-intercepts (x-axis intercepts) of the graph by setting y = h(t) = 0. Then 0 = –10t(t – 4). The product is 0 when either factor is 0, so –10t = 0 or t – 4 = 0, and t = 0 or t = 4. By the symmetry of a parabola, the vertex will lie on the vertical line t = 2, because 2 is halfway between the t-intercepts of 0 and 4 . The maximum height of the ball will be the y-coordinate of the vertex, namely h(2), which is by definition the height of the ball at time 2. h(2) = –10 × 22 + 40 × 2 = – 40 + 80 = 40, (C)."
+        },
+        {
+          "id": "BT5-S5-Q16",
+          "type": "multiple_choice_single",
+          "stem": "[Question 16 - Multiple Choice - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) The sum of the measures of the interior angles on an n-sided polygon is given by the formula Angle Sum = 180(n – 2) degrees. A polygon with n sides also has n angles, and if each angle measures 168°, then the sum of all angles equals 168n. So we can set 180(n – 2) = 168n. Distribute 180, and 180n – 360 = 168n. Subtract 168n and add 360 to each side to obtain 12n = 360. Divide by 12, and n = 30, (D)."
+        },
+        {
+          "id": "BT5-S5-Q17",
+          "type": "multiple_choice_multi",
+          "stem": "[Question 17 - Multiple Choice (Select All) - see source material]",
+          "correctAnswer": [
+            "B",
+            "E"
+          ],
+          "explanation": "(B, E) The key to this type of exponent problem is to get a common base. Note that 4 = 2 × 2 = 22, and that 8 = 2 × 2 × 2 = 23. Substituting these into the original equation, we obtain (22)x2 = (23)2x. The “power to a power” rule dictates that exponents are multiplied here, so 22x2 = 26x. Since both sides have the common base of 2, we can set the exponents equal. Then 2x2 = 6x, and 2x2 – 6x = 0. Take out the common factor, and 2x(x – 3) = 0, implying that 2x = 0 or x – 3 = 0. So x = 0 or 3, (B) and (E). *See the Introduction to this book, Math Section, Basic Strategy #6 for an alternative approach.",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT5-S5-Q18",
+          "type": "numeric_entry",
+          "stem": "[Question 18 - Numeric Entry - see source material]",
+          "correctAnswer": "4",
+          "explanation": "(4) If area equals circumference, then πr2 = 2πr. Divide both sides by πr to obtain r = 2. If radius = 2, then diameter = 2 × 2 = 4."
+        },
+        {
+          "id": "BT5-S5-Q19",
+          "type": "multiple_choice_single",
+          "stem": "[Question 19 - Multiple Choice - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) Test the answer choices. If the ratio of heads to tails were 1:1, choice (A), then for some integer x, 1x + 1x = 24, so 2x = 24, and x ="
+        },
+        {
+          "id": "BT5-S5-Q20",
+          "type": "multiple_choice_single",
+          "stem": "[Question 20 - Multiple Choice - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) To compute these probabilities directly is beyond the scope of this book or the timeframe of the GRE. Treat this as a concept question. If the probability of heads is , we expect  of the 24 tosses to result in heads. The actual number of heads will vary if this experiment is repeated, but since  × 24 = 12, the result of 12 heads will be the most probable single outcome and will represent the long-term average number of heads. (B). While choice (E) represents three distinct outcomes—22 heads, 23 heads, or 24 heads—it is extremely unlikely to obtain that many heads on 24 tosses, as these numbers are remote from the mean of 12. *A reader familiar with Pascal’s Triangle may be aware that the values in the triangle can be used to find the values of nCr, the “choose function” for obtaining the number of combinations when r objects are chosen from n. For example, in the small portion of Pascal’s Triangle above, the six numbers in the bottom line represent 5C0, 5C1, 5C2, 5C3, 5C4, and 5C5, in order. In Pascal’s Triangle, the largest values always occur in the middle of each line, which implies that 24C12 is greater than 24Cn, for any value of n other than 12, so (B) is correct. In other words, imagine 24 blanks to represent the 24 outcomes of the coin flips. There are more ways to distribute 12 heads among the blanks than, say, 10 heads or 13 heads, because 24C12 is greater than either 24C10 or 24C13. Infer the last fact from the symmetry of Pascal’s Triangle rather than direct computation, because of the time limit. Elsewhere in the book, nCr is formally defined and used to obtain the number of combinations."
+        }
+      ]
+    }
+  ]
+}

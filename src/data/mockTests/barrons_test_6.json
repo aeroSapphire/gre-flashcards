@@ -1,0 +1,731 @@
+{
+  "id": "barrons-test-6",
+  "name": "Barron's Practice Test 6",
+  "source": "Barron's 6 GRE Practice Tests",
+  "sourceShort": "Barron's",
+  "description": "Full-length GRE practice test 6 from Barron's 6 GRE Practice Tests. Includes Analytical Writing, 2 Verbal Reasoning sections (20 questions each, 30 min), and 2 Quantitative Reasoning sections (20 questions each, 35 min).",
+  "sectionCount": 5,
+  "totalTimeMinutes": 160,
+  "format": "old",
+  "sections": [
+    {
+      "id": "BT6-S1",
+      "sectionNumber": 1,
+      "type": "analytical_writing",
+      "name": "Section 1 — Analytical Writing",
+      "timeMinutes": 30,
+      "questionCount": 1,
+      "questions": [
+        {
+          "id": "BT6-S1-Q1",
+          "type": "analytical_writing",
+          "stem": "Analyze an Argument",
+          "correctAnswer": "essay",
+          "explanation": "This is an essay question - no single correct answer.",
+          "prompt": "Section 1—Analytical Writing Time: 60 Minutes—2 Writing Tasks TASK 1: ISSUE EXPLORATION TIME: 30 MINUTES The topic is presented in a one- to two-sentence quotation commenting on an issue of general concern.\nYour essay will be judged on the basis of your skill in the following areas:\n• response to the specific task instructions • consideration of the complexities of the issue • organization, development, and expression of your ideas • support of your position with relevant reasoning and examples • control of the elements of standard written English Topic All cities should devote at least five percent of their budgets to programs that preserve and protect existing parks.\nDirections: Write a response in which you discuss your views on the policy and explain your reasoning for the position you take. In developing and supporting your position, you should consider the possible consequences of implementing the policy and explain how these consequences shape your position.\n*Please write your response on separate pieces of paper.\nTASK 2: ARGUMENT ANALYSIS TIME: 30 MINUTES Your essay will be judged on the basis of your skill in the following areas:\n• identification and assessment of the argument’s main elements • organization and articulation of your thoughts • use of relevant examples and arguments to support your case • handling of the mechanics of standard written English\n\nTopic The following was written as part of a study weighing the benefits of a new construction project in the city of Winterville.\nCar racing is extremely popular in the city of Winterville: over 20,000 Winterville residents attended the state’s annual 500-lap race last summer, and the highest-rated television program in Winterville is “Race Talk,” which is broadcast every night. Also, many successful race-car drivers live in Winterville. However, the nearest racetrack is over 150 miles away from Winterville. Given the popularity of car racing in Winterville, and a recent report indicating that the average race fan spends close to $500 per year attending car races, a new racetrack in Winterville would be very profitable.\nDirections: Write a response in which you discuss what questions would need to be answered in order to decide whether the recommendation is likely to have the predicted result. Be sure to explain how the answers to these questions would help to evaluate the recommendation.\n*Please write your response on separate pieces of paper.",
+          "directions": "Write a response in which you discuss what specific evidence is needed to evaluate the argument and explain how the evidence would weaken or strengthen the argument."
+        }
+      ]
+    },
+    {
+      "id": "BT6-S2",
+      "sectionNumber": 2,
+      "type": "verbal",
+      "name": "Section 2 — Verbal Reasoning",
+      "timeMinutes": 30,
+      "questionCount": 20,
+      "questions": [
+        {
+          "id": "BT6-S2-Q1",
+          "type": "text_completion",
+          "stem": "[Question 1 - Text Completion - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) The descriptive phrasing after the semicolon provides clues. “Epitome of politeness and composure” is similar to urbane (polite; sophisticated), and “rustic” and “rural” fit bucolic (rustic; simple).",
+          "blanks": 1
+        },
+        {
+          "id": "BT6-S2-Q2",
+          "type": "text_completion",
+          "stem": "[Question 2 - Text Completion - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) If the 12th graders have “melodies,” which “drifted pleasingly,” then those melodies could be described as dulcet (melodious; pleasing).",
+          "blanks": 1
+        },
+        {
+          "id": "BT6-S2-Q3",
+          "type": "text_completion",
+          "stem": "[Question 3 - Text Completion - see source material]",
+          "correctAnswer": [
+            "C",
+            "D"
+          ],
+          "explanation": "(C, D) The word “thought” signifies a shift from “skilled,” so blank (i) must be negative, and since the speaker is criticized for bombast (pompousness), then he could be grandiloquent (pompous; self- important). This unflattering self-importance would understandably have dissuaded (deterred) many of his followers.",
+          "blanks": 2
+        },
+        {
+          "id": "BT6-S2-Q4",
+          "type": "text_completion",
+          "stem": "[Question 4 - Text Completion - see source material]",
+          "correctAnswer": [
+            "C",
+            "E"
+          ],
+          "explanation": "(C, E) If a butterfly had quiescence (the quality of being still), the entomologist might have time to sketch it. Blank (ii) could be short- lived because of the shift that the word “though” creates; the shift is from “short-lived” to “ample (plentiful) time.”",
+          "blanks": 2
+        },
+        {
+          "id": "BT6-S2-Q5",
+          "type": "text_completion",
+          "stem": "[Question 5 - Text Completion - see source material]",
+          "correctAnswer": [
+            "C",
+            "D",
+            "H"
+          ],
+          "explanation": "(C, D, H) If the magician is daydreaming about his entire audience being spellbound, those daydreams could be described as fanciful (whimsical; imaginary). If he is “not immune” to those daydreams, he could be described as susceptible to them. Then the word “nevertheless” creates a shift from the expected result; therefore, blank (ii) could be flabbergasted (astounded), since one would expect the magician to be used to fantasizing about his effect. If the “throngs of admirers” are prostrate (lying face down), they could be so in homage (public respect) to him.",
+          "blanks": 3
+        },
+        {
+          "id": "BT6-S2-Q6",
+          "type": "text_completion",
+          "stem": "[Question 6 - Text Completion - see source material]",
+          "correctAnswer": [
+            "C",
+            "E",
+            "G"
+          ],
+          "explanation": "(C, E, G) The scientist knew he would be condemned, and enormity (excessive wickedness) would fit blank (i) if he realized the enormity only after seeing that the offspring were “twisted” and “suffering.” Reviled (hated) fits blank (iii): the scientist was already condemned, so “even more” signifies a higher degree of that condemnation. Logically, if the public was cognizant (aware) of the experiments’ depravity (having low moral values), they would revile him.",
+          "blanks": 3
+        },
+        {
+          "id": "BT6-S2-Q7",
+          "type": "reading_comprehension",
+          "stem": "[Question 7 - Reading Comprehension - see source material]",
+          "correctAnswer": [
+            "A",
+            "C"
+          ],
+          "explanation": "(A, C) Choice (A) is supported because the author describes the cover of the book’s new version, commenting on the photos of the White House, Pentagon, and Wall Street, and remarks that “each sphere of national power therein symbolized described by Mills,” thereby saying that Mills described each of these three places and in doing so, naturally implies that Mills described some of the people working in these places. Choice (C) is supported because the author says that a “sympathetic reader” might understand that Mills had trouble “see[ing] through the shadows.”",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT6-S2-Q8",
+          "type": "reading_comprehension",
+          "stem": "[Question 8 - Reading Comprehension - see source material]",
+          "correctAnswer": "Sentence 4",
+          "explanation": "(Sentence 4: In a wobbly … destruction.) By calling Mills’s lexicon (vocabulary) “wobbly,” the author implies that Mills’s use of language is uneven."
+        },
+        {
+          "id": "BT6-S2-Q9",
+          "type": "reading_comprehension",
+          "stem": "[Question 9 - Reading Comprehension - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) Since the power elite are described as “swollen with hubris” (excessive pride), “played God” means “acted as God.”"
+        },
+        {
+          "id": "BT6-S2-Q10",
+          "type": "reading_comprehension",
+          "stem": "[Question 10 - Reading Comprehension - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) The first statement summarizes the argument’s position toward the hypothesis that not enough oxygen was budgeted, saying that the hypothesis is wrong. The second provides support for that statement by indicating that according to the records, enough oxygen was budgeted."
+        },
+        {
+          "id": "BT6-S2-Q11",
+          "type": "reading_comprehension",
+          "stem": "[Question 11 - Reading Comprehension - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) The author says that the convective storms have rapid evolution and dissipation processes, so it can be inferred that they come and go quickly and therefore do not persist for very long."
+        },
+        {
+          "id": "BT6-S2-Q12",
+          "type": "reading_comprehension",
+          "stem": "[Question 12 - Reading Comprehension - see source material]",
+          "correctAnswer": [
+            "A",
+            "C"
+          ],
+          "explanation": "(A, C) The country has “tranquility” and a “state of dominance”; therefore, it could be enjoying hegemony (dominance) or ascendancy (decisive advantage) over its neighbors.",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT6-S2-Q13",
+          "type": "sentence_equivalence",
+          "stem": "[Question 13 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "E",
+            "F"
+          ],
+          "explanation": "(E, F) If the coach gave speeches filled with scathing (harshly critical) rebukes (sharp criticisms), then he would be either excoriating (strongly condemning) or upbraiding (scolding) his players.",
+          "selectCount": 2
+        },
+        {
+          "id": "BT6-S2-Q14",
+          "type": "sentence_equivalence",
+          "stem": "[Question 14 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "B",
+            "E"
+          ],
+          "explanation": "(B, E) The described stages are “before anyone knew,” so embryonic (being of a beginning stage) or nascent (coming into existence).",
+          "selectCount": 2
+        },
+        {
+          "id": "BT6-S2-Q15",
+          "type": "sentence_equivalence",
+          "stem": "[Question 15 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "D",
+            "E"
+          ],
+          "explanation": "(D, E) If the funeral director had gravity (a solemn presence) and repose (tranquility), and if he “soothed” the mourners with silence, then he could be taciturn (silent) or laconic (using few words).",
+          "selectCount": 2
+        },
+        {
+          "id": "BT6-S2-Q16",
+          "type": "sentence_equivalence",
+          "stem": "[Question 16 - Sentence Equivalence - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) The author describes and analyzes some trends in car advertising, and also speculates about the implications of these advertisements.",
+          "selectCount": 2
+        },
+        {
+          "id": "BT6-S2-Q17",
+          "type": "reading_comprehension",
+          "stem": "[Question 17 - Reading Comprehension - see source material]",
+          "correctAnswer": [
+            "B",
+            "C"
+          ],
+          "explanation": "(B, C) The author says that the thesis is “somewhat discredited” in academia; this statement supports choice (B), and says the thesis asserts that the “strength and vigor” of the U.S. comes from the “struggle” to make a new life in the wilderness, thereby supporting choice (C).",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT6-S2-Q18",
+          "type": "reading_comprehension",
+          "stem": "[Question 18 - Reading Comprehension - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) In this context, “purchase” is on imagination; it means the hold, or grasp, that the dream has on popular imagination."
+        },
+        {
+          "id": "BT6-S2-Q19",
+          "type": "reading_comprehension",
+          "stem": "[Question 19 - Reading Comprehension - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) In the first paragraph, archaeological and ethnologic examples are mentioned as examples of additional criteria that studies can include."
+        },
+        {
+          "id": "BT6-S2-Q20",
+          "type": "reading_comprehension",
+          "stem": "[Question 20 - Reading Comprehension - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) The author, in the second paragraph, explains that complex systems are modeled by choosing parameters to encompass the complexity of the systems in a manageable way; the discussion of how studies explore potential differences between Neanderthal and modern human diets instead of determining Neanderthal food types is used as an example of this simplification."
+        }
+      ]
+    },
+    {
+      "id": "BT6-S3",
+      "sectionNumber": 3,
+      "type": "quantitative",
+      "name": "Section 3 — Quantitative Reasoning",
+      "timeMinutes": 35,
+      "questionCount": 20,
+      "questions": [
+        {
+          "id": "BT6-S3-Q1",
+          "type": "quantitative_comparison",
+          "stem": "[Question 1 - Quantitative Comparison - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) Solve 4n = 256 by multiplying fours on your calculator until you reach 256 as a product. Note that 4 × 4 × 4 × 4 = 16 × 16 = 256, meaning that the exponent n equals 4. Then (A) is 34 = 3 × 3 × 3 × 3 = 9 × 9 = 81. Quantity (B) is greater, because  ×43 =  × 64 = 96, and 96 > 81."
+        },
+        {
+          "id": "BT6-S3-Q2",
+          "type": "quantitative_comparison",
+          "stem": "[Question 2 - Quantitative Comparison - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) If the two known sides of length 4 and 5 are placed perpendicular to each other, they can be used as the base and height to compute the triangle’s area as , by the formula area = . Now imagine using the side of length 5 as the base and swiveling the side of length 4, about a hinge at the vertex of the triangle where these sides intersect. The resulting height, h, in the figures above, is less than 4, whether the triangle is acute or obtuse. (It should be obvious that h < 4 in the two diagrams at right, above, but if you are not sure why, observe that h is the leg of a smaller right triangle, which has hypotenuse = 4.) Then the area of the right triangle, 10, is the maximum possible, and (B), 11 is greater."
+        },
+        {
+          "id": "BT6-S3-Q3",
+          "type": "quantitative_comparison",
+          "stem": "[Question 3 - Quantitative Comparison - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) By substitution, m = 3(5p) = 15p. This means that m is 15 times p. It looks as if m, Quantity (A), is greater, but if the variables are negative, p is greater, so (D) is correct."
+        },
+        {
+          "id": "BT6-S3-Q4",
+          "type": "quantitative_comparison",
+          "stem": "[Question 4 - Quantitative Comparison - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) When the lines are parallel, corresponding angles are congruent. So the angle adjacent to x, measures 91°. This makes x = 180 – 91 = 89. (B) is greater."
+        },
+        {
+          "id": "BT6-S3-Q5",
+          "type": "quantitative_comparison",
+          "stem": "[Question 5 - Quantitative Comparison - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) In a triangle, the larger sides are across from the larger angles, and the smaller sides are across from the smaller angles. Since the side length x + .001 > x, the angle opposite x + .001 is greater than the angle opposite x. So y > z, (A)."
+        },
+        {
+          "id": "BT6-S3-Q6",
+          "type": "multiple_choice_single",
+          "stem": "[Question 6 - Multiple Choice - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) Expand (m + 5)(m – 5) as m2 – 5m + 5m – 25 = m2 – 25. If this equals 0, then m2 = 25. Similarly, (k + 4)(k – 4) = k2 – 4k + 4k – 16 = k2 – 16 = 0. Add 16 to both sides, and k2 = 16, (A) is greater."
+        },
+        {
+          "id": "BT6-S3-Q7",
+          "type": "multiple_choice_single",
+          "stem": "[Question 7 - Multiple Choice - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) One kilometer is 1,000 meters, so 10 km = 10,000 m, making (A) 10,000. There are 100 centimeters in a meter, but 100 × 100 square cm in 1 m2 of area. So (B) is 100 × 100 = 10,000, as well. Answer is (C). Note that ."
+        },
+        {
+          "id": "BT6-S3-Q8",
+          "type": "multiple_choice_single",
+          "stem": "[Question 8 - Multiple Choice - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) A quadrilateral is any four-sided polygon. When the perimeter of one quadrilateral is twice that of another, it will usually have a greater area. But consider the two quadrilaterals above. The long thin rectangle has twice the perimeter of the square but less area. (D) is correct."
+        },
+        {
+          "id": "BT6-S3-Q9",
+          "type": "numeric_entry",
+          "stem": "[Question 9 - Numeric Entry - see source material]",
+          "correctAnswer": "1,100",
+          "explanation": "(1,100) Let n = the number, and then .2n represents 20% of the number. If the average of these is 660, then . Divide each side by .6, and n = 1,100."
+        },
+        {
+          "id": "BT6-S3-Q10",
+          "type": "numeric_entry",
+          "stem": "[Question 10 - Numeric Entry - see source material]",
+          "correctAnswer": "25%",
+          "explanation": "(25%) Find the percent change in the prices by finding the change or difference in the prices and dividing this by the original price: This rounds to x = 25%. The number of loaves the family buys per month, 22, does not matter when considering the percentage change in the family’s bill for bread."
+        },
+        {
+          "id": "BT6-S3-Q11",
+          "type": "numeric_entry",
+          "stem": "[Question 11 - Numeric Entry - see source material]",
+          "correctAnswer": "108",
+          "explanation": "(108) Translate the words into math symbols: , for some number x. Subtract  x from each side in order to combine like terms: Since the least common multiple of 8 and 9 is 72, use 72 as the common denominator and combine the fractions: Then x = 15 × 72 = 1080. Finally, of this number is 1080 ÷ 10 = 108."
+        },
+        {
+          "id": "BT6-S3-Q12",
+          "type": "multiple_choice_single",
+          "stem": "[Question 12 - Multiple Choice - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) Since the triangle is equilateral, all sides are equal, and AC = 12. M is the midpoint of Then the circle’s radius is 6, and its area is π62 = 36π, using the formula for the area of a circle: πr2. In an equilateral triangle, all angles are also equal, so the measure of angle C is (using the fact that the sum of the measures of the three angles in a triangle is 180°). Since the central angle measures 60° out of 360° in a full circle, the unshaded portion of the circle contains of the circle’s area. Then the shaded portion of the circle contains of the circle’s area."
+        },
+        {
+          "id": "BT6-S3-Q13",
+          "type": "multiple_choice_single",
+          "stem": "[Question 13 - Multiple Choice - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) Multiply both sides by 2.25 to obtain . This looks messy, but note that the right side is some positive number, because only positive numbers are multiplied and divided. Then x – y > 0. Add y to each side, and x > y, (B)."
+        },
+        {
+          "id": "BT6-S3-Q14",
+          "type": "multiple_choice_single",
+          "stem": "[Question 14 - Multiple Choice - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) There are four single-digit prime numbers: 2, 3, 5, and 7. Try to get a feeling for the problem by writing down one or two numbers that meet the conditions described, such as 3,895 or 7,042. To count all such numbers, take a “fill-in-the-blank” approach. Use four blanks to represent the four digits of the number, and in each blank write the number of possible choices for the digit corresponding to that blank: __________ __________ __________ __________. Any of the four primes listed above may begin the number, but of these, only the digits 2 or 5 may end the number, to ensure that the number is divisible by 2 or 5. So we have combinations so far. There are no restrictions on the middle two digits of the number, so they can be any of the 10 digits, 0 through 9, in our base 10 system. The diagram becomes . The basic counting principle dictates that we multiply the number of possibilities at each juncture to obtain the total number of combinations. 4 × 10 × 10 × 2 = 800, (A)."
+        },
+        {
+          "id": "BT6-S3-Q15",
+          "type": "multiple_choice_single",
+          "stem": "[Question 15 - Multiple Choice - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) Substitute 9 and 2 for x and y in the definition of the “star” operation, and , (D). When evaluating 2 × 22, be sure to square first and then multiply by 2, since the order of operations dictates that exponents are performed before multiplication."
+        },
+        {
+          "id": "BT6-S3-Q16",
+          "type": "multiple_choice_single",
+          "stem": "[Question 16 - Multiple Choice - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) To find the greatest common factor (GCF) of 111 and 141, you could divide each by various numbers on the calculator and look for common factors. Or you can shortcut the process by recalling the divisibility test for the number 3: if the sum of the digits of an integer is divisible by 3, then the integer itself is divisible by 3. 111 and 141 are both divisible by 3 because the sums 1 + 1 + 1 = 3 and 1 + 4 + 1 = 6 are both multiples of 3. Dividing 111 and 141 by 3 on the calculator shows that 111 = 37 × 3 and that 141 = 47 × 3. Since 37 and 47 are prime numbers with no additional factors in common, the GCF is 3. The easiest way to find the least common multiple (LCM) of 8 and 10 is to list multiples of the larger number until you reach one that is also a multiple of the smaller number: 10, 20, 30, 40. Since 40 equals 8 × 5, 40 is the LCM of 8 and 10. Then a = 3 and b = 40, so ab = 120, choice (C)."
+        },
+        {
+          "id": "BT6-S3-Q17",
+          "type": "multiple_choice_multi",
+          "stem": "[Question 17 - Multiple Choice (Select All) - see source material]",
+          "correctAnswer": [
+            "B",
+            "D"
+          ],
+          "explanation": "(B, D) If , and (B) is correct. By substitution, , and (D) is correct. Answer is (B) and (D).",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT6-S3-Q18",
+          "type": "multiple_choice_single",
+          "stem": "[Question 18 - Multiple Choice - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) In Questions 18 to 20, note that each box on the y-axis represents $2 million dollars, and so each half-box represents $1 million. For choice (A), the rice exports in 2000 were $24 million, which is close to $20 million for fruit + $6 million for wheat, but not roughly equal. For choice (B), the rice exports were between $26 million and $27 million, which is roughly equal to $19 million (fruit) + $8 million (wheat). For the other three choices, it should be easy to see at a glance that rice exports alone exceeded the sum of the other two exports. Imagine a vertical bar stretching up from the x-axis to each graph. For the 3 years listed in (C), (D), and (E), the rice bar is taller than the other two bars stacked end to end."
+        },
+        {
+          "id": "BT6-S3-Q19",
+          "type": "multiple_choice_single",
+          "stem": "[Question 19 - Multiple Choice - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) Save time by “counting boxes” to find the difference in value between rice and wheat exports, rather than finding each individual value. For example, in 2009 rice is 2.5 boxes above wheat, which represents 2.5 × $2 million = $5 million. Similarly, the 3.5 and 4.5 boxes that separate rice and wheat in 2010 and 2011, respectively, correspond to $7 million and $9 million. The total difference in export value for the 3-year period is then 5 + 7 + 9 = $21 million, (C)."
+        },
+        {
+          "id": "BT6-S3-Q20",
+          "type": "multiple_choice_single",
+          "stem": "[Question 20 - Multiple Choice - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) Scan along the fruit curve for years in which the value of exports decreased greatly from the year before. In 2006 and 2008, fruit exports dropped significantly—by two boxes, or $4 million—from the year before. In 2008, this $4 million decrease represented a larger percent change, because the change occurred from a lower starting value. Specifically, in 2008 the decrease was from the year before, while in 2006 the decrease was from the year before. (D) is correct."
+        }
+      ]
+    },
+    {
+      "id": "BT6-S4",
+      "sectionNumber": 4,
+      "type": "verbal",
+      "name": "Section 4 — Verbal Reasoning",
+      "timeMinutes": 30,
+      "questionCount": 20,
+      "questions": [
+        {
+          "id": "BT6-S4-Q1",
+          "type": "text_completion",
+          "stem": "[Question 1 - Text Completion - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) If the emissary used a barrage of verbiage (excessive wordiness) to divert, then he could have been described as loquacious (talkative).",
+          "blanks": 1
+        },
+        {
+          "id": "BT6-S4-Q2",
+          "type": "text_completion",
+          "stem": "[Question 2 - Text Completion - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) A clue for the blank is provided by “repetition,” which implies that the fractal describes via iteration (repetition).",
+          "blanks": 1
+        },
+        {
+          "id": "BT6-S4-Q3",
+          "type": "text_completion",
+          "stem": "[Question 3 - Text Completion - see source material]",
+          "correctAnswer": [
+            "A",
+            "D"
+          ],
+          "explanation": "(A, D) A clue for blank (i) is provided by the description of the cheetah as eager to fight; truculence (disposed to fight) fits. This description is then said to lead to the cheetah charging “too quickly.”",
+          "blanks": 2
+        },
+        {
+          "id": "BT6-S4-Q4",
+          "type": "text_completion",
+          "stem": "[Question 4 - Text Completion - see source material]",
+          "correctAnswer": [
+            "B",
+            "D"
+          ],
+          "explanation": "(B, D) The word “though” creates a shift from blank (i) to “soon recovered,” so blank (i) could be nonplussed (perplexed). Blank (ii), then, needs to contrast with the general’s initial confusion, so designing a shrewd (cunning) plan would create such a contrast.",
+          "blanks": 2
+        },
+        {
+          "id": "BT6-S4-Q5",
+          "type": "text_completion",
+          "stem": "[Question 5 - Text Completion - see source material]",
+          "correctAnswer": [
+            "C",
+            "D",
+            "I"
+          ],
+          "explanation": "(C, D, I) If the scientist is “puffed up,” “callow” (inexperienced), and if he “trumpeted” his results, his pride could be described as overweening (arrogant). If his colleagues “cringed,” the paper could have self- congratulatory conceits (unduly high self-opinions). The phrase “even more” indicates an increase in a description’s intensity, so chagrined (dismayed) would logically be an increase from the colleagues’ initial cringing.",
+          "blanks": 3
+        },
+        {
+          "id": "BT6-S4-Q6",
+          "type": "text_completion",
+          "stem": "[Question 6 - Text Completion - see source material]",
+          "correctAnswer": [
+            "A",
+            "E",
+            "G"
+          ],
+          "explanation": "(A, E, G) The phrase at the end of the passage is useful because it indicates that studies have connected increased dosage with increased harm. The word “however” creates a shift to this assertion, thus the portion of the passage before the assertion must imply the opposite— that the radiation has a positive effect. Blank (i) can be susceptible to (vulnerable to), since if the doses make people less susceptible to something, the effect is positive. Blank (ii) continues this direction, so salubrious (healthful) would fit, and blank (iii) is being criticized by the passage’s argument, so it could be acts as a tonic (aid).",
+          "blanks": 3
+        },
+        {
+          "id": "BT6-S4-Q7",
+          "type": "reading_comprehension",
+          "stem": "[Question 7 - Reading Comprehension - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) The author, by saying that drugs and prophylactics (things designed to prevent) create resistant pathogens, implies that at least some of the things people do to protect their health actually endangers their health because of the creation of these resistant pathogens."
+        },
+        {
+          "id": "BT6-S4-Q8",
+          "type": "reading_comprehension",
+          "stem": "[Question 8 - Reading Comprehension - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) By saying that hypermutators have “a price to pay,” the author implies that although their mutations increase their immunity to drugs, these mutations also have a downside."
+        },
+        {
+          "id": "BT6-S4-Q9",
+          "type": "reading_comprehension",
+          "stem": "[Question 9 - Reading Comprehension - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) If it is more expensive to teach workers to use the new equipment if they have spent a long time using the old equipment, then this undermines the argument that switching to the new equipment will quickly allow factories to realize cost savings since, initially, there will be expenses associated with the teaching."
+        },
+        {
+          "id": "BT6-S4-Q10",
+          "type": "reading_comprehension",
+          "stem": "[Question 10 - Reading Comprehension - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) The use of words like “annihilate” and “conquer” by Marx to describe the process of capitalism provides support for the notion that Marx was critical of capitalism’s means."
+        },
+        {
+          "id": "BT6-S4-Q11",
+          "type": "reading_comprehension",
+          "stem": "[Question 11 - Reading Comprehension - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) By saying that “understanding of technologies of speed connote a future liberation from material scarcity,” the author is arguing that our understanding of speed suggests that it will, in the future, deliver us from the scarcity, or lack of needed materials."
+        },
+        {
+          "id": "BT6-S4-Q12",
+          "type": "reading_comprehension",
+          "stem": "[Question 12 - Reading Comprehension - see source material]",
+          "correctAnswer": [
+            "B",
+            "F"
+          ],
+          "explanation": "(B, F) If the advice to the housewives was designed to facilitate “harmonious households,” then it could have instructed them to be agreeable or felicitous (agreeable).",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT6-S4-Q13",
+          "type": "sentence_equivalence",
+          "stem": "[Question 13 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "A",
+            "E"
+          ],
+          "explanation": "(A, E) Admittedly, the experiments are “commonplace” and “unoriginal,” so criticism of them could call them quotidian (everyday) or pedestrian (dull; common).",
+          "selectCount": 2
+        },
+        {
+          "id": "BT6-S4-Q14",
+          "type": "sentence_equivalence",
+          "stem": "[Question 14 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "A",
+            "D"
+          ],
+          "explanation": "(A, D) If the company exhausted its erstwhile (former) surplus, it must have been either spendthrift (reckless with money) or profligate (wasteful).",
+          "selectCount": 2
+        },
+        {
+          "id": "BT6-S4-Q15",
+          "type": "sentence_equivalence",
+          "stem": "[Question 15 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "B",
+            "C"
+          ],
+          "explanation": "(B, C) Sycophants (flatterers) and toadies (yes-men) would not criticize a monarch.",
+          "selectCount": 2
+        },
+        {
+          "id": "BT6-S4-Q16",
+          "type": "sentence_equivalence",
+          "stem": "[Question 16 - Sentence Equivalence - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) The author of the passage indicates that most of James’s missives (letters) were to his family, and that these letters raised doubts, or disillusions, about the expedition.",
+          "selectCount": 2
+        },
+        {
+          "id": "BT6-S4-Q17",
+          "type": "reading_comprehension",
+          "stem": "[Question 17 - Reading Comprehension - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) The author is discussing another author’s book about James during James’s expedition in South America; in doing so, he is summarizing the results of that author’s study of James."
+        },
+        {
+          "id": "BT6-S4-Q18",
+          "type": "reading_comprehension",
+          "stem": "[Question 18 - Reading Comprehension - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) Since “body” is describing travel literature, it must mean “collection,” i.e., the entire collection of James’s travel literature."
+        },
+        {
+          "id": "BT6-S4-Q19",
+          "type": "reading_comprehension",
+          "stem": "[Question 19 - Reading Comprehension - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) The passage indicates that the shock wave created by a quark-nova ejects the outer layers, which become the ejecta, of the neutron star, and that the fireball “pushes” these layers."
+        },
+        {
+          "id": "BT6-S4-Q20",
+          "type": "reading_comprehension",
+          "stem": "[Question 20 - Reading Comprehension - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) This statement explains the apparent contradiction in the passage by introducing another explanation for the fact that these people tend to develop heart disease—other dietary changes."
+        }
+      ]
+    },
+    {
+      "id": "BT6-S5",
+      "sectionNumber": 5,
+      "type": "quantitative",
+      "name": "Section 5 — Quantitative Reasoning",
+      "timeMinutes": 35,
+      "questionCount": 20,
+      "questions": [
+        {
+          "id": "BT6-S5-Q1",
+          "type": "quantitative_comparison",
+          "stem": "[Question 1 - Quantitative Comparison - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) When lines intersect, the vertical angles, those directly across from each other, are equal. This means that we can label the three angles within the triangle 2x°, 3x°, and 4x°. By the triangle sum theorem, 2x° + 3x° + 4x° = 180°. Then 9x = 180, and x = 20. So 5x = 100, (C)."
+        },
+        {
+          "id": "BT6-S5-Q2",
+          "type": "quantitative_comparison",
+          "stem": "[Question 2 - Quantitative Comparison - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) Find the point of intersection of the lines by setting the equations equal to each other. That is, if y = 2x – 6, and y =  x + 6, then 2x – 6 = x + 6, by substitution. Adding 6 and subtracting  x from each side yields  x = 12 (or 1.5x = 12). Multiply both sides by  (or divide by 1.5) to obtain x = 8. Substitute this x-value into one of the original equations to obtain y = 2(8) – 6 = 10. Since 10 > 8, (B) is greater."
+        },
+        {
+          "id": "BT6-S5-Q3",
+          "type": "quantitative_comparison",
+          "stem": "[Question 3 - Quantitative Comparison - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) If the perimeter of a square is 64, then the length of each side is . The square’s area is 162 = 256. If a circle has diameter 18, then radius is . The circle’s area is π92 = 81π. 81π ≈ 254.5, so (A) is greater."
+        },
+        {
+          "id": "BT6-S5-Q4",
+          "type": "quantitative_comparison",
+          "stem": "[Question 4 - Quantitative Comparison - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) Quantity (B) “seems greater” by exactly 1x + 1y, because (3x + 4y) – (2x + 3y) = 1x + 1y. Though (B) appears greater, x and y may be negative numbers, so (D) is correct. For example, if x = y = 1, then (A) = 5 < (B) = 7, but if x = y = –1, then (A) = –5 > (B) = –7."
+        },
+        {
+          "id": "BT6-S5-Q5",
+          "type": "quantitative_comparison",
+          "stem": "[Question 5 - Quantitative Comparison - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) Don’t be misled by the word daily into finding the actual daily rent of the man in column A, by dividing his monthly rent by the number of days in a month. You may waste a lot of time deciding whether to divide by 31, 30, or 30.25 to obtain a messy figure you don’t need. Since you know there are 12 months in a year, multiply 975 by 12 to obtain $11,700 as the annual rent in (A), which is greater than quantity (B), $11,650. A man who pays more rent per year will also pay more rent per day."
+        },
+        {
+          "id": "BT6-S5-Q6",
+          "type": "numeric_entry",
+          "stem": "[Question 6 - Numeric Entry - see source material]",
+          "correctAnswer": "8",
+          "explanation": "(8) . This question involves the concept of Scientific Notation. The decimal point must be shifted 8 times to make the number 980,000,000—with its invisible decimal point at the end— look like the number 9.8. That is 980,000,000 = 9.8 × 108. The exponent of the base 10 determines the number of times the decimal point is shifted."
+        },
+        {
+          "id": "BT6-S5-Q7",
+          "type": "numeric_entry",
+          "stem": "[Question 7 - Numeric Entry - see source material]",
+          "correctAnswer": "123",
+          "explanation": "(123) The second player scored 28 – 26.5 = 1.5 points per game more than the first player. For an 82-game season, this would amount to = 123 more points, in total."
+        },
+        {
+          "id": "BT6-S5-Q8",
+          "type": "numeric_entry",
+          "stem": "[Question 8 - Numeric Entry - see source material]",
+          "correctAnswer": "12",
+          "explanation": "(12) The unknowns a and b can be thought of as two of the triangle’s side lengths. Because the x- and y-axes are perpendicular, the triangle is a right triangle and its area is given by , which is given as 6. Then ab = 6 × 2 = 12. Since a and b are integers, we can list all possible pairs of whole numbers for a and b whose product is twelve: (1, 12), (2, 6), (3, 4). The length of the third side of the triangle is determined by the Pythagorean Theorem: a2 + b2 = c2, which implies . If c represents the remaining, unknown side length here, there are three possible values for c, one for each of the three pairs listed above. That is, . However, only the last, , is an integer as required, so c = 5, a = 3, and b = 4. This makes the perimeter 3 + 4 + 5 = 12. The values of a and b may be interchanged, but the perimeter is still 12."
+        },
+        {
+          "id": "BT6-S5-Q9",
+          "type": "numeric_entry",
+          "stem": "[Question 9 - Numeric Entry - see source material]",
+          "correctAnswer": "492",
+          "explanation": "(492) When a list contains consecutive integers, use a simple but helpful formula for determining how many numbers there are from some first number, F, through some last number, L, inclusive. The formula is L – F + 1. Here, the 200 consecutive integers 1, 2, 3, … 200 are written on a page. Of these, there are nine single-digit numbers written, because 9 – 1 + 1 = 9 (using F = 1 and L = 9 in the formula). The two-digit numbers written include from 10 through 99, and thus include 99 – 10 + 1 = 90 numbers. The three-digit numbers written on the page include from 100 through 200, and thus include 200 – 100 + 1 = 101 whole numbers. So the total number of digits written is (9 × 1) + (90 × 2) + (101 × 3) = 9 + 180 + 303 = 492."
+        },
+        {
+          "id": "BT6-S5-Q10",
+          "type": "multiple_choice_single",
+          "stem": "[Question 10 - Multiple Choice - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) If the diameters are 6 and 8, divide by 2 to obtain the radii: 3 and 4. The area of each circle is given by the formula A = πr2, for radius = r. Then the smaller circle has area π32 = 9π, while the larger circle has area π42 = 16π. The shaded area between the two circles is equal to the larger circle’s area minus that of the smaller. 16π – 9π = 7π, (B)."
+        },
+        {
+          "id": "BT6-S5-Q11",
+          "type": "multiple_choice_single",
+          "stem": "[Question 11 - Multiple Choice - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) Let x = Jim’s age now. Then Ted is now x – 15 years old, since he is 15 years younger. 18 years ago, Jim was x – 18 years old, and Ted’s age was (x – 15) – 18 = x – 33. Since Jim was twice Ted’s age then, x – 18 = 2(x – 33), or x – 18 = 2x – 66. Subtract 1x and add 66 to each side, to obtain 48 = x, (D). *Let the ages now be J and T. Then the ages 18 years ago, the ages were J – 18 and T – 18. Set up one equation for present ages, J = T + 15, and one equation for past ages: J – 18 = 2(T – 18). Now substitute T + 15 for the J in the second equation: T + 15 – 18 = 2(T – 18). Therefore, T – 3 = 2T – 36. Finally, subtract T and add 36 to each side to find 33 = T. Don’t forget, the question asked for Jim’s age, which is T + 15 = 33 + 15 = 48, (D)."
+        },
+        {
+          "id": "BT6-S5-Q12",
+          "type": "multiple_choice_single",
+          "stem": "[Question 12 - Multiple Choice - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) Wendy’s list of three quiz scores contains two even scores, 8 and 10, so the probability that an even number is selected from her quiz scores is . Yuri’s list contains the two even numbers, 10 and 6, so there is also a  probability that an even number is selected from his list. Zoe has only one even quiz score out of three scores total, so the probability that an even number is selected from her list is . Find the probability that all three numbers chosen are even by multiplying these independent probabilities: ."
+        },
+        {
+          "id": "BT6-S5-Q13",
+          "type": "multiple_choice_single",
+          "stem": "[Question 13 - Multiple Choice - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) Use the formula D = r × t, or distance = rate × time. When the second car leaves New York, the first car is ahead by miles. The second car travels faster by 66 – 54 = 12 miles per hour, meaning that it catches up by 12 miles every hour. Then by the D = rt formula again, 108 = 12 × t, and t = 9. This means that the second car will require 9 hours to close the distance of 108 miles. Since it departed at 2:00 (2 hours after 12:00), it reaches the first car at 2:00 + 9 hours = 11:00, (D)."
+        },
+        {
+          "id": "BT6-S5-Q14",
+          "type": "multiple_choice_single",
+          "stem": "[Question 14 - Multiple Choice - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) The triangle’s perimeter is simply 3x because it has three equal sides of length x. To find its area, first draw the altitude or height (call it h), and note that this divides the base into two congruent segments of length . By the Pythagorean Theorem, . Take the square root of each side to obtain . (You can also get h quickly by the pattern for side lengths of a 30–60–90 triangle, with s here set equal to .) Since the area of a triangle is given by  × base × height, the area here is . Set this equal to the perimeter: . Multiply by 4, and 12x = x2 . Since x ≠ 0, we can divide by x on both sides to obtain 12 = x . Divide by , and . Finally, simplify and get rid of the square root on the bottom, by multiplying both the numerator and denominator by . That is, ."
+        },
+        {
+          "id": "BT6-S5-Q15",
+          "type": "multiple_choice_multi",
+          "stem": "[Question 15 - Multiple Choice (Select All) - see source material]",
+          "correctAnswer": [
+            "C",
+            "D"
+          ],
+          "explanation": "(C, D) Set up ratios to determine her costs. . Cross- multiply to obtain 6x = 594, and x = 99. This means that Leila will spend at least $99. Similarly, . Cross-multiply again to obtain 6x = 774, and x = $129 is the most she will spend. Choices (C) and (D) fall within this range.",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT6-S5-Q16",
+          "type": "multiple_choice_multi",
+          "stem": "[Question 16 - Multiple Choice (Select All) - see source material]",
+          "correctAnswer": [
+            "A",
+            "C",
+            "D"
+          ],
+          "explanation": "(A, C, D) (A) is correct because the sum of two even integers is even, and the product of two even integers is even. For example, 2 + 4 = 6, 10 + –8 = 2, 12 × 4 = 48. (B) is not correct because the sum of two odd integers is not odd. For example, 1 + 3 = 4. (C) is correct: the Real number system is closed under addition and multiplication, meaning that any two real numbers when added or multiplied will produce another real number. (D) is correct, because when positive numbers are added or multiplied, the result is positive. (E) is not correct, because the product of two negative real numbers is not negative but positive. Answer is (A), (C), and (D).",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT6-S5-Q17",
+          "type": "multiple_choice_multi",
+          "stem": "[Question 17 - Multiple Choice (Select All) - see source material]",
+          "correctAnswer": [
+            "C",
+            "D",
+            "E"
+          ],
+          "explanation": "(C, D, E) (A) is not correct, because if 0 < x < 1, then  will be greater than 1. For example, if . (B) is not correct, because x does not have to be less than 1,000. For example, if x = 1,000,000, then , as required. (D) is correct, because  will be both positive and less than 1, whenever x is greater than 1. (C) is correct as follows: we are given  < 1. We know 1 < x as described in (D), above. These inequalities can be put together as  < 1 < x, which implies  < x. (E) is correct, because when a fraction or decimal between 0 and 1 is squared, the result is smaller than the starting number. Here, will be strictly less than , or equivalently, . Answer is (C), (D), and (E).",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT6-S5-Q18",
+          "type": "multiple_choice_single",
+          "stem": "[Question 18 - Multiple Choice - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) In 2007, there were 15 students in college for every 20 students in grades 7–12, so the ratio was 15:20. (You may drop the “millions” when considering these figures as a ratio.) Dividing through by 5, the greatest common factor of 15 and 20, yields the reduced form, 3:4, (C)."
+        },
+        {
+          "id": "BT6-S5-Q19",
+          "type": "multiple_choice_single",
+          "stem": "[Question 19 - Multiple Choice - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) Eliminate choices (C) and (E), years in which government spending was relatively low. Comparing choices (A) and (B), spending was the same in both years, but in 2001, there were more total students, so the per student spending was less. This eliminates (A). In 2002, choice (B), $85 was spent for every 57.5 students, which amounts to per student. In 2006, choice (D), $90 was spent for every 70 students, which amounts to per student. (B) is correct."
+        },
+        {
+          "id": "BT6-S5-Q20",
+          "type": "multiple_choice_single",
+          "stem": "[Question 20 - Multiple Choice - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) The average government spending in the years 2007 through 2008 was million. The average government spending in the years 2002 through 2004 was million. The former is of the latter. This is roughly 84%, (E)."
+        }
+      ]
+    }
+  ]
+}

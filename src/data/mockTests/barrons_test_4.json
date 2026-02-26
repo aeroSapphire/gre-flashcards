@@ -1,0 +1,729 @@
+{
+  "id": "barrons-test-4",
+  "name": "Barron's Practice Test 4",
+  "source": "Barron's 6 GRE Practice Tests",
+  "sourceShort": "Barron's",
+  "description": "Full-length GRE practice test 4 from Barron's 6 GRE Practice Tests. Includes Analytical Writing, 2 Verbal Reasoning sections (20 questions each, 30 min), and 2 Quantitative Reasoning sections (20 questions each, 35 min).",
+  "sectionCount": 5,
+  "totalTimeMinutes": 160,
+  "format": "old",
+  "sections": [
+    {
+      "id": "BT4-S1",
+      "sectionNumber": 1,
+      "type": "analytical_writing",
+      "name": "Section 1 — Analytical Writing",
+      "timeMinutes": 30,
+      "questionCount": 1,
+      "questions": [
+        {
+          "id": "BT4-S1-Q1",
+          "type": "analytical_writing",
+          "stem": "Analyze an Argument",
+          "correctAnswer": "essay",
+          "explanation": "This is an essay question - no single correct answer.",
+          "prompt": "Section 1—Analytical Writing Time: 60 Minutes—2 Writing Tasks TASK 1: ISSUE EXPLORATION TIME: 30 MINUTES The topic is presented in a one- to two-sentence quotation commenting on an issue of general concern.\nYour essay will be judged on the basis of your skill in the following areas:\n• response to the specific task instructions • consideration of the complexities of the issue • organization, development, and expression of your ideas • support of your position with relevant reasoning and examples • control of the elements of standard written English Topic Colleges should require all students to demonstrate proficiency in at least one foreign language.\nDirections: Write a response in which you discuss the extent to which you agree or disagree with the recommendation and explain your reasoning for the position you take. In developing and supporting your position, describe specific circumstances in which adopting the recommendation would or would not be advantageous and explain how these examples shape your position.\n*Please write your response on separate pieces of paper.\n\nTASK 2: ARGUMENT ANALYSIS TIME: 30 MINUTES Your essay will be judged on the basis of your skill in the following areas:\n• identification and assessment of the argument’s main elements • organization and articulation of your thoughts • use of relevant examples and arguments to support your case • handling of the mechanics of standard written English Topic Our school is the best choice for students considering a career in theatre.\nFirst, our school does not require an audition and encourages applicants of all acting experience levels to apply. Second, our students are trained in all major schools of acting methods. Finally, many of our graduates have gone on to achieve acting roles in Broadway productions and Hollywood films.\nDirections: Write a response in which you discuss what questions would need to be addressed in order to decide whether the conclusion and the argument on which it is based are reasonable. Be sure to explain how the answers to the questions would help to evaluate the conclusion.\n*Please write your response on separate pieces of paper.",
+          "directions": "Write a response in which you discuss what specific evidence is needed to evaluate the argument and explain how the evidence would weaken or strengthen the argument."
+        }
+      ]
+    },
+    {
+      "id": "BT4-S2",
+      "sectionNumber": 2,
+      "type": "verbal",
+      "name": "Section 2 — Verbal Reasoning",
+      "timeMinutes": 30,
+      "questionCount": 20,
+      "questions": [
+        {
+          "id": "BT4-S2-Q1",
+          "type": "text_completion",
+          "stem": "[Question 1 - Text Completion - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) If the plots of the author’s mysteries are “far from” predictable and “driven by whim and fancy,” they could be described as capricious (unpredictable).",
+          "blanks": 1
+        },
+        {
+          "id": "BT4-S2-Q2",
+          "type": "text_completion",
+          "stem": "[Question 2 - Text Completion - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) If the botanist was familiar with the flora (plants) endemic (native) to his region, it makes sense that he would be only vulnerable to poisoning from a foreign fungus.",
+          "blanks": 1
+        },
+        {
+          "id": "BT4-S2-Q3",
+          "type": "text_completion",
+          "stem": "[Question 3 - Text Completion - see source material]",
+          "correctAnswer": [
+            "B",
+            "D"
+          ],
+          "explanation": "(B, D) Since the owners are accustomed to the advantages, taking them away might logically produce indignation (anger) from them. If blank (ii) is prize (pry), then the comparison makes sense, since neither the dog nor the owner want to give up what they have.",
+          "blanks": 2
+        },
+        {
+          "id": "BT4-S2-Q4",
+          "type": "text_completion",
+          "stem": "[Question 4 - Text Completion - see source material]",
+          "correctAnswer": [
+            "C",
+            "F"
+          ],
+          "explanation": "(C, F) Given the options, only delineates (describes) is an appropriate word to talk about how a book might discuss a plan. A clue for blank (ii) is provided by the third sentence, which says that Boon’s detractors (critics) disparage (put down) his ideas and argue for an expeditious (quick) plan, which would mean Boon’s plan advocates incremental (step-by-step) change.",
+          "blanks": 2
+        },
+        {
+          "id": "BT4-S2-Q5",
+          "type": "text_completion",
+          "stem": "[Question 5 - Text Completion - see source material]",
+          "correctAnswer": [
+            "A",
+            "E"
+          ],
+          "explanation": "(A, E) A clue for blank (i) is given in the rest of its sentence, since the described bird “could command the lion’s share of the food due to his status.” Preeminent (having the highest rank or position) would thus describe this bird. Since the other male bird accepts the food passively, this acceptance can be termed acquiescence (giving in without protest).",
+          "blanks": 2
+        },
+        {
+          "id": "BT4-S2-Q6",
+          "type": "text_completion",
+          "stem": "[Question 6 - Text Completion - see source material]",
+          "correctAnswer": [
+            "B",
+            "E",
+            "G"
+          ],
+          "explanation": "(B, E, G) Clues are provided by the description of the ingenue’s delivery as impassive (emotionless) and the critic’s view of her as a mannequin with just enough life to pass as a human. Of the choices for blank (i), grating (irritating) fits, especially because the critic found himself “dreading” her next line. For blank (ii), wooden (expressionless) fits the ingenue’s impassive manner, and imbued (infused) makes sense because the mannequin would have had to gain some life to pass as a human.",
+          "blanks": 3
+        },
+        {
+          "id": "BT4-S2-Q7",
+          "type": "reading_comprehension",
+          "stem": "[Question 7 - Reading Comprehension - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) If retailers removed the brand from their shelves, retail sales would drop even if consumers’ preferences were unaffected by the reports."
+        },
+        {
+          "id": "BT4-S2-Q8",
+          "type": "reading_comprehension",
+          "stem": "[Question 8 - Reading Comprehension - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) Since the author indicates that cities with a higher cost-of-living than average have underestimated poverty levels, it can be inferred that cities with a lower cost-of-living than average have overestimated poverty levels since their inhabitants do not have to spend as much money on things like food and housing."
+        },
+        {
+          "id": "BT4-S2-Q9",
+          "type": "reading_comprehension",
+          "stem": "[Question 9 - Reading Comprehension - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) In the last sentence of the fourth paragraph, the author indicates that the U.S. Census Bureau is likely to continue using its current definition of poverty “for the foreseeable future.” He prefaces this statement with the quote from Wendell Primus, which essentially says that a definition of poverty’s worth depends on its ability to measure whether the number of poor is increasing or decreasing. It can thus be inferred that the author is suggesting the current definition is persisting because it can make that distinction."
+        },
+        {
+          "id": "BT4-S2-Q10",
+          "type": "reading_comprehension",
+          "stem": "[Question 10 - Reading Comprehension - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) In the first paragraph, the author states that the current definition of poverty uses pretax income, i.e., using income before taxes have been withdrawn would not change the current system nor appease a critic of that system."
+        },
+        {
+          "id": "BT4-S2-Q11",
+          "type": "reading_comprehension",
+          "stem": "[Question 11 - Reading Comprehension - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) In the last paragraph, the author says that “a period of economic contraction does not provide a blanket of uniform hardship upon all subgroups.” In other words, during a recession, it can be inferred that some of these subgroups suffer more hardship than do others."
+        },
+        {
+          "id": "BT4-S2-Q12",
+          "type": "reading_comprehension",
+          "stem": "[Question 12 - Reading Comprehension - see source material]",
+          "correctAnswer": [
+            "A",
+            "C"
+          ],
+          "explanation": "(A, C) Since the sheriff is “still surprised” by the way the new mayor quickly acceded (agreed), it is implied that he is surprised even though he has become accustomed to such behavior. Therefore, he would be accustomed to either deference (submission) or yielding (giving way to).",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT4-S2-Q13",
+          "type": "sentence_equivalence",
+          "stem": "[Question 13 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "B",
+            "E"
+          ],
+          "explanation": "(B, E) The phrase “in fact” indicates a shift, so if the positions of electrons were once thought to be definable, they must now be the opposite. Both nebulous (vague) and enigmatic (mysterious) create the necessary contrast.",
+          "selectCount": 2
+        },
+        {
+          "id": "BT4-S2-Q14",
+          "type": "sentence_equivalence",
+          "stem": "[Question 14 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "D",
+            "E"
+          ],
+          "explanation": "(D, E) If the man is a walking contradiction and his manner is usually languid (lacking energy), an appropriate contrast could be created with spirited (lively) or mettlesome (full of vitality and energy).",
+          "selectCount": 2
+        },
+        {
+          "id": "BT4-S2-Q15",
+          "type": "sentence_equivalence",
+          "stem": "[Question 15 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "A",
+            "F"
+          ],
+          "explanation": "(A, F) Inquiring about the health of someone’s goldfish, in most cases, goes beyond politeness to the realm of being overly solicitous (concerned about the well-being of) or overly attentive (considerate).",
+          "selectCount": 2
+        },
+        {
+          "id": "BT4-S2-Q16",
+          "type": "sentence_equivalence",
+          "stem": "[Question 16 - Sentence Equivalence - see source material]",
+          "correctAnswer": "Sentence 5",
+          "explanation": "(Sentence 5: When watching … adults.) This sentence supports the assertion in the preceding sentence by giving an example of a finding in adults. The preceding sentence draws a parallel to the similar finding stated earlier in the passage regarding children.",
+          "selectCount": 2
+        },
+        {
+          "id": "BT4-S2-Q17",
+          "type": "reading_comprehension",
+          "stem": "[Question 17 - Reading Comprehension - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) In this context, “inscribed” means “attributed,” especially since the author goes on to explain how may neurons accomplish the indicated brain functions."
+        },
+        {
+          "id": "BT4-S2-Q18",
+          "type": "reading_comprehension",
+          "stem": "[Question 18 - Reading Comprehension - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) The author states that cognition and consciousness “may, or may not, coincide,” and his description of “autopilot” behavior supports this assertion, in effect, arguing against the converse, that the two are always linked."
+        },
+        {
+          "id": "BT4-S2-Q19",
+          "type": "reading_comprehension",
+          "stem": "[Question 19 - Reading Comprehension - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) “At least some of the time” is not hard to prove, and the passage indicates that the shift to conscious control can be the result of a dangerous stimulus, a situation where sensory perception (hearing, seeing, etc.) would certainly occur."
+        },
+        {
+          "id": "BT4-S2-Q20",
+          "type": "reading_comprehension",
+          "stem": "[Question 20 - Reading Comprehension - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) The argument supports the explanation offered in the last sentence, that “many musicians over the age of 35 produce fewer albums because they have been making music for too long to write compelling new music.” The first highlighted portion offers evidence that supports an alternative to the first explanation for the phenomenon—that musicians record most of their albums before age 35. The second highlighted portion states the explanation—that this is mostly due to the length of musicians’ careers."
+        }
+      ]
+    },
+    {
+      "id": "BT4-S3",
+      "sectionNumber": 3,
+      "type": "quantitative",
+      "name": "Section 3 — Quantitative Reasoning",
+      "timeMinutes": 35,
+      "questionCount": 20,
+      "questions": [
+        {
+          "id": "BT4-S3-Q1",
+          "type": "quantitative_comparison",
+          "stem": "[Question 1 - Quantitative Comparison - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) To find the probability of several independent events all occurring, multiply the probabilities of each event. For Team A to win all three of its next three games, the probability is .5 × .5 × .5 = .125. For Team B to win four games in a row, the probability is .6 × .6 × .6 × .6 = .1296, so (B) is greater. (Note: 50% = .5 and 60% = .6.)"
+        },
+        {
+          "id": "BT4-S3-Q2",
+          "type": "quantitative_comparison",
+          "stem": "[Question 2 - Quantitative Comparison - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) To find the greatest common factor (GCF) of 84 and 700, factor each into primes. A tree might help: Looking at the prime numbers, those at the bottom of every branch, we see that 84 and 700 have 22 × 7 in common. Then the GCF, Quantity (A), is 22 × 7 = 28. The easiest way to find the least common multiple of 6 and 15 is to list multiples of the larger number until reaching one that is also a multiple of the smaller: 15, 30, 45. … Notice that the second multiple of 15 is 30, which is also a multiple of 6, because 6 × 5 = 30. Since 30 > 28, (B) is greater."
+        },
+        {
+          "id": "BT4-S3-Q3",
+          "type": "quantitative_comparison",
+          "stem": "[Question 3 - Quantitative Comparison - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) Don’t waste time trying to compute the quantities. In Column (B), 8 = 23, so 85 = (23)5 = 215. In Column (A), recall that a negative number to an even power is positive, so (–2)16 = 216. Since 216 > 215, (A) is greater."
+        },
+        {
+          "id": "BT4-S3-Q4",
+          "type": "quantitative_comparison",
+          "stem": "[Question 4 - Quantitative Comparison - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) The product of the three quantities is zero, so one of the individual factors (x2 + 9), (x + 9), or (x – 5) must equal zero. x2 + 9 = 0 has no real solution, because x2 can’t equal –9, or any negative. If x + 9 = 0 then x = –9, and if x – 5 = 0, then x = 5. So the two possible values of x are –9 and 5, both less than 7. Then Quantity (B), 7, is greater."
+        },
+        {
+          "id": "BT4-S3-Q5",
+          "type": "quantitative_comparison",
+          "stem": "[Question 5 - Quantitative Comparison - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) To find the median of the list, begin crossing out the lowest and highest numbers in turn until one or two are left in the middle: 0, 0, 0, 2, 9, 11, 11, 14, 16, 17. After four values have been crossed off either end, 9 and 11 remain in the middle, making the median equal to = 10. To find the average of the ten numbers on the list, add all the numbers and divide by 10, which is = 8. Since 10 > 8, (A) is greater. You can also save time and spot visually that the average will be less than 10 by noticing the three 0s and no numbers greater than 17 on the list."
+        },
+        {
+          "id": "BT4-S3-Q6",
+          "type": "multiple_choice_single",
+          "stem": "[Question 6 - Multiple Choice - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) The amounts of money, X and Y, that are invested in the two accounts are unknown, so we cannot determine the dollar amount of interest each account earns, (D)."
+        },
+        {
+          "id": "BT4-S3-Q7",
+          "type": "multiple_choice_single",
+          "stem": "[Question 7 - Multiple Choice - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) Graph the equations y = 3x – 2 and y = x2 + 3 in the xy-plane, noting that the first is a line with slope 3 and y-intercept (0, –2), and that the second is an upward pointed parabola with y-intercept (0, 3). The parabola is always above the line, having a greater y value, so x2 + 3 > 3x – 2 for all values of x. (A). *Plug in numbers for x. For x < 0, (A) is positive, while (B) is negative, so (A) is greater. If x = 0, then (A) = 3 > (B) = –2. If x = 1, then (A) = 4 > (B) = 1. For large values of x, x2 > 3x, so (A) is greater."
+        },
+        {
+          "id": "BT4-S3-Q8",
+          "type": "multiple_choice_single",
+          "stem": "[Question 8 - Multiple Choice - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) There are 24 hours in 1 day, so there are 24d hours in d days. Quantity (B) is hours × 60 d = × minutes = 24 d minutes. The quantities are both equal to 24d, (C)."
+        },
+        {
+          "id": "BT4-S3-Q9",
+          "type": "multiple_choice_single",
+          "stem": "[Question 9 - Multiple Choice - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) First, since the triangle is isosceles, two side lengths are equal, and two angles are equal. The value of the two equal angles is . Next, draw the perpendicular from the upper vertex to the base, creating two congruent 30–60–90 triangles, each with base . If you remember the s – s – 2s pattern for the side lengths of 30–60–90 triangles, you can quickly obtain 6, 6 , and 12 as the three side lengths, meaning that x = 6 and 2x = 12 in the diagram. This makes the perimeter of the original isosceles triangle 12 + 12 + 12 = 24 + 12 , (C). If you forget the formula for 30–60–90 triangles, draw the dashed reference lines, and observe that the symmetry of the larger equilateral triangle thus created implies the 1x to 2x ratio of side lengths in the upper right triangle. Then, from the Pythagorean Theorem, x2 + (6 )2 = (2x)2. So x2 + 36 × 3 = 4x2, which yields 108 = 3x2 and 36 = x2. This again makes x = 6 and perimeter equal to 4x + 12 = 24 + 12 ."
+        },
+        {
+          "id": "BT4-S3-Q10",
+          "type": "multiple_choice_single",
+          "stem": "[Question 10 - Multiple Choice - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) Call the uniform width x, and the outer dimensions of the picture together with the frame become 8 + 2x and 12 + 2x, because the frame’s width adds to both the top and bottom and the left and right of the picture. The full area of the picture together with frame is then (8 + 2x) (12 + 2x) = 96 + 16x + 24x + 4x2 = 4x2 + 40x + 96. This expression must equal 2 × 8 × 12 = 192, because the frame’s area is equal to the picture’s, implying that the area enclosed by the frame and picture together must equal twice the area of the picture alone. So 4x2 + 40x + 96 = 192. Subtract 192 to obtain 4x2 + 40x – 96 = 0, and divide by 4 on both sides: x2 + 10x – 24 = 0. The left side factors as (x + 12)(x – 2), since 12x – 2x = 10x, and so x = 2 or –12. Only x = 2, (D), works in context of the problem, because a length cannot be negative. You can also get this result using a trial and error approach with the answer choices. When x = 2, the outer dimensions become 12 × 16, for a total area of 192. This makes the picture’s area, 8 × 12 = 96, the same as the frame’s area, 192 – 96 = 96."
+        },
+        {
+          "id": "BT4-S3-Q11",
+          "type": "numeric_entry",
+          "stem": "[Question 11 - Numeric Entry - see source material]",
+          "correctAnswer": "95",
+          "explanation": "(95) The whole numbers between 100 and 200 consist of 101, 102, 103 … 199, and thus include 99 numbers. Of these, four numbers are equal to the square of another integer: 121, 144, 169, and 196, because 121 = 112, 144 = 122, 169 = 132, and 196 = 142. Notice that 102 = 100 and 152 = 225 fall outside the specified range. This leaves 99 – 4 = 95 whole numbers that are not the square of an integer."
+        },
+        {
+          "id": "BT4-S3-Q12",
+          "type": "numeric_entry",
+          "stem": "[Question 12 - Numeric Entry - see source material]",
+          "correctAnswer": "24",
+          "explanation": "(24) Note: As in many GRE geometry problems, the figure is not drawn to scale. Since the shaded region has area equal to 256, the length of each side of the square is = 16. Then BC is the hypotenuse of an isosceles right triangle with legs of length 16. So (or ), by the Pythagorean Theorem. Then and AB = 8, are the lengths of two legs in the separate right triangle ABC. Find hypotenuse AC by again applying the Pythagorean Theorem. 82 + ( )2 = AC2. So 64 + 256 × 2 = AC2. Finally, ."
+        },
+        {
+          "id": "BT4-S3-Q13",
+          "type": "numeric_entry",
+          "stem": "[Question 13 - Numeric Entry - see source material]",
+          "correctAnswer": "$750",
+          "explanation": "($750) Simplest is to construct a table listing possible options for the business. Revenue is found by multiplying the price per chair times the number of chairs. Number of $1 discounts Final price of chair Number of chairs sold Revenue 0 $25 30 $750 1 $24 31 $744 2 $23 32 $736 3 $22 33 $726 We see that lowering the price only decreases revenue, so the business generates the most revenue by leaving the price at $25. The maximum is $750."
+        },
+        {
+          "id": "BT4-S3-Q14",
+          "type": "numeric_entry",
+          "stem": "[Question 14 - Numeric Entry - see source material]",
+          "correctAnswer": "126",
+          "explanation": "(126) The sum of the measures of the three angles in a triangle is 180°, so 2x + 3x + 5x = 180. Then 10x = 180, and x = 18. Then the 3x angle measures 3(18) = 54°. Since the sum of angles that comprise a straight line is 180°, 54 + y = 180, and y = 126."
+        },
+        {
+          "id": "BT4-S3-Q15",
+          "type": "numeric_entry",
+          "stem": "[Question 15 - Numeric Entry - see source material]",
+          "correctAnswer": "52",
+          "explanation": "(52) There are seven boys for every five girls for every 7 + 5 = 12 children. Then boys are  of all children and girls are . Out of 312 total children, there are  ×312=182 boys, and ×312=130 girls. Then there are 182 – 130 = 52 more boys. *For every 12 children, there are 7 boys – 5 girls = 2 more boys. Then of all children are the number of “more boys”: ."
+        },
+        {
+          "id": "BT4-S3-Q16",
+          "type": "numeric_entry",
+          "stem": "[Question 16 - Numeric Entry - see source material]",
+          "correctAnswer": "68",
+          "explanation": "(68) Suppose that of the 120 tosses, h lands heads up and t lands tails up. Then h + t = 120. If each of the h heads moves the player forward 10 units, then 10h represents his total forward motion. Similarly, –13t represents the player’s backward motion. Then 10h – 13t = 4, since the player ends four squares forward of his starting position. Multiply the underlined equation by 13, in order to eliminate the t variable:"
+        },
+        {
+          "id": "BT4-S3-Q17",
+          "type": "numeric_entry",
+          "stem": "[Question 17 - Numeric Entry - see source material]",
+          "correctAnswer": "120 ml",
+          "explanation": "(120 ml) Drug X is 5% of the 80 ml solution, so there are .05 × 80 = 4 ml of Drug X. We want to dilute the solution to a 2% concentration, so this 4 ml of the drug will be 2% of some total volume, say T. That is, 4 = .02T. Then T is 4 ÷ .02 = 200. If the total volume after adding water will be 200 ml, then the amount added must be 200 minus the initial volume: 200 – 80 = 120 ml are added."
+        },
+        {
+          "id": "BT4-S3-Q18",
+          "type": "numeric_entry",
+          "stem": "[Question 18 - Numeric Entry - see source material]",
+          "correctAnswer": "300",
+          "explanation": "(300) Find the number of choices for appetizers with the “choose” function, written as and defined for positive integers by the formula Recall that n! means the product of all positive integers from 1 through n, inclusive. From six appetizers, we choose two, so there are 6C2 combinations, which equals , after canceling duplicate numbers in the numerator and denominator. You can also compute this by “brute force.” Label the appetizers A, B, C, D, E, and F, and then list all combinations of two appetizers as follows: AB, AC, AD, AE, AF, BC, BD, BE, BF, CD, CE, CF, DE, DF, EF. There are 5 + 4 + 3 + 2 + 1 = 15 combinations in all. Multiply the number of choices for appetizer by the four choices for entrée and the five choices for dessert to obtain 15 × 4 × 5 = 300 total menu combinations."
+        },
+        {
+          "id": "BT4-S3-Q19",
+          "type": "multiple_choice_single",
+          "stem": "[Question 19 - Multiple Choice - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) Examine only the beginning and ending weights for all three animals. For the cat and hamster the difference between the original and final weights was less than 2 kg. For the dog, the initial weight was a little more than 10 kg, while the final weight was a little more than 8 kg. The dog’s weight changed by 10 – 8 = 2 kg, which is the greatest change for the three animals. (C)."
+        },
+        {
+          "id": "BT4-S3-Q20",
+          "type": "multiple_choice_single",
+          "stem": "[Question 20 - Multiple Choice - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) The hamster’s weight changed from nearly 6 kg in week 1 to just above 2 kg in week 2, a change of over 50% in 1 week, so (A) is not correct. The dog’s weight parallels the cat’s fairly closely throughout the study and is usually about 2 kg greater than the cat’s, except in week 4, when their weight graphs move closer together, showing that (B) is not correct. Each animal had a lower final weight than starting weight, so (C) is not correct. An examination of the week 3 weights for the animals shows that the dog did reach its maximum weight in week 3, so (D) is correct. The dog’s and cat’s weights did follow the “decrease-increase-decrease” pattern throughout the study, but the hamster’s weight simply decreased then increased, so (E) is not correct."
+        }
+      ]
+    },
+    {
+      "id": "BT4-S4",
+      "sectionNumber": 4,
+      "type": "verbal",
+      "name": "Section 4 — Verbal Reasoning",
+      "timeMinutes": 30,
+      "questionCount": 20,
+      "questions": [
+        {
+          "id": "BT4-S4-Q1",
+          "type": "text_completion",
+          "stem": "[Question 1 - Text Completion - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) If Simmons’s students think he is sincere and profound, and his colleagues are in contrast to those students, it would make sense that they think his work is claptrap (trash).",
+          "blanks": 1
+        },
+        {
+          "id": "BT4-S4-Q2",
+          "type": "text_completion",
+          "stem": "[Question 2 - Text Completion - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) The “however” in the sentence creates a shift from the fact that science fiction has not been known for its foresight (ability to look forward). Therefore, the authors mentioned must have prescience (ability to predict the future), especially since they have “correctly predicted” inventions.",
+          "blanks": 1
+        },
+        {
+          "id": "BT4-S4-Q3",
+          "type": "text_completion",
+          "stem": "[Question 3 - Text Completion - see source material]",
+          "correctAnswer": [
+            "A",
+            "D"
+          ],
+          "explanation": "(A, D) The review favors belittling (putting down; disparaging) criticism, so it could be described as pejorative (disparaging). Such a review would necessarily have dispensed with (gotten rid of) cordiality (cheerfulness; warmth).",
+          "blanks": 2
+        },
+        {
+          "id": "BT4-S4-Q4",
+          "type": "text_completion",
+          "stem": "[Question 4 - Text Completion - see source material]",
+          "correctAnswer": [
+            "B",
+            "F",
+            "G"
+          ],
+          "explanation": "(B, F, G) Only one combination of blanks produces a logical sentence here. If the new album, rather than enshrouding (covering up) the clues explicates (explains) its prior intimations (implications), then one’s discernment (perception) would become more clear.",
+          "blanks": 3
+        },
+        {
+          "id": "BT4-S4-Q5",
+          "type": "text_completion",
+          "stem": "[Question 5 - Text Completion - see source material]",
+          "correctAnswer": [
+            "B",
+            "F",
+            "H"
+          ],
+          "explanation": "(B, F, H) Again, only one combination of blanks will produce a logical sentence. If the popularity of the books will have a beneficial (good) effect, then children would be more venturesome (adventurous) with their reading, and parents would buy books not available before electronic books.",
+          "blanks": 3
+        },
+        {
+          "id": "BT4-S4-Q6",
+          "type": "text_completion",
+          "stem": "[Question 6 - Text Completion - see source material]",
+          "correctAnswer": [
+            "A",
+            "F",
+            "I"
+          ],
+          "explanation": "(A, F, I) Beginning with blank (iii), if the people being discussed are compensating, then using ersatz (artificial) to describe their surety (sureness) would work. For blank (ii), the phrase “tantalizingly accessible” is used to describe the preceding phrase, so using invulnerability (immunity to attack) of conviction would logically be tantalizing to those considering their “allegiances and credos (beliefs).” A clue for blank (i) is given by the phrase “those who speak loudly”: vociferously (loudly) is also the only word that fits given the choices.",
+          "blanks": 3
+        },
+        {
+          "id": "BT4-S4-Q7",
+          "type": "reading_comprehension",
+          "stem": "[Question 7 - Reading Comprehension - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) In the passage, the author describes a specific art installation, then proceeds to deconstruct (examine by breaking a whole into parts) the elements of the art exhibit and their meanings."
+        },
+        {
+          "id": "BT4-S4-Q8",
+          "type": "reading_comprehension",
+          "stem": "[Question 8 - Reading Comprehension - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) The author spends little time describing the exhibit (he doesn’t bother to catalog all the words defined, for instance) and instead emphasizes that its goals were to explore the polysemy (multiple meanings) of language, and to foster participation rather than contemplation. The last sentence, in particular, highlights this change. It can therefore be inferred that the viewer’s response to the exhibit is more important than the exhibit itself."
+        },
+        {
+          "id": "BT4-S4-Q9",
+          "type": "reading_comprehension",
+          "stem": "[Question 9 - Reading Comprehension - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) Since the author is using “amplified” to describe the exhibit’s purpose, in this context, “amplified” means “added to.”"
+        },
+        {
+          "id": "BT4-S4-Q10",
+          "type": "reading_comprehension",
+          "stem": "[Question 10 - Reading Comprehension - see source material]",
+          "correctAnswer": [
+            "B",
+            "C"
+          ],
+          "explanation": "(B, C) Both Choices (B) and (C) are accurate paraphrases of sentences in the passage. Choice (B) paraphrases the sentence, “Alternatively, a cultural … issues,” and Choice (C) is a paraphrase of “Anti-smoking propaganda, too … habit.”",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT4-S4-Q11",
+          "type": "reading_comprehension",
+          "stem": "[Question 11 - Reading Comprehension - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) The author says that to produce a life change, it is “more likely” that self-help directed at “everyday life” is more useful than that in the realm of high theory; he thereby argues that practical self-help is more useful in helping people stop smoking."
+        },
+        {
+          "id": "BT4-S4-Q12",
+          "type": "reading_comprehension",
+          "stem": "[Question 12 - Reading Comprehension - see source material]",
+          "correctAnswer": [
+            "B",
+            "C"
+          ],
+          "explanation": "(B, C) The politician is trying to draw his opponent into a topic that he thinks will work against her. “Favorite topic” indicates that she likes the topic, so either proclivities (inclinations toward something) or predilections (preferences) would make sense.",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT4-S4-Q13",
+          "type": "sentence_equivalence",
+          "stem": "[Question 13 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "A",
+            "F"
+          ],
+          "explanation": "(A, F) Start with the shift: “but they could not go … without drinking.” Since there is a shift to this statement, the first part of the sentence must be something nearly opposite. Using either drink or consume creates the necessary shift from drinking to not drinking.",
+          "selectCount": 2
+        },
+        {
+          "id": "BT4-S4-Q14",
+          "type": "sentence_equivalence",
+          "stem": "[Question 14 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "B",
+            "E"
+          ],
+          "explanation": "(B, E) The tax code must be difficult for the layman (nonprofessional), since it is intrinsically (by nature) complicated and because an industry is devoted to its esoterica (things known only to a select few). Of the choices, only frustrated by and irked (annoyed) by are synonyms.",
+          "selectCount": 2
+        },
+        {
+          "id": "BT4-S4-Q15",
+          "type": "sentence_equivalence",
+          "stem": "[Question 15 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "E",
+            "F"
+          ],
+          "explanation": "(E, F) Of the choices given, only recondite (difficult to understand) and abstruse (difficult to understand) create sentences with the same meaning; both are also supported by the fact that Salk’s contemporaries are perplexed (confused) by his work.",
+          "selectCount": 2
+        },
+        {
+          "id": "BT4-S4-Q16",
+          "type": "sentence_equivalence",
+          "stem": "[Question 16 - Sentence Equivalence - see source material]",
+          "correctAnswer": [
+            "B",
+            "C"
+          ],
+          "explanation": "(B, C) Choice B is supported by the author’s statements in the second paragraph that there are obvious associations and connections between biometrics and criminality. Choice C is supported by the author’s statements in the beginning of the second paragraph, since both refer to a public preference, which indicates that public perception is an important consideration.",
+          "selectCount": 2
+        },
+        {
+          "id": "BT4-S4-Q17",
+          "type": "reading_comprehension",
+          "stem": "[Question 17 - Reading Comprehension - see source material]",
+          "correctAnswer": "The last sentence",
+          "explanation": "(The last sentence: Indeed, in the … Britain.) By surrounding the term “known criminals” with quotation marks, the author is implying that the conventional use of this term may be either invalid or based on questionable evidence."
+        },
+        {
+          "id": "BT4-S4-Q18",
+          "type": "reading_comprehension",
+          "stem": "[Question 18 - Reading Comprehension - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) By saying that the argument, that photographs of pandas indicate their numbers, is unsound in determining whether they are less endangered, the author argues that the pandas are, in fact, still threatened. His example about the rare flower is also used to discredit the argument."
+        },
+        {
+          "id": "BT4-S4-Q19",
+          "type": "reading_comprehension",
+          "stem": "[Question 19 - Reading Comprehension - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) The author points out the merits of the academic essay, but then proceeds to argue that it is this very structure that induces students to avoid experimentation and to discard observations that do not match their conclusions."
+        },
+        {
+          "id": "BT4-S4-Q20",
+          "type": "reading_comprehension",
+          "stem": "[Question 20 - Reading Comprehension - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) The author says that the Sophists were aware that language “affects the truths that it can say or name,” and then goes on to say that language’s apparatus affects how the truth will be made available. In other words, the Sophists are an example of a group who understood that the nature of language partially determines what it can communicate; therefore, different kinds of language have different limitations."
+        }
+      ]
+    },
+    {
+      "id": "BT4-S5",
+      "sectionNumber": 5,
+      "type": "quantitative",
+      "name": "Section 5 — Quantitative Reasoning",
+      "timeMinutes": 35,
+      "questionCount": 20,
+      "questions": [
+        {
+          "id": "BT4-S5-Q1",
+          "type": "quantitative_comparison",
+          "stem": "[Question 1 - Quantitative Comparison - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) Use the area formula for a circle: Area = πr2. So 64π = πr2, and r ="
+        },
+        {
+          "id": "BT4-S5-Q2",
+          "type": "quantitative_comparison",
+          "stem": "[Question 2 - Quantitative Comparison - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) If y is positive, then x and z must both be negative, in order to make the products xy and yz negative. Then xz is the product of two negative numbers and is thus positive and greater than zero. On the other hand, if y is negative, x and z must both be positive in order to make the products xy and yz negative. Then xz is the product of two positives, and again xz > 0, so (A) is greater."
+        },
+        {
+          "id": "BT4-S5-Q3",
+          "type": "quantitative_comparison",
+          "stem": "[Question 3 - Quantitative Comparison - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) Consider the angle marked A. The angles of a triangle sum to 180°, so A + x + y = 180. But the sum of angles that comprise a straight line is also 180°, so A + z = 180. Then A + x + y = A + z. Subtract A from both sides, and the As cancel to yield x + y = z, (C)."
+        },
+        {
+          "id": "BT4-S5-Q4",
+          "type": "quantitative_comparison",
+          "stem": "[Question 4 - Quantitative Comparison - see source material]",
+          "correctAnswer": "C",
+          "explanation": "(C) We can find f(32) for the function f(x) = 3x4 + 5x2 + 7 by plugging in 32 for x. But this is time-consuming and unnecessary. A negative number raised to an even power is positive, and since x appears only to even powers in f(x), f(–32) must equal f(32). (C)."
+        },
+        {
+          "id": "BT4-S5-Q5",
+          "type": "quantitative_comparison",
+          "stem": "[Question 5 - Quantitative Comparison - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) Use the formula for the circumference of a circle: C = 2πr, where r is the radius and C is the circumference. We’re given C = 2π2, so 2π2 = 2πr. Dividing by 2π on both sides shows that π = r. Now use the area formula for a circle: Area = πr2. Then area = π × π2 = π3. Since π > 3, π3 > 33 = 27, (A)."
+        },
+        {
+          "id": "BT4-S5-Q6",
+          "type": "numeric_entry",
+          "stem": "[Question 6 - Numeric Entry - see source material]",
+          "correctAnswer": "12",
+          "explanation": "(12) Since the ratio is 1:2:3:4, we can think of the jars containing 1x, 2x, 3x, and 4x marbles for some whole number, x. Then 1x + 2x + 3x + 4x = 60, so 10x = 60, and x = 6. This makes the current count of marbles in the jars 1(6), 2(6), 3(6), and 4(6), or 6, 12, 18, and 24. If each jar were to contain 60 ÷ 4 = 15 marbles, the ratio would become 15 : 15 : 15 : 15, which reduces to 1:1:1:1, as required. The minimum number of stones that must be moved to effect this change is 3 + 9 = 12, because three stones moved from the 18 jar to the 12 jar would leave those jars with 15 stones each, and nine stones moved from the 24 jar to the 6 jar would give those jars 15 each."
+        },
+        {
+          "id": "BT4-S5-Q7",
+          "type": "numeric_entry",
+          "stem": "[Question 7 - Numeric Entry - see source material]",
+          "correctAnswer": "27",
+          "explanation": "(27) By the law of exponents, 3x × 3y × 3z = 3x + y + z. Think of this situation as 3 raised to some power must equal 729, and use trial and error on your calculator to obtain the proper exponent. You might worry that this will take too long, but exponential functions grow quickly, and in a few seconds you should obtain 729 = 81 × 9 = 34 × 32 = 36. This means that x + y + z = 6. Observe that 1 + 2 + 3 = 6. For three unalike positive integers, this is the only solution, since all other such sums will be greater than 6. Given z = x + y, then z is 3, and x and y are 1 and 2 in either order. Finally, 3z = 33 = 27. 8. The volume of cup B when full is twice that of cup A, so it is natural to represent these quantities as 2x and x. But the question asks about cup B, so it is easier to let x = the volume of cup B, and let  x = the volume of cup A (when full). Since A is now  full, it contains units of fluid or other contents. This  x is to be added to the  x currently in cup B. Add the fractions by using the common denominator: 9 × 8 = 72. Then , meaning the cup is full."
+        },
+        {
+          "id": "BT4-S5-Q8",
+          "type": "numeric_entry",
+          "stem": "[Question 8 - Numeric Entry - see source material]",
+          "correctAnswer": "53/72",
+          "explanation": "More importantly, the diameter = 2r = 2 × 8 = 16. There are many ways to place points A, B, and C, but the diagram may look like the above. If AB is a diameter, then AB = 16. But C is a point distinct from B, making AC not a diameter. Then AC < 16, because any chord in a circle that is not the diameter is smaller than the diameter. Therefore, AB + AC < 16 + 16 = 32, (B)."
+        },
+        {
+          "id": "BT4-S5-Q9",
+          "type": "numeric_entry",
+          "stem": "[Question 9 - Numeric Entry - see source material]",
+          "correctAnswer": "127",
+          "explanation": "(127) The minimum occurs when the top floor has one room, and each additional floor has exactly 2 times the number of rooms as the floor above. The total is 1 + 2 + 4 + 8 + 16 + 32 + 64 = 127 rooms."
+        },
+        {
+          "id": "BT4-S5-Q10",
+          "type": "multiple_choice_single",
+          "stem": "[Question 10 - Multiple Choice - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) There are  ×900=300 females and, therefore, 900 – 300 = 600 males. For the category of retired individuals, there are ×300=75 retired females, and  ×600=375 retired males. This means that 75 + 375 = 450 people are retired in all. This represents of all participants, (B)."
+        },
+        {
+          "id": "BT4-S5-Q11",
+          "type": "multiple_choice_single",
+          "stem": "[Question 11 - Multiple Choice - see source material]",
+          "correctAnswer": "A",
+          "explanation": "(A) For each answer choice, get zero on one side first. For example, (A) becomes x2 + 8x + 17 = 0. You can determine the number of real solutions by considering the discriminant, b2 – 4ac, from the Quadratic Formula. Here, a = 1, b = 8, and c = 17. Then b2 – 4ac = 82 – 4 × 1 × 17 = 64 – 68 = –4. When the discriminant is negative, there are no solutions, since it is not possible to take the square root of a negative number within the real number system. (The discriminant appears under the radical sign in the Quadratic Formula: .) Only (A) makes b2 – 4ac negative. Graph the equation y = x2 + 8x in the xy-plane. First, find the x- intercepts by setting y equal to zero. So 0 = x2 + 8x = x(x + 8), and x = 0 or –8. Due to the symmetry of the parabola, the vertex will occur halfway between x = 0 and x = –8, meaning that x = is the graph’s axis of symmetry. Plug x = –4 into y = x2 + 8x, and y = (–4)2 + 8(–4) = 16 – 32 = –16. This means that the vertex has coordinates (–4, –16). The y-coordinate of the vertex in an upward pointed parabola is the graph’s minimum value. Because –17 < –16, y can never equal –17, and (A) is correct. *If you are stuck, you may be able to guess the correct answer by reasoning that x2 is usually “big,” because it is both non-negative and generally greater than a linear term, such as 8x. So x2 + 8x will probably not be as small as the smallest answer choice, –17, (A)."
+        },
+        {
+          "id": "BT4-S5-Q12",
+          "type": "multiple_choice_single",
+          "stem": "[Question 12 - Multiple Choice - see source material]",
+          "correctAnswer": "B",
+          "explanation": "(B) 2160 = (3 × 7)60, which equals 360 × 760. This will be divisible by any number whose prime factorization contains only the primes 3 and/or 7, with each raised to a power of at most 60. Only choice (B), 3, works. The other choices all have 2 or 5 as a factor. When these choices are placed into the denominator as n, nothing in the numerator, 360 × 760, will cancel with the 2 or 5, so the result is a non-integer fraction."
+        },
+        {
+          "id": "BT4-S5-Q13",
+          "type": "multiple_choice_single",
+          "stem": "[Question 13 - Multiple Choice - see source material]",
+          "correctAnswer": "D",
+          "explanation": "(D) Deduct the time of her rest breaks, 7 × .5 = 3.5 hours, from the 24 hours that she has available. 24 – 3.5 = 20.5 hours. Then her average rate will be the distance traveled, 879 miles, divided by the time spent traveling, 20.5 hours. , (D)."
+        },
+        {
+          "id": "BT4-S5-Q14",
+          "type": "multiple_choice_multi",
+          "stem": "[Question 14 - Multiple Choice (Select All) - see source material]",
+          "correctAnswer": [
+            "B",
+            "D",
+            "E"
+          ],
+          "explanation": "(B, D, E) The domain of a function, f(x), is the set of all possible x- values, or input values, for which the function is defined. (A) is not correct, because if x = –4, the denominator is 0, and division by 0 is undefined. (B) is correct, because the denominator x2 + 1 is always greater than zero, so no division by zero error occurs. (C) is not correct, because if x < 0, then 4x3 < 0. This creates the square root of a negative, which is undefined within the real number system. (D) is correct, because squaring the quantity (–4x) yields a value ≥ 0, and the square- root function is defined for all numbers ≥ 0. (E) is correct, because the cube-root function is defined for all real numbers, including negatives. For example . Answer is (B), (D), and (E).",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT4-S5-Q15",
+          "type": "multiple_choice_multi",
+          "stem": "[Question 15 - Multiple Choice (Select All) - see source material]",
+          "correctAnswer": [
+            "A",
+            "B"
+          ],
+          "explanation": "(A, B) A normal curve is symmetrical about the mean. The number 63 is farther from the mean of 74 than is the number 83, because 74 – 63 = 11, but 83 – 74 = only 9. Then 63 represents a more remote or extreme score, and fewer students score below 63 than above 83, making (A) correct. Alternately, there is less area in the tail to the left of 63 than in the tail to the right of 83. (B) is correct by the “rule of 68 – 95 – 99.7.” In a normal distribution, about 68% of the data falls within 1 standard deviation of the mean. The numbers 81 = 74 + 7 and 67 = 74 – 7 are exactly the values 1 standard deviation above and below the mean. So about 68% of students will score within that interval, 68% >65%. Finally, (C) is not correct. In a normal distribution, 50% of the data is above the mean and 50% is below the mean. If about 50% of students score above 74, then fewer than 50% of students will score above the higher number, 75. A correct statement might have read, “More than half the students scored above 70.” (Since 70 < 74 = the mean.) Answer is (A) and (B).",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT4-S5-Q16",
+          "type": "multiple_choice_multi",
+          "stem": "[Question 16 - Multiple Choice (Select All) - see source material]",
+          "correctAnswer": [
+            "C",
+            "D"
+          ],
+          "explanation": "(C, D) Find the slope of the given line using the slope formula: . Parallel lines have the same slope, so the correct choices will be lines that also have slope = . If the equation of a line is in the y = mx + b form, then m, the number in front of x, is the slope. Choices (C) and (D) have m = .",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT4-S5-Q17",
+          "type": "multiple_choice_multi",
+          "stem": "[Question 17 - Multiple Choice (Select All) - see source material]",
+          "correctAnswer": [
+            "C",
+            "D"
+          ],
+          "explanation": "(C, D) Remember that geometry diagrams on the GRE are not drawn to scale and may be thought of as flexible, where not restricted by given information. If the arrow is shaped as above, it is easy to see that (A) and (B) are incorrect, because the triangle has a greater perimeter and area than the rectangle. (C) is correct, because the sum of the interior angles of a triangle is 180°, while the sum of the interior angles of a rectangle, or any quadrilateral, is 360°. (D) is correct, because a rectangle has four 90° angles, and thus no angles that are acute (measuring less than 90°). A triangle must have at least two acute angles, or the sum of its angles would be greater than 180°. Answer is (C) and (D).",
+          "selectCount": "all"
+        },
+        {
+          "id": "BT4-S5-Q18",
+          "type": "multiple_choice_single",
+          "stem": "[Question 18 - Multiple Choice - see source material]",
+          "correctAnswer": "E",
+          "explanation": "(E) Canadians make up 20% = .20 = .2 of the 600 total. Of Canadians, 35% are in the medical field. Then there are .35 × .2 × 600 = 42 Canadians in medical, (E)."
+        },
+        {
+          "id": "BT4-S5-Q19",
+          "type": "numeric_entry",
+          "stem": "[Question 19 - Numeric Entry - see source material]",
+          "correctAnswer": "48",
+          "explanation": "(48) There are 24% – 16% = 8% more delegates from Brazil than from Tunisia. 8% of 600 = .08 × 600 = 48."
+        },
+        {
+          "id": "BT4-S5-Q20",
+          "type": "numeric_entry",
+          "stem": "[Question 20 - Numeric Entry - see source material]",
+          "correctAnswer": "12%",
+          "explanation": "(12%) First, calculate that the number of Canadians in education is 20% of 20% of 600, or .2 × .2 × 600 = 24. There are .2 × 600 = 120 Canadian delegates altogether. Of the remaining 600 – 120 = 480 delegates from other nations, 10% are in education, which equals .1 × 480 = 48 delegates. This means that there are 24 (Canadian) + 48 (other nationalities) = 72 delegates from the field of education. This represents = .12 = 12% of all participants."
+        }
+      ]
+    }
+  ]
+}
