@@ -34,6 +34,7 @@ import QuantPractice from "./pages/QuantPractice";
 import GREAdaptiveMockTest from "./pages/GREAdaptiveMockTest";
 import MockTestBrowser from "./pages/MockTestBrowser";
 import NamedMockTestRunner from "./pages/NamedMockTestRunner";
+import AdaptiveMockTestRunner from "./pages/AdaptiveMockTestRunner";
 
 const queryClient = new QueryClient();
 
@@ -84,6 +85,7 @@ const App = () => (
             <Route path="/mock-test" element={<GREAdaptiveMockTest />} />
             <Route path="/mock-tests" element={<MockTestBrowser />} />
             <Route path="/mock-tests/:testId" element={<NamedMockTestRunner />} />
+            <Route path="/adaptive-mock-test" element={<AdaptiveMockTestRunner />} />
             <Route path="/study" element={<StudySession />} />
             <Route path="/arcade" element={<Arcade />} />
             <Route path="/quick-quiz" element={<QuickQuiz />} />

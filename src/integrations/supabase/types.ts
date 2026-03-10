@@ -413,6 +413,200 @@ export type Database = {
         }
         Relationships: []
       }
+      gre_bank_questions: {
+        Row: {
+          id: string
+          section: string
+          question_type: string
+          difficulty: string
+          question_text: string
+          passage: string | null
+          choices: Json
+          correct_answer: string
+          explanation: string | null
+          topic: string | null
+          source: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          section: string
+          question_type: string
+          difficulty: string
+          question_text: string
+          passage?: string | null
+          choices: Json
+          correct_answer: string
+          explanation?: string | null
+          topic?: string | null
+          source?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          section?: string
+          question_type?: string
+          difficulty?: string
+          question_text?: string
+          passage?: string | null
+          choices?: Json
+          correct_answer?: string
+          explanation?: string | null
+          topic?: string | null
+          source?: string | null
+          created_at?: string
+        }
+        Relationships: []
+      }
+      mock_tests: {
+        Row: {
+          id: string
+          user_id: string
+          status: string
+          started_at: string
+          completed_at: string | null
+          verbal_1_score: number | null
+          verbal_2_score: number | null
+          verbal_2_difficulty: string | null
+          quant_1_score: number | null
+          quant_2_score: number | null
+          quant_2_difficulty: string | null
+          verbal_scaled_score: number | null
+          quant_scaled_score: number | null
+          total_score: number | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          status?: string
+          started_at?: string
+          completed_at?: string | null
+          verbal_1_score?: number | null
+          verbal_2_score?: number | null
+          verbal_2_difficulty?: string | null
+          quant_1_score?: number | null
+          quant_2_score?: number | null
+          quant_2_difficulty?: string | null
+          verbal_scaled_score?: number | null
+          quant_scaled_score?: number | null
+          total_score?: number | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          status?: string
+          started_at?: string
+          completed_at?: string | null
+          verbal_1_score?: number | null
+          verbal_2_score?: number | null
+          verbal_2_difficulty?: string | null
+          quant_1_score?: number | null
+          quant_2_score?: number | null
+          quant_2_difficulty?: string | null
+          verbal_scaled_score?: number | null
+          quant_scaled_score?: number | null
+          total_score?: number | null
+          created_at?: string
+        }
+        Relationships: []
+      }
+      mock_test_sections: {
+        Row: {
+          id: string
+          mock_test_id: string
+          section_type: string
+          section_number: number
+          difficulty_level: string
+          time_limit_seconds: number
+          started_at: string | null
+          completed_at: string | null
+          raw_score: number | null
+          total_questions: number
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          mock_test_id: string
+          section_type: string
+          section_number: number
+          difficulty_level: string
+          time_limit_seconds: number
+          started_at?: string | null
+          completed_at?: string | null
+          raw_score?: number | null
+          total_questions: number
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          mock_test_id?: string
+          section_type?: string
+          section_number?: number
+          difficulty_level?: string
+          time_limit_seconds?: number
+          started_at?: string | null
+          completed_at?: string | null
+          raw_score?: number | null
+          total_questions?: number
+          created_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mock_test_sections_mock_test_id_fkey"
+            columns: ["mock_test_id"]
+            referencedRelation: "mock_tests"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      mock_test_answers: {
+        Row: {
+          id: string
+          section_id: string
+          question_id: string
+          user_answer: string | null
+          is_correct: boolean | null
+          time_spent_seconds: number | null
+          question_order: number
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          section_id: string
+          question_id: string
+          user_answer?: string | null
+          is_correct?: boolean | null
+          time_spent_seconds?: number | null
+          question_order: number
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          section_id?: string
+          question_id?: string
+          user_answer?: string | null
+          is_correct?: boolean | null
+          time_spent_seconds?: number | null
+          question_order?: number
+          created_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mock_test_answers_section_id_fkey"
+            columns: ["section_id"]
+            referencedRelation: "mock_test_sections"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "mock_test_answers_question_id_fkey"
+            columns: ["question_id"]
+            referencedRelation: "gre_bank_questions"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
     }
     Views: {
       [_ in never]: never

@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   ArrowLeft, BookOpen, Clock, FileText, GraduationCap,
-  ChevronRight, Library, Filter,
+  ChevronRight, Library, Filter, Brain, Zap,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -49,6 +49,52 @@ const MockTestBrowser = () => {
       </header>
 
       <main className="container max-w-5xl mx-auto px-4 py-8 space-y-6">
+        {/* Adaptive Mock Test — featured card */}
+        <Card
+          className="border-blue-500/40 bg-gradient-to-r from-blue-950/60 to-slate-900/60 hover:border-blue-400/60 transition-colors cursor-pointer group"
+          onClick={() => navigate('/adaptive-mock-test')}
+        >
+          <CardHeader className="pb-3">
+            <div className="flex items-start justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-blue-500/20 rounded-full flex items-center justify-center shrink-0">
+                  <Brain className="h-5 w-5 text-blue-400" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <CardTitle className="text-lg group-hover:text-blue-400 transition-colors">
+                      GRE Adaptive Mock Test
+                    </CardTitle>
+                    <Badge className="bg-blue-500/20 text-blue-300 border-blue-500/30 text-xs">
+                      <Zap className="w-3 h-3 mr-1" /> AI-Adaptive
+                    </Badge>
+                  </div>
+                  <CardDescription className="mt-1">
+                    Supabase-backed adaptive engine · Section 2 difficulty adjusts based on your Section 1 performance
+                  </CardDescription>
+                </div>
+              </div>
+              <ChevronRight className="h-5 w-5 text-muted-foreground group-hover:text-blue-400 transition-colors mt-1 flex-shrink-0" />
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-wrap gap-3 text-sm">
+              <Badge variant="outline" className="gap-1 border-blue-700/50 text-blue-300">
+                <FileText className="h-3.5 w-3.5" /> 54 questions
+              </Badge>
+              <Badge variant="outline" className="gap-1 border-blue-700/50 text-blue-300">
+                <Clock className="h-3.5 w-3.5" /> ~88 min
+              </Badge>
+              <Badge variant="outline" className="gap-1 border-blue-700/50 text-blue-300">
+                <BookOpen className="h-3.5 w-3.5" /> 2 Verbal + 2 Quant
+              </Badge>
+              <Badge variant="outline" className="gap-1 border-blue-700/50 text-blue-300">
+                <GraduationCap className="h-3.5 w-3.5" /> Score 260–340
+              </Badge>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Source filter */}
         <div className="flex gap-2 flex-wrap">
           <Button
