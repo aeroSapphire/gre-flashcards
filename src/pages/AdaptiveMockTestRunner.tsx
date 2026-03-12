@@ -75,22 +75,33 @@ function useTimer(initialSeconds: number, running: boolean, onExpire: () => void
 // ── Question text helpers ─────────────────────────────────────────────────────
 
 /**
- * Renders question text, replacing (i), (ii), (iii) blank markers
- * with visually styled underline blanks.
+ * Renders question text, replacing blank markers with styled underline spans.
+ * Handles two formats:
+ *   - (i), (ii), (iii)  — multi-blank Text Completion
+ *   - _____             — single-blank SE / TC questions
  */
 function renderQuestionText(text: string): React.ReactNode {
-    const parts = text.split(/(\(i{1,3}\))/g);
+    // Split on both (i)/(ii)/(iii) and _____ markers
+    const parts = text.split(/(\(i{1,3}\)|_____)/g);
     if (parts.length === 1) return text;
+
+    let blankCount = 0;
     return (
         <>
             {parts.map((part, idx) => {
                 if (/^\(i{1,3}\)$/.test(part)) {
+                    const label = part === '(i)' ? 'Blank (i)' : part === '(ii)' ? 'Blank (ii)' : 'Blank (iii)';
                     return (
-                        <span
-                            key={idx}
-                            className="inline-block border-b-2 border-blue-400 text-blue-300 font-semibold px-4 mx-1 text-sm leading-loose"
-                        >
-                            {part === '(i)' ? 'Blank (i)' : part === '(ii)' ? 'Blank (ii)' : 'Blank (iii)'}
+                        <span key={idx} className="inline-block border-b-2 border-blue-400 text-blue-300 font-semibold px-4 mx-1 text-sm leading-loose">
+                            {label}
+                        </span>
+                    );
+                }
+                if (part === '_____') {
+                    blankCount++;
+                    return (
+                        <span key={idx} className="inline-block border-b-2 border-blue-400 text-blue-300 font-semibold px-6 mx-1 text-sm leading-loose">
+                            {''}
                         </span>
                     );
                 }
