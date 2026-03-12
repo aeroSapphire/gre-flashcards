@@ -7,13 +7,14 @@ import { Progress } from '@/components/ui/progress';
 import {
     ArrowLeft, Clock, ChevronLeft, ChevronRight, CheckCircle,
     XCircle, BookOpen, GraduationCap, Brain, AlertTriangle,
-    RotateCcw, Target, TrendingUp, Grid3X3, Play,
+    RotateCcw, Target, TrendingUp, Grid3X3, Play, Bookmark,
+    BookmarkCheck, Flag,
 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import {
-    startMockTest, submitSection, completeMockTest, getMockTestReview, abandonMockTest,
+    startMockTest, submitSection, completeMockTest, getMockTestReview,
     type ClientQuestion, type SectionInfo, type TestResults, type TestReview,
-    type AnswerSubmission, type ReviewSection,
+    type AnswerSubmission,
 } from '@/services/adaptiveMockTestService';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
@@ -26,11 +27,11 @@ type Phase =
     | 'results'  | 'review';
 
 interface UserAnswers {
-    [questionId: string]: string; // single or comma-joined multi-select
+    [questionId: string]: string;
 }
 
 interface QuestionTimer {
-    [questionId: string]: number; // seconds spent
+    [questionId: string]: number;
 }
 
 // ── Constants ─────────────────────────────────────────────────────────────────
@@ -43,9 +44,9 @@ const PHASE_LABELS: Record<string, string> = {
 };
 
 const BREAK_MESSAGES: Partial<Record<Phase, string>> = {
-    verbal_2: 'Great work on Verbal Section 1! Take a 1-minute break before Verbal Section 2.',
-    quant_1:  'Verbal sections complete! Take a 1-minute break before the Quantitative sections.',
-    quant_2:  'Great work on Quant Section 1! Take a 1-minute break before Quant Section 2.',
+    verbal_2: 'Great work on Verbal Section 1! Take a short break before Verbal Section 2.',
+    quant_1:  'Verbal sections complete! Take a short break before the Quantitative sections.',
+    quant_2:  'Great work on Quant Section 1! Take a short break before Quant Section 2.',
 };
 
 // ── Timer Hook ────────────────────────────────────────────────────────────────
@@ -67,13 +68,76 @@ function useTimer(initialSeconds: number, running: boolean, onExpire: () => void
         return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
     }, [running, onExpire]);
 
-    const format = (s: number) => {
-        const m = Math.floor(s / 60);
-        const sec = s % 60;
-        return `${m}:${sec.toString().padStart(2, '0')}`;
-    };
-
+    const format = (s: number) => `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, '0')}`;
     return { seconds, formatted: format(seconds) };
+}
+
+// ── Question text helpers ─────────────────────────────────────────────────────
+
+/**
+ * Renders question text, replacing (i), (ii), (iii) blank markers
+ * with visually styled underline blanks.
+ */
+function renderQuestionText(text: string): React.ReactNode {
+    const parts = text.split(/(\(i{1,3}\))/g);
+    if (parts.length === 1) return text;
+    return (
+        <>
+            {parts.map((part, idx) => {
+                if (/^\(i{1,3}\)$/.test(part)) {
+                    return (
+                        <span
+                            key={idx}
+                            className="inline-block border-b-2 border-blue-400 text-blue-300 font-semibold px-4 mx-1 text-sm leading-loose"
+                        >
+                            {part === '(i)' ? 'Blank (i)' : part === '(ii)' ? 'Blank (ii)' : 'Blank (iii)'}
+                        </span>
+                    );
+                }
+                return <span key={idx}>{part}</span>;
+            })}
+        </>
+    );
+}
+
+/**
+ * Parses multi-blank Text Completion choices.
+ *
+ * The question bank stores 2-blank TC choices in the format:
+ *   "A": "word1 D word2"  (A = choice for blank i, D = choice for blank ii)
+ *   "B": "word3 E word4"
+ *   "C": "word5 F word6"
+ *
+ * Returns two separate columns so each blank can be selected independently.
+ */
+interface MultiBlankColumn {
+    label: string;
+    options: Array<{ key: string; text: string }>;
+}
+
+function parseMultiBlankChoices(choices: Record<string, string>): MultiBlankColumn[] | null {
+    const keys = Object.keys(choices).sort();
+    if (keys.length !== 3 || !keys.every(k => ['A', 'B', 'C'].includes(k))) return null;
+
+    // Detect embedded D/E/F key: "sometext D othertext" or "sometext E othertext"
+    const pattern = /^(.+?)\s+([D-F])\s+(.+?)(?:\s+\d+)?$/;
+    const match = (choices['A'] || '').match(pattern);
+    if (!match) return null;
+
+    const col1: Array<{ key: string; text: string }> = [];
+    const col2: Array<{ key: string; text: string }> = [];
+
+    for (const key of keys) {
+        const m = choices[key].match(pattern);
+        if (!m) return null; // not all rows match → fall back to plain
+        col1.push({ key, text: m[1].trim() });
+        col2.push({ key: m[2], text: m[3].replace(/\s+\d+$/, '').trim() });
+    }
+
+    return [
+        { label: 'Blank (i)', options: col1 },
+        { label: 'Blank (ii)', options: col2 },
+    ];
 }
 
 // ── Question Renderer ─────────────────────────────────────────────────────────
@@ -88,15 +152,35 @@ function QuestionDisplay({
     onAnswer: (val: string) => void;
 }) {
     const choices = question.choices as Record<string, string>;
-    const keys = Object.keys(choices).sort();
-    const isMultiSelect =
-        question.question_type === 'sentence_equivalence' ||
-        question.question_type === 'multiple_choice_multiple';
+    const qtype = question.question_type;
 
-    const selectedSet = new Set(
-        answer ? answer.split(',').map(s => s.trim()) : []
-    );
+    const isSE = qtype === 'sentence_equivalence';
+    const isMultiSelectMultiple = qtype === 'multiple_choice_multiple';
+    const isMultiSelect = isSE || isMultiSelectMultiple;
+    const isTC = qtype === 'text_completion';
 
+    const selectedSet = new Set(answer ? answer.split(',').map(s => s.trim()).filter(Boolean) : []);
+
+    // Multi-blank TC detection
+    const multiBlankCols = isTC ? parseMultiBlankChoices(choices) : null;
+
+    // ── Multi-blank TC answer helpers ──
+    function getBlankSelection(blankIndex: number): string {
+        // answer is stored as "B,F" — blank0=B, blank1=F
+        const parts = answer ? answer.split(',').map(s => s.trim()) : [];
+        return parts[blankIndex] || '';
+    }
+
+    function setBlankSelection(blankIndex: number, key: string) {
+        const parts = answer ? answer.split(',').map(s => s.trim()) : [];
+        const newParts = [...parts];
+        // Pad with empty strings if needed
+        while (newParts.length <= blankIndex) newParts.push('');
+        newParts[blankIndex] = key;
+        onAnswer(newParts.filter((p, i) => i <= blankIndex || p).join(','));
+    }
+
+    // ── Single / multi-select answer toggle ──
     function toggleChoice(key: string) {
         if (!isMultiSelect) {
             onAnswer(key);
@@ -109,30 +193,38 @@ function QuestionDisplay({
     }
 
     return (
-        <div className="space-y-4">
+        <div className="space-y-5">
             {/* Passage */}
             {question.passage && (
-                <div className="bg-slate-800/60 border border-slate-700 rounded-lg p-4 text-slate-300 text-sm leading-relaxed max-h-48 overflow-y-auto">
+                <div className="bg-slate-800/60 border border-slate-700 rounded-lg p-4 text-slate-300 text-sm leading-relaxed max-h-56 overflow-y-auto">
                     {question.passage}
                 </div>
             )}
 
-            {/* Question text */}
-            <div className="text-white font-medium leading-relaxed">
-                {question.question_text}
+            {/* Question text with styled blanks */}
+            <div className="text-white font-medium leading-relaxed text-base">
+                {renderQuestionText(question.question_text)}
             </div>
 
-            {/* Multi-select hint */}
-            {isMultiSelect && (
-                <p className="text-xs text-amber-400 font-medium">
-                    {question.question_type === 'sentence_equivalence'
-                        ? 'Select exactly TWO answer choices.'
-                        : 'Select ALL that apply.'}
+            {/* Instruction hints */}
+            {isSE && (
+                <p className="text-xs text-amber-400 font-medium flex items-center gap-1">
+                    <Flag className="w-3 h-3" /> Select exactly TWO answer choices that best complete the sentence.
+                </p>
+            )}
+            {isMultiSelectMultiple && (
+                <p className="text-xs text-amber-400 font-medium flex items-center gap-1">
+                    <Flag className="w-3 h-3" /> Select ALL answer choices that apply.
+                </p>
+            )}
+            {isTC && multiBlankCols && (
+                <p className="text-xs text-blue-400 font-medium">
+                    Select one answer for each blank.
                 </p>
             )}
 
-            {/* Answer choices */}
-            {question.question_type === 'numeric_entry' ? (
+            {/* ── Numeric entry ── */}
+            {qtype === 'numeric_entry' && (
                 <input
                     type="number"
                     className="w-40 bg-slate-800 border border-slate-600 rounded px-3 py-2 text-white text-center"
@@ -140,18 +232,57 @@ function QuestionDisplay({
                     onChange={e => onAnswer(e.target.value)}
                     placeholder="Enter answer"
                 />
-            ) : (
+            )}
+
+            {/* ── Multi-blank TC: column layout ── */}
+            {multiBlankCols && (
+                <div className="grid gap-4" style={{ gridTemplateColumns: `repeat(${multiBlankCols.length}, 1fr)` }}>
+                    {multiBlankCols.map((col, colIdx) => {
+                        const selected = getBlankSelection(colIdx);
+                        return (
+                            <div key={col.label} className="space-y-2">
+                                <p className="text-xs font-semibold text-blue-300 uppercase tracking-wide border-b border-slate-700 pb-1">
+                                    {col.label}
+                                </p>
+                                {col.options.map(opt => {
+                                    const isSelected = selected === opt.key;
+                                    return (
+                                        <button
+                                            key={opt.key}
+                                            onClick={() => setBlankSelection(colIdx, opt.key)}
+                                            className={`w-full text-left flex items-center gap-2 px-3 py-2.5 rounded-lg border transition-all text-sm ${
+                                                isSelected
+                                                    ? 'border-blue-500 bg-blue-500/20 text-white'
+                                                    : 'border-slate-600 bg-slate-800/40 text-slate-300 hover:border-slate-500 hover:bg-slate-800/60'
+                                            }`}
+                                        >
+                                            <span className={`font-bold w-5 shrink-0 ${isSelected ? 'text-blue-400' : 'text-slate-500'}`}>
+                                                {opt.key}.
+                                            </span>
+                                            {opt.text}
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        );
+                    })}
+                </div>
+            )}
+
+            {/* ── Standard single / multi-select choices ── */}
+            {qtype !== 'numeric_entry' && !multiBlankCols && (
                 <div className="space-y-2">
-                    {keys.map(key => {
+                    {Object.keys(choices).sort().map(key => {
                         const selected = selectedSet.has(key);
                         return (
                             <button
                                 key={key}
                                 onClick={() => toggleChoice(key)}
-                                className={`w-full text-left flex items-start gap-3 p-3 rounded-lg border transition-all ${selected
-                                    ? 'border-blue-500 bg-blue-500/20 text-white'
-                                    : 'border-slate-600 bg-slate-800/40 text-slate-300 hover:border-slate-500 hover:bg-slate-800/60'
-                                    }`}
+                                className={`w-full text-left flex items-start gap-3 p-3 rounded-lg border transition-all ${
+                                    selected
+                                        ? 'border-blue-500 bg-blue-500/20 text-white'
+                                        : 'border-slate-600 bg-slate-800/40 text-slate-300 hover:border-slate-500 hover:bg-slate-800/60'
+                                }`}
                             >
                                 <span className={`font-bold text-sm mt-0.5 w-5 shrink-0 ${selected ? 'text-blue-400' : 'text-slate-500'}`}>
                                     {key}.
@@ -184,7 +315,8 @@ function SectionTaking({
     const [questionTimers, setQuestionTimers] = useState<QuestionTimer>({});
     const [questionStart, setQuestionStart] = useState<number>(Date.now());
     const [showNav, setShowNav] = useState(false);
-    const timerRunning = true;
+    const [flagged, setFlagged] = useState<Set<string>>(new Set());
+    const [showSubmitConfirm, setShowSubmitConfirm] = useState(false);
 
     const questions = sectionInfo.questions;
     const currentQ = questions[currentIdx];
@@ -195,7 +327,7 @@ function SectionTaking({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [answers, questionTimers]);
 
-    const { seconds, formatted } = useTimer(sectionInfo.time_limit_seconds, timerRunning, handleExpire);
+    const { seconds, formatted } = useTimer(sectionInfo.time_limit_seconds, true, handleExpire);
     const timerPercent = (seconds / sectionInfo.time_limit_seconds) * 100;
     const timerColor = seconds < 120 ? 'text-red-400' : seconds < 300 ? 'text-amber-400' : 'text-green-400';
 
@@ -207,11 +339,12 @@ function SectionTaking({
         }));
     }
 
-    function navigate(dir: 'prev' | 'next') {
+    function navigateQ(dir: 'prev' | 'next') {
         recordTimeSpent();
         setQuestionStart(Date.now());
         setCurrentIdx(prev => dir === 'next' ? Math.min(prev + 1, questions.length - 1) : Math.max(prev - 1, 0));
         setShowNav(false);
+        setShowSubmitConfirm(false);
     }
 
     function jumpTo(idx: number) {
@@ -219,50 +352,87 @@ function SectionTaking({
         setQuestionStart(Date.now());
         setCurrentIdx(idx);
         setShowNav(false);
+        setShowSubmitConfirm(false);
+    }
+
+    function toggleFlag() {
+        setFlagged(prev => {
+            const next = new Set(prev);
+            if (next.has(currentQ.id)) next.delete(currentQ.id);
+            else next.add(currentQ.id);
+            return next;
+        });
     }
 
     function handleAnswer(val: string) {
         setAnswers(prev => ({ ...prev, [currentQ.id]: val }));
     }
 
-    function handleSubmit() {
+    function handleSubmitRequest() {
         recordTimeSpent();
-        onSubmit(answers, { ...questionTimers, [currentQ.id]: (questionTimers[currentQ.id] || 0) + Math.round((Date.now() - questionStart) / 1000) });
+        const finalTimers = {
+            ...questionTimers,
+            [currentQ.id]: (questionTimers[currentQ.id] || 0) + Math.round((Date.now() - questionStart) / 1000),
+        };
+        setQuestionTimers(finalTimers);
+        setShowSubmitConfirm(true);
+    }
+
+    function handleConfirmSubmit() {
+        onSubmit(answers, questionTimers);
     }
 
     const answered = Object.keys(answers).filter(k => answers[k]).length;
+    const unanswered = questions.length - answered;
+    const flaggedCount = flagged.size;
+    const isFlagged = flagged.has(currentQ.id);
+
+    // Nav grid cell color
+    function navCellClass(q: ClientQuestion, i: number): string {
+        const isCurrent = i === currentIdx;
+        const isAnswered = !!answers[q.id];
+        const isF = flagged.has(q.id);
+        if (isCurrent) return 'bg-blue-600 text-white ring-2 ring-blue-400';
+        if (isF && isAnswered) return 'bg-amber-600 text-white';
+        if (isF) return 'bg-amber-700/60 text-amber-200 border border-amber-600';
+        if (isAnswered) return 'bg-green-700 text-white';
+        return 'bg-slate-700 text-slate-300 hover:bg-slate-600';
+    }
 
     return (
         <div className="min-h-screen bg-slate-950 text-white flex flex-col">
             {/* Header */}
-            <div className="border-b border-slate-800 bg-slate-900/80 backdrop-blur-sm px-4 py-3 flex items-center gap-4">
-                <div className="flex-1">
-                    <div className="flex items-center gap-3">
+            <div className="border-b border-slate-800 bg-slate-900/80 backdrop-blur-sm px-4 py-3 flex items-center gap-3">
+                <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
                         <h2 className="font-semibold text-white">{PHASE_LABELS[phase]}</h2>
                         {adaptiveDifficulty && (
-                            <Badge className={adaptiveDifficulty === 'hard' ? 'bg-red-500/20 text-red-300 border-red-500/30' : 'bg-green-500/20 text-green-300 border-green-500/30'}>
+                            <Badge className={adaptiveDifficulty === 'hard'
+                                ? 'bg-red-500/20 text-red-300 border-red-500/30'
+                                : 'bg-green-500/20 text-green-300 border-green-500/30'}>
                                 {adaptiveDifficulty === 'hard' ? 'Hard Module' : 'Standard Module'}
                             </Badge>
                         )}
                     </div>
                     <p className="text-xs text-slate-400 mt-0.5">
-                        Question {currentIdx + 1} of {questions.length} · {answered} answered
+                        Q {currentIdx + 1}/{questions.length} · {answered} answered
+                        {flaggedCount > 0 && <span className="text-amber-400 ml-2">· {flaggedCount} flagged</span>}
                     </p>
                 </div>
 
                 {/* Timer */}
-                <div className={`flex items-center gap-2 ${timerColor} font-mono text-lg font-bold`}>
-                    <Clock className="w-5 h-5" />
+                <div className={`flex items-center gap-1.5 ${timerColor} font-mono text-lg font-bold shrink-0`}>
+                    <Clock className="w-4 h-4" />
                     {formatted}
                 </div>
 
-                {/* Nav toggle */}
-                <Button variant="outline" size="sm" onClick={() => setShowNav(!showNav)} className="border-slate-700">
+                {/* Nav grid toggle */}
+                <Button variant="outline" size="sm" onClick={() => setShowNav(!showNav)} className="border-slate-700 shrink-0">
                     <Grid3X3 className="w-4 h-4" />
                 </Button>
             </div>
 
-            {/* Progress bar */}
+            {/* Timer bar */}
             <div className="h-1 bg-slate-800">
                 <div
                     className={`h-full transition-all duration-1000 ${timerPercent < 25 ? 'bg-red-500' : timerPercent < 50 ? 'bg-amber-500' : 'bg-blue-500'}`}
@@ -270,25 +440,75 @@ function SectionTaking({
                 />
             </div>
 
-            {/* Question navigation grid overlay */}
+            {/* Navigation grid */}
             {showNav && (
                 <div className="border-b border-slate-800 bg-slate-900 px-4 py-3">
-                    <p className="text-xs text-slate-400 mb-2">Question Navigator</p>
+                    <div className="flex items-center justify-between mb-2">
+                        <p className="text-xs font-medium text-slate-300">Question Navigator</p>
+                        <div className="flex items-center gap-3 text-xs text-slate-500">
+                            <span className="flex items-center gap-1"><span className="w-3 h-3 rounded bg-blue-600 inline-block" /> Current</span>
+                            <span className="flex items-center gap-1"><span className="w-3 h-3 rounded bg-green-700 inline-block" /> Answered</span>
+                            <span className="flex items-center gap-1"><span className="w-3 h-3 rounded bg-amber-600 inline-block" /> Flagged</span>
+                            <span className="flex items-center gap-1"><span className="w-3 h-3 rounded bg-slate-700 inline-block" /> Unanswered</span>
+                        </div>
+                    </div>
                     <div className="flex flex-wrap gap-2">
                         {questions.map((q, i) => (
                             <button
                                 key={q.id}
                                 onClick={() => jumpTo(i)}
-                                className={`w-8 h-8 rounded text-xs font-medium transition-colors ${i === currentIdx
-                                    ? 'bg-blue-600 text-white'
-                                    : answers[q.id]
-                                        ? 'bg-green-700 text-white'
-                                        : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
-                                    }`}
+                                className={`w-8 h-8 rounded text-xs font-medium transition-all ${navCellClass(q, i)}`}
+                                title={flagged.has(q.id) ? 'Flagged for review' : undefined}
                             >
-                                {i + 1}
+                                {flagged.has(q.id) ? '🔖' : i + 1}
                             </button>
                         ))}
+                    </div>
+                </div>
+            )}
+
+            {/* Submit confirmation overlay */}
+            {showSubmitConfirm && (
+                <div className="border-b border-amber-800/50 bg-amber-900/20 px-4 py-4">
+                    <div className="max-w-3xl mx-auto">
+                        <p className="font-medium text-amber-300 mb-2">Ready to submit this section?</p>
+                        <div className="text-sm text-slate-300 space-y-1 mb-4">
+                            <p>· <span className="text-green-400 font-medium">{answered}</span> answered</p>
+                            {unanswered > 0 && (
+                                <p>· <span className="text-slate-400 font-medium">{unanswered}</span> unanswered (will be marked incorrect)</p>
+                            )}
+                            {flaggedCount > 0 && (
+                                <p>· <span className="text-amber-400 font-medium">{flaggedCount}</span> flagged for review — navigate to them before submitting</p>
+                            )}
+                        </div>
+                        <div className="flex gap-3">
+                            <Button
+                                onClick={handleConfirmSubmit}
+                                className="bg-green-600 hover:bg-green-700"
+                            >
+                                <CheckCircle className="w-4 h-4 mr-2" /> Confirm Submit
+                            </Button>
+                            <Button
+                                variant="outline"
+                                className="border-slate-600"
+                                onClick={() => setShowSubmitConfirm(false)}
+                            >
+                                Go Back & Review
+                            </Button>
+                            {flaggedCount > 0 && (
+                                <Button
+                                    variant="outline"
+                                    className="border-amber-700 text-amber-400 hover:bg-amber-900/30"
+                                    onClick={() => {
+                                        const firstFlagged = questions.findIndex(q => flagged.has(q.id));
+                                        if (firstFlagged !== -1) jumpTo(firstFlagged);
+                                        setShowSubmitConfirm(false);
+                                    }}
+                                >
+                                    <Bookmark className="w-4 h-4 mr-2" /> Jump to Flagged
+                                </Button>
+                            )}
+                        </div>
                     </div>
                 </div>
             )}
@@ -296,13 +516,35 @@ function SectionTaking({
             {/* Main content */}
             <div className="flex-1 overflow-y-auto p-4 md:p-8">
                 <div className="max-w-3xl mx-auto">
-                    <div className="mb-2 flex items-center gap-2">
-                        <Badge variant="outline" className="text-xs border-slate-600 text-slate-400 capitalize">
-                            {currentQ.question_type.replace(/_/g, ' ')}
-                        </Badge>
-                        <Badge variant="outline" className={`text-xs capitalize ${currentQ.difficulty === 'hard' ? 'border-red-700 text-red-400' : currentQ.difficulty === 'medium' ? 'border-amber-700 text-amber-400' : 'border-green-700 text-green-400'}`}>
-                            {currentQ.difficulty}
-                        </Badge>
+                    {/* Question meta + flag button */}
+                    <div className="mb-3 flex items-center justify-between">
+                        <div className="flex items-center gap-2 flex-wrap">
+                            <Badge variant="outline" className="text-xs border-slate-600 text-slate-400 capitalize">
+                                {currentQ.question_type.replace(/_/g, ' ')}
+                            </Badge>
+                            <Badge variant="outline" className={`text-xs capitalize ${
+                                currentQ.difficulty === 'hard'   ? 'border-red-700 text-red-400' :
+                                currentQ.difficulty === 'medium' ? 'border-amber-700 text-amber-400' :
+                                'border-green-700 text-green-400'
+                            }`}>
+                                {currentQ.difficulty}
+                            </Badge>
+                        </div>
+
+                        {/* Mark for Review button */}
+                        <button
+                            onClick={toggleFlag}
+                            className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border transition-all ${
+                                isFlagged
+                                    ? 'border-amber-500 bg-amber-500/20 text-amber-300'
+                                    : 'border-slate-600 text-slate-400 hover:border-amber-600 hover:text-amber-400'
+                            }`}
+                        >
+                            {isFlagged
+                                ? <><BookmarkCheck className="w-3.5 h-3.5" /> Marked for Review</>
+                                : <><Bookmark className="w-3.5 h-3.5" /> Mark for Review</>
+                            }
+                        </button>
                     </div>
 
                     <QuestionDisplay
@@ -313,29 +555,28 @@ function SectionTaking({
                 </div>
             </div>
 
-            {/* Footer navigation */}
+            {/* Footer */}
             <div className="border-t border-slate-800 bg-slate-900/80 px-4 py-3 flex items-center justify-between">
                 <Button
                     variant="outline"
-                    onClick={() => navigate('prev')}
+                    onClick={() => navigateQ('prev')}
                     disabled={currentIdx === 0}
                     className="border-slate-700"
                 >
                     <ChevronLeft className="w-4 h-4 mr-1" /> Previous
                 </Button>
 
-                <span className="text-sm text-slate-400">
-                    {currentIdx + 1} / {questions.length}
-                </span>
+                <span className="text-sm text-slate-400">{currentIdx + 1} / {questions.length}</span>
 
                 {currentIdx < questions.length - 1 ? (
-                    <Button onClick={() => navigate('next')} className="bg-blue-600 hover:bg-blue-700">
+                    <Button onClick={() => navigateQ('next')} className="bg-blue-600 hover:bg-blue-700">
                         Next <ChevronRight className="w-4 h-4 ml-1" />
                     </Button>
                 ) : (
                     <Button
-                        onClick={handleSubmit}
+                        onClick={handleSubmitRequest}
                         className="bg-green-600 hover:bg-green-700"
+                        disabled={showSubmitConfirm}
                     >
                         Submit Section <CheckCircle className="w-4 h-4 ml-1" />
                     </Button>
@@ -349,7 +590,6 @@ function SectionTaking({
 
 function BreakScreen({ nextPhase, onContinue, message }: { nextPhase: Phase; onContinue: () => void; message: string }) {
     const [countdown, setCountdown] = useState(60);
-
     useEffect(() => {
         if (countdown <= 0) return;
         const t = setInterval(() => setCountdown(p => p - 1), 1000);
@@ -364,17 +604,12 @@ function BreakScreen({ nextPhase, onContinue, message }: { nextPhase: Phase; onC
                 </CardHeader>
                 <CardContent className="space-y-6">
                     <p className="text-slate-300">{message}</p>
-
                     <div className="text-6xl font-mono font-bold text-blue-400">
                         {Math.floor(countdown / 60)}:{(countdown % 60).toString().padStart(2, '0')}
                     </div>
-
                     <div className="space-y-3">
                         <p className="text-sm text-slate-400">Next: {PHASE_LABELS[nextPhase]}</p>
-                        <Button
-                            onClick={onContinue}
-                            className="w-full bg-blue-600 hover:bg-blue-700"
-                        >
+                        <Button onClick={onContinue} className="w-full bg-blue-600 hover:bg-blue-700">
                             Continue Now <Play className="w-4 h-4 ml-2" />
                         </Button>
                     </div>
@@ -386,14 +621,8 @@ function BreakScreen({ nextPhase, onContinue, message }: { nextPhase: Phase; onC
 
 // ── Results Screen ────────────────────────────────────────────────────────────
 
-function ResultsScreen({
-    results,
-    onReview,
-    onNewTest,
-}: {
-    results: TestResults;
-    onReview: () => void;
-    onNewTest: () => void;
+function ResultsScreen({ results, onReview, onNewTest }: {
+    results: TestResults; onReview: () => void; onNewTest: () => void;
 }) {
     const total = results.total_score;
     const percentile = total >= 330 ? 99 : total >= 320 ? 96 : total >= 310 ? 88 : total >= 300 ? 73 : total >= 290 ? 58 : total >= 280 ? 42 : 28;
@@ -401,7 +630,6 @@ function ResultsScreen({
     return (
         <div className="min-h-screen bg-slate-950 p-4 md:p-8">
             <div className="max-w-2xl mx-auto space-y-6">
-                {/* Score header */}
                 <div className="text-center space-y-2 py-6">
                     <div className="flex items-center justify-center gap-2 text-slate-400 mb-2">
                         <GraduationCap className="w-5 h-5" />
@@ -414,54 +642,35 @@ function ResultsScreen({
                     </Badge>
                 </div>
 
-                {/* Section scores */}
                 <div className="grid grid-cols-2 gap-4">
-                    <Card className="bg-slate-900 border-slate-700">
-                        <CardHeader className="pb-2">
-                            <CardTitle className="text-sm text-slate-400 flex items-center gap-2">
-                                <BookOpen className="w-4 h-4" /> Verbal Reasoning
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent className="space-y-3">
-                            <div className="text-4xl font-bold text-white">{results.verbal.scaled_score}</div>
-                            <div className="text-xs text-slate-500">out of 170</div>
-                            <Progress value={((results.verbal.scaled_score - 130) / 40) * 100} className="h-1.5" />
-                            <div className="space-y-1 text-xs text-slate-400">
-                                <div>Section 1: {results.verbal.section_1_raw}</div>
-                                <div className="flex items-center gap-1">
-                                    Section 2 ({results.verbal.section_2_difficulty === 'hard'
-                                        ? <span className="text-red-400">Hard</span>
-                                        : <span className="text-green-400">Standard</span>
-                                    }): {results.verbal.section_2_raw}
+                    {[
+                        { label: 'Verbal Reasoning', icon: BookOpen, score: results.verbal.scaled_score, s1: results.verbal.section_1_raw, s2: results.verbal.section_2_raw, diff: results.verbal.section_2_difficulty },
+                        { label: 'Quantitative Reasoning', icon: Brain, score: results.quant.scaled_score, s1: results.quant.section_1_raw, s2: results.quant.section_2_raw, diff: results.quant.section_2_difficulty },
+                    ].map(({ label, icon: Icon, score, s1, s2, diff }) => (
+                        <Card key={label} className="bg-slate-900 border-slate-700">
+                            <CardHeader className="pb-2">
+                                <CardTitle className="text-sm text-slate-400 flex items-center gap-2">
+                                    <Icon className="w-4 h-4" /> {label}
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent className="space-y-3">
+                                <div className="text-4xl font-bold text-white">{score}</div>
+                                <div className="text-xs text-slate-500">out of 170</div>
+                                <Progress value={((score - 130) / 40) * 100} className="h-1.5" />
+                                <div className="space-y-1 text-xs text-slate-400">
+                                    <div>Section 1: {s1}</div>
+                                    <div className="flex items-center gap-1">
+                                        Section 2 ({diff === 'hard'
+                                            ? <span className="text-red-400">Hard</span>
+                                            : <span className="text-green-400">Standard</span>
+                                        }): {s2}
+                                    </div>
                                 </div>
-                            </div>
-                        </CardContent>
-                    </Card>
-
-                    <Card className="bg-slate-900 border-slate-700">
-                        <CardHeader className="pb-2">
-                            <CardTitle className="text-sm text-slate-400 flex items-center gap-2">
-                                <Brain className="w-4 h-4" /> Quantitative Reasoning
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent className="space-y-3">
-                            <div className="text-4xl font-bold text-white">{results.quant.scaled_score}</div>
-                            <div className="text-xs text-slate-500">out of 170</div>
-                            <Progress value={((results.quant.scaled_score - 130) / 40) * 100} className="h-1.5" />
-                            <div className="space-y-1 text-xs text-slate-400">
-                                <div>Section 1: {results.quant.section_1_raw}</div>
-                                <div className="flex items-center gap-1">
-                                    Section 2 ({results.quant.section_2_difficulty === 'hard'
-                                        ? <span className="text-red-400">Hard</span>
-                                        : <span className="text-green-400">Standard</span>
-                                    }): {results.quant.section_2_raw}
-                                </div>
-                            </div>
-                        </CardContent>
-                    </Card>
+                            </CardContent>
+                        </Card>
+                    ))}
                 </div>
 
-                {/* Actions */}
                 <div className="grid grid-cols-2 gap-3">
                     <Button onClick={onReview} variant="outline" className="border-slate-700 hover:border-blue-500">
                         <BookOpen className="w-4 h-4 mr-2" /> Review Answers
@@ -470,7 +679,6 @@ function ResultsScreen({
                         <RotateCcw className="w-4 h-4 mr-2" /> New Test
                     </Button>
                 </div>
-
                 <p className="text-center text-xs text-slate-500">
                     Completed {new Date(results.completed_at).toLocaleString()}
                 </p>
@@ -488,7 +696,6 @@ function ReviewScreen({ review, onBack }: { review: TestReview; onBack: () => vo
     return (
         <div className="min-h-screen bg-slate-950 p-4 md:p-8">
             <div className="max-w-3xl mx-auto space-y-4">
-                {/* Header */}
                 <div className="flex items-center gap-3 mb-6">
                     <Button variant="outline" size="sm" onClick={onBack} className="border-slate-700">
                         <ArrowLeft className="w-4 h-4 mr-1" /> Back to Results
@@ -496,7 +703,6 @@ function ReviewScreen({ review, onBack }: { review: TestReview; onBack: () => vo
                     <h1 className="text-xl font-bold text-white">Test Review</h1>
                 </div>
 
-                {/* Score summary */}
                 <div className="grid grid-cols-3 gap-3 mb-4">
                     <Card className="bg-slate-900 border-slate-700 text-center p-3">
                         <div className="text-2xl font-bold text-white">{review.verbal_scaled_score}</div>
@@ -512,43 +718,33 @@ function ReviewScreen({ review, onBack }: { review: TestReview; onBack: () => vo
                     </Card>
                 </div>
 
-                {/* Sections */}
                 {review.sections.map(section => (
                     <Card key={section.section_id} className="bg-slate-900 border-slate-700">
                         <button
                             className="w-full text-left p-4 flex items-center justify-between"
-                            onClick={() => setExpandedSection(
-                                expandedSection === section.section_id ? null : section.section_id
-                            )}
+                            onClick={() => setExpandedSection(expandedSection === section.section_id ? null : section.section_id)}
                         >
-                            <div className="flex items-center gap-3">
-                                <div>
-                                    <p className="font-medium text-white capitalize">
-                                        {section.section_type} Section {section.section_number}
-                                        {section.section_number === 2 && (
-                                            <Badge className={`ml-2 text-xs ${section.difficulty_level === 'hard' ? 'bg-red-500/20 text-red-300' : 'bg-green-500/20 text-green-300'}`}>
-                                                {section.difficulty_level}
-                                            </Badge>
-                                        )}
-                                    </p>
-                                    <p className="text-sm text-slate-400">
-                                        {section.raw_score}/{section.total_questions} correct
-                                    </p>
-                                </div>
+                            <div>
+                                <p className="font-medium text-white capitalize">
+                                    {section.section_type} Section {section.section_number}
+                                    {section.section_number === 2 && (
+                                        <Badge className={`ml-2 text-xs ${section.difficulty_level === 'hard' ? 'bg-red-500/20 text-red-300' : 'bg-green-500/20 text-green-300'}`}>
+                                            {section.difficulty_level}
+                                        </Badge>
+                                    )}
+                                </p>
+                                <p className="text-sm text-slate-400">{section.raw_score}/{section.total_questions} correct</p>
                             </div>
                             <div className="flex items-center gap-3">
-                                <div className="text-right">
-                                    <div className="text-lg font-bold text-white">
-                                        {Math.round((section.raw_score / section.total_questions) * 100)}%
-                                    </div>
-                                </div>
+                                <span className="text-lg font-bold text-white">
+                                    {Math.round((section.raw_score / section.total_questions) * 100)}%
+                                </span>
                                 <ChevronRight className={`w-4 h-4 text-slate-400 transition-transform ${expandedSection === section.section_id ? 'rotate-90' : ''}`} />
                             </div>
                         </button>
 
                         {expandedSection === section.section_id && (
                             <div className="border-t border-slate-800">
-                                {/* Topic accuracy */}
                                 {Object.keys(section.topic_accuracy).length > 0 && (
                                     <div className="p-4 border-b border-slate-800">
                                         <p className="text-xs font-medium text-slate-400 mb-2 flex items-center gap-1">
@@ -566,15 +762,12 @@ function ReviewScreen({ review, onBack }: { review: TestReview; onBack: () => vo
                                     </div>
                                 )}
 
-                                {/* Questions */}
                                 <div className="divide-y divide-slate-800">
                                     {section.questions.map(q => (
                                         <div key={q.id} className="p-4">
                                             <button
                                                 className="w-full text-left flex items-start gap-3"
-                                                onClick={() => setExpandedQuestion(
-                                                    expandedQuestion === q.id ? null : q.id
-                                                )}
+                                                onClick={() => setExpandedQuestion(expandedQuestion === q.id ? null : q.id)}
                                             >
                                                 <div className={`mt-0.5 shrink-0 ${q.is_correct ? 'text-green-400' : 'text-red-400'}`}>
                                                     {q.is_correct ? <CheckCircle className="w-4 h-4" /> : <XCircle className="w-4 h-4" />}
@@ -599,44 +792,34 @@ function ReviewScreen({ review, onBack }: { review: TestReview; onBack: () => vo
 
                                             {expandedQuestion === q.id && (
                                                 <div className="mt-3 ml-7 space-y-3">
-                                                    {/* Passage snippet */}
                                                     {q.passage && (
                                                         <div className="text-xs text-slate-400 bg-slate-800 rounded p-3 max-h-32 overflow-y-auto">
                                                             {q.passage}
                                                         </div>
                                                     )}
-
-                                                    {/* Full question */}
-                                                    <p className="text-sm text-white">{q.question_text}</p>
-
-                                                    {/* Choices */}
+                                                    <p className="text-sm text-white">{renderQuestionText(q.question_text)}</p>
                                                     <div className="space-y-1">
                                                         {Object.entries(q.choices as Record<string, string>).map(([key, val]) => {
-                                                            const isCorrect = q.correct_answer.includes(key);
-                                                            const isUserAnswer = (q.user_answer || '').includes(key);
+                                                            const isCorrect = q.correct_answer.split(',').map(s => s.trim()).includes(key);
+                                                            const isUser = (q.user_answer || '').split(',').map(s => s.trim()).includes(key);
                                                             let bg = 'bg-slate-800 border-slate-700';
                                                             if (isCorrect) bg = 'bg-green-900/40 border-green-700';
-                                                            else if (isUserAnswer && !isCorrect) bg = 'bg-red-900/40 border-red-700';
-
+                                                            else if (isUser && !isCorrect) bg = 'bg-red-900/40 border-red-700';
                                                             return (
                                                                 <div key={key} className={`flex gap-2 p-2 rounded border text-xs ${bg}`}>
                                                                     <span className="font-bold text-slate-400 shrink-0">{key}.</span>
                                                                     <span className="text-slate-300">{val}</span>
                                                                     {isCorrect && <CheckCircle className="w-3 h-3 text-green-400 ml-auto shrink-0 mt-0.5" />}
-                                                                    {isUserAnswer && !isCorrect && <XCircle className="w-3 h-3 text-red-400 ml-auto shrink-0 mt-0.5" />}
+                                                                    {isUser && !isCorrect && <XCircle className="w-3 h-3 text-red-400 ml-auto shrink-0 mt-0.5" />}
                                                                 </div>
                                                             );
                                                         })}
                                                     </div>
-
-                                                    {/* User answer */}
                                                     <div className="text-xs text-slate-400 flex gap-2">
                                                         <span>Your answer: <span className={q.is_correct ? 'text-green-400' : 'text-red-400'}>{q.user_answer || 'Not answered'}</span></span>
                                                         <span>·</span>
                                                         <span>Correct: <span className="text-green-400">{q.correct_answer}</span></span>
                                                     </div>
-
-                                                    {/* Explanation */}
                                                     {q.explanation && (
                                                         <div className="bg-blue-900/20 border border-blue-800/40 rounded p-3 text-xs text-slate-300 leading-relaxed">
                                                             <span className="font-medium text-blue-400">Explanation: </span>
@@ -671,7 +854,6 @@ function IntroScreen({ onStart, loading }: { onStart: () => void; loading: boole
                     <p className="text-slate-400 text-sm mt-2">Full-length adaptive test · Real GRE format</p>
                 </CardHeader>
                 <CardContent className="space-y-5">
-                    {/* Test structure */}
                     <div className="space-y-2">
                         <p className="text-sm font-medium text-slate-300">Test Structure</p>
                         {[
@@ -690,23 +872,19 @@ function IntroScreen({ onStart, loading }: { onStart: () => void; loading: boole
                         ))}
                     </div>
 
-                    {/* How adaptive works */}
                     <div className="bg-amber-900/20 border border-amber-800/30 rounded-lg p-3">
                         <div className="flex items-start gap-2">
                             <Target className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                            <div className="text-xs text-amber-200/80 leading-relaxed">
-                                <strong>Adaptive Engine:</strong> Section 2 difficulty adjusts based on your Section 1 performance.
-                                Score ≥60% on Section 1 → Hard module (higher ceiling).
-                                Score &lt;60% → Standard module.
-                            </div>
+                            <p className="text-xs text-amber-200/80 leading-relaxed">
+                                <strong>Adaptive Engine:</strong> Section 2 difficulty adjusts based on Section 1 performance.
+                                Score ≥60% → Hard module (higher ceiling). Score &lt;60% → Standard module.
+                            </p>
                         </div>
                     </div>
 
-                    {/* Scoring */}
                     <div className="bg-slate-800/50 rounded-lg p-3 text-xs text-slate-400 space-y-1">
-                        <p className="text-slate-300 font-medium">Scoring</p>
-                        <p>Each section scored 130–170 · Combined total 260–340</p>
-                        <p>Hard module range: 150–170 · Standard module range: 130–155</p>
+                        <p className="text-slate-300 font-medium flex items-center gap-1.5"><Bookmark className="w-3.5 h-3.5 text-amber-400" /> Mark for Review</p>
+                        <p>Flag any question during the section and return to it before submitting. Flagged questions are highlighted in the navigator.</p>
                     </div>
 
                     <Button
@@ -714,16 +892,9 @@ function IntroScreen({ onStart, loading }: { onStart: () => void; loading: boole
                         disabled={loading}
                         className="w-full bg-blue-600 hover:bg-blue-700 text-white h-12 text-base"
                     >
-                        {loading ? (
-                            <>Loading questions...</>
-                        ) : (
-                            <>Start Test <Play className="w-4 h-4 ml-2" /></>
-                        )}
+                        {loading ? 'Loading questions...' : <><Play className="w-4 h-4 mr-2" /> Start Test</>}
                     </Button>
-
-                    <p className="text-center text-xs text-slate-500">
-                        Total time: ~88 minutes · Scores saved to your profile
-                    </p>
+                    <p className="text-center text-xs text-slate-500">Total time: ~88 minutes · Scores saved to your profile</p>
                 </CardContent>
             </Card>
         </div>
@@ -740,7 +911,6 @@ export default function AdaptiveMockTestRunner() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    // Test state
     const [mockTestId, setMockTestId] = useState<string | null>(null);
     const [verbal1, setVerbal1] = useState<SectionInfo | null>(null);
     const [verbal2, setVerbal2] = useState<(SectionInfo & { difficulty: 'easy' | 'hard' }) | null>(null);
@@ -748,17 +918,11 @@ export default function AdaptiveMockTestRunner() {
     const [quant2, setQuant2] = useState<(SectionInfo & { difficulty: 'easy' | 'hard' }) | null>(null);
     const [results, setResults] = useState<TestResults | null>(null);
     const [review, setReview] = useState<TestReview | null>(null);
-
-    // Break state
     const [nextPhaseAfterBreak, setNextPhaseAfterBreak] = useState<Phase>('verbal_2');
 
-    // Prevent accidental navigation
     useEffect(() => {
-        if (phase === 'intro' || phase === 'results' || phase === 'review') return;
-        const handler = (e: BeforeUnloadEvent) => {
-            e.preventDefault();
-            e.returnValue = '';
-        };
+        if (['intro', 'results', 'review'].includes(phase)) return;
+        const handler = (e: BeforeUnloadEvent) => { e.preventDefault(); e.returnValue = ''; };
         window.addEventListener('beforeunload', handler);
         return () => window.removeEventListener('beforeunload', handler);
     }, [phase]);
@@ -780,83 +944,41 @@ export default function AdaptiveMockTestRunner() {
         }
     }
 
-    async function handleSubmitVerbal1(answers: UserAnswers, timers: QuestionTimer) {
-        if (!mockTestId || !verbal1) return;
+    async function handleSubmitSection(
+        sectionInfo: SectionInfo,
+        currentPhase: Phase,
+        answers: UserAnswers,
+        timers: QuestionTimer
+    ) {
+        if (!mockTestId) return;
         setPhase('loading');
         try {
-            const submissions: AnswerSubmission[] = verbal1.questions.map(q => ({
+            const submissions: AnswerSubmission[] = sectionInfo.questions.map(q => ({
                 question_id: q.id,
                 user_answer: answers[q.id] || '',
                 time_spent_seconds: timers[q.id] || 0,
             }));
-            const resp = await submitSection(mockTestId, verbal1.section_id, submissions);
-            if (resp.next_section) {
-                setVerbal2(resp.next_section);
+            const resp = await submitSection(mockTestId, sectionInfo.section_id, submissions);
+
+            if (currentPhase === 'verbal_1') {
+                if (resp.next_section) setVerbal2(resp.next_section);
+                setNextPhaseAfterBreak('verbal_2');
+                setPhase('break');
+            } else if (currentPhase === 'verbal_2') {
+                setNextPhaseAfterBreak('quant_1');
+                setPhase('break');
+            } else if (currentPhase === 'quant_1') {
+                if (resp.next_section) setQuant2(resp.next_section);
+                setNextPhaseAfterBreak('quant_2');
+                setPhase('break');
+            } else if (currentPhase === 'quant_2') {
+                const finalResults = await completeMockTest(mockTestId);
+                setResults(finalResults);
+                setPhase('results');
             }
-            setNextPhaseAfterBreak('verbal_2');
-            setPhase('break');
         } catch (err) {
             setError((err as Error).message);
-            setPhase('verbal_1');
-        }
-    }
-
-    async function handleSubmitVerbal2(answers: UserAnswers, timers: QuestionTimer) {
-        if (!mockTestId || !verbal2) return;
-        setPhase('loading');
-        try {
-            const submissions: AnswerSubmission[] = verbal2.questions.map(q => ({
-                question_id: q.id,
-                user_answer: answers[q.id] || '',
-                time_spent_seconds: timers[q.id] || 0,
-            }));
-            await submitSection(mockTestId, verbal2.section_id, submissions);
-            setNextPhaseAfterBreak('quant_1');
-            setPhase('break');
-        } catch (err) {
-            setError((err as Error).message);
-            setPhase('verbal_2');
-        }
-    }
-
-    async function handleSubmitQuant1(answers: UserAnswers, timers: QuestionTimer) {
-        if (!mockTestId || !quant1) return;
-        setPhase('loading');
-        try {
-            const submissions: AnswerSubmission[] = quant1.questions.map(q => ({
-                question_id: q.id,
-                user_answer: answers[q.id] || '',
-                time_spent_seconds: timers[q.id] || 0,
-            }));
-            const resp = await submitSection(mockTestId, quant1.section_id, submissions);
-            if (resp.next_section) {
-                setQuant2(resp.next_section);
-            }
-            setNextPhaseAfterBreak('quant_2');
-            setPhase('break');
-        } catch (err) {
-            setError((err as Error).message);
-            setPhase('quant_1');
-        }
-    }
-
-    async function handleSubmitQuant2(answers: UserAnswers, timers: QuestionTimer) {
-        if (!mockTestId || !quant2) return;
-        setPhase('loading');
-        try {
-            const submissions: AnswerSubmission[] = quant2.questions.map(q => ({
-                question_id: q.id,
-                user_answer: answers[q.id] || '',
-                time_spent_seconds: timers[q.id] || 0,
-            }));
-            await submitSection(mockTestId, quant2.section_id, submissions);
-            // Complete the test
-            const finalResults = await completeMockTest(mockTestId);
-            setResults(finalResults);
-            setPhase('results');
-        } catch (err) {
-            setError((err as Error).message);
-            setPhase('quant_2');
+            setPhase(currentPhase);
         }
     }
 
@@ -864,8 +986,7 @@ export default function AdaptiveMockTestRunner() {
         if (!mockTestId) return;
         setPhase('loading');
         try {
-            const reviewData = await getMockTestReview(mockTestId);
-            setReview(reviewData);
+            setReview(await getMockTestReview(mockTestId));
             setPhase('review');
         } catch (err) {
             setError((err as Error).message);
@@ -875,17 +996,9 @@ export default function AdaptiveMockTestRunner() {
 
     function handleNewTest() {
         setPhase('intro');
-        setMockTestId(null);
-        setVerbal1(null);
-        setVerbal2(null);
-        setQuant1(null);
-        setQuant2(null);
-        setResults(null);
-        setReview(null);
-        setError(null);
+        setMockTestId(null); setVerbal1(null); setVerbal2(null);
+        setQuant1(null); setQuant2(null); setResults(null); setReview(null); setError(null);
     }
-
-    // ── Render ────────────────────────────────────────────────────────────────
 
     if (error) {
         return (
@@ -895,9 +1008,7 @@ export default function AdaptiveMockTestRunner() {
                         <AlertTriangle className="w-10 h-10 text-red-400 mx-auto" />
                         <p className="text-white font-medium">Something went wrong</p>
                         <p className="text-red-300 text-sm">{error}</p>
-                        <Button onClick={() => { setError(null); setPhase('intro'); }} className="w-full">
-                            Back to Start
-                        </Button>
+                        <Button onClick={() => { setError(null); setPhase('intro'); }} className="w-full">Back to Start</Button>
                     </CardContent>
                 </Card>
             </div>
@@ -915,75 +1026,32 @@ export default function AdaptiveMockTestRunner() {
         );
     }
 
-    if (phase === 'intro') {
-        return <IntroScreen onStart={handleStart} loading={loading} />;
-    }
+    if (phase === 'intro') return <IntroScreen onStart={handleStart} loading={loading} />;
 
-    if (phase === 'verbal_1' && verbal1) {
-        return <SectionTaking phase="verbal_1" sectionInfo={verbal1} onSubmit={handleSubmitVerbal1} />;
-    }
+    if (phase === 'verbal_1' && verbal1)
+        return <SectionTaking phase="verbal_1" sectionInfo={verbal1} onSubmit={(a, t) => handleSubmitSection(verbal1, 'verbal_1', a, t)} />;
 
-    if (phase === 'break') {
-        return (
-            <BreakScreen
-                nextPhase={nextPhaseAfterBreak}
-                message={BREAK_MESSAGES[nextPhaseAfterBreak] || 'Take a short break before the next section.'}
-                onContinue={() => setPhase(nextPhaseAfterBreak)}
-            />
-        );
-    }
+    if (phase === 'break')
+        return <BreakScreen nextPhase={nextPhaseAfterBreak} message={BREAK_MESSAGES[nextPhaseAfterBreak] || ''} onContinue={() => setPhase(nextPhaseAfterBreak)} />;
 
-    if (phase === 'verbal_2' && verbal2) {
-        return (
-            <SectionTaking
-                phase="verbal_2"
-                sectionInfo={verbal2}
-                onSubmit={handleSubmitVerbal2}
-                adaptiveDifficulty={verbal2.difficulty}
-            />
-        );
-    }
+    if (phase === 'verbal_2' && verbal2)
+        return <SectionTaking phase="verbal_2" sectionInfo={verbal2} adaptiveDifficulty={verbal2.difficulty} onSubmit={(a, t) => handleSubmitSection(verbal2, 'verbal_2', a, t)} />;
 
-    if (phase === 'quant_1' && quant1) {
-        return <SectionTaking phase="quant_1" sectionInfo={quant1} onSubmit={handleSubmitQuant1} />;
-    }
+    if (phase === 'quant_1' && quant1)
+        return <SectionTaking phase="quant_1" sectionInfo={quant1} onSubmit={(a, t) => handleSubmitSection(quant1, 'quant_1', a, t)} />;
 
-    if (phase === 'quant_2' && quant2) {
-        return (
-            <SectionTaking
-                phase="quant_2"
-                sectionInfo={quant2}
-                onSubmit={handleSubmitQuant2}
-                adaptiveDifficulty={quant2.difficulty}
-            />
-        );
-    }
+    if (phase === 'quant_2' && quant2)
+        return <SectionTaking phase="quant_2" sectionInfo={quant2} adaptiveDifficulty={quant2.difficulty} onSubmit={(a, t) => handleSubmitSection(quant2, 'quant_2', a, t)} />;
 
-    if (phase === 'results' && results) {
-        return (
-            <ResultsScreen
-                results={results}
-                onReview={handleLoadReview}
-                onNewTest={handleNewTest}
-            />
-        );
-    }
+    if (phase === 'results' && results)
+        return <ResultsScreen results={results} onReview={handleLoadReview} onNewTest={handleNewTest} />;
 
-    if (phase === 'review' && review) {
-        return (
-            <ReviewScreen
-                review={review}
-                onBack={() => setPhase('results')}
-            />
-        );
-    }
+    if (phase === 'review' && review)
+        return <ReviewScreen review={review} onBack={() => setPhase('results')} />;
 
-    // Fallback
     return (
         <div className="min-h-screen bg-slate-950 flex items-center justify-center">
-            <Button onClick={() => navigate('/')} variant="outline">
-                <ArrowLeft className="w-4 h-4 mr-2" /> Back to Home
-            </Button>
+            <Button onClick={() => navigate('/')} variant="outline"><ArrowLeft className="w-4 h-4 mr-2" /> Back to Home</Button>
         </div>
     );
 }
