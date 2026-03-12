@@ -8,7 +8,7 @@ import {
     ArrowLeft, Clock, ChevronLeft, ChevronRight, CheckCircle,
     XCircle, BookOpen, GraduationCap, Brain, AlertTriangle,
     RotateCcw, Target, TrendingUp, Grid3X3, Play, Bookmark,
-    BookmarkCheck, Flag,
+    BookmarkCheck, Flag, Calculator, X,
 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import {
@@ -70,6 +70,91 @@ function useTimer(initialSeconds: number, running: boolean, onExpire: () => void
 
     const format = (s: number) => `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, '0')}`;
     return { seconds, formatted: format(seconds) };
+}
+
+// ── Calculator ────────────────────────────────────────────────────────────────
+
+function CalculatorWidget({ onClose }: { onClose: () => void }) {
+    const [display, setDisplay] = useState('0');
+    const [prev, setPrev] = useState<string | null>(null);
+    const [op, setOp] = useState<string | null>(null);
+    const [newNum, setNewNum] = useState(true);
+
+    const handleDigit = (d: string) => {
+        if (newNum) {
+            setDisplay(d === '.' ? '0.' : d);
+            setNewNum(false);
+        } else {
+            if (d === '.' && display.includes('.')) return;
+            setDisplay(display + d);
+        }
+    };
+
+    const calc = (a: string, b: string, o: string) => {
+        const na = parseFloat(a), nb = parseFloat(b);
+        switch (o) {
+            case '+': return na + nb;
+            case '-': return na - nb;
+            case '×': return na * nb;
+            case '÷': return nb !== 0 ? na / nb : NaN;
+            default: return nb;
+        }
+    };
+
+    const handleOp = (o: string) => {
+        if (prev && op && !newNum) {
+            const r = calc(prev, display, op);
+            setDisplay(String(r));
+            setPrev(String(r));
+        } else {
+            setPrev(display);
+        }
+        setOp(o);
+        setNewNum(true);
+    };
+
+    const handleEquals = () => {
+        if (prev && op) {
+            setDisplay(String(calc(prev, display, op)));
+            setPrev(null); setOp(null); setNewNum(true);
+        }
+    };
+
+    const handleClear = () => { setDisplay('0'); setPrev(null); setOp(null); setNewNum(true); };
+
+    return (
+        <div className="fixed bottom-4 right-4 z-50 bg-card border rounded-lg shadow-2xl p-3 w-64">
+            <div className="flex justify-between items-center mb-2">
+                <span className="text-xs font-semibold text-muted-foreground">Calculator</span>
+                <Button variant="ghost" size="icon" className="h-6 w-6" onClick={onClose}>
+                    <X className="h-4 w-4" />
+                </Button>
+            </div>
+            <div className="bg-muted rounded px-3 py-2 text-right text-lg font-mono mb-2 truncate">
+                {display}
+            </div>
+            <div className="grid grid-cols-4 gap-1">
+                {['7','8','9','÷','4','5','6','×','1','2','3','-','0','.','=','+'].map(key => (
+                    <Button
+                        key={key}
+                        variant={['+','-','×','÷'].includes(key) ? 'secondary' : key === '=' ? 'default' : 'outline'}
+                        size="sm"
+                        className="h-9 text-sm"
+                        onClick={() => {
+                            if (key === '=') handleEquals();
+                            else if (['+','-','×','÷'].includes(key)) handleOp(key);
+                            else handleDigit(key);
+                        }}
+                    >
+                        {key}
+                    </Button>
+                ))}
+                <Button variant="destructive" size="sm" className="h-9 text-xs col-span-4" onClick={handleClear}>
+                    Clear
+                </Button>
+            </div>
+        </div>
+    );
 }
 
 // ── Question text helpers ─────────────────────────────────────────────────────
@@ -206,10 +291,17 @@ function QuestionDisplay({
     return (
         <div className="space-y-5">
             {/* Passage */}
-            {question.passage && (
-                <div className="bg-slate-800/60 border border-slate-700 rounded-lg p-4 text-slate-300 text-sm leading-relaxed max-h-56 overflow-y-auto">
-                    {question.passage}
-                </div>
+            {question.question_type === 'reading_comprehension' && (
+                question.passage ? (
+                    <div className="bg-slate-800/60 border border-slate-700 rounded-lg p-4 text-slate-300 text-sm leading-relaxed max-h-72 overflow-y-auto whitespace-pre-wrap">
+                        {question.passage}
+                    </div>
+                ) : (
+                    <div className="bg-amber-950/40 border border-amber-800/50 rounded-lg p-4 text-amber-300 text-sm">
+                        <p className="font-semibold mb-1">Reading Passage</p>
+                        <p className="text-amber-400/80 italic">Passage text is not available for this question in the current question bank. Please refer to your source material.</p>
+                    </div>
+                )
             )}
 
             {/* Question text with styled blanks */}
@@ -328,7 +420,9 @@ function SectionTaking({
     const [showNav, setShowNav] = useState(false);
     const [flagged, setFlagged] = useState<Set<string>>(new Set());
     const [showSubmitConfirm, setShowSubmitConfirm] = useState(false);
+    const [showCalc, setShowCalc] = useState(false);
 
+    const isQuantPhase = phase === 'quant_1' || phase === 'quant_2';
     const questions = sectionInfo.questions;
     const currentQ = questions[currentIdx];
 
@@ -438,6 +532,17 @@ function SectionTaking({
                 </div>
 
                 {/* Nav grid toggle */}
+                {isQuantPhase && (
+                    <Button
+                        variant={showCalc ? 'default' : 'outline'}
+                        size="sm"
+                        onClick={() => setShowCalc(v => !v)}
+                        className="border-slate-700 shrink-0"
+                        title="Calculator"
+                    >
+                        <Calculator className="w-4 h-4" />
+                    </Button>
+                )}
                 <Button variant="outline" size="sm" onClick={() => setShowNav(!showNav)} className="border-slate-700 shrink-0">
                     <Grid3X3 className="w-4 h-4" />
                 </Button>
@@ -533,13 +638,6 @@ function SectionTaking({
                             <Badge variant="outline" className="text-xs border-slate-600 text-slate-400 capitalize">
                                 {currentQ.question_type.replace(/_/g, ' ')}
                             </Badge>
-                            <Badge variant="outline" className={`text-xs capitalize ${
-                                currentQ.difficulty === 'hard'   ? 'border-red-700 text-red-400' :
-                                currentQ.difficulty === 'medium' ? 'border-amber-700 text-amber-400' :
-                                'border-green-700 text-green-400'
-                            }`}>
-                                {currentQ.difficulty}
-                            </Badge>
                         </div>
 
                         {/* Mark for Review button */}
@@ -593,6 +691,11 @@ function SectionTaking({
                     </Button>
                 )}
             </div>
+
+            {/* Calculator widget (quant only) */}
+            {isQuantPhase && showCalc && (
+                <CalculatorWidget onClose={() => setShowCalc(false)} />
+            )}
         </div>
     );
 }
