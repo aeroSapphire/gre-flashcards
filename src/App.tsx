@@ -82,10 +82,9 @@ const App = () => (
             <Route path="/gre-test/results" element={<GRETestResults />} />
             <Route path="/word-web" element={<WordWeb />} />
             <Route path="/quant" element={<QuantPractice />} />
-            <Route path="/mock-test" element={<GREAdaptiveMockTest />} />
+            <Route path="/mock-test" element={<AdaptiveMockTestRunner />} />
             <Route path="/mock-tests" element={<MockTestBrowser />} />
             <Route path="/mock-tests/:testId" element={<NamedMockTestRunner />} />
-            <Route path="/adaptive-mock-test" element={<AdaptiveMockTestRunner />} />
             <Route path="/study" element={<StudySession />} />
             <Route path="/arcade" element={<Arcade />} />
             <Route path="/quick-quiz" element={<QuickQuiz />} />

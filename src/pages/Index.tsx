@@ -656,7 +656,7 @@ const Index = () => {
                     GRE Adaptive Mock Test
                   </h3>
                   <p className="text-sm text-muted-foreground">
-                    27-question adaptive test with real GRE scoring — Arithmetic & Algebra.
+                    Full-length adaptive test — 2 Verbal + 2 Quant sections, real GRE scoring (260–340).
                   </p>
                 </div>
               </div>

@@ -52,7 +52,7 @@ const MockTestBrowser = () => {
         {/* Adaptive Mock Test — featured card */}
         <Card
           className="border-blue-500/40 bg-gradient-to-r from-blue-950/60 to-slate-900/60 hover:border-blue-400/60 transition-colors cursor-pointer group"
-          onClick={() => navigate('/adaptive-mock-test')}
+          onClick={() => navigate('/mock-test')}
         >
           <CardHeader className="pb-3">
             <div className="flex items-start justify-between">
