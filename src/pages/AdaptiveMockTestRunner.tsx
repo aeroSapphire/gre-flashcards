@@ -161,21 +161,22 @@ function CalculatorWidget({ onClose }: { onClose: () => void }) {
 
 /**
  * Renders question text, replacing blank markers with styled underline spans.
- * Handles two formats:
- *   - (i), (ii), (iii)  — multi-blank Text Completion
- *   - _____             — single-blank SE / TC questions
+ * Handles:
+ *   - _____(i)_____, _____(ii)_____, _____(iii)_____  — multi-blank TC labels
+ *   - _____                                           — single-blank SE/TC
  */
 function renderQuestionText(text: string): React.ReactNode {
-    // Split on both (i)/(ii)/(iii) and _____ markers
-    const parts = text.split(/(\(i{1,3}\)|_____)/g);
+    // Match labeled blanks first (longer pattern), then plain blanks
+    const parts = text.split(/(_____\(i{1,3}\)_____|_____)/g);
     if (parts.length === 1) return text;
 
-    let blankCount = 0;
     return (
         <>
             {parts.map((part, idx) => {
-                if (/^\(i{1,3}\)$/.test(part)) {
-                    const label = part === '(i)' ? 'Blank (i)' : part === '(ii)' ? 'Blank (ii)' : 'Blank (iii)';
+                if (/^_____\(i{1,3}\)_____$/.test(part)) {
+                    const label = part.includes('(iii)') ? 'Blank (iii)'
+                                : part.includes('(ii)')  ? 'Blank (ii)'
+                                : 'Blank (i)';
                     return (
                         <span key={idx} className="inline-block border-b-2 border-blue-400 text-blue-300 font-semibold px-4 mx-1 text-sm leading-loose">
                             {label}
@@ -183,10 +184,9 @@ function renderQuestionText(text: string): React.ReactNode {
                     );
                 }
                 if (part === '_____') {
-                    blankCount++;
                     return (
-                        <span key={idx} className="inline-block border-b-2 border-blue-400 text-blue-300 font-semibold px-6 mx-1 text-sm leading-loose">
-                            {''}
+                        <span key={idx} className="inline-block border-b-2 border-blue-400 min-w-[3rem] mx-1 leading-loose">
+                            {' '}
                         </span>
                     );
                 }
@@ -196,44 +196,36 @@ function renderQuestionText(text: string): React.ReactNode {
     );
 }
 
-/**
- * Parses multi-blank Text Completion choices.
- *
- * The question bank stores 2-blank TC choices in the format:
- *   "A": "word1 D word2"  (A = choice for blank i, D = choice for blank ii)
- *   "B": "word3 E word4"
- *   "C": "word5 F word6"
- *
- * Returns two separate columns so each blank can be selected independently.
- */
 interface MultiBlankColumn {
     label: string;
     options: Array<{ key: string; text: string }>;
 }
 
-function parseMultiBlankChoices(choices: Record<string, string>): MultiBlankColumn[] | null {
-    const keys = Object.keys(choices).sort();
-    if (keys.length !== 3 || !keys.every(k => ['A', 'B', 'C'].includes(k))) return null;
+/**
+ * Parses multi-blank Text Completion choices.
+ * New format: {"blank_i": {"A": "...", "B": "...", "C": "..."},
+ *              "blank_ii": {"D": "...", "E": "...", "F": "..."},
+ *              "blank_iii": {"G": "...", "H": "...", "I": "..."}}
+ * Returns null if choices are flat (not grouped).
+ */
+function parseMultiBlankChoices(choices: Record<string, unknown>): MultiBlankColumn[] | null {
+    if (!('blank_i' in choices)) return null;
 
-    // Detect embedded D/E/F key: "sometext D othertext" or "sometext E othertext"
-    const pattern = /^(.+?)\s+([D-F])\s+(.+?)(?:\s+\d+)?$/;
-    const match = (choices['A'] || '').match(pattern);
-    if (!match) return null;
+    const blankKeys = ['blank_i', 'blank_ii', 'blank_iii'] as const;
+    const labels = ['Blank (i)', 'Blank (ii)', 'Blank (iii)'];
+    const columns: MultiBlankColumn[] = [];
 
-    const col1: Array<{ key: string; text: string }> = [];
-    const col2: Array<{ key: string; text: string }> = [];
-
-    for (const key of keys) {
-        const m = choices[key].match(pattern);
-        if (!m) return null; // not all rows match → fall back to plain
-        col1.push({ key, text: m[1].trim() });
-        col2.push({ key: m[2], text: m[3].replace(/\s+\d+$/, '').trim() });
+    for (let i = 0; i < blankKeys.length; i++) {
+        const blankData = choices[blankKeys[i]];
+        if (!blankData || typeof blankData !== 'object') break;
+        const opts = blankData as Record<string, string>;
+        columns.push({
+            label: labels[i],
+            options: Object.keys(opts).sort().map(key => ({ key, text: opts[key] })),
+        });
     }
 
-    return [
-        { label: 'Blank (i)', options: col1 },
-        { label: 'Blank (ii)', options: col2 },
-    ];
+    return columns.length > 0 ? columns : null;
 }
 
 // ── Question Renderer ─────────────────────────────────────────────────────────
@@ -247,7 +239,7 @@ function QuestionDisplay({
     answer: string;
     onAnswer: (val: string) => void;
 }) {
-    const choices = question.choices as Record<string, string>;
+    const choices = question.choices as Record<string, unknown>;
     const qtype = question.question_type;
 
     const isSE = qtype === 'sentence_equivalence';
@@ -257,8 +249,10 @@ function QuestionDisplay({
 
     const selectedSet = new Set(answer ? answer.split(',').map(s => s.trim()).filter(Boolean) : []);
 
-    // Multi-blank TC detection
+    // Multi-blank TC detection (new grouped format: choices has "blank_i" key)
     const multiBlankCols = isTC ? parseMultiBlankChoices(choices) : null;
+    // Flat choices (for SE, MC, QC, single-blank TC)
+    const flatChoices = multiBlankCols ? null : choices as Record<string, string>;
 
     // ── Multi-blank TC answer helpers ──
     function getBlankSelection(blankIndex: number): string {
@@ -373,9 +367,9 @@ function QuestionDisplay({
             )}
 
             {/* ── Standard single / multi-select choices ── */}
-            {qtype !== 'numeric_entry' && !multiBlankCols && (
+            {qtype !== 'numeric_entry' && !multiBlankCols && flatChoices && (
                 <div className="space-y-2">
-                    {Object.keys(choices).sort().map(key => {
+                    {Object.keys(flatChoices).sort().map(key => {
                         const selected = selectedSet.has(key);
                         return (
                             <button
@@ -390,7 +384,7 @@ function QuestionDisplay({
                                 <span className={`font-bold text-sm mt-0.5 w-5 shrink-0 ${selected ? 'text-blue-400' : 'text-slate-500'}`}>
                                     {key}.
                                 </span>
-                                <span className="text-sm leading-relaxed">{choices[key]}</span>
+                                <span className="text-sm leading-relaxed">{flatChoices[key]}</span>
                             </button>
                         );
                     })}
@@ -913,21 +907,58 @@ function ReviewScreen({ review, onBack }: { review: TestReview; onBack: () => vo
                                                     )}
                                                     <p className="text-sm text-white">{renderQuestionText(q.question_text)}</p>
                                                     <div className="space-y-1">
-                                                        {Object.entries(q.choices as Record<string, string>).map(([key, val]) => {
-                                                            const isCorrect = q.correct_answer.split(',').map(s => s.trim()).includes(key);
-                                                            const isUser = (q.user_answer || '').split(',').map(s => s.trim()).includes(key);
-                                                            let bg = 'bg-slate-800 border-slate-700';
-                                                            if (isCorrect) bg = 'bg-green-900/40 border-green-700';
-                                                            else if (isUser && !isCorrect) bg = 'bg-red-900/40 border-red-700';
-                                                            return (
-                                                                <div key={key} className={`flex gap-2 p-2 rounded border text-xs ${bg}`}>
-                                                                    <span className="font-bold text-slate-400 shrink-0">{key}.</span>
-                                                                    <span className="text-slate-300">{val}</span>
-                                                                    {isCorrect && <CheckCircle className="w-3 h-3 text-green-400 ml-auto shrink-0 mt-0.5" />}
-                                                                    {isUser && !isCorrect && <XCircle className="w-3 h-3 text-red-400 ml-auto shrink-0 mt-0.5" />}
-                                                                </div>
-                                                            );
-                                                        })}
+                                                        {(() => {
+                                                            const choicesRaw = q.choices as Record<string, unknown>;
+                                                            const isMultiBlank = 'blank_i' in choicesRaw;
+                                                            const correctParts = q.correct_answer.split(',').map(s => s.trim());
+                                                            const userParts = (q.user_answer || '').split(',').map(s => s.trim());
+
+                                                            if (isMultiBlank) {
+                                                                // Flatten all blank options for display
+                                                                const allOpts: Array<{ key: string; text: string; blankLabel: string }> = [];
+                                                                const blankKeys = ['blank_i', 'blank_ii', 'blank_iii'] as const;
+                                                                const blankLabels = ['Blank (i)', 'Blank (ii)', 'Blank (iii)'];
+                                                                blankKeys.forEach((bk, bi) => {
+                                                                    if (choicesRaw[bk] && typeof choicesRaw[bk] === 'object') {
+                                                                        Object.entries(choicesRaw[bk] as Record<string, string>).forEach(([k, v]) => {
+                                                                            allOpts.push({ key: k, text: v, blankLabel: blankLabels[bi] });
+                                                                        });
+                                                                    }
+                                                                });
+                                                                return allOpts.map(({ key, text, blankLabel }) => {
+                                                                    const isCorrect = correctParts.includes(key);
+                                                                    const isUser = userParts.includes(key);
+                                                                    let bg = 'bg-slate-800 border-slate-700';
+                                                                    if (isCorrect) bg = 'bg-green-900/40 border-green-700';
+                                                                    else if (isUser && !isCorrect) bg = 'bg-red-900/40 border-red-700';
+                                                                    return (
+                                                                        <div key={key} className={`flex gap-2 p-2 rounded border text-xs ${bg}`}>
+                                                                            <span className="font-bold text-slate-400 shrink-0 w-16">{blankLabel} {key}.</span>
+                                                                            <span className="text-slate-300">{text}</span>
+                                                                            {isCorrect && <CheckCircle className="w-3 h-3 text-green-400 ml-auto shrink-0 mt-0.5" />}
+                                                                            {isUser && !isCorrect && <XCircle className="w-3 h-3 text-red-400 ml-auto shrink-0 mt-0.5" />}
+                                                                        </div>
+                                                                    );
+                                                                });
+                                                            }
+
+                                                            // Flat choices
+                                                            return Object.entries(choicesRaw as Record<string, string>).map(([key, val]) => {
+                                                                const isCorrect = correctParts.includes(key);
+                                                                const isUser = userParts.includes(key);
+                                                                let bg = 'bg-slate-800 border-slate-700';
+                                                                if (isCorrect) bg = 'bg-green-900/40 border-green-700';
+                                                                else if (isUser && !isCorrect) bg = 'bg-red-900/40 border-red-700';
+                                                                return (
+                                                                    <div key={key} className={`flex gap-2 p-2 rounded border text-xs ${bg}`}>
+                                                                        <span className="font-bold text-slate-400 shrink-0">{key}.</span>
+                                                                        <span className="text-slate-300">{val}</span>
+                                                                        {isCorrect && <CheckCircle className="w-3 h-3 text-green-400 ml-auto shrink-0 mt-0.5" />}
+                                                                        {isUser && !isCorrect && <XCircle className="w-3 h-3 text-red-400 ml-auto shrink-0 mt-0.5" />}
+                                                                    </div>
+                                                                );
+                                                            });
+                                                        })()}
                                                     </div>
                                                     <div className="text-xs text-slate-400 flex gap-2">
                                                         <span>Your answer: <span className={q.is_correct ? 'text-green-400' : 'text-red-400'}>{q.user_answer || 'Not answered'}</span></span>

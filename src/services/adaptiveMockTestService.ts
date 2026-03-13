@@ -19,7 +19,7 @@ export interface Question {
     difficulty: 'easy' | 'medium' | 'hard';
     question_text: string;
     passage: string | null;
-    choices: Record<string, string>;
+    choices: Record<string, unknown>;
     correct_answer: string;
     explanation: string | null;
     topic: string | null;
@@ -610,7 +610,7 @@ export async function getMockTestReview(mockTestId: string): Promise<TestReview>
             const q = questionMap.get(row.question_id)!;
             return {
                 ...(q as Question),
-                choices: q.choices as Record<string, string>,
+                choices: q.choices as Record<string, unknown>,
                 question_order: row.question_order,
                 user_answer: row.user_answer,
                 is_correct: row.is_correct,
