@@ -130,9 +130,185 @@ function stripSensitiveFields(q: Question, order: number): ClientQuestion {
     return { ...safe, question_order: order };
 }
 
+// ── Question selection helpers ─────────────────────────────────────────────────
+
+/** Fisher-Yates shuffle (returns new array) */
+function shuffleArray<T>(arr: T[]): T[] {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}
+
 /**
- * Fetch questions for a section, avoiding previously used IDs.
- * Falls back to medium questions if there aren't enough of the target difficulty.
+ * Pick `count` items from a difficulty-sorted list, shuffling within each
+ * difficulty band so every test gets a different random subset.
+ */
+function pickByDifficulty(questions: Question[], count: number): Question[] {
+    const result: Question[] = [];
+    let i = 0;
+    while (i < questions.length && result.length < count) {
+        const currentDiff = questions[i].difficulty;
+        let j = i;
+        while (j < questions.length && questions[j].difficulty === currentDiff) j++;
+        const band = shuffleArray(questions.slice(i, j));
+        result.push(...band.slice(0, count - result.length));
+        i = j;
+    }
+    return result;
+}
+
+/** Sort questions so the preferred difficulty comes first. */
+function sortByDiffPref(questions: Question[], mode: 'standard' | 'easy' | 'hard'): Question[] {
+    const rank: Record<string, number> =
+        mode === 'hard' ? { hard: 0, medium: 1, easy: 2 }
+                        : { easy: 0, medium: 1, hard: 2 };
+    return [...questions].sort((a, b) => (rank[a.difficulty] ?? 3) - (rank[b.difficulty] ?? 3));
+}
+
+/**
+ * Fetch questions for a verbal section with correct type distribution:
+ *   ~50% Reading Comprehension (grouped by passage)
+ *   ~30% Text Completion
+ *   ~20% Sentence Equivalence
+ *
+ * RC questions that share a passage are kept together so they appear
+ * consecutively in the section. TC/SE questions come first, RC groups last.
+ */
+async function fetchVerbalSectionQuestions(
+    count: number,
+    mode: 'standard' | 'easy' | 'hard',
+    usedIds: string[]
+): Promise<Question[]> {
+    const difficulties = mode === 'hard' ? ['medium', 'hard'] : ['easy', 'medium'];
+
+    let query = supabase
+        .from('gre_bank_questions')
+        .select('*')
+        .eq('section', 'verbal')
+        .in('difficulty', difficulties);
+    if (usedIds.length > 0) {
+        query = query.not('id', 'in', `(${usedIds.join(',')})`);
+    }
+
+    const { data, error } = await query;
+    if (error) throw new Error(`Failed to fetch verbal questions: ${error.message}`);
+    const pool = (data || []) as Question[];
+
+    // Target counts per type
+    const rcTarget = Math.round(count * 0.50);
+    const tcTarget = Math.round(count * 0.30);
+    const seTarget = count - rcTarget - tcTarget;
+
+    // ── RC: select passage groups atomically ──────────────────────────────────
+    const rcPool = pool.filter(q => q.question_type === 'reading_comprehension');
+
+    // Build passage → question[] map using the full passage text as the key
+    const passageMap = new Map<string, Question[]>();
+    for (const q of rcPool) {
+        const key = q.passage ?? q.id; // standalone RC uses its own ID as key
+        if (!passageMap.has(key)) passageMap.set(key, []);
+        passageMap.get(key)!.push(q);
+    }
+
+    // Shuffle the group list, then greedily pick whole groups until rcTarget is met
+    const groups = shuffleArray([...passageMap.values()]);
+    const selectedRC: Question[] = [];
+    for (const group of groups) {
+        if (selectedRC.length >= rcTarget) break;
+        selectedRC.push(...group);
+    }
+
+    // ── TC: pick by difficulty preference ────────────────────────────────────
+    const tcPool = sortByDiffPref(
+        pool.filter(q => q.question_type === 'text_completion'),
+        mode
+    );
+    const selectedTC = pickByDifficulty(tcPool, tcTarget);
+
+    // ── SE: pick by difficulty preference ────────────────────────────────────
+    const sePool = sortByDiffPref(
+        pool.filter(q => q.question_type === 'sentence_equivalence'),
+        mode
+    );
+    const selectedSE = pickByDifficulty(sePool, seTarget);
+
+    // ── Backfill if any type came up short ────────────────────────────────────
+    const chosen = new Set([...selectedRC, ...selectedTC, ...selectedSE].map(q => q.id));
+    const remaining = pool.filter(q => !chosen.has(q.id));
+    const shortfall = count - selectedRC.length - selectedTC.length - selectedSE.length;
+    const backfill = shortfall > 0 ? shuffleArray(remaining).slice(0, shortfall) : [];
+
+    // ── Final ordering: TC/SE first (standalone), then RC groups ──────────────
+    // RC questions from the same passage are already consecutive because we
+    // pushed whole groups; this mirrors the real GRE layout.
+    return [
+        ...shuffleArray([...selectedTC, ...selectedSE]),
+        ...selectedRC,
+        ...backfill,
+    ];
+}
+
+/**
+ * Fetch questions for a quant section with correct type distribution:
+ *   ~35% Quantitative Comparison
+ *   ~50% Multiple Choice (single + multiple)
+ *   ~15% other (numeric entry, data interpretation) — backfilled from MC if absent
+ */
+async function fetchQuantSectionQuestions(
+    count: number,
+    mode: 'standard' | 'easy' | 'hard',
+    usedIds: string[]
+): Promise<Question[]> {
+    const difficulties = mode === 'hard' ? ['medium', 'hard'] : ['easy', 'medium'];
+
+    let query = supabase
+        .from('gre_bank_questions')
+        .select('*')
+        .eq('section', 'quant')
+        .in('difficulty', difficulties);
+    if (usedIds.length > 0) {
+        query = query.not('id', 'in', `(${usedIds.join(',')})`);
+    }
+
+    const { data, error } = await query;
+    if (error) throw new Error(`Failed to fetch quant questions: ${error.message}`);
+    const pool = (data || []) as Question[];
+
+    const qcTarget  = Math.round(count * 0.35);
+    const mcTarget  = Math.round(count * 0.50);
+    const restTarget = count - qcTarget - mcTarget;
+
+    const qcPool = sortByDiffPref(
+        pool.filter(q => q.question_type === 'quantitative_comparison'), mode);
+    const mcPool = sortByDiffPref(
+        pool.filter(q => q.question_type === 'multiple_choice_single'
+                      || q.question_type === 'multiple_choice_multiple'), mode);
+    const otherPool = sortByDiffPref(
+        pool.filter(q => q.question_type !== 'quantitative_comparison'
+                      && q.question_type !== 'multiple_choice_single'
+                      && q.question_type !== 'multiple_choice_multiple'), mode);
+
+    const selectedQC   = pickByDifficulty(qcPool, qcTarget);
+    const selectedMC   = pickByDifficulty(mcPool, mcTarget);
+    const selectedOther = restTarget > 0
+        ? pickByDifficulty(otherPool.length >= restTarget ? otherPool : mcPool.filter(
+              q => !selectedMC.find(s => s.id === q.id)), restTarget)
+        : [];
+
+    // Backfill
+    const chosen = new Set([...selectedQC, ...selectedMC, ...selectedOther].map(q => q.id));
+    const remaining = pool.filter(q => !chosen.has(q.id));
+    const shortfall = count - selectedQC.length - selectedMC.length - selectedOther.length;
+    const backfill = shortfall > 0 ? shuffleArray(remaining).slice(0, shortfall) : [];
+
+    return shuffleArray([...selectedQC, ...selectedMC, ...selectedOther, ...backfill]);
+}
+
+/**
+ * Dispatch to the section-specific fetcher based on section type.
  */
 async function fetchSectionQuestions(
     section: 'verbal' | 'quant',
@@ -140,88 +316,10 @@ async function fetchSectionQuestions(
     mode: 'standard' | 'easy' | 'hard',
     usedIds: string[]
 ): Promise<Question[]> {
-    let difficulties: string[];
-    let orderByHard: boolean;
-
-    if (mode === 'standard') {
-        difficulties = ['easy', 'medium'];
-        orderByHard = false;
-    } else if (mode === 'hard') {
-        difficulties = ['medium', 'hard'];
-        orderByHard = true;
-    } else {
-        difficulties = ['easy', 'medium'];
-        orderByHard = false;
+    if (section === 'verbal') {
+        return fetchVerbalSectionQuestions(count, mode, usedIds);
     }
-
-    let query = supabase
-        .from('gre_bank_questions')
-        .select('*')
-        .eq('section', section)
-        .in('difficulty', difficulties);
-
-    if (usedIds.length > 0) {
-        query = query.not('id', 'in', `(${usedIds.join(',')})`);
-    }
-
-    const { data, error } = await query;
-    if (error) throw new Error(`Failed to fetch questions: ${error.message}`);
-
-    let questions = (data || []) as Question[];
-
-    // Sort by difficulty preference, then shuffle
-    if (orderByHard) {
-        // hard first
-        questions.sort((a, b) => {
-            const rank = { hard: 0, medium: 1, easy: 2 };
-            return (rank[a.difficulty] ?? 3) - (rank[b.difficulty] ?? 3);
-        });
-    } else if (mode === 'easy') {
-        // easy first
-        questions.sort((a, b) => {
-            const rank = { easy: 0, medium: 1, hard: 2 };
-            return (rank[a.difficulty] ?? 3) - (rank[b.difficulty] ?? 3);
-        });
-    }
-
-    // Add randomness within same difficulty band
-    const result: Question[] = [];
-    let i = 0;
-    while (i < questions.length && result.length < count) {
-        // Find end of current difficulty band
-        const currentDiff = questions[i].difficulty;
-        const bandEnd = questions.findIndex((q, idx) => idx >= i && q.difficulty !== currentDiff);
-        const end = bandEnd === -1 ? questions.length : bandEnd;
-        const band = questions.slice(i, end);
-
-        // Shuffle band
-        for (let j = band.length - 1; j > 0; j--) {
-            const k = Math.floor(Math.random() * (j + 1));
-            [band[j], band[k]] = [band[k], band[j]];
-        }
-
-        const needed = count - result.length;
-        result.push(...band.slice(0, needed));
-        i = end;
-    }
-
-    // Backfill if not enough questions
-    if (result.length < count) {
-        const backfillIds = [...usedIds, ...result.map(q => q.id)];
-        let backfillQuery = supabase
-            .from('gre_bank_questions')
-            .select('*')
-            .eq('section', section);
-
-        if (backfillIds.length > 0) {
-            backfillQuery = backfillQuery.not('id', 'in', `(${backfillIds.join(',')})`);
-        }
-
-        const { data: backfill } = await backfillQuery.limit(count - result.length);
-        if (backfill) result.push(...(backfill as Question[]));
-    }
-
-    return result.slice(0, count);
+    return fetchQuantSectionQuestions(count, mode, usedIds);
 }
 
 async function getUsedQuestionIds(mockTestId: string): Promise<string[]> {
