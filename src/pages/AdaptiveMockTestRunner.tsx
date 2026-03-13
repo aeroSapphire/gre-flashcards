@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -228,6 +228,39 @@ function parseMultiBlankChoices(choices: Record<string, unknown>): MultiBlankCol
     return columns.length > 0 ? columns : null;
 }
 
+// ── Quantitative Comparison Display ──────────────────────────────────────────
+
+/** Renders Quantitative Comparison question text with Quantity A / B in a styled table */
+function QuantCompDisplay({ questionText }: { questionText: string }) {
+    // Match "Quantity A: ... Quantity B: ..."
+    const match = questionText.match(/Quantity\s+A[:\s]+(.+?)\s+Quantity\s+B[:\s]+(.+?)(\n|$)/is);
+    if (!match) {
+        return <div className="text-white font-medium leading-relaxed text-base">{questionText}</div>;
+    }
+
+    const qA = match[1].trim();
+    const qB = match[2].trim();
+    const context = questionText.replace(match[0], '').trim();
+
+    return (
+        <div className="space-y-3">
+            {context && (
+                <div className="text-white font-medium leading-relaxed text-base">{context}</div>
+            )}
+            <div className="grid grid-cols-2 gap-3">
+                <div className="bg-slate-800/60 border border-slate-600 rounded-lg p-4 text-center">
+                    <p className="text-xs font-bold text-blue-400 uppercase tracking-wide mb-2">Quantity A</p>
+                    <p className="text-white font-medium">{qA}</p>
+                </div>
+                <div className="bg-slate-800/60 border border-slate-600 rounded-lg p-4 text-center">
+                    <p className="text-xs font-bold text-blue-400 uppercase tracking-wide mb-2">Quantity B</p>
+                    <p className="text-white font-medium">{qB}</p>
+                </div>
+            </div>
+        </div>
+    );
+}
+
 // ── Question Renderer ─────────────────────────────────────────────────────────
 
 function QuestionDisplay({
@@ -299,9 +332,13 @@ function QuestionDisplay({
             )}
 
             {/* Question text with styled blanks */}
-            <div className="text-white font-medium leading-relaxed text-base">
-                {renderQuestionText(question.question_text)}
-            </div>
+            {qtype === 'quantitative_comparison' ? (
+                <QuantCompDisplay questionText={question.question_text} />
+            ) : (
+                <div className="text-white font-medium leading-relaxed text-base">
+                    {renderQuestionText(question.question_text)}
+                </div>
+            )}
 
             {/* Instruction hints */}
             {isSE && (
@@ -394,6 +431,103 @@ function QuestionDisplay({
     );
 }
 
+// ── RC Passage Group Display ──────────────────────────────────────────────────
+
+function PassageGroupDisplay({
+    groupQuestions,
+    allQuestions,
+    answers,
+    onAnswer,
+    flagged,
+    onToggleFlag,
+}: {
+    groupQuestions: ClientQuestion[];
+    allQuestions: ClientQuestion[];
+    answers: Record<string, string>;
+    onAnswer: (qId: string, val: string) => void;
+    flagged: Set<string>;
+    onToggleFlag: (qId: string) => void;
+}) {
+    const passage = groupQuestions[0].passage!;
+
+    return (
+        <div className="space-y-5">
+            {/* Passage — shown ONCE for the whole group */}
+            <div className="bg-slate-800/60 border border-slate-600 rounded-lg overflow-hidden">
+                <div className="px-4 py-2 bg-slate-700/50 border-b border-slate-600">
+                    <span className="text-xs font-semibold text-slate-300 uppercase tracking-wide">
+                        Reading Passage
+                    </span>
+                </div>
+                <div className="p-4 text-slate-300 text-sm leading-relaxed max-h-72 overflow-y-auto whitespace-pre-wrap">
+                    {passage}
+                </div>
+            </div>
+
+            {/* All questions from this passage */}
+            {groupQuestions.map((q) => {
+                const qNumber = allQuestions.findIndex(aq => aq.id === q.id) + 1;
+                const isFlagged = flagged.has(q.id);
+                const flatChoices = q.choices as Record<string, string>;
+                const selectedSet = new Set(
+                    (answers[q.id] || '').split(',').map(s => s.trim()).filter(Boolean)
+                );
+
+                return (
+                    <div key={q.id} className="border border-slate-700 rounded-lg p-4 bg-slate-900/40 space-y-3">
+                        {/* Question header */}
+                        <div className="flex items-center justify-between">
+                            <span className="text-xs font-semibold text-blue-400">
+                                Question {qNumber}
+                            </span>
+                            <button
+                                onClick={() => onToggleFlag(q.id)}
+                                className={`flex items-center gap-1 text-xs px-2.5 py-1 rounded-full border transition-all ${
+                                    isFlagged
+                                        ? 'border-amber-500 bg-amber-500/20 text-amber-300'
+                                        : 'border-slate-600 text-slate-400 hover:border-amber-600 hover:text-amber-400'
+                                }`}
+                            >
+                                {isFlagged
+                                    ? <><BookmarkCheck className="w-3 h-3" /> Marked</>
+                                    : <><Bookmark className="w-3 h-3" /> Mark</>}
+                            </button>
+                        </div>
+
+                        {/* Question text */}
+                        <div className="text-white font-medium leading-relaxed text-sm">
+                            {renderQuestionText(q.question_text)}
+                        </div>
+
+                        {/* Choices */}
+                        <div className="space-y-2">
+                            {Object.keys(flatChoices).sort().map(key => {
+                                const selected = selectedSet.has(key);
+                                return (
+                                    <button
+                                        key={key}
+                                        onClick={() => onAnswer(q.id, key)}
+                                        className={`w-full text-left flex items-start gap-3 p-2.5 rounded-lg border transition-all text-sm ${
+                                            selected
+                                                ? 'border-blue-500 bg-blue-500/20 text-white'
+                                                : 'border-slate-600 bg-slate-800/40 text-slate-300 hover:border-slate-500'
+                                        }`}
+                                    >
+                                        <span className={`font-bold w-5 shrink-0 ${selected ? 'text-blue-400' : 'text-slate-500'}`}>
+                                            {key}.
+                                        </span>
+                                        <span>{flatChoices[key]}</span>
+                                    </button>
+                                );
+                            })}
+                        </div>
+                    </div>
+                );
+            })}
+        </div>
+    );
+}
+
 // ── Section Taking UI ─────────────────────────────────────────────────────────
 
 function SectionTaking({
@@ -420,6 +554,25 @@ function SectionTaking({
     const questions = sectionInfo.questions;
     const currentQ = questions[currentIdx];
 
+    // Compute the passage group for the current question (null if not RC or standalone)
+    const passageGroup = useMemo(() => {
+        if (currentQ.question_type !== 'reading_comprehension' || !currentQ.passage) return null;
+        const group = questions.filter(
+            q => q.question_type === 'reading_comprehension' && q.passage === currentQ.passage
+        );
+        return group.length > 1 ? group : null;
+    }, [currentQ, questions]);
+
+    // Index of the first question in the current passage group
+    const groupStartIdx = passageGroup
+        ? questions.findIndex(q => q.id === passageGroup[0].id)
+        : currentIdx;
+
+    // Index of the last question in the current passage group
+    const groupEndIdx = passageGroup
+        ? questions.findIndex(q => q.id === passageGroup[passageGroup.length - 1].id)
+        : currentIdx;
+
     const handleExpire = useCallback(() => {
         recordTimeSpent();
         onSubmit(answers, questionTimers);
@@ -441,7 +594,13 @@ function SectionTaking({
     function navigateQ(dir: 'prev' | 'next') {
         recordTimeSpent();
         setQuestionStart(Date.now());
-        setCurrentIdx(prev => dir === 'next' ? Math.min(prev + 1, questions.length - 1) : Math.max(prev - 1, 0));
+        if (dir === 'next') {
+            // Jump past the last question in the current passage group (or just +1 for single questions)
+            setCurrentIdx(Math.min(groupEndIdx + 1, questions.length - 1));
+        } else {
+            // Jump before the first question in the current passage group (or just -1 for single questions)
+            setCurrentIdx(Math.max(groupStartIdx - 1, 0));
+        }
         setShowNav(false);
         setShowSubmitConfirm(false);
     }
@@ -514,7 +673,10 @@ function SectionTaking({
                         )}
                     </div>
                     <p className="text-xs text-slate-400 mt-0.5">
-                        Q {currentIdx + 1}/{questions.length} · {answered} answered
+                        {passageGroup
+                            ? `Q ${groupStartIdx + 1}–${groupEndIdx + 1}`
+                            : `Q ${currentIdx + 1}`
+                        }/{questions.length} · {answered} answered
                         {flaggedCount > 0 && <span className="text-amber-400 ml-2">· {flaggedCount} flagged</span>}
                     </p>
                 </div>
@@ -626,35 +788,53 @@ function SectionTaking({
             {/* Main content */}
             <div className="flex-1 overflow-y-auto p-4 md:p-8">
                 <div className="max-w-3xl mx-auto">
-                    {/* Question meta + flag button */}
-                    <div className="mb-3 flex items-center justify-between">
-                        <div className="flex items-center gap-2 flex-wrap">
-                            <Badge variant="outline" className="text-xs border-slate-600 text-slate-400 capitalize">
-                                {currentQ.question_type.replace(/_/g, ' ')}
-                            </Badge>
-                        </div>
+                    {passageGroup ? (
+                        /* Passage group: show passage once with all questions below */
+                        <PassageGroupDisplay
+                            groupQuestions={passageGroup}
+                            allQuestions={questions}
+                            answers={answers}
+                            onAnswer={(qId, val) => setAnswers(prev => ({ ...prev, [qId]: val }))}
+                            flagged={flagged}
+                            onToggleFlag={(qId) => setFlagged(prev => {
+                                const next = new Set(prev);
+                                if (next.has(qId)) next.delete(qId); else next.add(qId);
+                                return next;
+                            })}
+                        />
+                    ) : (
+                        <>
+                            {/* Question meta + flag button */}
+                            <div className="mb-3 flex items-center justify-between">
+                                <div className="flex items-center gap-2 flex-wrap">
+                                    <Badge variant="outline" className="text-xs border-slate-600 text-slate-400 capitalize">
+                                        {currentQ.question_type.replace(/_/g, ' ')}
+                                    </Badge>
+                                </div>
 
-                        {/* Mark for Review button */}
-                        <button
-                            onClick={toggleFlag}
-                            className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border transition-all ${
-                                isFlagged
-                                    ? 'border-amber-500 bg-amber-500/20 text-amber-300'
-                                    : 'border-slate-600 text-slate-400 hover:border-amber-600 hover:text-amber-400'
-                            }`}
-                        >
-                            {isFlagged
-                                ? <><BookmarkCheck className="w-3.5 h-3.5" /> Marked for Review</>
-                                : <><Bookmark className="w-3.5 h-3.5" /> Mark for Review</>
-                            }
-                        </button>
-                    </div>
+                                {/* Mark for Review button */}
+                                <button
+                                    onClick={toggleFlag}
+                                    className={`flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full border transition-all ${
+                                        isFlagged
+                                            ? 'border-amber-500 bg-amber-500/20 text-amber-300'
+                                            : 'border-slate-600 text-slate-400 hover:border-amber-600 hover:text-amber-400'
+                                    }`}
+                                >
+                                    {isFlagged
+                                        ? <><BookmarkCheck className="w-3.5 h-3.5" /> Marked for Review</>
+                                        : <><Bookmark className="w-3.5 h-3.5" /> Mark for Review</>
+                                    }
+                                </button>
+                            </div>
 
-                    <QuestionDisplay
-                        question={currentQ}
-                        answer={answers[currentQ.id] || ''}
-                        onAnswer={handleAnswer}
-                    />
+                            <QuestionDisplay
+                                question={currentQ}
+                                answer={answers[currentQ.id] || ''}
+                                onAnswer={handleAnswer}
+                            />
+                        </>
+                    )}
                 </div>
             </div>
 
@@ -663,15 +843,20 @@ function SectionTaking({
                 <Button
                     variant="outline"
                     onClick={() => navigateQ('prev')}
-                    disabled={currentIdx === 0}
+                    disabled={groupStartIdx === 0}
                     className="border-slate-700"
                 >
                     <ChevronLeft className="w-4 h-4 mr-1" /> Previous
                 </Button>
 
-                <span className="text-sm text-slate-400">{currentIdx + 1} / {questions.length}</span>
+                <span className="text-sm text-slate-400">
+                    {passageGroup
+                        ? `${groupStartIdx + 1}–${groupEndIdx + 1}`
+                        : `${currentIdx + 1}`
+                    } / {questions.length}
+                </span>
 
-                {currentIdx < questions.length - 1 ? (
+                {groupEndIdx < questions.length - 1 ? (
                     <Button onClick={() => navigateQ('next')} className="bg-blue-600 hover:bg-blue-700">
                         Next <ChevronRight className="w-4 h-4 ml-1" />
                     </Button>

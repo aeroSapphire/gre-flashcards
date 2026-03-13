@@ -163,8 +163,9 @@ function pickByDifficulty(questions: Question[], count: number): Question[] {
 /** Sort questions so the preferred difficulty comes first. */
 function sortByDiffPref(questions: Question[], mode: 'standard' | 'easy' | 'hard'): Question[] {
     const rank: Record<string, number> =
-        mode === 'hard' ? { hard: 0, medium: 1, easy: 2 }
-                        : { easy: 0, medium: 1, hard: 2 };
+        mode === 'hard'     ? { hard: 0, medium: 1, easy: 2 }   // 70% hard, 30% medium
+        : mode === 'easy'   ? { easy: 0, medium: 1, hard: 2 }   // 70% easy, 30% medium
+        : /* standard */      { medium: 0, easy: 1, hard: 2 };  // 60% medium, 40% easy
     return [...questions].sort((a, b) => (rank[a.difficulty] ?? 3) - (rank[b.difficulty] ?? 3));
 }
 
